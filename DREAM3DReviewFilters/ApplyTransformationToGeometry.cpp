@@ -367,7 +367,7 @@ void ApplyTransformationToGeometry::applyTransformation()
     {
       progressInt = static_cast<int64_t>((static_cast<float>(counter) / numVertices) * 100.0f);
       QString ss = QObject::tr("Transforming Geometry || %1% Completed").arg(progressInt);
-      notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+      notifyStatusMessage(getMessagePrefix(), ss);
       prog = prog + progIncrement;
     }
     counter++;

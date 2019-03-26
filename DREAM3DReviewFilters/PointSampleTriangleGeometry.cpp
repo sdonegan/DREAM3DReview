@@ -445,7 +445,7 @@ void PointSampleTriangleGeometry::execute()
     {
       progressInt = static_cast<int64_t>((static_cast<float>(counter) / m_NumSamples) * 100.0f);
       QString ss = QObject::tr("Sampling Triangles || %1% Completed").arg(progressInt);
-      notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+      notifyStatusMessage(getMessagePrefix(), ss);
       prog = prog + progIncrement;
     }
     counter++;
