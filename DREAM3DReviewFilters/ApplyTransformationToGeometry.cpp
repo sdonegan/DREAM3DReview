@@ -171,10 +171,9 @@ void ApplyTransformationToGeometry::dataCheck()
 
   if(!std::dynamic_pointer_cast<IGeometry2D>(igeom) && !std::dynamic_pointer_cast<IGeometry3D>(igeom) && !std::dynamic_pointer_cast<VertexGeom>(igeom) && !std::dynamic_pointer_cast<EdgeGeom>(igeom))
   {
-    setErrorCondition(-702);
     QString ss =
         QObject::tr("Geometry to transform must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(igeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -702);
   }
 
   QVector<size_t> cDims = {4, 4};
@@ -184,8 +183,7 @@ void ApplyTransformationToGeometry::dataCheck()
   case 0: // No-Op
   {
     QString ss = QObject::tr("No transformation has been selected, so this filter will perform no operations");
-    setWarningCondition(-701);
-    notifyWarningMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyWarningMessage("", ss, -701);
   }
   case 1: // Transformation matrix from array
   {
@@ -200,16 +198,14 @@ void ApplyTransformationToGeometry::dataCheck()
   {
     if(getManualTransformationMatrix().getNumRows() != 4)
     {
-      setErrorCondition(-702);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 rows");
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage("", ss, -702);
       return;
     }
     if(getManualTransformationMatrix().getNumCols() != 4)
     {
-      setErrorCondition(-703);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 columns");
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage("", ss, -703);
       return;
     }
     std::vector<std::vector<double>> tableData = getManualTransformationMatrix().getTableData();
@@ -289,8 +285,7 @@ void ApplyTransformationToGeometry::dataCheck()
   default:
   {
     QString ss = QObject::tr("Invalid selection for transformation type");
-    setErrorCondition(-701);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -701);
     break;
   }
   }

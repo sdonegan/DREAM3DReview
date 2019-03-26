@@ -413,15 +413,13 @@ void PottsModel::dataCheck()
   if(getIterations() < 1)
   {
     QString ss = QObject::tr("Number of iterations must be greater than 0");
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -5555);
   }
 
   if(getTemperature() <= 0.0f)
   {
     QString ss = QObject::tr("Temperature must be greater than 0");
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -5555);
   }
 
   getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom, AbstractFilter>(this, getFeatureIdsArrayPath().getDataContainerName());

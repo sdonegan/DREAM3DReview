@@ -115,9 +115,8 @@ template <typename T> void findCellAverage(AbstractFilter* filter, IDataArray::P
     err = igeom->findElementsContainingVert();
     if(err < 0)
     {
-      filter->setErrorCondition(err);
       QString ss = QObject::tr("Error computing Vertex to Element connectivity for Geometry type %1").arg(igeom->getGeometryTypeAsString());
-      filter->notifyErrorMessage(filter->getHumanLabel(), ss, filter->getErrorCondition());
+      filter->notifyErrorMessage("", ss, err);
       return;
     }
   }
@@ -172,16 +171,14 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
 
   if(geomType != IGeometry::Type::Edge && geomType != IGeometry::Type::Triangle && geomType != IGeometry::Type::Quad && geomType != IGeometry::Type::Tetrahedral)
   {
-    setErrorCondition(-11000);
     QString ss = QObject::tr("The Geometry type must be either Edge, Triangle, Quadrilateral or Tetrahedral, but the type is %1").arg(igeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -11000);
   }
 
   if(getSelectedArrayPath().getDataContainerName() != getAverageVertexArrayPath().getDataContainerName())
   {
-    setErrorCondition(-11000);
     QString ss = QObject::tr("The input and output arrays must belong to the same Geometry (i.e., they must be part of the same Data Container)");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -11000);
   }
 
   AttributeMatrix::Pointer cellAttrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath<AbstractFilter>(this, getSelectedArrayPath(), -301);
@@ -199,35 +196,31 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
   {
     if(cellAttrMatType != AttributeMatrix::Type::Face)
     {
-      setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not a Face Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage("", ss, -11000);
     }
   }
   else if(geomType == IGeometry::Type::Tetrahedral)
   {
     if(cellAttrMatType != AttributeMatrix::Type::Cell)
     {
-      setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not a Cell Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage("", ss, -11000);
     }
   }
   else if(geomType == IGeometry::Type::Edge)
   {
     if(cellAttrMatType != AttributeMatrix::Type::Edge)
     {
-      setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not an Edge Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage("", ss, -11000);
     }
   }
 
   if(vertAttrMatType != AttributeMatrix::Type::Vertex)
   {
-    setErrorCondition(-11001);
     QString ss = QObject::tr("The destination Attribute Matrix must be a Vertex Attribute Matrix");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -11001);
   }
 
   m_InCellArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
@@ -275,20 +268,18 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
 
   if(numVertexTuples != numVertices)
   {
-    setErrorCondition(-11002);
     QString ss = QObject::tr("The number of Vertices in the selected Geometry is %1 and the number of tuples in the destination Attribute Matrix is %2; the Vertices and tuples must match")
                      .arg(numVertices)
                      .arg(numVertexTuples);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -11002);
   }
 
   if(numElemTuples != numElements)
   {
-    setErrorCondition(-11003);
     QString ss = QObject::tr("The number of Elements in the selected Geometry is %1 and the number of tuples in the source Attribute Matrix is %2; the Elements and tuples must match")
                      .arg(numElements)
                      .arg(numElemTuples);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage("", ss, -11003);
   }
 }
 

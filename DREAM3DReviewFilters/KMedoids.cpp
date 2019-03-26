@@ -136,8 +136,7 @@ void KMedoids::dataCheck()
 
   if(getInitClusters() < 1)
   {
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), "Must have at least 1 cluster", getErrorCondition());
+    notifyErrorMessage("", "Must have at least 1 cluster", -5555);
   }
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSelectedArrayPath().getDataContainerName(), false);
