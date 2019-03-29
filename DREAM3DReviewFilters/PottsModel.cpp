@@ -560,7 +560,7 @@ void PottsModel::execute()
           progressInt *= 10;
         }
         QString ss = QObject::tr("Iteration %1 of %2 || %3% Completed || %4 Total Flips").arg(iter + 1).arg(m_Iterations).arg(progressInt).arg(lattice.total_flips());
-        notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+        notifyStatusMessageWithPrefix(getMessagePrefix(), ss);
         prog = prog + progIncrement;
       }
       counter++;
