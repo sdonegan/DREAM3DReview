@@ -413,13 +413,15 @@ void PottsModel::dataCheck()
   if(getIterations() < 1)
   {
     QString ss = QObject::tr("Number of iterations must be greater than 0");
-    notifyErrorMessage("", ss, -5555);
+    setErrorCondition(-5555);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   if(getTemperature() <= 0.0f)
   {
     QString ss = QObject::tr("Temperature must be greater than 0");
-    notifyErrorMessage("", ss, -5555);
+    setErrorCondition(-5555);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom, AbstractFilter>(this, getFeatureIdsArrayPath().getDataContainerName());
@@ -558,7 +560,7 @@ void PottsModel::execute()
           progressInt *= 10;
         }
         QString ss = QObject::tr("Iteration %1 of %2 || %3% Completed || %4 Total Flips").arg(iter + 1).arg(m_Iterations).arg(progressInt).arg(lattice.total_flips());
-        notifyStatusMessage(getMessagePrefix(), ss);
+        notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
         prog = prog + progIncrement;
       }
       counter++;

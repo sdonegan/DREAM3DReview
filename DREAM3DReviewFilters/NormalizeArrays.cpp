@@ -153,29 +153,33 @@ void NormalizeArrays::dataCheck()
   if(getNormalizeType() != 0 && getNormalizeType() != 1)
   {
     QString ss = QObject::tr("Invalid selection for operation type");
-    notifyErrorMessage("", ss, -701);
+    setErrorCondition(-701);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
     return;
   }
 
   if(getSelectedDataArrayPaths().empty())
   {
+    setErrorCondition(-11001);
     QString ss = QObject::tr("At least one Attribute Array must be selected");
-    notifyErrorMessage("", ss, -11001);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
     return;
   }
 
   if(getPostfix().isEmpty())
   {
+    setErrorCondition(-11001);
     QString ss = QObject::tr("A postfix for the normalized Attribute Arrays must be entered");
-    notifyErrorMessage("", ss, -11001);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   QVector<DataArrayPath> paths = getSelectedDataArrayPaths();
 
   if(!DataArrayPath::ValidateVector(paths))
   {
+    setErrorCondition(-11002);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage("", ss, -11002);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   if(getErrorCondition() < 0)
@@ -196,8 +200,9 @@ void NormalizeArrays::dataCheck()
       int32_t numComps = ptr.lock()->getNumberOfComponents();
       if(numComps != 1)
       {
+        setErrorCondition(-11003);
         QString ss = QObject::tr("All Attribute Arrays must be scalar arrays, but %1 has %2 total components").arg(ptr.lock()->getName()).arg(numComps);
-        notifyErrorMessage("", ss, -11003);
+        notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
       }
       else
       {
@@ -337,7 +342,8 @@ void NormalizeArrays::execute()
   if(m_SelectedDataArrayPaths.size() != m_SelectedWeakPtrVector.size())
   {
     QString ss = QObject::tr("The number of selected Attribute Arrays does not equal the number of internal weak pointers");
-    notifyErrorMessage("", ss, -11008);
+    setErrorCondition(-11008);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
     return;
   }
 

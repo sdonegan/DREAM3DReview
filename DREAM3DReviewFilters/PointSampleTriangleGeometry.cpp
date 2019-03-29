@@ -206,14 +206,16 @@ void PointSampleTriangleGeometry::dataCheck()
     {
       QString ss =
           QObject::tr("Source Geometry must be of type Image, RectilinearGrid, Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral, but the type is %1").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage("", ss, -701);
+      setErrorCondition(-701);
+      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
     }
     break;
   }
   default:
   {
     QString ss = QObject::tr("Invalid selection for determining the number of samples");
-    notifyErrorMessage("", ss, -701);
+    setErrorCondition(-701);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
     break;
   }
   }
@@ -226,7 +228,8 @@ void PointSampleTriangleGeometry::dataCheck()
   if(getSamplesNumberType() == 0 && getNumberOfSamples() <= 0)
   {
     QString ss = QObject::tr("Number of sample points must be greater than 0");
-    notifyErrorMessage("", ss, -700);
+    setErrorCondition(-700);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   QVector<IDataArray::Pointer> dataArrays;
@@ -281,8 +284,9 @@ void PointSampleTriangleGeometry::dataCheck()
 
   if(!DataArrayPath::ValidateVector(paths))
   {
+    setErrorCondition(-11004);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage("", ss, -11004);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
 
   for(auto&& path : paths)
@@ -441,7 +445,7 @@ void PointSampleTriangleGeometry::execute()
     {
       progressInt = static_cast<int64_t>((static_cast<float>(counter) / m_NumSamples) * 100.0f);
       QString ss = QObject::tr("Sampling Triangles || %1% Completed").arg(progressInt);
-      notifyStatusMessage(getMessagePrefix(), ss);
+      notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
       prog = prog + progIncrement;
     }
     counter++;

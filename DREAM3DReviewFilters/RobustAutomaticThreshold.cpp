@@ -119,8 +119,9 @@ void RobustAutomaticThreshold::dataCheck()
 
   if(m_InputArrayPtr.lock()->getTypeAsString() == SIMPL::TypeNames::Bool)
   {
+    setErrorCondition(-11001);
     QString ss = QObject::tr("Input Attribute Array to threshold cannot be of type bool");
-    notifyErrorMessage("", ss, -11001);
+    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
   }
   if(getErrorCondition() >= 0)
   {

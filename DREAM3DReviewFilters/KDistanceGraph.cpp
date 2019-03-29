@@ -128,7 +128,8 @@ void KDistanceGraph::dataCheck()
 
   if(getMinDist() < 1)
   {
-    notifyErrorMessage("", "Kth nearest neighbor must be greater than 0", -5555);
+    setErrorCondition(-5555);
+    notifyErrorMessage(getHumanLabel(), "Kth nearest neighbor must be greater than 0", getErrorCondition());
     return;
   }
 
