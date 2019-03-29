@@ -130,8 +130,8 @@ void KMeans::initialize()
 // -----------------------------------------------------------------------------
 void KMeans::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCondition();
+  clearWarningCondition();
   initialize();
 
   if(getInitClusters() < 1)
@@ -290,8 +290,8 @@ void KMeans::preflight()
 // -----------------------------------------------------------------------------
 void KMeans::execute()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCondition();
+  clearWarningCondition();
   dataCheck();
   if(getErrorCondition() < 0)
   {

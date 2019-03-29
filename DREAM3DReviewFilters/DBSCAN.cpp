@@ -131,8 +131,8 @@ void DBSCAN::initialize()
 // -----------------------------------------------------------------------------
 void DBSCAN::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCondition();
+  clearWarningCondition();
   initialize();
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSelectedArrayPath().getDataContainerName(), false);
@@ -284,8 +284,8 @@ void DBSCAN::preflight()
 // -----------------------------------------------------------------------------
 void DBSCAN::execute()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCondition();
+  clearWarningCondition();
   dataCheck();
   if(getErrorCondition() < 0)
   {
