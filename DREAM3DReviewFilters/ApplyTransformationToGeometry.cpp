@@ -174,7 +174,7 @@ void ApplyTransformationToGeometry::dataCheck()
     setErrorCondition(-702);
     QString ss =
         QObject::tr("Geometry to transform must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(igeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   QVector<size_t> cDims = {4, 4};
@@ -185,7 +185,7 @@ void ApplyTransformationToGeometry::dataCheck()
   {
     QString ss = QObject::tr("No transformation has been selected, so this filter will perform no operations");
     setWarningCondition(-701);
-    notifyWarningMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyWarningMessage(ss, getErrorCondition());
   }
   case 1: // Transformation matrix from array
   {
@@ -202,14 +202,14 @@ void ApplyTransformationToGeometry::dataCheck()
     {
       setErrorCondition(-702);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 rows");
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
     if(getManualTransformationMatrix().getNumCols() != 4)
     {
       setErrorCondition(-703);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 columns");
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
     std::vector<std::vector<double>> tableData = getManualTransformationMatrix().getTableData();
@@ -290,7 +290,7 @@ void ApplyTransformationToGeometry::dataCheck()
   {
     QString ss = QObject::tr("Invalid selection for transformation type");
     setErrorCondition(-701);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     break;
   }
   }

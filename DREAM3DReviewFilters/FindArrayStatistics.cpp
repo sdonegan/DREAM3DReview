@@ -178,7 +178,7 @@ void FindArrayStatistics::dataCheck()
   {
     QString ss = QObject::tr("No statistics have been selected, so this filter will perform no operations");
     setWarningCondition(-701);
-    notifyWarningMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyWarningMessage(ss, getErrorCondition());
     return;
   }
 
@@ -197,7 +197,7 @@ void FindArrayStatistics::dataCheck()
   {
     setErrorCondition(-11002);
     QString ss = QObject::tr("Input Attribute Array must be a scalar array");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(!getComputeByIndex())
@@ -217,7 +217,7 @@ void FindArrayStatistics::dataCheck()
                       "Consider creating a new Generic Attribute Matrix with scalar tuple dimensions to store the statistics.")
               .arg(getDestinationAttributeMatrix().getAttributeMatrixName())
               .arg(tDims.size());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
     if(tDims[0] != 1)
@@ -229,7 +229,7 @@ void FindArrayStatistics::dataCheck()
                       "Consider creating a new Generic Attribute Matrix with scalar tuple dimensions to store the statistics.")
               .arg(getDestinationAttributeMatrix().getAttributeMatrixName())
               .arg(tDims[0]);
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
   }
@@ -280,7 +280,7 @@ void FindArrayStatistics::dataCheck()
     {
       setErrorCondition(-11003);
       QString ss = QObject::tr("To standardize data, the \"Find Mean\" and \"Find Standard Deviation\" options must also be checked");
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
     DataArrayPath path(getSelectedArrayPath().getDataContainerName(), getSelectedArrayPath().getAttributeMatrixName(), getStandardizedArrayName());
     m_StandardizedPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, path, 0, cDims);
@@ -807,7 +807,7 @@ void FindArrayStatistics::execute()
     {
       QString ss = QObject::tr("The number of objects in the selected Attribute Matrix destination (%1) is larger than the largest Id in the Feature/Ensemble Ids array").arg(numFeatures);
       setErrorCondition(-5555);
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
 
@@ -815,7 +815,7 @@ void FindArrayStatistics::execute()
     {
       QString ss = QObject::tr("The number of objects in the selected Attribute Matrix destination (%1) does not match the largest Id in the  Feature/Ensemble Ids array").arg(numFeatures);
       setErrorCondition(-5555);
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
       return;
     }
   }

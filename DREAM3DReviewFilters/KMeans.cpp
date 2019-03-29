@@ -137,7 +137,7 @@ void KMeans::dataCheck()
   if(getInitClusters() < 1)
   {
     setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), "Must have at least 1 cluster", getErrorCondition());
+    notifyErrorMessage("Must have at least 1 cluster", getErrorCondition());
   }
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSelectedArrayPath().getDataContainerName(), false);

@@ -48,7 +48,7 @@
   }                                                                                                                                                                                                    \
   else                                                                                                                                                                                                 \
   {                                                                                                                                                                                                    \
-    observableObj->notifyErrorMessage(#templateName, "The input array was of unsupported type", TemplateHelpers::Errors::UnsupportedType);                                                             \
+    observableObj->setErrorConditionWithPrefix(TemplateHelpers::Errors::UnsupportedType, #templateName, "The input array was of unsupported type");                                                    \
   }
 
 /**

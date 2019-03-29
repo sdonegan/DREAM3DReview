@@ -121,7 +121,7 @@ void RobustAutomaticThreshold::dataCheck()
   {
     setErrorCondition(-11001);
     QString ss = QObject::tr("Input Attribute Array to threshold cannot be of type bool");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
   if(getErrorCondition() >= 0)
   {

@@ -154,7 +154,7 @@ void NormalizeArrays::dataCheck()
   {
     QString ss = QObject::tr("Invalid selection for operation type");
     setErrorCondition(-701);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 
@@ -162,7 +162,7 @@ void NormalizeArrays::dataCheck()
   {
     setErrorCondition(-11001);
     QString ss = QObject::tr("At least one Attribute Array must be selected");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 
@@ -170,7 +170,7 @@ void NormalizeArrays::dataCheck()
   {
     setErrorCondition(-11001);
     QString ss = QObject::tr("A postfix for the normalized Attribute Arrays must be entered");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   QVector<DataArrayPath> paths = getSelectedDataArrayPaths();
@@ -179,7 +179,7 @@ void NormalizeArrays::dataCheck()
   {
     setErrorCondition(-11002);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(getErrorCondition() < 0)
@@ -202,7 +202,7 @@ void NormalizeArrays::dataCheck()
       {
         setErrorCondition(-11003);
         QString ss = QObject::tr("All Attribute Arrays must be scalar arrays, but %1 has %2 total components").arg(ptr.lock()->getName()).arg(numComps);
-        notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+        notifyErrorMessage(ss, getErrorCondition());
       }
       else
       {
@@ -343,7 +343,7 @@ void NormalizeArrays::execute()
   {
     QString ss = QObject::tr("The number of selected Attribute Arrays does not equal the number of internal weak pointers");
     setErrorCondition(-11008);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 

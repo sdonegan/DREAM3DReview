@@ -129,7 +129,7 @@ void ComputeUmeyamaTransform::dataCheck()
   {
     setErrorCondition(-702);
     QString ss = QObject::tr("Moving Geometry must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(movingGeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(!std::dynamic_pointer_cast<IGeometry2D>(fixedGeom) && !std::dynamic_pointer_cast<IGeometry3D>(fixedGeom) && !std::dynamic_pointer_cast<VertexGeom>(fixedGeom) &&
@@ -137,7 +137,7 @@ void ComputeUmeyamaTransform::dataCheck()
   {
     setErrorCondition(-702);
     QString ss = QObject::tr("Fixed Geometry must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(fixedGeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   size_t numMovingVertices = 0;
@@ -183,7 +183,7 @@ void ComputeUmeyamaTransform::dataCheck()
     QString ss = QObject::tr("The moving and fixed Geometries must have the same number of Vertices; the number of moving Vertices is %1 and the number of fixed Vertices is %2")
                      .arg(numMovingVertices)
                      .arg(numFixedVertices);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSourcePointSet());

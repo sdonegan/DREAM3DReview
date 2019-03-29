@@ -221,13 +221,13 @@ void DBSCAN::dataCheck()
   if(getEpsilon() <= 0)
   {
     setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), "Epsilon must be positive", getErrorCondition());
+    notifyErrorMessage("Epsilon must be positive", getErrorCondition());
     return;
   }
   if(getMinPnts() <= 1)
   {
     setErrorCondition(-5556);
-    notifyErrorMessage(getHumanLabel(), "Minimum number of points must be greater than 1", getErrorCondition());
+    notifyErrorMessage("Minimum number of points must be greater than 1", getErrorCondition());
     return;
   }
 

@@ -117,7 +117,7 @@ template <typename T> void findCellAverage(AbstractFilter* filter, IDataArray::P
     {
       filter->setErrorCondition(err);
       QString ss = QObject::tr("Error computing Vertex to Element connectivity for Geometry type %1").arg(igeom->getGeometryTypeAsString());
-      filter->notifyErrorMessage(filter->getHumanLabel(), ss, filter->getErrorCondition());
+      filter->notifyErrorMessage(ss, filter->getErrorCondition());
       return;
     }
   }
@@ -174,14 +174,14 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
   {
     setErrorCondition(-11000);
     QString ss = QObject::tr("The Geometry type must be either Edge, Triangle, Quadrilateral or Tetrahedral, but the type is %1").arg(igeom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(getSelectedArrayPath().getDataContainerName() != getAverageVertexArrayPath().getDataContainerName())
   {
     setErrorCondition(-11000);
     QString ss = QObject::tr("The input and output arrays must belong to the same Geometry (i.e., they must be part of the same Data Container)");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   AttributeMatrix::Pointer cellAttrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath<AbstractFilter>(this, getSelectedArrayPath(), -301);
@@ -201,7 +201,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not a Face Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
   else if(geomType == IGeometry::Type::Tetrahedral)
@@ -210,7 +210,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not a Cell Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
   else if(geomType == IGeometry::Type::Edge)
@@ -219,7 +219,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Geometry is %1, but the source Attribute Matrix is not an Edge Attribute Matrix").arg(igeom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
 
@@ -227,7 +227,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
   {
     setErrorCondition(-11001);
     QString ss = QObject::tr("The destination Attribute Matrix must be a Vertex Attribute Matrix");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   m_InCellArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
@@ -279,7 +279,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
     QString ss = QObject::tr("The number of Vertices in the selected Geometry is %1 and the number of tuples in the destination Attribute Matrix is %2; the Vertices and tuples must match")
                      .arg(numVertices)
                      .arg(numVertexTuples);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(numElemTuples != numElements)
@@ -288,7 +288,7 @@ void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
     QString ss = QObject::tr("The number of Elements in the selected Geometry is %1 and the number of tuples in the source Attribute Matrix is %2; the Elements and tuples must match")
                      .arg(numElements)
                      .arg(numElemTuples);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 }
 

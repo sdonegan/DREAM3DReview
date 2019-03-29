@@ -136,7 +136,7 @@ void FindElementCentroids::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Data Container Geometry is %1, but the selected Attribute Matrix is not a Cell Attribute Matrix").arg(geom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
   else if(geomType == IGeometry::Type::Triangle || geomType == IGeometry::Type::Quad)
@@ -145,7 +145,7 @@ void FindElementCentroids::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Data Container Geometry is %1, but the selected Attribute Matrix is not a Face Attribute Matrix").arg(geom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
   else if(geomType == IGeometry::Type::Edge)
@@ -154,14 +154,14 @@ void FindElementCentroids::dataCheck()
     {
       setErrorCondition(-11000);
       QString ss = QObject::tr("The selected Data Container Geometry is %1, but the selected Attribute Matrix is not an Edge Attribute Matrix").arg(geom->getGeometryTypeAsString());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
   }
   else
   {
     setErrorCondition(-11000);
     QString ss = QObject::tr("The selected Data Container Geometry is %1, but this type is not supported").arg(geom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   if(getCreateVertexDataContainer())
@@ -199,7 +199,7 @@ void FindElementCentroids::dataCheck()
     QString ss = QObject::tr("The number of Elements in the selected Geometry is %1 and the number of tuples in the destination Attribute Matrix is %2; the Elements and tuples must match")
                      .arg(numElements)
                      .arg(numTuples);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 }
 
@@ -240,7 +240,7 @@ void FindElementCentroids::execute()
   {
     setErrorCondition(-11004);
     QString ss = QObject::tr("Error computing Element centroids for Geometry type %1").arg(geom->getGeometryTypeAsString());
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 

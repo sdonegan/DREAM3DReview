@@ -207,7 +207,7 @@ void PointSampleTriangleGeometry::dataCheck()
       QString ss =
           QObject::tr("Source Geometry must be of type Image, RectilinearGrid, Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral, but the type is %1").arg(igeom->getGeometryTypeAsString());
       setErrorCondition(-701);
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
     break;
   }
@@ -215,7 +215,7 @@ void PointSampleTriangleGeometry::dataCheck()
   {
     QString ss = QObject::tr("Invalid selection for determining the number of samples");
     setErrorCondition(-701);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     break;
   }
   }
@@ -229,7 +229,7 @@ void PointSampleTriangleGeometry::dataCheck()
   {
     QString ss = QObject::tr("Number of sample points must be greater than 0");
     setErrorCondition(-700);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   QVector<IDataArray::Pointer> dataArrays;
@@ -286,7 +286,7 @@ void PointSampleTriangleGeometry::dataCheck()
   {
     setErrorCondition(-11004);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   for(auto&& path : paths)

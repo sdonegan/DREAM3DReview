@@ -144,7 +144,7 @@ void PrincipalComponentAnalysis::dataCheck()
   {
     setErrorCondition(-11001);
     QString ss = QObject::tr("At least two Attribute Array must be selected");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 
@@ -154,7 +154,7 @@ void PrincipalComponentAnalysis::dataCheck()
   {
     setErrorCondition(-11002);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   for(auto&& path : paths)
@@ -168,7 +168,7 @@ void PrincipalComponentAnalysis::dataCheck()
       {
         setErrorCondition(-11003);
         QString ss = QObject::tr("Attribute Arrays must be scalar arrays, but %1 has %2 total components").arg(ptr.lock()->getName()).arg(numComps);
-        notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+        notifyErrorMessage(ss, getErrorCondition());
       }
     }
   }
@@ -208,7 +208,7 @@ void PrincipalComponentAnalysis::dataCheck()
     {
       setErrorCondition(-11004);
       QString ss = QObject::tr("Number of dimensions for the projected space (%1) must be greater than 0").arg(getNumberOfDimensionsForProjection());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
 
     if(getNumberOfDimensionsForProjection() > paths.size())
@@ -217,7 +217,7 @@ void PrincipalComponentAnalysis::dataCheck()
       QString ss = QObject::tr("Number of dimensions for the projected space (%1) must be less than or equal to the number of selected Attribute Arrays (%2)")
                        .arg(getNumberOfDimensionsForProjection())
                        .arg(paths.size());
-      notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+      notifyErrorMessage(ss, getErrorCondition());
     }
 
     cDims[0] = getNumberOfDimensionsForProjection();
@@ -281,7 +281,7 @@ void PrincipalComponentAnalysis::execute()
   {
     QString ss = QObject::tr("The number of selected Attribute Arrays does not equal the number of internal weak pointers");
     setErrorCondition(-11008);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
     return;
   }
 

@@ -109,7 +109,7 @@ void FindNorm::dataCheck()
   {
     setErrorCondition(-11002);
     QString ss = QObject::tr("p-space value must be greater than or equal to 0");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    notifyErrorMessage(ss, getErrorCondition());
   }
 
   QVector<DataArrayPath> dataArrayPaths;
