@@ -146,7 +146,7 @@ void Silhouette::dataCheck()
   {
     m_SilhouetteArray = m_SilhouetteArrayPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSilhouetteArrayPath());
   }
@@ -156,13 +156,13 @@ void Silhouette::dataCheck()
   {
     m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getFeatureIdsArrayPath());
   }
 
   m_InDataPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -174,7 +174,7 @@ void Silhouette::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrayPaths.push_back(getMaskArrayPath());
     }
@@ -204,7 +204,7 @@ void Silhouette::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

@@ -164,17 +164,16 @@ void ApplyTransformationToGeometry::dataCheck()
 
   IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getGeometryToTransform());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
 
   if(!std::dynamic_pointer_cast<IGeometry2D>(igeom) && !std::dynamic_pointer_cast<IGeometry3D>(igeom) && !std::dynamic_pointer_cast<VertexGeom>(igeom) && !std::dynamic_pointer_cast<EdgeGeom>(igeom))
   {
-    setErrorCondition(-702);
     QString ss =
         QObject::tr("Geometry to transform must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(igeom->getGeometryTypeAsString());
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-702, ss);
   }
 
   QVector<size_t> cDims = {4, 4};
@@ -184,8 +183,7 @@ void ApplyTransformationToGeometry::dataCheck()
   case 0: // No-Op
   {
     QString ss = QObject::tr("No transformation has been selected, so this filter will perform no operations");
-    setWarningCondition(-701);
-    notifyWarningMessage(ss, getErrorCondition());
+    setWarningCondition(-701, ss);
   }
   case 1: // Transformation matrix from array
   {
@@ -200,16 +198,14 @@ void ApplyTransformationToGeometry::dataCheck()
   {
     if(getManualTransformationMatrix().getNumRows() != 4)
     {
-      setErrorCondition(-702);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 rows");
-      notifyErrorMessage(ss, getErrorCondition());
+      setErrorCondition(-702, ss);
       return;
     }
     if(getManualTransformationMatrix().getNumCols() != 4)
     {
-      setErrorCondition(-703);
       QString ss = QObject::tr("Manually entered transformation matrix must have exactly 4 columns");
-      notifyErrorMessage(ss, getErrorCondition());
+      setErrorCondition(-703, ss);
       return;
     }
     std::vector<std::vector<double>> tableData = getManualTransformationMatrix().getTableData();
@@ -289,8 +285,7 @@ void ApplyTransformationToGeometry::dataCheck()
   default:
   {
     QString ss = QObject::tr("Invalid selection for transformation type");
-    setErrorCondition(-701);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-701, ss);
     break;
   }
   }
@@ -382,11 +377,11 @@ void ApplyTransformationToGeometry::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
-  if(getWarningCondition() < 0)
+  if(getWarningCode() < 0)
   {
     return;
   }

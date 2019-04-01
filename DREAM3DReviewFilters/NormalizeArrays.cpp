@@ -153,36 +153,32 @@ void NormalizeArrays::dataCheck()
   if(getNormalizeType() != 0 && getNormalizeType() != 1)
   {
     QString ss = QObject::tr("Invalid selection for operation type");
-    setErrorCondition(-701);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-701, ss);
     return;
   }
 
   if(getSelectedDataArrayPaths().empty())
   {
-    setErrorCondition(-11001);
     QString ss = QObject::tr("At least one Attribute Array must be selected");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11001, ss);
     return;
   }
 
   if(getPostfix().isEmpty())
   {
-    setErrorCondition(-11001);
     QString ss = QObject::tr("A postfix for the normalized Attribute Arrays must be entered");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11001, ss);
   }
 
   QVector<DataArrayPath> paths = getSelectedDataArrayPaths();
 
   if(!DataArrayPath::ValidateVector(paths))
   {
-    setErrorCondition(-11002);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11002, ss);
   }
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -200,9 +196,8 @@ void NormalizeArrays::dataCheck()
       int32_t numComps = ptr.lock()->getNumberOfComponents();
       if(numComps != 1)
       {
-        setErrorCondition(-11003);
         QString ss = QObject::tr("All Attribute Arrays must be scalar arrays, but %1 has %2 total components").arg(ptr.lock()->getName()).arg(numComps);
-        notifyErrorMessage(ss, getErrorCondition());
+        setErrorCondition(-11003, ss);
       }
       else
       {
@@ -210,7 +205,7 @@ void NormalizeArrays::dataCheck()
         DataArrayPath tempPath(dcName, amName, arrayName);
         double defaultValue = m_UseMask ? getDefaultValue() : 0.0;
         DoubleArrayType::WeakPointer ptr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, tempPath, defaultValue, cDims);
-        if(getErrorCondition() >= 0)
+        if(getErrorCode() >= 0)
         {
           m_NormalizedArraysPtrVector.push_back(ptr.lock());
         }
@@ -225,7 +220,7 @@ void NormalizeArrays::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       paths.push_back(getMaskArrayPath());
     }
@@ -334,7 +329,7 @@ void NormalizeArrays::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -342,8 +337,7 @@ void NormalizeArrays::execute()
   if(m_SelectedDataArrayPaths.size() != m_SelectedWeakPtrVector.size())
   {
     QString ss = QObject::tr("The number of selected Attribute Arrays does not equal the number of internal weak pointers");
-    setErrorCondition(-11008);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11008, ss);
     return;
   }
 

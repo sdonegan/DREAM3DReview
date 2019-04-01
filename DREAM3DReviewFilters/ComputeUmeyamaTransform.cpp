@@ -119,7 +119,7 @@ void ComputeUmeyamaTransform::dataCheck()
   IGeometry::Pointer movingGeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getSourcePointSet());
   IGeometry::Pointer fixedGeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getDestPointSet());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -127,17 +127,15 @@ void ComputeUmeyamaTransform::dataCheck()
   if(!std::dynamic_pointer_cast<IGeometry2D>(movingGeom) && !std::dynamic_pointer_cast<IGeometry3D>(movingGeom) && !std::dynamic_pointer_cast<VertexGeom>(movingGeom) &&
      !std::dynamic_pointer_cast<EdgeGeom>(movingGeom))
   {
-    setErrorCondition(-702);
     QString ss = QObject::tr("Moving Geometry must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(movingGeom->getGeometryTypeAsString());
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-702, ss);
   }
 
   if(!std::dynamic_pointer_cast<IGeometry2D>(fixedGeom) && !std::dynamic_pointer_cast<IGeometry3D>(fixedGeom) && !std::dynamic_pointer_cast<VertexGeom>(fixedGeom) &&
      !std::dynamic_pointer_cast<EdgeGeom>(fixedGeom))
   {
-    setErrorCondition(-702);
     QString ss = QObject::tr("Fixed Geometry must be an unstructured geometry (Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral), but the type is %1").arg(fixedGeom->getGeometryTypeAsString());
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-702, ss);
   }
 
   size_t numMovingVertices = 0;
@@ -179,16 +177,15 @@ void ComputeUmeyamaTransform::dataCheck()
 
   if(numMovingVertices != numFixedVertices)
   {
-    setErrorCondition(-11000);
     QString ss = QObject::tr("The moving and fixed Geometries must have the same number of Vertices; the number of moving Vertices is %1 and the number of fixed Vertices is %2")
                      .arg(numMovingVertices)
                      .arg(numFixedVertices);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11000, ss);
   }
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSourcePointSet());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -229,7 +226,7 @@ void ComputeUmeyamaTransform::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

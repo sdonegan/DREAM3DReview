@@ -112,18 +112,17 @@ void RobustAutomaticThreshold::dataCheck()
   QVector<size_t> cDims(1, 1);
 
   m_InputArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getInputArrayPath());
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
 
   if(m_InputArrayPtr.lock()->getTypeAsString() == SIMPL::TypeNames::Bool)
   {
-    setErrorCondition(-11001);
     QString ss = QObject::tr("Input Attribute Array to threshold cannot be of type bool");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11001, ss);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getInputArrayPath());
   }
@@ -133,7 +132,7 @@ void RobustAutomaticThreshold::dataCheck()
   {
     m_GradientMagnitude = m_GradientMagnitudePtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getGradientMagnitudeArrayPath());
   }
@@ -143,7 +142,7 @@ void RobustAutomaticThreshold::dataCheck()
   {
     m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getFeatureIdsArrayPath());
   }
@@ -207,7 +206,7 @@ void RobustAutomaticThreshold::execute()
 {
   initialize();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

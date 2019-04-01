@@ -177,7 +177,7 @@ void PointSampleTriangleGeometry::dataCheck()
   case 1: // From other Geometry
   {
     IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getParentGeometry());
-    if(getErrorCondition() < 0)
+    if(getErrorCode() < 0)
     {
       return;
     }
@@ -206,21 +206,19 @@ void PointSampleTriangleGeometry::dataCheck()
     {
       QString ss =
           QObject::tr("Source Geometry must be of type Image, RectilinearGrid, Vertex, Edge, Triangle, Quadrilateral, or Tetrahedral, but the type is %1").arg(igeom->getGeometryTypeAsString());
-      setErrorCondition(-701);
-      notifyErrorMessage(ss, getErrorCondition());
+      setErrorCondition(-701, ss);
     }
     break;
   }
   default:
   {
     QString ss = QObject::tr("Invalid selection for determining the number of samples");
-    setErrorCondition(-701);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-701, ss);
     break;
   }
   }
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -228,8 +226,7 @@ void PointSampleTriangleGeometry::dataCheck()
   if(getSamplesNumberType() == 0 && getNumberOfSamples() <= 0)
   {
     QString ss = QObject::tr("Number of sample points must be greater than 0");
-    setErrorCondition(-700);
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-700, ss);
   }
 
   QVector<IDataArray::Pointer> dataArrays;
@@ -237,7 +234,7 @@ void PointSampleTriangleGeometry::dataCheck()
   TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getTriangleGeometry());
   DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getVertexGeometry());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -257,7 +254,7 @@ void PointSampleTriangleGeometry::dataCheck()
   {
     m_TriangleAreas = m_TriangleAreasPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrays.push_back(m_TriangleAreasPtr.lock());
   }
@@ -269,13 +266,13 @@ void PointSampleTriangleGeometry::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrays.push_back(m_MaskPtr.lock());
     }
   }
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -284,15 +281,14 @@ void PointSampleTriangleGeometry::dataCheck()
 
   if(!DataArrayPath::ValidateVector(paths))
   {
-    setErrorCondition(-11004);
     QString ss = QObject::tr("There are Attribute Arrays selected that are not contained in the same Attribute Matrix; all selected Attribute Arrays must belong to the same Attribute Matrix");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11004, ss);
   }
 
   for(auto&& path : paths)
   {
     IDataArray::WeakPointer ptr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, path);
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrays.push_back(ptr.lock());
       m_SelectedWeakPtrVector.push_back(ptr);
@@ -370,7 +366,7 @@ void PointSampleTriangleGeometry::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

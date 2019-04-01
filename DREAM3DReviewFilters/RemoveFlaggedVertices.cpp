@@ -116,7 +116,7 @@ void RemoveFlaggedVertices::dataCheck()
 
   VertexGeom::Pointer vertex = getDataContainerArray()->getPrereqGeometryFromDataContainer<VertexGeom, AbstractFilter>(this, getVertexGeometry());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -130,14 +130,14 @@ void RemoveFlaggedVertices::dataCheck()
   {
     m_Mask = m_MaskPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrays.push_back(m_MaskPtr.lock());
   }
 
   DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getReducedVertexGeometry());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -154,7 +154,7 @@ void RemoveFlaggedVertices::dataCheck()
   DataArrayPath tempPath;
   AttributeMatrix::Type tempAttrMatType = AttributeMatrix::Type::Vertex;
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -162,7 +162,7 @@ void RemoveFlaggedVertices::dataCheck()
   for(auto&& attr_mat : m_AttrMatList)
   {
     AttributeMatrix::Pointer tmpAttrMat = m->getPrereqAttributeMatrix(this, attr_mat, -301);
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       tempAttrMatType = tmpAttrMat->getType();
       if(tempAttrMatType != AttributeMatrix::Type::Vertex)
@@ -178,7 +178,7 @@ void RemoveFlaggedVertices::dataCheck()
         {
           tempPath.update(getReducedVertexGeometry(), tmpAttrMat->getName(), data_array);
           IDataArray::Pointer tmpDataArray = tmpAttrMat->getPrereqIDataArray<IDataArray, AbstractFilter>(this, data_array, -90002);
-          if(getErrorCondition() >= 0)
+          if(getErrorCode() >= 0)
           {
             QVector<size_t> cDims = tmpDataArray->getComponentDimensions();
             TemplateHelpers::CreateNonPrereqArrayFromArrayType()(this, tempPath, cDims, tmpDataArray);
@@ -235,7 +235,7 @@ void RemoveFlaggedVertices::execute()
 {
   initialize();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -273,7 +273,7 @@ void RemoveFlaggedVertices::execute()
   for(auto&& attr_mat : m_AttrMatList)
   {
     AttributeMatrix::Pointer tmpAttrMat = reduced->getPrereqAttributeMatrix(this, attr_mat, -301);
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       tempAttrMatType = tmpAttrMat->getType();
       if(tempAttrMatType == AttributeMatrix::Type::Vertex)

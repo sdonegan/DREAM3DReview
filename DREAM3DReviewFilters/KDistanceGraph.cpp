@@ -128,8 +128,7 @@ void KDistanceGraph::dataCheck()
 
   if(getMinDist() < 1)
   {
-    setErrorCondition(-5555);
-    notifyErrorMessage("Kth nearest neighbor must be greater than 0", getErrorCondition());
+    setErrorCondition(-5555, "Kth nearest neighbor must be greater than 0");
     return;
   }
 
@@ -137,7 +136,7 @@ void KDistanceGraph::dataCheck()
   QVector<DataArrayPath> dataArrayPaths;
 
   m_InDataPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -147,7 +146,7 @@ void KDistanceGraph::dataCheck()
   {
     m_KDistanceArray = m_KDistanceArrayPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getKDistanceArrayPath());
   }
@@ -159,7 +158,7 @@ void KDistanceGraph::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrayPaths.push_back(getMaskArrayPath());
     }
@@ -189,7 +188,7 @@ void KDistanceGraph::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

@@ -107,15 +107,14 @@ void FindNorm::dataCheck()
 
   if(getPSpace() < 0)
   {
-    setErrorCondition(-11002);
     QString ss = QObject::tr("p-space value must be greater than or equal to 0");
-    notifyErrorMessage(ss, getErrorCondition());
+    setErrorCondition(-11002, ss);
   }
 
   QVector<DataArrayPath> dataArrayPaths;
 
   m_InArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -127,7 +126,7 @@ void FindNorm::dataCheck()
   {
     m_Norm = m_NormPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getNormArrayPath());
   }
@@ -178,7 +177,7 @@ void FindNorm::execute()
   clearErrorCondition();
   clearWarningCondition();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
