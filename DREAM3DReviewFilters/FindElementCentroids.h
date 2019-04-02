@@ -50,7 +50,7 @@ class DREAM3DReview_EXPORT FindElementCentroids : public AbstractFilter
   PYB11_CREATE_BINDINGS(FindElementCentroids SUPERCLASS AbstractFilter)
   PYB11_PROPERTY(DataArrayPath CellCentroidsArrayPath READ getCellCentroidsArrayPath WRITE setCellCentroidsArrayPath)
   PYB11_PROPERTY(bool CreateVertexDataContainer READ getCreateVertexDataContainer WRITE setCreateVertexDataContainer)
-  PYB11_PROPERTY(QString NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
+  PYB11_PROPERTY(DataArrayPath NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
   PYB11_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
 
 public:
@@ -66,8 +66,8 @@ public:
   SIMPL_FILTER_PARAMETER(bool, CreateVertexDataContainer)
   Q_PROPERTY(bool CreateVertexDataContainer READ getCreateVertexDataContainer WRITE setCreateVertexDataContainer)
 
-  SIMPL_FILTER_PARAMETER(QString, NewDataContainerName)
-  Q_PROPERTY(QString NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, NewDataContainerName)
+  Q_PROPERTY(DataArrayPath NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
 
   SIMPL_FILTER_PARAMETER(QString, VertexAttributeMatrixName)
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)

@@ -58,6 +58,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  DataArrayID30 = 30,
+  DataArrayID31 = 31,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -84,7 +91,7 @@ NormalizeArrays::~NormalizeArrays()
 // -----------------------------------------------------------------------------
 void NormalizeArrays::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   {
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
     parameter->setHumanLabel("Operation Type");
@@ -204,7 +211,8 @@ void NormalizeArrays::dataCheck()
         QString arrayName = path.getDataArrayName() + getPostfix();
         DataArrayPath tempPath(dcName, amName, arrayName);
         double defaultValue = m_UseMask ? getDefaultValue() : 0.0;
-        DoubleArrayType::WeakPointer ptr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, tempPath, defaultValue, cDims);
+
+        DoubleArrayType::WeakPointer ptr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, tempPath, defaultValue, cDims, "", DataArrayID31);
         if(getErrorCode() >= 0)
         {
           m_NormalizedArraysPtrVector.push_back(ptr.lock());

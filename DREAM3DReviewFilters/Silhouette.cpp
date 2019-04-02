@@ -51,6 +51,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  DataArrayID30 = 30,
+  DataArrayID31 = 31,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -75,7 +82,7 @@ Silhouette::~Silhouette()
 // -----------------------------------------------------------------------------
 void Silhouette::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Distance Metric");
@@ -141,7 +148,7 @@ void Silhouette::dataCheck()
   QVector<DataArrayPath> dataArrayPaths;
   QVector<size_t> cDims(1, 1);
 
-  m_SilhouetteArrayPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, getSilhouetteArrayPath(), 0, cDims);
+  m_SilhouetteArrayPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, getSilhouetteArrayPath(), 0, cDims, "", DataArrayID31);
   if(m_SilhouetteArrayPtr.lock())
   {
     m_SilhouetteArray = m_SilhouetteArrayPtr.lock()->getPointer(0);

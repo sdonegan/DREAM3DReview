@@ -45,6 +45,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  DataArrayID30 = 30,
+  DataArrayID31 = 31,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -67,7 +74,7 @@ RobustAutomaticThreshold::~RobustAutomaticThreshold()
 // -----------------------------------------------------------------------------
 void RobustAutomaticThreshold::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
   parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Threshold", InputArrayPath, FilterParameter::RequiredArray, RobustAutomaticThreshold, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Float, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
@@ -137,7 +144,7 @@ void RobustAutomaticThreshold::dataCheck()
     dataArrayPaths.push_back(getGradientMagnitudeArrayPath());
   }
 
-  m_FeatureIdsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<bool>, AbstractFilter, bool>(this, getFeatureIdsArrayPath(), false, cDims);
+  m_FeatureIdsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<bool>, AbstractFilter, bool>(this, getFeatureIdsArrayPath(), false, cDims, "", DataArrayID31);
   if(m_FeatureIdsPtr.lock())
   {
     m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);

@@ -61,11 +61,11 @@ public:
 
   ~ComputeUmeyamaTransform() override;
 
-  SIMPL_FILTER_PARAMETER(QString, SourcePointSet)
-  Q_PROPERTY(QString SourcePointSet READ getSourcePointSet WRITE setSourcePointSet)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, SourcePointSet)
+  Q_PROPERTY(DataArrayPath SourcePointSet READ getSourcePointSet WRITE setSourcePointSet)
 
-  SIMPL_FILTER_PARAMETER(QString, DestPointSet)
-  Q_PROPERTY(QString DestPointSet READ getDestPointSet WRITE setDestPointSet)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, DestPointSet)
+  Q_PROPERTY(DataArrayPath DestPointSet READ getDestPointSet WRITE setDestPointSet)
 
   SIMPL_FILTER_PARAMETER(bool, UseScaling)
   Q_PROPERTY(bool UseScaling READ getUseScaling WRITE setUseScaling)

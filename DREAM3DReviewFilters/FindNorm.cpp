@@ -47,6 +47,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  DataArrayID30 = 30,
+  DataArrayID31 = 31,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -68,7 +75,7 @@ FindNorm::~FindNorm()
 // -----------------------------------------------------------------------------
 void FindNorm::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   parameters.push_back(SIMPL_NEW_FLOAT_FP("p-Space Value", PSpace, FilterParameter::Parameter, FindNorm));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
@@ -121,7 +128,7 @@ void FindNorm::dataCheck()
 
   QVector<size_t> cDims(1, 1);
 
-  m_NormPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, getNormArrayPath(), 0, cDims);
+  m_NormPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, getNormArrayPath(), 0, cDims, "", DataArrayID31);
   if(m_NormPtr.lock())
   {
     m_Norm = m_NormPtr.lock()->getPointer(0);

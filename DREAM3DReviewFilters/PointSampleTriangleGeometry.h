@@ -73,8 +73,8 @@ public:
   SIMPL_FILTER_PARAMETER(int, SamplesNumberType)
   Q_PROPERTY(int SamplesNumberType READ getSamplesNumberType WRITE setSamplesNumberType)
 
-  SIMPL_FILTER_PARAMETER(QString, TriangleGeometry)
-  Q_PROPERTY(QString TriangleGeometry READ getTriangleGeometry WRITE setTriangleGeometry)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, TriangleGeometry)
+  Q_PROPERTY(DataArrayPath TriangleGeometry READ getTriangleGeometry WRITE setTriangleGeometry)
 
   SIMPL_FILTER_PARAMETER(QString, VertexGeometry)
   Q_PROPERTY(QString VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
@@ -85,8 +85,8 @@ public:
   SIMPL_FILTER_PARAMETER(int, NumberOfSamples)
   Q_PROPERTY(int NumberOfSamples READ getNumberOfSamples WRITE setNumberOfSamples)
 
-  SIMPL_FILTER_PARAMETER(QString, ParentGeometry)
-  Q_PROPERTY(QString ParentGeometry READ getParentGeometry WRITE setParentGeometry)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, ParentGeometry)
+  Q_PROPERTY(DataArrayPath ParentGeometry READ getParentGeometry WRITE setParentGeometry)
 
   SIMPL_FILTER_PARAMETER(DataArrayPath, TriangleAreasArrayPath)
   Q_PROPERTY(DataArrayPath TriangleAreasArrayPath READ getTriangleAreasArrayPath WRITE setTriangleAreasArrayPath)

@@ -53,10 +53,10 @@ class DREAM3DReview_EXPORT ApplyTransformationToGeometry : public AbstractFilter
   PYB11_PROPERTY(DataArrayPath ComputedTransformationMatrix READ getComputedTransformationMatrix WRITE setComputedTransformationMatrix)
   PYB11_PROPERTY(QString GeometryToTransform READ getGeometryToTransform WRITE setGeometryToTransform)
   PYB11_PROPERTY(int TransformationMatrixType READ getTransformationMatrixType WRITE setTransformationMatrixType)
-  PYB11_PROPERTY(FloatVec3_t RotationAxis READ getRotationAxis WRITE setRotationAxis)
+  PYB11_PROPERTY(FloatVec3Type RotationAxis READ getRotationAxis WRITE setRotationAxis)
   PYB11_PROPERTY(float RotationAngle READ getRotationAngle WRITE setRotationAngle)
-  PYB11_PROPERTY(FloatVec3_t Translation READ getTranslation WRITE setTranslation)
-  PYB11_PROPERTY(FloatVec3_t Scale READ getScale WRITE setScale)
+  PYB11_PROPERTY(FloatVec3Type Translation READ getTranslation WRITE setTranslation)
+  PYB11_PROPERTY(FloatVec3Type Scale READ getScale WRITE setScale)
 
 public:
   SIMPL_SHARED_POINTERS(ApplyTransformationToGeometry)
@@ -71,23 +71,23 @@ public:
   SIMPL_FILTER_PARAMETER(DataArrayPath, ComputedTransformationMatrix)
   Q_PROPERTY(DataArrayPath ComputedTransformationMatrix READ getComputedTransformationMatrix WRITE setComputedTransformationMatrix)
 
-  SIMPL_FILTER_PARAMETER(QString, GeometryToTransform)
-  Q_PROPERTY(QString GeometryToTransform READ getGeometryToTransform WRITE setGeometryToTransform)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, GeometryToTransform)
+  Q_PROPERTY(DataArrayPath GeometryToTransform READ getGeometryToTransform WRITE setGeometryToTransform)
 
   SIMPL_FILTER_PARAMETER(int, TransformationMatrixType)
   Q_PROPERTY(int TransformationMatrixType READ getTransformationMatrixType WRITE setTransformationMatrixType)
 
-  SIMPL_FILTER_PARAMETER(FloatVec3_t, RotationAxis)
-  Q_PROPERTY(FloatVec3_t RotationAxis READ getRotationAxis WRITE setRotationAxis)
+  SIMPL_FILTER_PARAMETER(FloatVec3Type, RotationAxis)
+  Q_PROPERTY(FloatVec3Type RotationAxis READ getRotationAxis WRITE setRotationAxis)
 
   SIMPL_FILTER_PARAMETER(float, RotationAngle)
   Q_PROPERTY(float RotationAngle READ getRotationAngle WRITE setRotationAngle)
 
-  SIMPL_FILTER_PARAMETER(FloatVec3_t, Translation)
-  Q_PROPERTY(FloatVec3_t Translation READ getTranslation WRITE setTranslation)
+  SIMPL_FILTER_PARAMETER(FloatVec3Type, Translation)
+  Q_PROPERTY(FloatVec3Type Translation READ getTranslation WRITE setTranslation)
 
-  SIMPL_FILTER_PARAMETER(FloatVec3_t, Scale)
-  Q_PROPERTY(FloatVec3_t Scale READ getScale WRITE setScale)
+  SIMPL_FILTER_PARAMETER(FloatVec3Type, Scale)
+  Q_PROPERTY(FloatVec3Type Scale READ getScale WRITE setScale)
 
   /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class

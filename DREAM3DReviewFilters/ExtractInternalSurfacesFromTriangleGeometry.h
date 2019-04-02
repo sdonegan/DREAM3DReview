@@ -48,7 +48,7 @@ class DREAM3DReview_EXPORT ExtractInternalSurfacesFromTriangleGeometry : public 
 {
   Q_OBJECT
   PYB11_CREATE_BINDINGS(ExtractInternalSurfacesFromTriangleGeometry SUPERCLASS AbstractFilter)
-  PYB11_PROPERTY(QString TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
+  PYB11_PROPERTY(DataArrayPath TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
   PYB11_PROPERTY(DataArrayPath NodeTypesArrayPath READ getNodeTypesArrayPath WRITE setNodeTypesArrayPath)
   PYB11_PROPERTY(QString InternalTrianglesName READ getInternalTrianglesName WRITE setInternalTrianglesName)
 
@@ -59,8 +59,8 @@ public:
 
   ~ExtractInternalSurfacesFromTriangleGeometry() override;
 
-  SIMPL_FILTER_PARAMETER(QString, TriangleDataContainerName)
-  Q_PROPERTY(QString TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, TriangleDataContainerName)
+  Q_PROPERTY(DataArrayPath TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
 
   SIMPL_FILTER_PARAMETER(DataArrayPath, NodeTypesArrayPath)
   Q_PROPERTY(DataArrayPath NodeTypesArrayPath READ getNodeTypesArrayPath WRITE setNodeTypesArrayPath)

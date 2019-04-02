@@ -51,6 +51,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID21 = 21,
+
+  DataContainerID = 1
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -84,7 +91,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::initialize()
 // -----------------------------------------------------------------------------
 void ExtractInternalSurfacesFromTriangleGeometry::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Triangle};
   parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Data Container", TriangleDataContainerName, FilterParameter::RequiredArray, ExtractInternalSurfacesFromTriangleGeometry, dcsReq));
@@ -101,7 +108,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::setupFilterParameters()
 void ExtractInternalSurfacesFromTriangleGeometry::readFilterParameters(AbstractFilterParametersReader* reader, int index)
 {
   reader->openFilterGroup(this, index);
-  setTriangleDataContainerName(reader->readString("TriangleDataContainerName", getTriangleDataContainerName()));
+  setTriangleDataContainerName(reader->readDataArrayPath("TriangleDataContainerName", getTriangleDataContainerName()));
   setNodeTypesArrayPath(reader->readDataArrayPath("NodeTypesArrayPath", getNodeTypesArrayPath()));
   setInternalTrianglesName(reader->readString("InternalTrianglesName", getInternalTrianglesName()));
   reader->closeFilterGroup();
@@ -140,7 +147,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
 
   getDataContainerArray()->validateNumberOfTuples<AbstractFilter>(this, arrays);
 
-  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getInternalTrianglesName());
+  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getInternalTrianglesName(), DataContainerID);
 
   if(getErrorCode() < 0)
   {
@@ -166,7 +173,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
       tempAttrMatType = tmpAttrMat->getType();
       if(tempAttrMatType == AttributeMatrix::Type::Vertex || tempAttrMatType == AttributeMatrix::Type::Face)
       {
-        dc->createNonPrereqAttributeMatrix(this, tmpAttrMat->getName(), tDims, tempAttrMatType);
+        dc->createNonPrereqAttributeMatrix(this, tmpAttrMat->getName(), tDims, tempAttrMatType, AttributeMatrixID21);
         tempDataArrayList = tmpAttrMat->getAttributeArrayNames();
         for(auto&& data_array : tempDataArrayList)
         {
@@ -182,7 +189,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
       else
       {
         AttributeMatrix::Pointer attrMat = tmpAttrMat->deepCopy(getInPreflight());
-        dc->addAttributeMatrix(attr_mat, attrMat);
+        dc->addOrReplaceAttributeMatrix(attrMat);
       }
     }
   }

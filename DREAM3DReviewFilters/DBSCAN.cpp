@@ -50,6 +50,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID20 = 20,
+  AttributeMatrixID21 = 21,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -76,7 +83,7 @@ DBSCAN::~DBSCAN()
 // -----------------------------------------------------------------------------
 void DBSCAN::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   parameters.push_back(SIMPL_NEW_FLOAT_FP("Epsilon", Epsilon, FilterParameter::Parameter, DBSCAN));
   parameters.push_back(SIMPL_NEW_INTEGER_FP("Minimum Number of Points", MinPnts, FilterParameter::Parameter, DBSCAN));
   {
@@ -216,7 +223,7 @@ void DBSCAN::dataCheck()
   }
 
   QVector<size_t> tDims(1, 0);
-  m->createNonPrereqAttributeMatrix(this, getFeatureAttributeMatrixName(), tDims, destAttrMatType);
+  m->createNonPrereqAttributeMatrix(this, getFeatureAttributeMatrixName(), tDims, destAttrMatType, AttributeMatrixID21);
 
   if(getEpsilon() <= 0)
   {

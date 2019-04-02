@@ -52,6 +52,15 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID21 = 21,
+
+  DataArrayID30 = 30,
+  DataArrayID31 = 31,
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -75,7 +84,7 @@ ComputeUmeyamaTransform::~ComputeUmeyamaTransform()
 // -----------------------------------------------------------------------------
 void ComputeUmeyamaTransform::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   parameters.push_back(SIMPL_NEW_BOOL_FP("Use Scaling", UseScaling, FilterParameter::Parameter, ComputeUmeyamaTransform));
   DataContainerSelectionFilterParameter::RequirementType dcReq;
   dcReq.dcGeometryTypes = {IGeometry::Type::Vertex, IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
@@ -93,8 +102,8 @@ void ComputeUmeyamaTransform::setupFilterParameters()
 void ComputeUmeyamaTransform::readFilterParameters(AbstractFilterParametersReader* reader, int index)
 {
   reader->openFilterGroup(this, index);
-  setSourcePointSet(reader->readString("SourcePointSet", getSourcePointSet()));
-  setDestPointSet(reader->readString("DestPointSet", getDestPointSet()));
+  setSourcePointSet(reader->readDataArrayPath("SourcePointSet", getSourcePointSet()));
+  setDestPointSet(reader->readDataArrayPath("DestPointSet", getDestPointSet()));
   setUseScaling(reader->readValue("UseScaling", getUseScaling()));
   setTransformationAttributeMatrixName(reader->readString("TransformationAttributeMatrixName", getTransformationAttributeMatrixName()));
   setTransformationMatrixName(reader->readString("TransformationMatrixName", getTransformationMatrixName()));
@@ -191,13 +200,12 @@ void ComputeUmeyamaTransform::dataCheck()
   }
 
   QVector<size_t> tDims(1, 1);
-  m->createNonPrereqAttributeMatrix(this, getTransformationAttributeMatrixName(), tDims, AttributeMatrix::Type::Generic);
+  m->createNonPrereqAttributeMatrix(this, getTransformationAttributeMatrixName(), tDims, AttributeMatrix::Type::Generic, AttributeMatrixID21);
 
   QVector<size_t> cDims(2, 4);
-  DataArrayPath path(getSourcePointSet(), getTransformationAttributeMatrixName(), getTransformationMatrixName());
+  DataArrayPath path(getSourcePointSet().getDataContainerName(), getTransformationAttributeMatrixName(), getTransformationMatrixName());
 
-  m_TransformationMatrixPtr =
-      getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, path, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+  m_TransformationMatrixPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, path, 0, cDims, "", DataArrayID31);
   if(nullptr != m_TransformationMatrixPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
     m_TransformationMatrix = m_TransformationMatrixPtr.lock()->getPointer(0);

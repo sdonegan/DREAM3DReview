@@ -40,6 +40,7 @@
 #include "SIMPLib/Common/Constants.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArrayCreationFilterParameter.h"
+#include "SIMPLib/FilterParameters/DataContainerCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/LinkedBooleanFilterParameter.h"
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
@@ -47,6 +48,15 @@
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
+
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID21 = 21,
+
+  DataArrayID31 = 31,
+
+  DataContainerID = 1
+};
 
 // -----------------------------------------------------------------------------
 //
@@ -70,12 +80,12 @@ FindElementCentroids::~FindElementCentroids()
 // -----------------------------------------------------------------------------
 void FindElementCentroids::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   QStringList linkedProps;
   linkedProps << "NewDataContainerName"
               << "VertexAttributeMatrixName";
   parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Create Vertex Geometry from Centroids", CreateVertexDataContainer, FilterParameter::Parameter, FindElementCentroids, linkedProps));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Data Container", NewDataContainerName, FilterParameter::CreatedArray, FindElementCentroids));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Vertex Data Container", NewDataContainerName, FilterParameter::CreatedArray, FindElementCentroids));
   parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, FilterParameter::CreatedArray, FindElementCentroids));
   parameters.push_back(SeparatorFilterParameter::New("Element Data", FilterParameter::CreatedArray));
   {
@@ -93,7 +103,7 @@ void FindElementCentroids::readFilterParameters(AbstractFilterParametersReader* 
   reader->openFilterGroup(this, index);
   setCreateVertexDataContainer(reader->readValue("CreateVertexDataContainer", getCreateVertexDataContainer()));
   setCellCentroidsArrayPath(reader->readDataArrayPath("CellCentroidsArrayPath", getCellCentroidsArrayPath()));
-  setNewDataContainerName(reader->readString("NewDataContainerName", getNewDataContainerName()));
+  setNewDataContainerName(reader->readDataArrayPath("NewDataContainerName", getNewDataContainerName()));
   reader->closeFilterGroup();
 }
 
@@ -162,7 +172,7 @@ void FindElementCentroids::dataCheck()
 
   if(getCreateVertexDataContainer())
   {
-    DataContainer::Pointer vm = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getNewDataContainerName());
+    DataContainer::Pointer vm = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getNewDataContainerName(), DataContainerID);
     if(getErrorCode() < 0)
     {
       return;
@@ -171,12 +181,12 @@ void FindElementCentroids::dataCheck()
     vm->setGeometry(vertices);
 
     QVector<size_t> tDims(1, numElements);
-    vm->createNonPrereqAttributeMatrix(this, getVertexAttributeMatrixName(), tDims, AttributeMatrix::Type::Vertex);
+    vm->createNonPrereqAttributeMatrix(this, getVertexAttributeMatrixName(), tDims, AttributeMatrix::Type::Vertex, AttributeMatrixID21);
   }
 
   QVector<size_t> cDims(1, 3);
 
-  m_CellCentroidsArrayPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, getCellCentroidsArrayPath(), 0, cDims);
+  m_CellCentroidsArrayPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, getCellCentroidsArrayPath(), 0, cDims, "", DataArrayID31);
   if(m_CellCentroidsArrayPtr.lock())
   {
     m_CellCentroidsArray = m_CellCentroidsArrayPtr.lock()->getPointer(0);

@@ -72,7 +72,7 @@ AverageVertexArrayToEdgeFaceCellArray::~AverageVertexArrayToEdgeFaceCellArray()
 // -----------------------------------------------------------------------------
 void AverageVertexArrayToEdgeFaceCellArray::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   parameters.push_back(SIMPL_NEW_BOOL_FP("Perform Weighted Average", WeightedAverage, FilterParameter::Parameter, AverageVertexArrayToEdgeFaceCellArray));
   parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
   {

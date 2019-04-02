@@ -47,6 +47,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID21 = 21,
+
+  DataContainerID = 1
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -80,7 +87,7 @@ void RemoveFlaggedVertices::initialize()
 // -----------------------------------------------------------------------------
 void RemoveFlaggedVertices::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Vertex};
   dcsReq.dcGeometryTypes = geomTypes;
@@ -97,7 +104,7 @@ void RemoveFlaggedVertices::setupFilterParameters()
 void RemoveFlaggedVertices::readFilterParameters(AbstractFilterParametersReader* reader, int index)
 {
   reader->openFilterGroup(this, index);
-  setVertexGeometry(reader->readString("VertexGeometry", getVertexGeometry()));
+  setVertexGeometry(reader->readDataArrayPath("VertexGeometry", getVertexGeometry()));
   setMaskArrayPath(reader->readDataArrayPath("MaskArrayPath", getMaskArrayPath()));
   setReducedVertexGeometry(reader->readString("ReducedVertexGeometry", getReducedVertexGeometry()));
   reader->closeFilterGroup();
@@ -135,7 +142,7 @@ void RemoveFlaggedVertices::dataCheck()
     dataArrays.push_back(m_MaskPtr.lock());
   }
 
-  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getReducedVertexGeometry());
+  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getReducedVertexGeometry(), DataContainerID);
 
   if(getErrorCode() < 0)
   {
@@ -168,11 +175,11 @@ void RemoveFlaggedVertices::dataCheck()
       if(tempAttrMatType != AttributeMatrix::Type::Vertex)
       {
         AttributeMatrix::Pointer attrMat = tmpAttrMat->deepCopy(getInPreflight());
-        dc->addAttributeMatrix(attr_mat, attrMat);
+        dc->addOrReplaceAttributeMatrix(attrMat);
       }
       else
       {
-        dc->createNonPrereqAttributeMatrix(this, tmpAttrMat->getName(), tDims, AttributeMatrix::Type::Vertex);
+        dc->createNonPrereqAttributeMatrix(this, tmpAttrMat->getName(), tDims, AttributeMatrix::Type::Vertex, AttributeMatrixID21);
         tempDataArrayList = tmpAttrMat->getAttributeArrayNames();
         for(auto&& data_array : tempDataArrayList)
         {

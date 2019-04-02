@@ -59,6 +59,13 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+enum createdPathID : RenameDataPath::DataID_t
+{
+  AttributeMatrixID21 = 21,
+
+  DataContainerID = 1
+};
+
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
@@ -88,7 +95,7 @@ PointSampleTriangleGeometry::~PointSampleTriangleGeometry()
 // -----------------------------------------------------------------------------
 void PointSampleTriangleGeometry::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   {
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
     parameter->setHumanLabel("Source for Number of Samples");
@@ -138,11 +145,11 @@ void PointSampleTriangleGeometry::readFilterParameters(AbstractFilterParametersR
 {
   reader->openFilterGroup(this, index);
   setSamplesNumberType(reader->readValue("SamplesNumberType", getSamplesNumberType()));
-  setTriangleGeometry(reader->readString("TriangleGeometry", getTriangleGeometry()));
+  setTriangleGeometry(reader->readDataArrayPath("TriangleGeometry", getTriangleGeometry()));
   setVertexGeometry(reader->readString("VertexGeometry", getVertexGeometry()));
   setVertexAttributeMatrixName(reader->readString("VertexAttributeMatrixName", getVertexAttributeMatrixName()));
   setNumberOfSamples(reader->readValue("NumberOfSamples", getNumberOfSamples()));
-  setParentGeometry(reader->readString("ParentGeometry", getParentGeometry()));
+  setParentGeometry(reader->readDataArrayPath("ParentGeometry", getParentGeometry()));
   setTriangleAreasArrayPath(reader->readDataArrayPath("TriangleAreasArrayPath", getTriangleAreasArrayPath()));
   setUseMask(reader->readValue("UseMask", getUseMask()));
   setMaskArrayPath(reader->readDataArrayPath("MaskArrayPath", getMaskArrayPath()));
@@ -232,7 +239,7 @@ void PointSampleTriangleGeometry::dataCheck()
   QVector<IDataArray::Pointer> dataArrays;
 
   TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getTriangleGeometry());
-  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getVertexGeometry());
+  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getVertexGeometry(), DataContainerID);
 
   if(getErrorCode() < 0)
   {
@@ -247,7 +254,7 @@ void PointSampleTriangleGeometry::dataCheck()
   QVector<size_t> tDims(1, m_NumSamples);
   QVector<size_t> cDims(1, 1);
 
-  m->createNonPrereqAttributeMatrix(this, getVertexAttributeMatrixName(), tDims, AttributeMatrix::Type::Vertex);
+  m->createNonPrereqAttributeMatrix(this, getVertexAttributeMatrixName(), tDims, AttributeMatrix::Type::Vertex, AttributeMatrixID21);
 
   m_TriangleAreasPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, getTriangleAreasArrayPath(), cDims);
   if(m_TriangleAreasPtr.lock())

@@ -389,7 +389,7 @@ void PottsModel::initialize()
 // -----------------------------------------------------------------------------
 void PottsModel::setupFilterParameters()
 {
-  FilterParameterVector parameters;
+  FilterParameterVectorType parameters;
   parameters.push_back(SIMPL_NEW_INTEGER_FP("Iterations", Iterations, FilterParameter::Parameter, PottsModel));
   parameters.push_back(SIMPL_NEW_DOUBLE_FP("Temperature", Temperature, FilterParameter::Parameter, PottsModel));
   parameters.push_back(SIMPL_NEW_BOOL_FP("Periodic Boundaries", PeriodicBoundaries, FilterParameter::Parameter, PottsModel));

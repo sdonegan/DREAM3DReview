@@ -59,8 +59,8 @@ public:
 
   ~RemoveFlaggedVertices() override;
 
-  SIMPL_FILTER_PARAMETER(QString, VertexGeometry)
-  Q_PROPERTY(QString VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
+  SIMPL_FILTER_PARAMETER(DataArrayPath, VertexGeometry)
+  Q_PROPERTY(DataArrayPath VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
 
   SIMPL_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
