@@ -139,8 +139,8 @@ void KMedoids::initialize()
 // -----------------------------------------------------------------------------
 void KMedoids::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   if(getInitClusters() < 1)
@@ -294,8 +294,8 @@ void KMedoids::preflight()
 // -----------------------------------------------------------------------------
 void KMedoids::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

@@ -158,8 +158,8 @@ void ApplyTransformationToGeometry::readFilterParameters(AbstractFilterParameter
 // -----------------------------------------------------------------------------
 void ApplyTransformationToGeometry::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
 
   IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getGeometryToTransform());
 
@@ -373,8 +373,8 @@ void ApplyTransformationToGeometry::applyTransformation()
 // -----------------------------------------------------------------------------
 void ApplyTransformationToGeometry::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

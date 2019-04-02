@@ -122,8 +122,8 @@ void ComputeUmeyamaTransform::initialize()
 // -----------------------------------------------------------------------------
 void ComputeUmeyamaTransform::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
 
   IGeometry::Pointer movingGeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getSourcePointSet());
   IGeometry::Pointer fixedGeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getDestPointSet());
@@ -231,8 +231,8 @@ void ComputeUmeyamaTransform::preflight()
 // -----------------------------------------------------------------------------
 void ComputeUmeyamaTransform::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

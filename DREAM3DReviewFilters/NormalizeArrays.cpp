@@ -153,8 +153,8 @@ void NormalizeArrays::initialize()
 // -----------------------------------------------------------------------------
 void NormalizeArrays::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   if(getNormalizeType() != 0 && getNormalizeType() != 1)
@@ -334,8 +334,8 @@ private:
 // -----------------------------------------------------------------------------
 void NormalizeArrays::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

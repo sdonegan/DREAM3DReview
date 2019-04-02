@@ -129,8 +129,8 @@ void KDistanceGraph::initialize()
 // -----------------------------------------------------------------------------
 void KDistanceGraph::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   if(getMinDist() < 1)
@@ -192,8 +192,8 @@ void KDistanceGraph::preflight()
 // -----------------------------------------------------------------------------
 void KDistanceGraph::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

@@ -157,8 +157,8 @@ void AverageEdgeFaceCellArrayToVertexArray::initialize()
 // -----------------------------------------------------------------------------
 void AverageEdgeFaceCellArrayToVertexArray::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
 
   IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getSelectedArrayPath().getDataContainerName());
 
@@ -301,8 +301,8 @@ void AverageEdgeFaceCellArrayToVertexArray::preflight()
 // -----------------------------------------------------------------------------
 void AverageEdgeFaceCellArrayToVertexArray::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

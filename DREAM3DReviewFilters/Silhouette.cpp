@@ -142,8 +142,8 @@ void Silhouette::initialize()
 // -----------------------------------------------------------------------------
 void Silhouette::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
 
   QVector<DataArrayPath> dataArrayPaths;
   QVector<size_t> cDims(1, 1);
@@ -208,8 +208,8 @@ void Silhouette::preflight()
 // -----------------------------------------------------------------------------
 void Silhouette::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

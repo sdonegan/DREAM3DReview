@@ -119,8 +119,8 @@ void FindElementCentroids::initialize()
 // -----------------------------------------------------------------------------
 void FindElementCentroids::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
 
   IGeometry::Pointer geom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getCellCentroidsArrayPath().getDataContainerName());
 
@@ -226,8 +226,8 @@ void FindElementCentroids::preflight()
 // -----------------------------------------------------------------------------
 void FindElementCentroids::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

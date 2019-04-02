@@ -147,8 +147,8 @@ void PrincipalComponentAnalysis::initialize()
 // -----------------------------------------------------------------------------
 void PrincipalComponentAnalysis::dataCheck()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   if(getSelectedDataArrayPaths().size() < 2)
@@ -275,8 +275,8 @@ template <typename T> void copyDataArrays(IDataArray::Pointer dataPtr, std::vect
 // -----------------------------------------------------------------------------
 void PrincipalComponentAnalysis::execute()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
   if(getErrorCode() < 0)
   {

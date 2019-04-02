@@ -379,8 +379,8 @@ PottsModel::~PottsModel()
 // -----------------------------------------------------------------------------
 void PottsModel::initialize()
 {
-  clearErrorCondition();
-  clearWarningCondition();
+  clearErrorCode();
+  clearWarningCode();
   setCancel(false);
 }
 
