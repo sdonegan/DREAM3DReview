@@ -359,14 +359,14 @@ void ExtractInternalSurfacesFromTriangleGeometry::execute()
     {
       progressInt = static_cast<int64_t>((static_cast<float>(counter) / numTris) * 100.0f);
       QString ss = QObject::tr("Checking Triangle %1 of %2 || %3% Completed").arg(counter).arg(numTris).arg(progressInt);
-      notifyStatusMessageWithPrefix(getMessagePrefix(), ss);
+      notifyStatusMessage(ss);
       prog = prog + progIncrement;
     }
     counter++;
   }
 
   QString ss = QObject::tr("Finished Checking Triangles || Updating Array Information...");
-  notifyStatusMessageWithPrefix(getMessagePrefix(), ss);
+  notifyStatusMessage(ss);
 
   tmpVerts.shrink_to_fit();
   tmpTris.shrink_to_fit();
