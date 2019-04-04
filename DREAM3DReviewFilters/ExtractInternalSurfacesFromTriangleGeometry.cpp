@@ -80,8 +80,8 @@ ExtractInternalSurfacesFromTriangleGeometry::~ExtractInternalSurfacesFromTriangl
 // -----------------------------------------------------------------------------
 void ExtractInternalSurfacesFromTriangleGeometry::initialize()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   setCancel(false);
   m_AttrMatList.clear();
 }
@@ -119,14 +119,14 @@ void ExtractInternalSurfacesFromTriangleGeometry::readFilterParameters(AbstractF
 // -----------------------------------------------------------------------------
 void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
 
   QVector<IDataArray::Pointer> arrays;
 
   TriangleGeom::Pointer tris = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getTriangleDataContainerName());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -140,7 +140,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
   {
     m_NodeTypes = m_NodeTypesPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     arrays.push_back(m_NodeTypesPtr.lock());
   }
@@ -149,7 +149,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
 
   DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getInternalTrianglesName(), DataContainerID);
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -168,7 +168,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
   for(auto&& attr_mat : m_AttrMatList)
   {
     AttributeMatrix::Pointer tmpAttrMat = m->getPrereqAttributeMatrix(this, attr_mat, -301);
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       tempAttrMatType = tmpAttrMat->getType();
       if(tempAttrMatType == AttributeMatrix::Type::Vertex || tempAttrMatType == AttributeMatrix::Type::Face)
@@ -179,7 +179,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::dataCheck()
         {
           tempPath.update(getInternalTrianglesName(), tmpAttrMat->getName(), data_array);
           IDataArray::Pointer tmpDataArray = tmpAttrMat->getPrereqIDataArray<IDataArray, AbstractFilter>(this, data_array, -90002);
-          if(getErrorCondition() >= 0)
+          if(getErrorCode() >= 0)
           {
             QVector<size_t> cDims = tmpDataArray->getComponentDimensions();
             TemplateHelpers::CreateNonPrereqArrayFromArrayType()(this, tempPath, cDims, tmpDataArray);
@@ -251,7 +251,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::execute()
 {
   initialize();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -366,14 +366,14 @@ void ExtractInternalSurfacesFromTriangleGeometry::execute()
     {
       progressInt = static_cast<int64_t>((static_cast<float>(counter) / numTris) * 100.0f);
       QString ss = QObject::tr("Checking Triangle %1 of %2 || %3% Completed").arg(counter).arg(numTris).arg(progressInt);
-      notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+      notifyStatusMessage(ss);
       prog = prog + progIncrement;
     }
     counter++;
   }
 
   QString ss = QObject::tr("Finished Checking Triangles || Updating Array Information...");
-  notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+  notifyStatusMessage(ss);
 
   tmpVerts.shrink_to_fit();
   tmpTris.shrink_to_fit();
@@ -386,7 +386,7 @@ void ExtractInternalSurfacesFromTriangleGeometry::execute()
   for(auto&& attr_mat : m_AttrMatList)
   {
     AttributeMatrix::Pointer tmpAttrMat = dc->getPrereqAttributeMatrix(this, attr_mat, -301);
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       AttributeMatrix::Type tempAttrMatType = tmpAttrMat->getType();
       if(tempAttrMatType == AttributeMatrix::Type::Vertex)

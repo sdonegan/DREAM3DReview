@@ -1,5 +1,4 @@
-Find Norm 
-=============
+# Find Norm #
 
 ## Group (Subgroup) ##
 

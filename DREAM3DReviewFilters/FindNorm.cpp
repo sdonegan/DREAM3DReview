@@ -109,20 +109,19 @@ void FindNorm::initialize()
 // -----------------------------------------------------------------------------
 void FindNorm::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
 
   if(getPSpace() < 0)
   {
-    setErrorCondition(-11002);
     QString ss = QObject::tr("p-space value must be greater than or equal to 0");
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    setErrorCondition(-11002, ss);
   }
 
   QVector<DataArrayPath> dataArrayPaths;
 
   m_InArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -134,7 +133,7 @@ void FindNorm::dataCheck()
   {
     m_Norm = m_NormPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getNormArrayPath());
   }
@@ -182,10 +181,10 @@ template <typename T> void findPthNorm(IDataArray::Pointer inDataPtr, const Floa
 // -----------------------------------------------------------------------------
 void FindNorm::execute()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

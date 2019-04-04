@@ -136,7 +136,7 @@ public:
 
       double sum = std::accumulate(std::begin(differences), std::end(differences), 0.0);
       QString ss = QObject::tr("Clustering Data || Iteration %1 || Total Mean Shift: %2").arg(iteration).arg(sum);
-      filter->notifyStatusMessage(filter->getMessagePrefix(), filter->getHumanLabel(), ss);
+      filter->notifyStatusMessage(ss);
       iteration++;
 
       if(updateCheck == numClusters) { break; }

@@ -48,7 +48,7 @@
   }                                                                                                                                                                                                    \
   else                                                                                                                                                                                                 \
   {                                                                                                                                                                                                    \
-    observableObj->notifyErrorMessage(#templateName, "The input array was of unsupported type", TemplateHelpers::Errors::UnsupportedDataType);                                                         \
+    observableObj->setErrorCondition(TemplateHelpers::Errors::UnsupportedDataType, "The input array was of unsupported type");                                                             \
   }
 
 /**
@@ -78,6 +78,9 @@ const QString GeometryFilters("Geometry");
 const QString DimensionalityReductionFilters("Dimensionality Reduction");
 const QString ThresholdFilters("Threshold");
 const QString Coarsening("Coarsening");
+const QString InterpolationFilters("InterpolationFilters");
+const QString PointCloudFilters("PointCloudFilters");
+
 }
 }
 

@@ -140,20 +140,19 @@ void KMeans::initialize()
 // -----------------------------------------------------------------------------
 void KMeans::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   if(getInitClusters() < 1)
   {
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), "Must have at least 1 cluster", getErrorCondition());
+    setErrorCondition(-5555, "Must have at least 1 cluster");
   }
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSelectedArrayPath().getDataContainerName(), false);
   AttributeMatrix::Pointer attrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath<AbstractFilter>(this, getSelectedArrayPath(), -301);
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -238,7 +237,7 @@ void KMeans::dataCheck()
   QVector<DataArrayPath> dataArrayPaths;
 
   m_InDataPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -261,7 +260,7 @@ void KMeans::dataCheck()
   {
     m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(tempPath);
   }
@@ -273,7 +272,7 @@ void KMeans::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrayPaths.push_back(getMaskArrayPath());
     }
@@ -300,10 +299,10 @@ void KMeans::preflight()
 // -----------------------------------------------------------------------------
 void KMeans::execute()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

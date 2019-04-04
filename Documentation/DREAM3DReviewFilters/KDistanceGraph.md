@@ -1,5 +1,4 @@
-K Distance Graph 
-=============
+# K Distance Graph #
 
 ## Group (Subgroup) ##
 

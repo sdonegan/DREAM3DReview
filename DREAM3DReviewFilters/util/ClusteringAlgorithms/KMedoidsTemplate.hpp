@@ -133,7 +133,7 @@ public:
       
       double sum = std::accumulate(std::begin(costs), std::end(costs), 0.0);
       QString ss = QObject::tr("Clustering Data || Iteration %1 || Total Cost: %2").arg(iteration).arg(sum);
-      filter->notifyStatusMessage(filter->getMessagePrefix(), filter->getHumanLabel(), ss);
+      filter->notifyStatusMessage(ss);
       iteration++;
     }
   }

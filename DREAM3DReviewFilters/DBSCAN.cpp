@@ -138,14 +138,14 @@ void DBSCAN::initialize()
 // -----------------------------------------------------------------------------
 void DBSCAN::dataCheck()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   initialize();
 
   DataContainer::Pointer m = getDataContainerArray()->getPrereqDataContainer(this, getSelectedArrayPath().getDataContainerName(), false);
   AttributeMatrix::Pointer attrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath<AbstractFilter>(this, getSelectedArrayPath(), -301);
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -227,14 +227,12 @@ void DBSCAN::dataCheck()
 
   if(getEpsilon() <= 0)
   {
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), "Epsilon must be positive", getErrorCondition());
+    setErrorCondition(-5555, "Epsilon must be positive");
     return;
   }
   if(getMinPnts() <= 1)
   {
-    setErrorCondition(-5556);
-    notifyErrorMessage(getHumanLabel(), "Minimum number of points must be greater than 1", getErrorCondition());
+    setErrorCondition(-5556, "Minimum number of points must be greater than 1");
     return;
   }
 
@@ -243,7 +241,7 @@ void DBSCAN::dataCheck()
 
   m_InDataPtr =
       getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath()); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     dataArrayPaths.push_back(getSelectedArrayPath());
   }
@@ -264,7 +262,7 @@ void DBSCAN::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       dataArrayPaths.push_back(getMaskArrayPath());
     }
@@ -291,10 +289,10 @@ void DBSCAN::preflight()
 // -----------------------------------------------------------------------------
 void DBSCAN::execute()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }

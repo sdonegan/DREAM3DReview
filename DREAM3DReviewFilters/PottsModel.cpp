@@ -379,8 +379,8 @@ PottsModel::~PottsModel()
 // -----------------------------------------------------------------------------
 void PottsModel::initialize()
 {
-  setErrorCondition(0);
-  setWarningCondition(0);
+  clearErrorCode();
+  clearWarningCode();
   setCancel(false);
 }
 
@@ -413,20 +413,18 @@ void PottsModel::dataCheck()
   if(getIterations() < 1)
   {
     QString ss = QObject::tr("Number of iterations must be greater than 0");
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    setErrorCondition(-5555, ss);
   }
 
   if(getTemperature() <= 0.0f)
   {
     QString ss = QObject::tr("Temperature must be greater than 0");
-    setErrorCondition(-5555);
-    notifyErrorMessage(getHumanLabel(), ss, getErrorCondition());
+    setErrorCondition(-5555, ss);
   }
 
   getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom, AbstractFilter>(this, getFeatureIdsArrayPath().getDataContainerName());
 
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -439,7 +437,7 @@ void PottsModel::dataCheck()
   {
     m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);
   }
-  if(getErrorCondition() >= 0)
+  if(getErrorCode() >= 0)
   {
     paths.push_back(getFeatureIdsArrayPath());
   }
@@ -453,7 +451,7 @@ void PottsModel::dataCheck()
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     }
-    if(getErrorCondition() >= 0)
+    if(getErrorCode() >= 0)
     {
       paths.push_back(getMaskArrayPath());
     }
@@ -483,7 +481,7 @@ void PottsModel::execute()
 {
   initialize();
   dataCheck();
-  if(getErrorCondition() < 0)
+  if(getErrorCode() < 0)
   {
     return;
   }
@@ -560,7 +558,7 @@ void PottsModel::execute()
           progressInt *= 10;
         }
         QString ss = QObject::tr("Iteration %1 of %2 || %3% Completed || %4 Total Flips").arg(iter + 1).arg(m_Iterations).arg(progressInt).arg(lattice.total_flips());
-        notifyStatusMessage(getMessagePrefix(), getHumanLabel(), ss);
+        notifyStatusMessage(ss);
         prog = prog + progIncrement;
       }
       counter++;

@@ -1,5 +1,4 @@
-Average Vertex Array to Edge/Face/Cell Array 
-=============
+# Average Vertex Array to Edge/Face/Cell Array #
 
 ## Group (Subgroup) ##
 

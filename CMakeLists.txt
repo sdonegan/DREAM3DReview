@@ -15,6 +15,11 @@ if(NOT Qt5Core_FOUND)
     message(FATAL_ERROR "Qt 5 is Needed for plugin ${PLUGIN_NAME}Plugin.")
 endif()
 
+# --------------------------------------------------------------------
+# Include TDMS support
+include(${${PLUGIN_NAME}_SOURCE_DIR}/TDMSSupport/SourceList.cmake)
+
+
 set(CMP_TOP_HEADER_FILE "")
 
 set(VERSION_HEADER_FILE_NAME "${PLUGIN_NAME}Version.h")

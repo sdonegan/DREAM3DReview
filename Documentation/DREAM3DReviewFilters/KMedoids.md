@@ -1,5 +1,4 @@
-K Medoids 
-=============
+# K Medoids #
 
 ## Group (Subgroup) ##
 

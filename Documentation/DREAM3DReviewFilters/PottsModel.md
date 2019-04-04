@@ -1,7 +1,7 @@
-Potts Model 
-=============
+# Potts Model #
 
 ## Group (Subgroup) ##
+
 
 DREAM3DReview (Coarsening)
 

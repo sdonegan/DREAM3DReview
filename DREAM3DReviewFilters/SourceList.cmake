@@ -33,6 +33,26 @@ set(_PublicFilters
   RemoveFlaggedVertices
   RobustAutomaticThreshold
   Silhouette
+
+  # 2019-03-06 Filter AFRL Filter Release
+  AlignGeometries
+  ApproximatePointCloudHull
+  CombineStlFiles
+  ExportCLIFile
+  ExtractTripleLinesFromTriangleGeometry
+ # FindDynamicArrayStatistics
+  FindLayerStatistics
+  FindMinkowskiBouligandDimension
+  FindSurfaceRoughness
+  ImportCLIFile
+  ImportVolumeGraphicsFile
+ # InterpolateMeshToRegularGrid
+  InterpolatePointCloudToRegularGrid
+  LabelTriangleGeometry
+  LaplacianSmoothPointCloud
+  MapPointCloudToRegularGrid
+  ReadBinaryCTNorthStar
+  SliceTriangleGeometry
 )
 
 list(LENGTH _PublicFilters PluginNumFilters)

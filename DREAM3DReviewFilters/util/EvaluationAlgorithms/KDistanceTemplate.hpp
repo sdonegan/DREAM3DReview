@@ -104,7 +104,7 @@ public:
       {
         progressInt = static_cast<int64_t>((static_cast<float>(counter) / numTuples) * 100.0f);
         QString ss = QObject::tr("Computing K Distances || Visited Point %1 of %2 || %3% Completed").arg(counter).arg(numTuples).arg(progressInt);
-        filter->notifyStatusMessage(filter->getMessagePrefix(), filter->getHumanLabel(), ss);
+        filter->notifyStatusMessage(ss);
         prog = prog + progIncrement;
       }
       counter++;

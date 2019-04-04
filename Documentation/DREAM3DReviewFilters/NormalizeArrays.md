@@ -1,5 +1,4 @@
-Normalize Attribute Arrays 
-=============
+# Normalize Attribute Arrays #
 
 ## Group (Subgroup) ##
 

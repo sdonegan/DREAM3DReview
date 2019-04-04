@@ -1,5 +1,4 @@
-Compute Umeyama Transform 
-=============
+# Compute Umeyama Transform #
 
 ## Group (Subgroup) ##
 
