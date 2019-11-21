@@ -36,6 +36,8 @@
 #include <QtCore/QString>
 
 #include "SIMPLib/Common/SIMPLibSetGetMacros.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
+#include "SIMPLib/DataContainers/DataContainer.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/FilterParameters/JsonFilterParametersReader.h"
 #include "SIMPLib/Filtering/FilterFactory.hpp"
@@ -157,7 +159,7 @@ public:
     AttributeMatrix::Pointer featureAttrMat2 = dc->getAttributeMatrix(::k_CellFeatureData2);
     Int32ArrayType::Pointer phases2 = std::dynamic_pointer_cast<Int32ArrayType>(featureAttrMat2->getAttributeArray(::k_Phases2));
     numTuples = phases2->getNumberOfTuples();
-    DREAM3D_REQUIRED(numTuples, >, 2600)
+    DREAM3D_REQUIRED(numTuples, >, 2400)
     DREAM3D_REQUIRED(numTuples, <, 2900)
 
     return EXIT_SUCCESS;
