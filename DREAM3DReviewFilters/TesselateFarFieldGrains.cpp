@@ -1547,13 +1547,13 @@ DataArrayPath TesselateFarFieldGrains::getMaskArrayPath() const
 }
 
 // -----------------------------------------------------------------------------
-void TesselateFarFieldGrains::setFeatureInputFileListInfo(const FileListInfo_t& value)
+void TesselateFarFieldGrains::setFeatureInputFileListInfo(const StackFileListInfo& value)
 {
   m_FeatureInputFileListInfo = value;
 }
 
 // -----------------------------------------------------------------------------
-FileListInfo_t TesselateFarFieldGrains::getFeatureInputFileListInfo() const
+StackFileListInfo TesselateFarFieldGrains::getFeatureInputFileListInfo() const
 {
   return m_FeatureInputFileListInfo;
 }

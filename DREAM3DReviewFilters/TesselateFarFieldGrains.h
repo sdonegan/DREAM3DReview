@@ -50,6 +50,7 @@
 #include "SIMPLib/DataArrays/StatsDataArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 #include "SIMPLib/FilterParameters/FileListInfoFilterParameter.h"
+#include "SIMPLib/FilterParameters/StackFileListInfo.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/Geometry/ShapeOps/ShapeOps.h"
 #include "SIMPLib/StatsData/StatsData.h"
@@ -86,7 +87,7 @@ class DREAM3DReview_EXPORT TesselateFarFieldGrains : public AbstractFilter
   PYB11_FILTER_PARAMETER(QString, EquivalentDiametersArrayName)
   PYB11_FILTER_PARAMETER(QString, CrystalStructuresArrayName)
   PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(FileListInfo_t, FeatureInputFileListInfo)
+  PYB11_FILTER_PARAMETER(StackFileListInfo, FeatureInputFileListInfo)
   PYB11_PROPERTY(DataArrayPath OutputCellAttributeMatrixName READ getOutputCellAttributeMatrixName WRITE setOutputCellAttributeMatrixName)
   PYB11_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
   PYB11_PROPERTY(QString CellPhasesArrayName READ getCellPhasesArrayName WRITE setCellPhasesArrayName)
@@ -102,7 +103,7 @@ class DREAM3DReview_EXPORT TesselateFarFieldGrains : public AbstractFilter
   PYB11_PROPERTY(QString EquivalentDiametersArrayName READ getEquivalentDiametersArrayName WRITE setEquivalentDiametersArrayName)
   PYB11_PROPERTY(QString CrystalStructuresArrayName READ getCrystalStructuresArrayName WRITE setCrystalStructuresArrayName)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
-  PYB11_PROPERTY(FileListInfo_t FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
+  PYB11_PROPERTY(StackFileListInfo FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
 #endif
 
 public:
@@ -333,14 +334,14 @@ public:
   /**
    * @brief Setter property for FeatureInputFileListInfo
    */
-  void setFeatureInputFileListInfo(const FileListInfo_t& value);
+  void setFeatureInputFileListInfo(const StackFileListInfo& value);
   /**
    * @brief Getter property for FeatureInputFileListInfo
    * @return Value of FeatureInputFileListInfo
    */
-  FileListInfo_t getFeatureInputFileListInfo() const;
+  StackFileListInfo getFeatureInputFileListInfo() const;
 
-  Q_PROPERTY(FileListInfo_t FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
+  Q_PROPERTY(StackFileListInfo FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
 
   /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
@@ -480,7 +481,7 @@ private:
   QString m_EquivalentDiametersArrayName = {};
   QString m_CrystalStructuresArrayName = {};
   DataArrayPath m_MaskArrayPath = {};
-  FileListInfo_t m_FeatureInputFileListInfo = {};
+  StackFileListInfo m_FeatureInputFileListInfo = {};
 
   int32_t* m_Neighbors;
 

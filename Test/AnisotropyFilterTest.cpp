@@ -196,7 +196,7 @@ public:
       bool propWasSet;
       QVariant var;
 
-      FileListInfo_t input;
+      StackFileListInfo input;
       input.InputPath = UnitTest::AnisotropyTest::InputDir + "/" + UnitTest::AnisotropyTest::TestTifExtension;
       input.StartIndex = UnitTest::AnisotropyTest::TestTifStartIndex;
       input.EndIndex = UnitTest::AnisotropyTest::TestTifEndIndex;
