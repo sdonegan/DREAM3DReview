@@ -415,7 +415,7 @@ template <template <typename, typename...> class C, typename T, typename... Ts> 
   std::vector<double> difference(source.size());
   float sum = std::accumulate(std::begin(source), std::end(source), 0.0f);
   float mean = static_cast<double>(sum / source.size());
-  std::transform(std::begin(source), std::end(source), std::begin(difference), std::bind2nd(std::minus<float>(), mean));
+  std::transform(std::begin(source), std::end(source), std::begin(difference), [mean](float a) { return a - mean; });
   float squaredSum = std::inner_product(std::begin(difference), std::end(difference), std::begin(difference), 0.0f);
   return std::sqrt(squaredSum / source.size());
 }
