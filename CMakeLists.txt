@@ -47,6 +47,7 @@ elseif(ITK_VERSION_MAJOR EQUAL 5)
   # Put ITK 5 Specific Modules in here
   set_property(GLOBAL PROPERTY ADDITIONAL_ITK_MODULES 	
                 ITKTransform
+                ITKSpatialObjects
   )
 endif()
 
