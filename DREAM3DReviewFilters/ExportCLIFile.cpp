@@ -420,13 +420,13 @@ std::shared_ptr<ExportCLIFile> ExportCLIFile::New()
 // -----------------------------------------------------------------------------
 QString ExportCLIFile::getNameOfClass() const
 {
-  return QString("_SUPERExportCLIFile");
+  return QString("ExportCLIFile");
 }
 
 // -----------------------------------------------------------------------------
 QString ExportCLIFile::ClassName()
 {
-  return QString("_SUPERExportCLIFile");
+  return QString("ExportCLIFile");
 }
 
 // -----------------------------------------------------------------------------
