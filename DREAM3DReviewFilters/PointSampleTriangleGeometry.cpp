@@ -192,7 +192,7 @@ void PointSampleTriangleGeometry::dataCheck()
   }
   case 1: // From other Geometry
   {
-    IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getParentGeometry());
+    IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry>(this, getParentGeometry());
     if(getErrorCode() < 0)
     {
       return;
@@ -247,8 +247,8 @@ void PointSampleTriangleGeometry::dataCheck()
 
   QVector<IDataArray::Pointer> dataArrays;
 
-  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getTriangleGeometry());
-  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getVertexGeometry(), DataContainerID);
+  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom>(this, getTriangleGeometry());
+  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer(this, getVertexGeometry(), DataContainerID);
 
   if(getErrorCode() < 0)
   {
@@ -265,7 +265,7 @@ void PointSampleTriangleGeometry::dataCheck()
 
   m->createNonPrereqAttributeMatrix(this, getVertexAttributeMatrixName(), tDims, AttributeMatrix::Type::Vertex, AttributeMatrixID21);
 
-  m_TriangleAreasPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<double>, AbstractFilter>(this, getTriangleAreasArrayPath(), cDims);
+  m_TriangleAreasPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<double>>(this, getTriangleAreasArrayPath(), cDims);
   if(m_TriangleAreasPtr.lock())
   {
     m_TriangleAreas = m_TriangleAreasPtr.lock()->getPointer(0);
@@ -277,7 +277,7 @@ void PointSampleTriangleGeometry::dataCheck()
 
   if(getUseMask())
   {
-    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>, AbstractFilter>(this, getMaskArrayPath(), cDims);
+    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
     if(m_MaskPtr.lock())
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
@@ -303,7 +303,7 @@ void PointSampleTriangleGeometry::dataCheck()
 
   for(auto&& path : paths)
   {
-    IDataArray::WeakPointer ptr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, path);
+    IDataArray::WeakPointer ptr = getDataContainerArray()->getPrereqIDataArrayFromPath(this, path);
     if(getErrorCode() >= 0)
     {
       dataArrays.push_back(ptr.lock());
@@ -315,22 +315,9 @@ void PointSampleTriangleGeometry::dataCheck()
     }
   }
 
-  getDataContainerArray()->validateNumberOfTuples<AbstractFilter>(this, dataArrays);
+  getDataContainerArray()->validateNumberOfTuples(this, dataArrays);
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void PointSampleTriangleGeometry::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

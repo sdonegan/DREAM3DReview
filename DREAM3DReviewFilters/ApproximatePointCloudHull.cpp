@@ -95,9 +95,9 @@ void ApproximatePointCloudHull::dataCheck()
     setErrorCondition(-11001, ss);
   }
 
-  getDataContainerArray()->getPrereqGeometryFromDataContainer<VertexGeom, AbstractFilter>(this, getVertexDataContainerName());
+  getDataContainerArray()->getPrereqGeometryFromDataContainer<VertexGeom>(this, getVertexDataContainerName());
 
-  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getHullDataContainerName());
+  DataContainer::Pointer dc = getDataContainerArray()->createNonPrereqDataContainer(this, getHullDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -108,19 +108,6 @@ void ApproximatePointCloudHull::dataCheck()
   dc->setGeometry(vertex);
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void ApproximatePointCloudHull::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

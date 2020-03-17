@@ -190,7 +190,7 @@ void SliceTriangleGeometry::dataCheck()
   DataArrayPath tempPath;
   QVector<IDataArray::Pointer> dataArrays;
 
-  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getCADDataContainerName());
+  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom>(this, getCADDataContainerName());
 
   if(m_SliceRange == 1)
   {
@@ -201,7 +201,7 @@ void SliceTriangleGeometry::dataCheck()
     }
   }
 
-  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer<AbstractFilter>(this, getSliceDataContainerName());
+  DataContainer::Pointer m = getDataContainerArray()->createNonPrereqDataContainer(this, getSliceDataContainerName());
   if(getErrorCode() < 0)
   {
     return;
@@ -221,7 +221,7 @@ void SliceTriangleGeometry::dataCheck()
   std::vector<size_t> cDims(1, 1);
   if(m_HaveRegionIds)
   {
-    m_TriRegionIdPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter>(this, getRegionIdArrayPath(),
+    m_TriRegionIdPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>>(this, getRegionIdArrayPath(),
                                                                                                            cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
     if(nullptr != m_TriRegionIdPtr.lock().get())                                                                   /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
     {
@@ -233,7 +233,7 @@ void SliceTriangleGeometry::dataCheck()
     }
 
     tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getRegionIdArrayPath().getDataArrayName());
-    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter, int32_t>(
+    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(
         this, tempPath, 0, cDims);            /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
     if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
     {
@@ -246,7 +246,7 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getSliceIdArrayName());
-  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter, int32_t>(this, tempPath, 0,
+  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0,
                                                                                                                     cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
   if(nullptr != m_SliceIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
@@ -258,7 +258,7 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getAreasArrayName());
-  m_AreaPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, int32_t>(this, tempPath, 0,
+  m_AreaPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0,
                                                                                                                cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
   if(nullptr != m_AreaPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
@@ -270,7 +270,7 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getPerimetersArrayName());
-  m_PerimeterPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, int32_t>(this, tempPath, 0,
+  m_PerimeterPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0,
                                                                                                                     cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
   if(nullptr != m_PerimeterPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
@@ -282,19 +282,6 @@ void SliceTriangleGeometry::dataCheck()
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void SliceTriangleGeometry::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

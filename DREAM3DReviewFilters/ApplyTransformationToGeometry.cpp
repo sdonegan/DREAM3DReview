@@ -169,7 +169,7 @@ void ApplyTransformationToGeometry::dataCheck()
   clearErrorCode();
   clearWarningCode();
 
-  IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry, AbstractFilter>(this, getGeometryToTransform());
+  IGeometry::Pointer igeom = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry>(this, getGeometryToTransform());
 
   if(getErrorCode() < 0)
   {
@@ -194,7 +194,7 @@ void ApplyTransformationToGeometry::dataCheck()
   }
   case 1: // Transformation matrix from array
   {
-    m_TransformationMatrixPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>, AbstractFilter>(this, getComputedTransformationMatrix(), cDims);
+    m_TransformationMatrixPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>>(this, getComputedTransformationMatrix(), cDims);
     if(m_TransformationMatrixPtr.lock())
     {
       m_TransformationMatrix = m_TransformationMatrixPtr.lock()->getPointer(0);
@@ -297,19 +297,6 @@ void ApplyTransformationToGeometry::dataCheck()
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void ApplyTransformationToGeometry::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

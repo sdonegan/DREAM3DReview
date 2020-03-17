@@ -198,7 +198,7 @@ void FindArrayStatistics::dataCheck()
 
   QVector<DataArrayPath> dataArrayPaths;
 
-  m_InputArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath<IDataArray, AbstractFilter>(this, getSelectedArrayPath());
+  m_InputArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath(this, getSelectedArrayPath());
 
   if(getErrorCode() < 0)
   {
@@ -215,7 +215,7 @@ void FindArrayStatistics::dataCheck()
 
   if(!getComputeByIndex())
   {
-    AttributeMatrix::Pointer destAttrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath<AbstractFilter>(this, getDestinationAttributeMatrix(), -301);
+    AttributeMatrix::Pointer destAttrMat = getDataContainerArray()->getPrereqAttributeMatrixFromPath(this, getDestinationAttributeMatrix(), -301);
     if(getErrorCode() < 0)
     {
       return;
@@ -249,7 +249,7 @@ void FindArrayStatistics::dataCheck()
 
   if(getComputeByIndex())
   {
-    m_FeatureIdsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter>(this, getFeatureIdsArrayPath(), cDims);
+    m_FeatureIdsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>>(this, getFeatureIdsArrayPath(), cDims);
     if(m_FeatureIdsPtr.lock())
     {
       m_FeatureIds = m_FeatureIdsPtr.lock()->getPointer(0);
@@ -265,7 +265,7 @@ void FindArrayStatistics::dataCheck()
   if(m_FindLength)
   {
     DataArrayPath path(getDestinationAttributeMatrix().getDataContainerName(), getDestinationAttributeMatrix().getAttributeMatrixName(), getLengthArrayName());
-    m_LengthPtr = getDataContainerArray()->createNonPrereqArrayFromPath<MeshIndexArrayType, AbstractFilter, MeshIndexType>(this, path, 0, cDims, "", DataArrayID31);
+    m_LengthPtr = getDataContainerArray()->createNonPrereqArrayFromPath<MeshIndexArrayType>(this, path, 0, cDims, "", DataArrayID31);
     if(m_LengthPtr.lock())
     {
       m_Length = m_LengthPtr.lock()->getPointer(0);
@@ -274,7 +274,7 @@ void FindArrayStatistics::dataCheck()
 
   if(getUseMask())
   {
-    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>, AbstractFilter>(this, getMaskArrayPath(), cDims);
+    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
     if(m_MaskPtr.lock())
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
@@ -293,7 +293,7 @@ void FindArrayStatistics::dataCheck()
       setErrorCondition(-11003, ss);
     }
     DataArrayPath path(getSelectedArrayPath().getDataContainerName(), getSelectedArrayPath().getAttributeMatrixName(), getStandardizedArrayName());
-    m_StandardizedPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>, AbstractFilter, float>(this, path, 0, cDims, "", DataArrayID32);
+    m_StandardizedPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims, "", DataArrayID32);
     if(m_StandardizedPtr.lock())
     {
       m_Standardized = m_StandardizedPtr.lock()->getPointer(0);
@@ -304,22 +304,9 @@ void FindArrayStatistics::dataCheck()
     }
   }
 
-  getDataContainerArray()->validateNumberOfTuples<AbstractFilter>(this, dataArrayPaths);
+  getDataContainerArray()->validateNumberOfTuples(this, dataArrayPaths);
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void FindArrayStatistics::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

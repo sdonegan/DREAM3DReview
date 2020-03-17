@@ -78,7 +78,7 @@ void FindSurfaceRoughness::dataCheck()
   clearErrorCode();
   clearWarningCode();
 
-  ImageGeom::Pointer image = getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom, AbstractFilter>(this, getBoundaryCellsArrayPath().getDataContainerName());
+  ImageGeom::Pointer image = getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom>(this, getBoundaryCellsArrayPath().getDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -87,13 +87,13 @@ void FindSurfaceRoughness::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
 
-  m_BoundaryCellsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int8_t>, AbstractFilter>(this, getBoundaryCellsArrayPath(), cDims);
+  m_BoundaryCellsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int8_t>>(this, getBoundaryCellsArrayPath(), cDims);
   if(nullptr != m_BoundaryCellsPtr.lock().get())
   {
     m_BoundaryCells = m_BoundaryCellsPtr.lock()->getPointer(0);
   }
 
-  DataContainer::Pointer dc = getDataContainerArray()->getPrereqDataContainer<AbstractFilter>(this, getBoundaryCellsArrayPath().getDataContainerName());
+  DataContainer::Pointer dc = getDataContainerArray()->getPrereqDataContainer(this, getBoundaryCellsArrayPath().getDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -106,26 +106,13 @@ void FindSurfaceRoughness::dataCheck()
 
   cDims[0] = 3;
 
-  m_RoughnessParamsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter, double>(this, path, 0, cDims);
+  m_RoughnessParamsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, path, 0, cDims);
   if(nullptr != m_RoughnessParamsPtr.lock().get())
   {
     m_RoughnessParams = m_RoughnessParamsPtr.lock()->getPointer(0);
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void FindSurfaceRoughness::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

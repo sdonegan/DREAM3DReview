@@ -97,7 +97,7 @@ void LabelTriangleGeometry::dataCheck()
 
   DataArrayPath tempPath;
 
-  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom, AbstractFilter>(this, getCADDataContainerName());
+  TriangleGeom::Pointer triangle = getDataContainerArray()->getPrereqGeometryFromDataContainer<TriangleGeom>(this, getCADDataContainerName());
 
   std::vector<size_t> tDims(1, 0);
   getDataContainerArray()->getDataContainer(getCADDataContainerName())->createNonPrereqAttributeMatrix(this, getTriangleAttributeMatrixName(), tDims, AttributeMatrix::Type::Face);
@@ -109,7 +109,7 @@ void LabelTriangleGeometry::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
   tempPath.update(getCADDataContainerName().getDataContainerName(), getTriangleAttributeMatrixName(), getRegionIdArrayName());
-  m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter, int32_t>(this, tempPath, 0,
+  m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0,
                                                                                                                      cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
   if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
@@ -121,19 +121,6 @@ void LabelTriangleGeometry::dataCheck()
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void LabelTriangleGeometry::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

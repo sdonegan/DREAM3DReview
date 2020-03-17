@@ -79,7 +79,7 @@ void FindMinkowskiBouligandDimension::dataCheck()
   clearErrorCode();
   clearWarningCode();
 
-  ImageGeom::Pointer image = getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom, AbstractFilter>(this, getMaskArrayPath().getDataContainerName());
+  ImageGeom::Pointer image = getDataContainerArray()->getPrereqGeometryFromDataContainer<ImageGeom>(this, getMaskArrayPath().getDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -95,13 +95,13 @@ void FindMinkowskiBouligandDimension::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
 
-  m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>, AbstractFilter>(this, getMaskArrayPath(), cDims);
+  m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
   if(nullptr != m_MaskPtr.lock().get())
   {
     m_Mask = m_MaskPtr.lock()->getPointer(0);
   }
 
-  DataContainer::Pointer dc = getDataContainerArray()->getPrereqDataContainer<AbstractFilter>(this, getMaskArrayPath().getDataContainerName());
+  DataContainer::Pointer dc = getDataContainerArray()->getPrereqDataContainer(this, getMaskArrayPath().getDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -112,26 +112,13 @@ void FindMinkowskiBouligandDimension::dataCheck()
 
   DataArrayPath path(getMaskArrayPath().getDataContainerName(), getAttributeMatrixName(), getMinkowskiBouligandDimensionArrayName());
 
-  m_MinkowskiBouligandDimensionPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>, AbstractFilter, double>(this, path, 0, cDims);
+  m_MinkowskiBouligandDimensionPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, path, 0, cDims);
   if(nullptr != m_MinkowskiBouligandDimensionPtr.lock().get())
   {
     m_MinkowskiBouligandDimension = m_MinkowskiBouligandDimensionPtr.lock()->getPointer(0);
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void FindMinkowskiBouligandDimension::preflight()
-{
-  // These are the REQUIRED lines of CODE to make sure the filter behaves correctly
-  setInPreflight(true);              // Set the fact that we are preflighting.
-  emit preflightAboutToExecute();    // Emit this signal so that other widgets can do one file update
-  emit updateFilterParameters(this); // Emit this signal to have the widgets push their values down to the filter
-  dataCheck();                       // Run our DataCheck to make sure everthing is setup correctly
-  emit preflightExecuted();          // We are done preflighting this filter
-  setInPreflight(false);             // Inform the system this filter is NOT in preflight mode anymore.
-}
 
 // -----------------------------------------------------------------------------
 //

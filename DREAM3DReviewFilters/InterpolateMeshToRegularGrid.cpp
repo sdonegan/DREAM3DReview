@@ -573,7 +573,7 @@ void InterpolateMeshToRegularGrid::dataCheck()
   clearErrorCode();
   clearWarningCode();
 
-  IGeometry2D::Pointer geom2D = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry2D, AbstractFilter>(this, getSelectedDataContainerName());
+  IGeometry2D::Pointer geom2D = getDataContainerArray()->getPrereqGeometryFromDataContainer<IGeometry2D>(this, getSelectedDataContainerName());
 
   if(getErrorCode() < 0)
   {
@@ -658,18 +658,6 @@ void InterpolateMeshToRegularGrid::dataCheck()
   }
 }
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void InterpolateMeshToRegularGrid::preflight()
-{
-  setInPreflight(true);
-  emit preflightAboutToExecute();
-  emit updateFilterParameters(this);
-  dataCheck();
-  emit preflightExecuted();
-  setInPreflight(false);
-}
 
 // -----------------------------------------------------------------------------
 //
