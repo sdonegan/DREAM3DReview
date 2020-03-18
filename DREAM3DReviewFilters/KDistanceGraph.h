@@ -148,7 +148,7 @@ public:
    */
   int getMinDist() const;
 
-  Q_PROPERTY(int MinDist READ getMinDist WRITE setMinDist NOTIFY parametersChanged)
+  Q_PROPERTY(int MinDist READ getMinDist WRITE setMinDist)
 
   /**
    * @brief Setter property for DistanceMetric
