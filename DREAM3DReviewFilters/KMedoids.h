@@ -178,7 +178,7 @@ public:
    */
   int getInitClusters() const;
 
-  Q_PROPERTY(int InitClusters READ getInitClusters WRITE setInitClusters NOTIFY parametersChanged)
+  Q_PROPERTY(int InitClusters READ getInitClusters WRITE setInitClusters)
 
   /**
    * @brief Setter property for DistanceMetric
