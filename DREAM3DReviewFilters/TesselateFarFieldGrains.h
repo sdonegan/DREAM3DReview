@@ -68,26 +68,10 @@ class DREAM3DReview_EXPORT TesselateFarFieldGrains : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(TesselateFarFieldGrains SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(TesselateFarFieldGrains SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(TesselateFarFieldGrains)
   PYB11_FILTER_NEW_MACRO(TesselateFarFieldGrains)
-  PYB11_FILTER_PARAMETER(DataArrayPath, OutputCellAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, FeatureIdsArrayName)
-  PYB11_FILTER_PARAMETER(QString, CellPhasesArrayName)
-  PYB11_FILTER_PARAMETER(QString, SlabIdArrayName)
-  PYB11_FILTER_PARAMETER(QString, FeaturePhasesArrayName)
-  PYB11_FILTER_PARAMETER(QString, FeatureEulerAnglesArrayName)
-  PYB11_FILTER_PARAMETER(QString, ElasticStrainsArrayName)
-  PYB11_FILTER_PARAMETER(QString, CentroidsArrayName)
-  PYB11_FILTER_PARAMETER(QString, VolumesArrayName)
-  PYB11_FILTER_PARAMETER(QString, AxisLengthsArrayName)
-  PYB11_FILTER_PARAMETER(QString, AxisEulerAnglesArrayName)
-  PYB11_FILTER_PARAMETER(QString, Omega3sArrayName)
-  PYB11_FILTER_PARAMETER(QString, EquivalentDiametersArrayName)
-  PYB11_FILTER_PARAMETER(QString, CrystalStructuresArrayName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(StackFileListInfo, FeatureInputFileListInfo)
   PYB11_PROPERTY(DataArrayPath OutputCellAttributeMatrixName READ getOutputCellAttributeMatrixName WRITE setOutputCellAttributeMatrixName)
   PYB11_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
   PYB11_PROPERTY(QString CellPhasesArrayName READ getCellPhasesArrayName WRITE setCellPhasesArrayName)
@@ -104,7 +88,8 @@ class DREAM3DReview_EXPORT TesselateFarFieldGrains : public AbstractFilter
   PYB11_PROPERTY(QString CrystalStructuresArrayName READ getCrystalStructuresArrayName WRITE setCrystalStructuresArrayName)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(StackFileListInfo FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = TesselateFarFieldGrains;

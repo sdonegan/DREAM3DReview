@@ -35,6 +35,7 @@ set(_PublicFilters
   RemoveFlaggedVertices
   RobustAutomaticThreshold
   Silhouette
+  WaveFrontObjectFileWriter
 
   # 2019-03-06 Filter AFRL Filter Release
   AlignGeometries
@@ -80,7 +81,6 @@ set(_PublicFilters
   FindCSLBoundaries
   InsertTransformationPhases
   TiDwellFatigueCrystallographicAnalysis
-  SurfaceMeshToWaveFront
 )
 
 list(LENGTH _PublicFilters PluginNumFilters)

@@ -54,32 +54,10 @@ class DREAM3DReview_EXPORT FindArrayStatistics : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(FindArrayStatistics SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(FindArrayStatistics SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(FindArrayStatistics)
   PYB11_FILTER_NEW_MACRO(FindArrayStatistics)
-  PYB11_FILTER_PARAMETER(bool, FindLength)
-  PYB11_FILTER_PARAMETER(bool, FindMin)
-  PYB11_FILTER_PARAMETER(bool, FindMax)
-  PYB11_FILTER_PARAMETER(bool, FindMean)
-  PYB11_FILTER_PARAMETER(bool, FindMedian)
-  PYB11_FILTER_PARAMETER(bool, FindStdDeviation)
-  PYB11_FILTER_PARAMETER(bool, FindSummation)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(bool, StandardizeData)
-  PYB11_FILTER_PARAMETER(bool, ComputeByIndex)
-  PYB11_FILTER_PARAMETER(DataArrayPath, DestinationAttributeMatrix)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(QString, LengthArrayName)
-  PYB11_FILTER_PARAMETER(QString, MinimumArrayName)
-  PYB11_FILTER_PARAMETER(QString, MaximumArrayName)
-  PYB11_FILTER_PARAMETER(QString, MeanArrayName)
-  PYB11_FILTER_PARAMETER(QString, MedianArrayName)
-  PYB11_FILTER_PARAMETER(QString, StdDeviationArrayName)
-  PYB11_FILTER_PARAMETER(QString, SummationArrayName)
-  PYB11_FILTER_PARAMETER(QString, StandardizedArrayName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureIdsArrayPath)
   PYB11_PROPERTY(bool FindLength READ getFindLength WRITE setFindLength)
   PYB11_PROPERTY(bool FindMin READ getFindMin WRITE setFindMin)
   PYB11_PROPERTY(bool FindMax READ getFindMax WRITE setFindMax)
@@ -102,7 +80,8 @@ class DREAM3DReview_EXPORT FindArrayStatistics : public AbstractFilter
   PYB11_PROPERTY(QString StandardizedArrayName READ getStandardizedArrayName WRITE setStandardizedArrayName)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = FindArrayStatistics;

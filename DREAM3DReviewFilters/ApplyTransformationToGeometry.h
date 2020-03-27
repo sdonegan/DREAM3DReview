@@ -52,18 +52,10 @@ class DREAM3DReview_EXPORT ApplyTransformationToGeometry : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(ApplyTransformationToGeometry SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ApplyTransformationToGeometry SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ApplyTransformationToGeometry)
   PYB11_FILTER_NEW_MACRO(ApplyTransformationToGeometry)
-  PYB11_FILTER_PARAMETER(DynamicTableData, ManualTransformationMatrix)
-  PYB11_FILTER_PARAMETER(DataArrayPath, ComputedTransformationMatrix)
-  PYB11_FILTER_PARAMETER(DataArrayPath, GeometryToTransform)
-  PYB11_FILTER_PARAMETER(int, TransformationMatrixType)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, RotationAxis)
-  PYB11_FILTER_PARAMETER(float, RotationAngle)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, Translation)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, Scale)
   PYB11_PROPERTY(DynamicTableData ManualTransformationMatrix READ getManualTransformationMatrix WRITE setManualTransformationMatrix)
   PYB11_PROPERTY(DataArrayPath ComputedTransformationMatrix READ getComputedTransformationMatrix WRITE setComputedTransformationMatrix)
   PYB11_PROPERTY(DataArrayPath GeometryToTransform READ getGeometryToTransform WRITE setGeometryToTransform)
@@ -72,7 +64,8 @@ class DREAM3DReview_EXPORT ApplyTransformationToGeometry : public AbstractFilter
   PYB11_PROPERTY(float RotationAngle READ getRotationAngle WRITE setRotationAngle)
   PYB11_PROPERTY(FloatVec3Type Translation READ getTranslation WRITE setTranslation)
   PYB11_PROPERTY(FloatVec3Type Scale READ getScale WRITE setScale)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = ApplyTransformationToGeometry;

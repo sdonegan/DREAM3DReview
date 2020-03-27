@@ -53,18 +53,10 @@ class DREAM3DReview_EXPORT DBSCAN : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(DBSCAN SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(DBSCAN SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(DBSCAN)
   PYB11_FILTER_NEW_MACRO(DBSCAN)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(QString, FeatureIdsArrayName)
-  PYB11_FILTER_PARAMETER(QString, FeatureAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(float, Epsilon)
-  PYB11_FILTER_PARAMETER(int, MinPnts)
-  PYB11_FILTER_PARAMETER(int, DistanceMetric)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
@@ -73,7 +65,8 @@ class DREAM3DReview_EXPORT DBSCAN : public AbstractFilter
   PYB11_PROPERTY(float Epsilon READ getEpsilon WRITE setEpsilon)
   PYB11_PROPERTY(int MinPnts READ getMinPnts WRITE setMinPnts)
   PYB11_PROPERTY(int DistanceMetric READ getDistanceMetric WRITE setDistanceMetric)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = DBSCAN;

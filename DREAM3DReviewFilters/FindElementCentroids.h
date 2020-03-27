@@ -50,19 +50,16 @@ class DREAM3DReview_EXPORT FindElementCentroids : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(FindElementCentroids SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(FindElementCentroids SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(FindElementCentroids)
   PYB11_FILTER_NEW_MACRO(FindElementCentroids)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellCentroidsArrayPath)
-  PYB11_FILTER_PARAMETER(bool, CreateVertexDataContainer)
-  PYB11_FILTER_PARAMETER(DataArrayPath, NewDataContainerName)
-  PYB11_FILTER_PARAMETER(QString, VertexAttributeMatrixName)
   PYB11_PROPERTY(DataArrayPath CellCentroidsArrayPath READ getCellCentroidsArrayPath WRITE setCellCentroidsArrayPath)
   PYB11_PROPERTY(bool CreateVertexDataContainer READ getCreateVertexDataContainer WRITE setCreateVertexDataContainer)
   PYB11_PROPERTY(DataArrayPath NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
   PYB11_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = FindElementCentroids;

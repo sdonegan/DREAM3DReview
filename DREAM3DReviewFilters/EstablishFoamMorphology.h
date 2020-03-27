@@ -32,8 +32,8 @@
 class DREAM3DReview_EXPORT EstablishFoamMorphology : public AbstractFilter
 {
   Q_OBJECT
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(EstablishFoamMorphology SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(EstablishFoamMorphology SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(EstablishFoamMorphology)
   PYB11_FILTER_NEW_MACRO(EstablishFoamMorphology)
   PYB11_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
@@ -60,7 +60,8 @@ class DREAM3DReview_EXPORT EstablishFoamMorphology : public AbstractFilter
   PYB11_PROPERTY(float StrutThicknessVariability READ getStrutThicknessVariability WRITE setStrutThicknessVariability)
   PYB11_PROPERTY(float StrutShapeVariability READ getStrutShapeVariability WRITE setStrutShapeVariability)
   PYB11_PROPERTY(bool SmoothStruts READ getSmoothStruts WRITE setSmoothStruts)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = EstablishFoamMorphology;

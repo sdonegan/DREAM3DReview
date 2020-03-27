@@ -53,20 +53,10 @@ class DREAM3DReview_EXPORT AdaptiveAlignment : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(AdaptiveAlignment SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(AdaptiveAlignment SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(AdaptiveAlignment)
   PYB11_FILTER_NEW_MACRO(AdaptiveAlignment)
-  PYB11_FILTER_PARAMETER(int, GlobalCorrection)
-  PYB11_FILTER_PARAMETER(QString, InputPath)
-  PYB11_FILTER_PARAMETER(float, ShiftX)
-  PYB11_FILTER_PARAMETER(float, ShiftY)
-  PYB11_FILTER_PARAMETER(DataArrayPath, ImageDataArrayPath)
-  PYB11_FILTER_PARAMETER(QString, NewCellArrayName)
-  PYB11_FILTER_PARAMETER(float, MinRadius)
-  PYB11_FILTER_PARAMETER(float, MaxRadius)
-  PYB11_FILTER_PARAMETER(int, NumberCircles)
-  PYB11_FILTER_PARAMETER(QVector<DataArrayPath>, IgnoredDataArrayPaths)
   PYB11_PROPERTY(int GlobalCorrection READ getGlobalCorrection WRITE setGlobalCorrection)
   PYB11_PROPERTY(QString InputPath READ getInputPath WRITE setInputPath)
   PYB11_PROPERTY(float ShiftX READ getShiftX WRITE setShiftX)
@@ -76,7 +66,8 @@ class DREAM3DReview_EXPORT AdaptiveAlignment : public AbstractFilter
   PYB11_PROPERTY(float MinRadius READ getMinRadius WRITE setMinRadius)
   PYB11_PROPERTY(float MaxRadius READ getMaxRadius WRITE setMaxRadius)
   PYB11_PROPERTY(int NumberCircles READ getNumberCircles WRITE setNumberCircles)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = AdaptiveAlignment;

@@ -84,21 +84,17 @@ class DREAM3DReview_EXPORT ReadMicData : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(ReadMicData SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ReadMicData SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ReadMicData)
   PYB11_FILTER_NEW_MACRO(ReadMicData)
-  PYB11_FILTER_PARAMETER(DataArrayPath, DataContainerName)
-  PYB11_FILTER_PARAMETER(QString, CellEnsembleAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, CellAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(bool, FileWasRead)
-  PYB11_FILTER_PARAMETER(QString, InputFile)
   PYB11_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
   PYB11_PROPERTY(QString CellEnsembleAttributeMatrixName READ getCellEnsembleAttributeMatrixName WRITE setCellEnsembleAttributeMatrixName)
   PYB11_PROPERTY(QString CellAttributeMatrixName READ getCellAttributeMatrixName WRITE setCellAttributeMatrixName)
   PYB11_PROPERTY(bool FileWasRead READ getFileWasRead WRITE setFileWasRead)
   PYB11_PROPERTY(QString InputFile READ getInputFile WRITE setInputFile)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
   Q_DECLARE_PRIVATE(ReadMicData)
 

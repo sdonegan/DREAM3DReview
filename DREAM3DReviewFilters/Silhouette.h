@@ -53,23 +53,18 @@ class DREAM3DReview_EXPORT Silhouette : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(Silhouette SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(Silhouette SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(Silhouette)
   PYB11_FILTER_NEW_MACRO(Silhouette)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureIdsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SilhouetteArrayPath)
-  PYB11_FILTER_PARAMETER(int, DistanceMetric)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
   PYB11_PROPERTY(DataArrayPath SilhouetteArrayPath READ getSilhouetteArrayPath WRITE setSilhouetteArrayPath)
   PYB11_PROPERTY(int DistanceMetric READ getDistanceMetric WRITE setDistanceMetric)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = Silhouette;

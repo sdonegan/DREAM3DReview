@@ -50,18 +50,10 @@ class DREAM3DReview_EXPORT PrincipalComponentAnalysis : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(PrincipalComponentAnalysis SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(PrincipalComponentAnalysis SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(PrincipalComponentAnalysis)
   PYB11_FILTER_NEW_MACRO(PrincipalComponentAnalysis)
-  PYB11_FILTER_PARAMETER(QVector<DataArrayPath>, SelectedDataArrayPaths)
-  PYB11_FILTER_PARAMETER(QString, PCAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, PCEigenvaluesName)
-  PYB11_FILTER_PARAMETER(QString, PCEigenvectorsName)
-  PYB11_FILTER_PARAMETER(int, MatrixApproach)
-  PYB11_FILTER_PARAMETER(bool, ProjectDataSpace)
-  PYB11_FILTER_PARAMETER(int, NumberOfDimensionsForProjection)
-  PYB11_FILTER_PARAMETER(DataArrayPath, ProjectedDataSpaceArrayPath)
   PYB11_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
   PYB11_PROPERTY(QString PCAttributeMatrixName READ getPCAttributeMatrixName WRITE setPCAttributeMatrixName)
   PYB11_PROPERTY(QString PCEigenvaluesName READ getPCEigenvaluesName WRITE setPCEigenvaluesName)
@@ -70,7 +62,8 @@ class DREAM3DReview_EXPORT PrincipalComponentAnalysis : public AbstractFilter
   PYB11_PROPERTY(bool ProjectDataSpace READ getProjectDataSpace WRITE setProjectDataSpace)
   PYB11_PROPERTY(int NumberOfDimensionsForProjection READ getNumberOfDimensionsForProjection WRITE setNumberOfDimensionsForProjection)
   PYB11_PROPERTY(DataArrayPath ProjectedDataSpaceArrayPath READ getProjectedDataSpaceArrayPath WRITE setProjectedDataSpaceArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = PrincipalComponentAnalysis;

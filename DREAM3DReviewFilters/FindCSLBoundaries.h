@@ -66,20 +66,10 @@ class DREAM3DReview_EXPORT FindCSLBoundaries : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(FindCSLBoundaries SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(FindCSLBoundaries SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(FindCSLBoundaries)
   PYB11_FILTER_NEW_MACRO(FindCSLBoundaries)
-  PYB11_FILTER_PARAMETER(float, CSL)
-  PYB11_FILTER_PARAMETER(float, AxisTolerance)
-  PYB11_FILTER_PARAMETER(float, AngleTolerance)
-  PYB11_FILTER_PARAMETER(DataArrayPath, AvgQuatsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeaturePhasesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CrystalStructuresArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SurfaceMeshFaceLabelsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SurfaceMeshFaceNormalsArrayPath)
-  PYB11_FILTER_PARAMETER(QString, SurfaceMeshCSLBoundaryArrayName)
-  PYB11_FILTER_PARAMETER(QString, SurfaceMeshCSLBoundaryIncoherenceArrayName)
   PYB11_PROPERTY(float CSL READ getCSL WRITE setCSL)
   PYB11_PROPERTY(float AxisTolerance READ getAxisTolerance WRITE setAxisTolerance)
   PYB11_PROPERTY(float AngleTolerance READ getAngleTolerance WRITE setAngleTolerance)
@@ -90,7 +80,8 @@ class DREAM3DReview_EXPORT FindCSLBoundaries : public AbstractFilter
   PYB11_PROPERTY(DataArrayPath SurfaceMeshFaceNormalsArrayPath READ getSurfaceMeshFaceNormalsArrayPath WRITE setSurfaceMeshFaceNormalsArrayPath)
   PYB11_PROPERTY(QString SurfaceMeshCSLBoundaryArrayName READ getSurfaceMeshCSLBoundaryArrayName WRITE setSurfaceMeshCSLBoundaryArrayName)
   PYB11_PROPERTY(QString SurfaceMeshCSLBoundaryIncoherenceArrayName READ getSurfaceMeshCSLBoundaryIncoherenceArrayName WRITE setSurfaceMeshCSLBoundaryIncoherenceArrayName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = FindCSLBoundaries;

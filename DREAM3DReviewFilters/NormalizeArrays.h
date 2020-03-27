@@ -51,18 +51,10 @@ class DREAM3DReview_EXPORT NormalizeArrays : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(NormalizeArrays SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(NormalizeArrays SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(NormalizeArrays)
   PYB11_FILTER_NEW_MACRO(NormalizeArrays)
-  PYB11_FILTER_PARAMETER(QVector<DataArrayPath>, SelectedDataArrayPaths)
-  PYB11_FILTER_PARAMETER(int, NormalizeType)
-  PYB11_FILTER_PARAMETER(double, RangeMin)
-  PYB11_FILTER_PARAMETER(double, RangeMax)
-  PYB11_FILTER_PARAMETER(QString, Postfix)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(double, DefaultValue)
   PYB11_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
   PYB11_PROPERTY(int NormalizeType READ getNormalizeType WRITE setNormalizeType)
   PYB11_PROPERTY(double RangeMin READ getRangeMin WRITE setRangeMin)
@@ -71,7 +63,8 @@ class DREAM3DReview_EXPORT NormalizeArrays : public AbstractFilter
   PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(double DefaultValue READ getDefaultValue WRITE setDefaultValue)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = NormalizeArrays;

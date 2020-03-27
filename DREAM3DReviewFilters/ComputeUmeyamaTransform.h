@@ -50,21 +50,17 @@ class DREAM3DReview_EXPORT ComputeUmeyamaTransform : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(ComputeUmeyamaTransform SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ComputeUmeyamaTransform SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ComputeUmeyamaTransform)
   PYB11_FILTER_NEW_MACRO(ComputeUmeyamaTransform)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SourcePointSet)
-  PYB11_FILTER_PARAMETER(DataArrayPath, DestPointSet)
-  PYB11_FILTER_PARAMETER(bool, UseScaling)
-  PYB11_FILTER_PARAMETER(QString, TransformationAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, TransformationMatrixName)
   PYB11_PROPERTY(DataArrayPath SourcePointSet READ getSourcePointSet WRITE setSourcePointSet)
   PYB11_PROPERTY(DataArrayPath DestPointSet READ getDestPointSet WRITE setDestPointSet)
   PYB11_PROPERTY(bool UseScaling READ getUseScaling WRITE setUseScaling)
   PYB11_PROPERTY(QString TransformationAttributeMatrixName READ getTransformationAttributeMatrixName WRITE setTransformationAttributeMatrixName)
   PYB11_PROPERTY(QString TransformationMatrixName READ getTransformationMatrixName WRITE setTransformationMatrixName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = ComputeUmeyamaTransform;

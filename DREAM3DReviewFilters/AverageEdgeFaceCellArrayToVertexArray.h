@@ -53,15 +53,14 @@ class DREAM3DReview_EXPORT AverageEdgeFaceCellArrayToVertexArray : public Abstra
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(AverageEdgeFaceCellArrayToVertexArray SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(AverageEdgeFaceCellArrayToVertexArray SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(AverageEdgeFaceCellArrayToVertexArray)
   PYB11_FILTER_NEW_MACRO(AverageEdgeFaceCellArrayToVertexArray)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, AverageVertexArrayPath)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(DataArrayPath AverageVertexArrayPath READ getAverageVertexArrayPath WRITE setAverageVertexArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = AverageEdgeFaceCellArrayToVertexArray;

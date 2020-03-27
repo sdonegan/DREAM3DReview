@@ -23,17 +23,15 @@ class DREAM3DReview_EXPORT ImportMASSIFData : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(ImportMASSIFData SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ImportMASSIFData SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ImportMASSIFData)
   PYB11_FILTER_NEW_MACRO(ImportMASSIFData)
-  PYB11_FILTER_PARAMETER(QString, MassifInputFilePath)
-  PYB11_FILTER_PARAMETER(QString, FilePrefix)
-  PYB11_FILTER_PARAMETER(int, StepNumber)
   PYB11_PROPERTY(QString MassifInputFilePath READ getMassifInputFilePath WRITE setMassifInputFilePath)
   PYB11_PROPERTY(QString FilePrefix READ getFilePrefix WRITE setFilePrefix)
   PYB11_PROPERTY(int StepNumber READ getStepNumber WRITE setStepNumber)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = ImportMASSIFData;

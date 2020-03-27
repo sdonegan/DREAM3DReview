@@ -50,17 +50,15 @@ class DREAM3DReview_EXPORT RemoveFlaggedVertices : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(RemoveFlaggedVertices SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(RemoveFlaggedVertices SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(RemoveFlaggedVertices)
   PYB11_FILTER_NEW_MACRO(RemoveFlaggedVertices)
-  PYB11_FILTER_PARAMETER(DataArrayPath, VertexGeometry)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(QString, ReducedVertexGeometry)
   PYB11_PROPERTY(DataArrayPath VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(QString ReducedVertexGeometry READ getReducedVertexGeometry WRITE setReducedVertexGeometry)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = RemoveFlaggedVertices;

@@ -65,18 +65,10 @@ class DREAM3DReview_EXPORT LocalDislocationDensityCalculator : public AbstractFi
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(LocalDislocationDensityCalculator SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(LocalDislocationDensityCalculator SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(LocalDislocationDensityCalculator)
   PYB11_FILTER_NEW_MACRO(LocalDislocationDensityCalculator)
-  PYB11_FILTER_PARAMETER(DataArrayPath, EdgeDataContainerName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, BurgersVectorsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SlipPlaneNormalsArrayPath)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, CellSize)
-  PYB11_FILTER_PARAMETER(DataArrayPath, OutputDataContainerName)
-  PYB11_FILTER_PARAMETER(QString, OutputAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, OutputArrayName)
-  PYB11_FILTER_PARAMETER(QString, DominantSystemArrayName)
   PYB11_PROPERTY(DataArrayPath EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
   PYB11_PROPERTY(DataArrayPath BurgersVectorsArrayPath READ getBurgersVectorsArrayPath WRITE setBurgersVectorsArrayPath)
   PYB11_PROPERTY(DataArrayPath SlipPlaneNormalsArrayPath READ getSlipPlaneNormalsArrayPath WRITE setSlipPlaneNormalsArrayPath)
@@ -85,7 +77,8 @@ class DREAM3DReview_EXPORT LocalDislocationDensityCalculator : public AbstractFi
   PYB11_PROPERTY(QString OutputAttributeMatrixName READ getOutputAttributeMatrixName WRITE setOutputAttributeMatrixName)
   PYB11_PROPERTY(QString OutputArrayName READ getOutputArrayName WRITE setOutputArrayName)
   PYB11_PROPERTY(QString DominantSystemArrayName READ getDominantSystemArrayName WRITE setDominantSystemArrayName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = LocalDislocationDensityCalculator;

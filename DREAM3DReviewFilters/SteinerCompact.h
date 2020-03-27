@@ -50,18 +50,10 @@ class DREAM3DReview_EXPORT SteinerCompact : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(SteinerCompact SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(SteinerCompact SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(SteinerCompact)
   PYB11_FILTER_NEW_MACRO(SteinerCompact)
-  PYB11_FILTER_PARAMETER(bool, VtkOutput)
-  PYB11_FILTER_PARAMETER(QString, VtkFileName)
-  PYB11_FILTER_PARAMETER(bool, TxtOutput)
-  PYB11_FILTER_PARAMETER(QString, TxtFileName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureIdsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellPhasesArrayPath)
-  PYB11_FILTER_PARAMETER(int, Plane)
-  PYB11_FILTER_PARAMETER(int, Sites)
   PYB11_PROPERTY(bool VtkOutput READ getVtkOutput WRITE setVtkOutput)
   PYB11_PROPERTY(QString VtkFileName READ getVtkFileName WRITE setVtkFileName)
   PYB11_PROPERTY(bool TxtOutput READ getTxtOutput WRITE setTxtOutput)
@@ -70,7 +62,8 @@ class DREAM3DReview_EXPORT SteinerCompact : public AbstractFilter
   PYB11_PROPERTY(DataArrayPath CellPhasesArrayPath READ getCellPhasesArrayPath WRITE setCellPhasesArrayPath)
   PYB11_PROPERTY(int Plane READ getPlane WRITE setPlane)
   PYB11_PROPERTY(int Sites READ getSites WRITE setSites)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = SteinerCompact;

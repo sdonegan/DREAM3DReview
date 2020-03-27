@@ -54,20 +54,10 @@ class DREAM3DReview_EXPORT PointSampleTriangleGeometry : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(PointSampleTriangleGeometry SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(PointSampleTriangleGeometry SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(PointSampleTriangleGeometry)
   PYB11_FILTER_NEW_MACRO(PointSampleTriangleGeometry)
-  PYB11_FILTER_PARAMETER(int, SamplesNumberType)
-  PYB11_FILTER_PARAMETER(DataArrayPath, TriangleGeometry)
-  PYB11_FILTER_PARAMETER(QString, VertexGeometry)
-  PYB11_FILTER_PARAMETER(QString, VertexAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(int, NumberOfSamples)
-  PYB11_FILTER_PARAMETER(DataArrayPath, ParentGeometry)
-  PYB11_FILTER_PARAMETER(DataArrayPath, TriangleAreasArrayPath)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(QVector<DataArrayPath>, SelectedDataArrayPaths)
   PYB11_PROPERTY(int SamplesNumberType READ getSamplesNumberType WRITE setSamplesNumberType)
   PYB11_PROPERTY(DataArrayPath TriangleGeometry READ getTriangleGeometry WRITE setTriangleGeometry)
   PYB11_PROPERTY(QString VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
@@ -78,7 +68,8 @@ class DREAM3DReview_EXPORT PointSampleTriangleGeometry : public AbstractFilter
   PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = PointSampleTriangleGeometry;

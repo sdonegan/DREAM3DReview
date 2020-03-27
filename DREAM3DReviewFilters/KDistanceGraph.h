@@ -51,23 +51,18 @@ class DREAM3DReview_EXPORT KDistanceGraph : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(KDistanceGraph SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(KDistanceGraph SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(KDistanceGraph)
   PYB11_FILTER_NEW_MACRO(KDistanceGraph)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(bool, UseMask)
-  PYB11_FILTER_PARAMETER(DataArrayPath, MaskArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, KDistanceArrayPath)
-  PYB11_FILTER_PARAMETER(int, MinDist)
-  PYB11_FILTER_PARAMETER(int, DistanceMetric)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
   PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
   PYB11_PROPERTY(DataArrayPath KDistanceArrayPath READ getKDistanceArrayPath WRITE setKDistanceArrayPath)
   PYB11_PROPERTY(int MinDist READ getMinDist WRITE setMinDist)
   PYB11_PROPERTY(int DistanceMetric READ getDistanceMetric WRITE setDistanceMetric)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = KDistanceGraph;

@@ -54,16 +54,10 @@ class DREAM3DReview_EXPORT AdaptiveAlignmentMutualInformation : public AdaptiveA
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(AdaptiveAlignmentMutualInformation SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(AdaptiveAlignmentMutualInformation SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(AdaptiveAlignmentMutualInformation)
   PYB11_FILTER_NEW_MACRO(AdaptiveAlignmentMutualInformation)
-  PYB11_FILTER_PARAMETER(float, MisorientationTolerance)
-  PYB11_FILTER_PARAMETER(bool, UseGoodVoxels)
-  PYB11_FILTER_PARAMETER(DataArrayPath, QuatsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellPhasesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, GoodVoxelsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CrystalStructuresArrayPath)
   PYB11_PROPERTY(float MisorientationTolerance READ getMisorientationTolerance WRITE setMisorientationTolerance)
   PYB11_PROPERTY(bool UseGoodVoxels READ getUseGoodVoxels WRITE setUseGoodVoxels)
   PYB11_PROPERTY(DataArrayPath QuatsArrayPath READ getQuatsArrayPath WRITE setQuatsArrayPath)
@@ -72,7 +66,8 @@ class DREAM3DReview_EXPORT AdaptiveAlignmentMutualInformation : public AdaptiveA
   PYB11_PROPERTY(DataArrayPath CrystalStructuresArrayPath READ getCrystalStructuresArrayPath WRITE setCrystalStructuresArrayPath)
   PYB11_PROPERTY(int GlobalCorrection READ getGlobalCorrection WRITE setGlobalCorrection)
   PYB11_PROPERTY(DataArrayPath ImageDataArrayPath READ getImageDataArrayPath WRITE setImageDataArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = AdaptiveAlignmentMutualInformation;

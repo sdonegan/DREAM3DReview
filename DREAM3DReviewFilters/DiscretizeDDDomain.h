@@ -65,21 +65,17 @@ class DREAM3DReview_EXPORT DiscretizeDDDomain : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(DiscretizeDDDomain SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(DiscretizeDDDomain SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(DiscretizeDDDomain)
   PYB11_FILTER_NEW_MACRO(DiscretizeDDDomain)
-  PYB11_FILTER_PARAMETER(DataArrayPath, EdgeDataContainerName)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, CellSize)
-  PYB11_FILTER_PARAMETER(DataArrayPath, OutputDataContainerName)
-  PYB11_FILTER_PARAMETER(QString, OutputAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, OutputArrayName)
   PYB11_PROPERTY(DataArrayPath EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
   PYB11_PROPERTY(FloatVec3Type CellSize READ getCellSize WRITE setCellSize)
   PYB11_PROPERTY(DataArrayPath OutputDataContainerName READ getOutputDataContainerName WRITE setOutputDataContainerName)
   PYB11_PROPERTY(QString OutputAttributeMatrixName READ getOutputAttributeMatrixName WRITE setOutputAttributeMatrixName)
   PYB11_PROPERTY(QString OutputArrayName READ getOutputArrayName WRITE setOutputArrayName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = DiscretizeDDDomain;

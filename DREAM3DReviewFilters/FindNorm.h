@@ -53,17 +53,15 @@ class DREAM3DReview_EXPORT FindNorm : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(FindNorm SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(FindNorm SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(FindNorm)
   PYB11_FILTER_NEW_MACRO(FindNorm)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SelectedArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, NormArrayPath)
-  PYB11_FILTER_PARAMETER(float, PSpace)
   PYB11_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
   PYB11_PROPERTY(DataArrayPath NormArrayPath READ getNormArrayPath WRITE setNormArrayPath)
   PYB11_PROPERTY(float PSpace READ getPSpace WRITE setPSpace)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = FindNorm;

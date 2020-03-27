@@ -55,13 +55,13 @@ class DREAM3DReview_EXPORT AdaptiveAlignmentFeature : public AdaptiveAlignment
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(AdaptiveAlignmentFeature SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(AdaptiveAlignmentFeature SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(AdaptiveAlignmentFeature)
   PYB11_FILTER_NEW_MACRO(AdaptiveAlignmentFeature)
-  PYB11_FILTER_PARAMETER(DataArrayPath, GoodVoxelsArrayPath)
   PYB11_PROPERTY(DataArrayPath GoodVoxelsArrayPath READ getGoodVoxelsArrayPath WRITE setGoodVoxelsArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = AdaptiveAlignmentFeature;

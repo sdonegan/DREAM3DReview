@@ -53,17 +53,15 @@ class DREAM3DReview_EXPORT RobustAutomaticThreshold : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(RobustAutomaticThreshold SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(RobustAutomaticThreshold SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(RobustAutomaticThreshold)
   PYB11_FILTER_NEW_MACRO(RobustAutomaticThreshold)
-  PYB11_FILTER_PARAMETER(DataArrayPath, InputArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureIdsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, GradientMagnitudeArrayPath)
   PYB11_PROPERTY(DataArrayPath InputArrayPath READ getInputArrayPath WRITE setInputArrayPath)
   PYB11_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
   PYB11_PROPERTY(DataArrayPath GradientMagnitudeArrayPath READ getGradientMagnitudeArrayPath WRITE setGradientMagnitudeArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = RobustAutomaticThreshold;

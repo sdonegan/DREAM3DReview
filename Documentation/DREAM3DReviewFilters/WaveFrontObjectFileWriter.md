@@ -1,8 +1,8 @@
-# SurfaceMeshToWaveFront #
+# WaveFrontObjectFileWriter #
 
 ## Group (Subgroup) ##
 
-@FilterGroup@ (@FilterSubgroup@)
+IO (Writers)
 
 ## Description ##
 
@@ -24,11 +24,9 @@ Triangle Geometry
 |------|--------------|-------------|---------|-----|
 | **Data Container** | Data Container | N/A | N/A | The DataContainer that holds the triangle geometry |
 
-
 ## Created Objects ##
 
 No objects are creatd
-
 
 ## Example Pipelines ##
 

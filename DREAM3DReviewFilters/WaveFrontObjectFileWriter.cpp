@@ -30,7 +30,7 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#include "SurfaceMeshToWaveFront.h"
+#include "WaveFrontObjectFileWriter.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -51,7 +51,7 @@
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-SurfaceMeshToWaveFront::SurfaceMeshToWaveFront()
+WaveFrontObjectFileWriter::WaveFrontObjectFileWriter()
 : AbstractFilter()
 {
   initialize();
@@ -60,12 +60,12 @@ SurfaceMeshToWaveFront::SurfaceMeshToWaveFront()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-SurfaceMeshToWaveFront::~SurfaceMeshToWaveFront() = default;
+WaveFrontObjectFileWriter::~WaveFrontObjectFileWriter() = default;
 
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::initialize()
+void WaveFrontObjectFileWriter::initialize()
 {
   clearErrorCode();
   clearWarningCode();
@@ -75,15 +75,15 @@ void SurfaceMeshToWaveFront::initialize()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::setupFilterParameters()
+void WaveFrontObjectFileWriter::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Wavefront File", OutputWaveFrontFile, FilterParameter::Parameter, SurfaceMeshToWaveFront, "*.obj", "Wavefront Object File"));
+  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Wavefront File", OutputWaveFrontFile, FilterParameter::Parameter, WaveFrontObjectFileWriter, "*.obj", "Wavefront Object File"));
 
   DataContainerSelectionFilterParameter::RequirementType req;
   req.dcGeometryTypes = IGeometry::Types(1, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry", TriangleGeometry, FilterParameter::RequiredArray, SurfaceMeshToWaveFront, req));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry", TriangleGeometry, FilterParameter::RequiredArray, WaveFrontObjectFileWriter, req));
 
   setFilterParameters(parameters);
 }
@@ -91,7 +91,7 @@ void SurfaceMeshToWaveFront::setupFilterParameters()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::dataCheck()
+void WaveFrontObjectFileWriter::dataCheck()
 {
   clearErrorCode();
   clearWarningCode();
@@ -114,7 +114,7 @@ void SurfaceMeshToWaveFront::dataCheck()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::execute()
+void WaveFrontObjectFileWriter::execute()
 {
   initialize();
   dataCheck();
@@ -178,9 +178,9 @@ void SurfaceMeshToWaveFront::execute()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-AbstractFilter::Pointer SurfaceMeshToWaveFront::newFilterInstance(bool copyFilterParameters) const
+AbstractFilter::Pointer WaveFrontObjectFileWriter::newFilterInstance(bool copyFilterParameters) const
 {
-  SurfaceMeshToWaveFront::Pointer filter = SurfaceMeshToWaveFront::New();
+  WaveFrontObjectFileWriter::Pointer filter = WaveFrontObjectFileWriter::New();
   if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
@@ -191,7 +191,7 @@ AbstractFilter::Pointer SurfaceMeshToWaveFront::newFilterInstance(bool copyFilte
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getCompiledLibraryName() const
+QString WaveFrontObjectFileWriter::getCompiledLibraryName() const
 {
   return DREAM3DReviewConstants::DREAM3DReviewBaseName;
 }
@@ -199,7 +199,7 @@ QString SurfaceMeshToWaveFront::getCompiledLibraryName() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getBrandingString() const
+QString WaveFrontObjectFileWriter::getBrandingString() const
 {
   return "DREAM3DReview";
 }
@@ -207,7 +207,7 @@ QString SurfaceMeshToWaveFront::getBrandingString() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getFilterVersion() const
+QString WaveFrontObjectFileWriter::getFilterVersion() const
 {
   QString version;
   QTextStream vStream(&version);
@@ -218,7 +218,7 @@ QString SurfaceMeshToWaveFront::getFilterVersion() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getGroupName() const
+QString WaveFrontObjectFileWriter::getGroupName() const
 {
   return SIMPL::FilterGroups::Unsupported;
 }
@@ -226,7 +226,7 @@ QString SurfaceMeshToWaveFront::getGroupName() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getSubGroupName() const
+QString WaveFrontObjectFileWriter::getSubGroupName() const
 {
   return "DREAM3DReview";
 }
@@ -234,7 +234,7 @@ QString SurfaceMeshToWaveFront::getSubGroupName() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getHumanLabel() const
+QString WaveFrontObjectFileWriter::getHumanLabel() const
 {
   return "Surface Mesh To Wavefront";
 }
@@ -242,21 +242,21 @@ QString SurfaceMeshToWaveFront::getHumanLabel() const
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-QUuid SurfaceMeshToWaveFront::getUuid() const
+QUuid WaveFrontObjectFileWriter::getUuid() const
 {
   return QUuid("{5d4c38fe-af0a-5cb3-b7fa-fb9e57b2097f}");
 }
 
 // -----------------------------------------------------------------------------
-SurfaceMeshToWaveFront::Pointer SurfaceMeshToWaveFront::NullPointer()
+WaveFrontObjectFileWriter::Pointer WaveFrontObjectFileWriter::NullPointer()
 {
   return Pointer(static_cast<Self*>(nullptr));
 }
 
 // -----------------------------------------------------------------------------
-std::shared_ptr<SurfaceMeshToWaveFront> SurfaceMeshToWaveFront::New()
+std::shared_ptr<WaveFrontObjectFileWriter> WaveFrontObjectFileWriter::New()
 {
-  struct make_shared_enabler : public SurfaceMeshToWaveFront
+  struct make_shared_enabler : public WaveFrontObjectFileWriter
   {
   };
   std::shared_ptr<make_shared_enabler> val = std::make_shared<make_shared_enabler>();
@@ -265,37 +265,37 @@ std::shared_ptr<SurfaceMeshToWaveFront> SurfaceMeshToWaveFront::New()
 }
 
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getNameOfClass() const
+QString WaveFrontObjectFileWriter::getNameOfClass() const
 {
-  return QString("SurfaceMeshToWaveFront");
+  return QString("WaveFrontObjectFileWriter");
 }
 
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::ClassName()
+QString WaveFrontObjectFileWriter::ClassName()
 {
-  return QString("SurfaceMeshToWaveFront");
+  return QString("WaveFrontObjectFileWriter");
 }
 
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::setOutputWaveFrontFile(const QString& value)
+void WaveFrontObjectFileWriter::setOutputWaveFrontFile(const QString& value)
 {
   m_OutputWaveFrontFile = value;
 }
 
 // -----------------------------------------------------------------------------
-QString SurfaceMeshToWaveFront::getOutputWaveFrontFile() const
+QString WaveFrontObjectFileWriter::getOutputWaveFrontFile() const
 {
   return m_OutputWaveFrontFile;
 }
 
 // -----------------------------------------------------------------------------
-void SurfaceMeshToWaveFront::setTriangleGeometry(const DataArrayPath& value)
+void WaveFrontObjectFileWriter::setTriangleGeometry(const DataArrayPath& value)
 {
   m_TriangleGeometry = value;
 }
 
 // -----------------------------------------------------------------------------
-DataArrayPath SurfaceMeshToWaveFront::getTriangleGeometry() const
+DataArrayPath WaveFrontObjectFileWriter::getTriangleGeometry() const
 {
   return m_TriangleGeometry;
 }

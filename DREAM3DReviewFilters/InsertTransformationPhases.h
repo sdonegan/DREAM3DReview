@@ -71,36 +71,10 @@ class DREAM3DReview_EXPORT InsertTransformationPhases : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(InsertTransformationPhases SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(InsertTransformationPhases SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(InsertTransformationPhases)
   PYB11_FILTER_NEW_MACRO(InsertTransformationPhases)
-  PYB11_FILTER_PARAMETER(int, ParentPhase)
-  PYB11_FILTER_PARAMETER(int, TransCrystalStruct)
-  PYB11_FILTER_PARAMETER(float, TransformationPhaseMisorientation)
-  PYB11_FILTER_PARAMETER(FloatVec3Type, TransformationPhaseHabitPlane)
-  PYB11_FILTER_PARAMETER(bool, DefineHabitPlane)
-  PYB11_FILTER_PARAMETER(bool, UseAllVariants)
-  PYB11_FILTER_PARAMETER(float, CoherentFrac)
-  PYB11_FILTER_PARAMETER(float, TransformationPhaseThickness)
-  PYB11_FILTER_PARAMETER(int, NumTransformationPhasesPerFeature)
-  PYB11_FILTER_PARAMETER(float, PeninsulaFrac)
-  PYB11_FILTER_PARAMETER(DataArrayPath, StatsGenCellEnsembleAttributeMatrixPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellFeatureAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureIdsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellEulerAnglesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CellPhasesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, AvgQuatsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CentroidsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, EquivalentDiametersArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeatureEulerAnglesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, FeaturePhasesArrayPath)
-  PYB11_FILTER_PARAMETER(QString, FeatureParentIdsArrayName)
-  PYB11_FILTER_PARAMETER(DataArrayPath, NumFeaturesPerParentArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, CrystalStructuresArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, PhaseTypesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, ShapeTypesArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, NumFeaturesArrayPath)
   PYB11_PROPERTY(int ParentPhase READ getParentPhase WRITE setParentPhase)
   PYB11_PROPERTY(int TransCrystalStruct READ getTransCrystalStruct WRITE setTransCrystalStruct)
   PYB11_PROPERTY(float TransformationPhaseMisorientation READ getTransformationPhaseMisorientation WRITE setTransformationPhaseMisorientation)
@@ -127,7 +101,8 @@ class DREAM3DReview_EXPORT InsertTransformationPhases : public AbstractFilter
   PYB11_PROPERTY(DataArrayPath PhaseTypesArrayPath READ getPhaseTypesArrayPath WRITE setPhaseTypesArrayPath)
   PYB11_PROPERTY(DataArrayPath ShapeTypesArrayPath READ getShapeTypesArrayPath WRITE setShapeTypesArrayPath)
   PYB11_PROPERTY(DataArrayPath NumFeaturesArrayPath READ getNumFeaturesArrayPath WRITE setNumFeaturesArrayPath)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = InsertTransformationPhases;

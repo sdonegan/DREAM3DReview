@@ -63,19 +63,16 @@ class DREAM3DReview_EXPORT IdentifyDislocationSegments : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(IdentifyDislocationSegments SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(IdentifyDislocationSegments SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(IdentifyDislocationSegments)
   PYB11_FILTER_NEW_MACRO(IdentifyDislocationSegments)
-  PYB11_FILTER_PARAMETER(DataArrayPath, BurgersVectorsArrayPath)
-  PYB11_FILTER_PARAMETER(DataArrayPath, SlipPlaneNormalsArrayPath)
-  PYB11_FILTER_PARAMETER(QString, DislocationIdsArrayName)
-  PYB11_FILTER_PARAMETER(QString, ActiveArrayName)
   PYB11_PROPERTY(DataArrayPath BurgersVectorsArrayPath READ getBurgersVectorsArrayPath WRITE setBurgersVectorsArrayPath)
   PYB11_PROPERTY(DataArrayPath SlipPlaneNormalsArrayPath READ getSlipPlaneNormalsArrayPath WRITE setSlipPlaneNormalsArrayPath)
   PYB11_PROPERTY(QString DislocationIdsArrayName READ getDislocationIdsArrayName WRITE setDislocationIdsArrayName)
   PYB11_PROPERTY(QString ActiveArrayName READ getActiveArrayName WRITE setActiveArrayName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = IdentifyDislocationSegments;

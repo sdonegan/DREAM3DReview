@@ -35,27 +35,26 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Filtering/AbstractFilter.h"
 
-
 #include "DREAM3DReview/DREAM3DReviewPlugin.h"
-    
+
 /**
- * @brief The SurfaceMeshToWaveFront class. See [Filter documentation](@ref surfacemeshtowavefront) for details.
+ * @brief The WaveFrontObjectFileWriter class. See [Filter documentation](@ref WaveFrontObjectFileWriter) for details.
  */
-class DREAM3DReview_EXPORT SurfaceMeshToWaveFront : public AbstractFilter
+class DREAM3DReview_EXPORT WaveFrontObjectFileWriter : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(SurfaceMeshToWaveFront SUPERCLASS AbstractFilter)
-  PYB11_SHARED_POINTERS(SurfaceMeshToWaveFront)
-  PYB11_FILTER_NEW_MACRO(SurfaceMeshToWaveFront)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(WaveFrontObjectFileWriter SUPERCLASS AbstractFilter)
+  PYB11_SHARED_POINTERS(WaveFrontObjectFileWriter)
+  PYB11_FILTER_NEW_MACRO(WaveFrontObjectFileWriter)
   PYB11_PROPERTY(QString OutputWaveFrontFile READ getOutputWaveFrontFile WRITE setOutputWaveFrontFile)
   PYB11_PROPERTY(DataArrayPath TriangleGeometry READ getTriangleGeometry WRITE setTriangleGeometry)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
-
-  using Self = SurfaceMeshToWaveFront;
+  using Self = WaveFrontObjectFileWriter;
   using Pointer = std::shared_ptr<Self>;
   using ConstPointer = std::shared_ptr<const Self>;
   using WeakPointer = std::weak_ptr<Self>;
@@ -65,16 +64,16 @@ public:
   static Pointer New();
 
   /**
-   * @brief Returns the name of the class for SurfaceMeshToWaveFront
+   * @brief Returns the name of the class for WaveFrontObjectFileWriter
    */
   QString getNameOfClass() const override;
 
   /**
-   * @brief Returns the name of the class for SurfaceMeshToWaveFront
+   * @brief Returns the name of the class for WaveFrontObjectFileWriter
    */
   static QString ClassName();
 
-  ~SurfaceMeshToWaveFront() override;
+  ~WaveFrontObjectFileWriter() override;
 
   /**
    * @brief Setter property for OutputWaveFrontFile
@@ -154,7 +153,7 @@ public:
   void execute() override;
 
 protected:
-  SurfaceMeshToWaveFront();
+  WaveFrontObjectFileWriter();
 
   /**
    * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
@@ -171,8 +170,8 @@ private:
   DataArrayPath m_TriangleGeometry = {};
 
 public:
-  SurfaceMeshToWaveFront(const SurfaceMeshToWaveFront&) = delete;            // Copy Constructor Not Implemented
-  SurfaceMeshToWaveFront& operator=(const SurfaceMeshToWaveFront&) = delete; // Copy Assignment Not Implemented
-  SurfaceMeshToWaveFront(SurfaceMeshToWaveFront &&) = delete;                // Move Constructor Not Implemented
-  SurfaceMeshToWaveFront& operator=(SurfaceMeshToWaveFront&&) = delete;      // Move Assignment Not Implemented
+  WaveFrontObjectFileWriter(const WaveFrontObjectFileWriter&) = delete;            // Copy Constructor Not Implemented
+  WaveFrontObjectFileWriter& operator=(const WaveFrontObjectFileWriter&) = delete; // Copy Assignment Not Implemented
+  WaveFrontObjectFileWriter(WaveFrontObjectFileWriter&&) = delete;                 // Move Constructor Not Implemented
+  WaveFrontObjectFileWriter& operator=(WaveFrontObjectFileWriter&&) = delete;      // Move Assignment Not Implemented
 };

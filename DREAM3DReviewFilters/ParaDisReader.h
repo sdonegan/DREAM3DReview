@@ -65,20 +65,10 @@ class DREAM3DReview_EXPORT ParaDisReader : public FileReader
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(ParaDisReader SUPERCLASS AbstractFilter)
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ParaDisReader SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ParaDisReader)
   PYB11_FILTER_NEW_MACRO(ParaDisReader)
-  PYB11_FILTER_PARAMETER(DataArrayPath, EdgeDataContainerName)
-  PYB11_FILTER_PARAMETER(QString, VertexAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, EdgeAttributeMatrixName)
-  PYB11_FILTER_PARAMETER(QString, InputFile)
-  PYB11_FILTER_PARAMETER(float, BurgersVector)
-  PYB11_FILTER_PARAMETER(QString, NumberOfArmsArrayName)
-  PYB11_FILTER_PARAMETER(QString, NodeConstraintsArrayName)
-  PYB11_FILTER_PARAMETER(QString, BurgersVectorsArrayName)
-  PYB11_FILTER_PARAMETER(QString, SlipPlaneNormalsArrayName)
-  PYB11_FILTER_PARAMETER(QString, DomainBoundsArrayName)
   PYB11_PROPERTY(DataArrayPath EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
   PYB11_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
   PYB11_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
@@ -89,7 +79,8 @@ class DREAM3DReview_EXPORT ParaDisReader : public FileReader
   PYB11_PROPERTY(QString BurgersVectorsArrayName READ getBurgersVectorsArrayName WRITE setBurgersVectorsArrayName)
   PYB11_PROPERTY(QString SlipPlaneNormalsArrayName READ getSlipPlaneNormalsArrayName WRITE setSlipPlaneNormalsArrayName)
   PYB11_PROPERTY(QString DomainBoundsArrayName READ getDomainBoundsArrayName WRITE setDomainBoundsArrayName)
-#endif
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 
 public:
   using Self = ParaDisReader;
