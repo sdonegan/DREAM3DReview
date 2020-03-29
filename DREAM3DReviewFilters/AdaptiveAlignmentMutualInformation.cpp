@@ -33,16 +33,14 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#include <memory>
-
 #include "AdaptiveAlignmentMutualInformation.h"
 
 #include <fstream>
+#include <memory>
 
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
-
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/FloatFilterParameter.h"
@@ -52,6 +50,8 @@
 #include "SIMPLib/Math/SIMPLibRandom.h"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
+
+#include "OrientationLib/LaueOps/LaueOps.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
@@ -69,7 +69,7 @@ AdaptiveAlignmentMutualInformation::AdaptiveAlignmentMutualInformation()
 {
   m_Seed = QDateTime::currentMSecsSinceEpoch();
 
-  m_OrientationOps = LaueOps::getOrientationOpsQVector();
+  m_OrientationOps = LaueOps::GetAllOrientationOps();
 
   featurecounts = nullptr;
 
@@ -675,13 +675,8 @@ void AdaptiveAlignmentMutualInformation::form_features_sections()
   bool noseeds = false;
   int32_t featurecount = 1;
   int64_t neighbor = 0;
-  //  QuatF q1 = QuaternionMathF::New();
-  //  QuatF q2 = QuaternionMathF::New();
-  //  QuatF* quats = reinterpret_cast<QuatF*>(m_Quats);
   float w = 0.0f;
-  float n1 = 0.0f;
-  float n2 = 0.0f;
-  float n3 = 0.0f;
+
   int64_t randx = 0;
   int64_t randy = 0;
   bool good = false;
@@ -793,7 +788,8 @@ void AdaptiveAlignmentMutualInformation::form_features_sections()
               phase2 = m_CrystalStructures[m_CellPhases[neighbor]];
               if(phase1 == phase2)
               {
-                w = m_OrientationOps[phase1]->getMisoQuat(q1, q2, n1, n2, n3);
+                OrientationD axisAngle = m_OrientationOps[phase1]->calculateMisorientation(q1, q2);
+                w = axisAngle[3];
               }
               if(w < m_MisorientationTolerance)
               {
