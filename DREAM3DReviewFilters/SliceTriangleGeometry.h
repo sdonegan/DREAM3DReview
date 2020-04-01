@@ -1,18 +1,17 @@
 /* ============================================================================
-* Software developed by US federal government employees (including military personnel) 
-* as part of their official duties is not subject to copyright protection and is 
-* considered “public domain” (see 17 USC Section 105). Public domain software can be used 
-* by anyone for any purpose, and cannot be released under a copyright license 
-* (including typical open source software licenses).
-* 
-* This source code file was originally written by United States DoD employees. The
-* original source code files are released into the Public Domain.
-* 
-* Subsequent changes to the codes by others may elect to add a copyright and license
-* for those changes.
-* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifndef _SliceTriangleGeometry_h_
-#define _SliceTriangleGeometry_h_
+ * Software developed by US federal government employees (including military personnel)
+ * as part of their official duties is not subject to copyright protection and is
+ * considered “public domain” (see 17 USC Section 105). Public domain software can be used
+ * by anyone for any purpose, and cannot be released under a copyright license
+ * (including typical open source software licenses).
+ *
+ * This source code file was originally written by United States DoD employees. The
+ * original source code files are released into the Public Domain.
+ *
+ * Subsequent changes to the codes by others may elect to add a copyright and license
+ * for those changes.
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#pragma once
 
 #include <memory>
 
@@ -28,6 +27,28 @@
 class SliceTriangleGeometry : public AbstractFilter
 {
   Q_OBJECT
+
+#ifdef SIMPL_ENABLE_PYTHON
+  PYB11_CREATE_BINDINGS(SliceTriangleGeometry SUPERCLASS AbstractFilter)
+  PYB11_SHARED_POINTERS(SliceTriangleGeometry)
+  PYB11_FILTER_NEW_MACRO(SliceTriangleGeometry)
+
+  PYB11_PROPERTY(DataArrayPath CADDataContainerName READ getCADDataContainerName WRITE setCADDataContainerName)
+  PYB11_PROPERTY(QString SliceDataContainerName READ getSliceDataContainerName WRITE setSliceDataContainerName)
+  PYB11_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
+  PYB11_PROPERTY(QString SliceAttributeMatrixName READ getSliceAttributeMatrixName WRITE setSliceAttributeMatrixName)
+  PYB11_PROPERTY(QString SliceIdArrayName READ getSliceIdArrayName WRITE setSliceIdArrayName)
+  PYB11_PROPERTY(QString AreasArrayName READ getAreasArrayName WRITE setAreasArrayName)
+  PYB11_PROPERTY(QString PerimetersArrayName READ getPerimetersArrayName WRITE setPerimetersArrayName)
+  PYB11_PROPERTY(bool HaveRegionIds READ getHaveRegionIds WRITE setHaveRegionIds)
+  PYB11_PROPERTY(DataArrayPath RegionIdArrayPath READ getRegionIdArrayPath WRITE setRegionIdArrayPath)
+  PYB11_PROPERTY(FloatVec3Type SliceDirection READ getSliceDirection WRITE setSliceDirection)
+  PYB11_PROPERTY(float SliceResolution READ getSliceResolution WRITE setSliceResolution)
+  PYB11_PROPERTY(float Zstart READ getZstart WRITE setZstart)
+  PYB11_PROPERTY(float Zend READ getZend WRITE setZend)
+  PYB11_PROPERTYQ_PROPERTY(int SliceRange READ getSliceRange WRITE setSliceRange)
+
+#endif
 
 public:
   using Self = SliceTriangleGeometry;
@@ -227,7 +248,7 @@ public:
    * @brief getBrandingString Returns the branding string for the filter, which is a tag
    * used to denote the filter's association with specific plugins
    * @return Branding string
-  */
+   */
   QString getBrandingString() const override;
 
   /**
@@ -263,19 +284,14 @@ public:
   void setupFilterParameters() override;
 
   /**
-   * @brief readFilterParameters Reimplemented from @see AbstractFilter class
-   */
-  void readFilterParameters(AbstractFilterParametersReader* reader, int index) override;
-
-  /**
    * @brief execute Reimplemented from @see AbstractFilter class
    */
   void execute() override;
 
   /**
-  * @brief getUuid Return the unique identifier for this filter.
-  * @return A QUuid object.
-  */
+   * @brief getUuid Return the unique identifier for this filter.
+   * @return A QUuid object.
+   */
   QUuid getUuid() const override;
 
 protected:
@@ -291,19 +307,30 @@ protected:
    */
   void rotateVertices(unsigned int direction, float* n, int64_t numVerts, float* verts);
 
+    /**
+   * @brief Determines if a segment between two points intersects a plane defined by a normal and distance
+   * @param n
+   * @param d
+   * @param q
+   * @param r
+   * @param p
+   * @return
+   */
+  static char rayIntersectsPlane(const float d, const float* q, const float* r, float* p);
+
   /**
    * @brief updateEdgeInstancePointers
    */
   void determineBoundsAndNumSlices(float& minDim, float& maxDim, MeshIndexType numTris, MeshIndexType* tris, float* triVerts);
 
   /**
-  * @brief updateEdgeInstancePointers
-  */
+   * @brief updateEdgeInstancePointers
+   */
   void updateEdgeInstancePointers();
 
   /**
-  * @brief updateSliceInstancePointers
-  */
+   * @brief updateSliceInstancePointers
+   */
   void updateSliceInstancePointers();
 
 private:
@@ -341,9 +368,9 @@ private:
 
   int32_t m_NumberOfSlices = 0;
 
-  SliceTriangleGeometry(const SliceTriangleGeometry&) = delete;   // Copy Constructor Not Implemented
-  SliceTriangleGeometry(SliceTriangleGeometry&&) = delete;        // Move Constructor Not Implemented
-  void operator=(const SliceTriangleGeometry&) = delete; // Operator '=' Not Implemented
+  SliceTriangleGeometry(const SliceTriangleGeometry&) = delete; // Copy Constructor Not Implemented
+  SliceTriangleGeometry(SliceTriangleGeometry&&) = delete;      // Move Constructor Not Implemented
+  void operator=(const SliceTriangleGeometry&) = delete;        // Operator '=' Not Implemented
 };
 
-#endif /* _SliceTriangleGeometry_H_ */
+
