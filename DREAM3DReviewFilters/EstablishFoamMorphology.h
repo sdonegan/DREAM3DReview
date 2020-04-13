@@ -22,7 +22,7 @@
 #include "SIMPLib/DataContainers/DataArrayPath.h"
 #include "SIMPLib/SIMPLib.h"
 
-#include "OrientationLib/LaueOps/OrthoRhombicOps.h"
+#include "EbsdLib/LaueOps/OrthoRhombicOps.h"
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
@@ -105,7 +105,6 @@ public:
    * @return Value of DataContainerName
    */
   DataArrayPath getDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -117,7 +116,6 @@ public:
    * @return Value of OutputCellAttributeMatrixPath
    */
   DataArrayPath getOutputCellAttributeMatrixPath() const;
-
   Q_PROPERTY(DataArrayPath OutputCellAttributeMatrixPath READ getOutputCellAttributeMatrixPath WRITE setOutputCellAttributeMatrixPath)
 
   /**
@@ -129,7 +127,6 @@ public:
    * @return Value of InputCellFeatureIdsArrayPath
    */
   DataArrayPath getInputCellFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputCellFeatureIdsArrayPath READ getInputCellFeatureIdsArrayPath WRITE setInputCellFeatureIdsArrayPath)
 
   /**
@@ -141,7 +138,6 @@ public:
    * @return Value of OutputCellEnsembleAttributeMatrixName
    */
   QString getOutputCellEnsembleAttributeMatrixName() const;
-
   Q_PROPERTY(QString OutputCellEnsembleAttributeMatrixName READ getOutputCellEnsembleAttributeMatrixName WRITE setOutputCellEnsembleAttributeMatrixName)
 
   /**
@@ -153,7 +149,6 @@ public:
    * @return Value of OutputCellFeatureAttributeMatrixName
    */
   QString getOutputCellFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString OutputCellFeatureAttributeMatrixName READ getOutputCellFeatureAttributeMatrixName WRITE setOutputCellFeatureAttributeMatrixName)
 
   /**
@@ -165,7 +160,6 @@ public:
    * @return Value of FeatureIdsArrayName
    */
   QString getFeatureIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
 
   /**
@@ -177,7 +171,6 @@ public:
    * @return Value of MaskArrayName
    */
   QString getMaskArrayName() const;
-
   Q_PROPERTY(QString MaskArrayName READ getMaskArrayName WRITE setMaskArrayName)
 
   /**
@@ -189,7 +182,6 @@ public:
    * @return Value of CellPhasesArrayName
    */
   QString getCellPhasesArrayName() const;
-
   Q_PROPERTY(QString CellPhasesArrayName READ getCellPhasesArrayName WRITE setCellPhasesArrayName)
 
   /**
@@ -201,7 +193,6 @@ public:
    * @return Value of NumFeaturesArrayName
    */
   QString getNumFeaturesArrayName() const;
-
   Q_PROPERTY(QString NumFeaturesArrayName READ getNumFeaturesArrayName WRITE setNumFeaturesArrayName)
 
   /**
@@ -213,7 +204,6 @@ public:
    * @return Value of QPEuclideanDistancesArrayName
    */
   QString getQPEuclideanDistancesArrayName() const;
-
   Q_PROPERTY(QString QPEuclideanDistancesArrayName READ getQPEuclideanDistancesArrayName WRITE setQPEuclideanDistancesArrayName)
 
   /**
@@ -225,7 +215,6 @@ public:
    * @return Value of TJEuclideanDistancesArrayName
    */
   QString getTJEuclideanDistancesArrayName() const;
-
   Q_PROPERTY(QString TJEuclideanDistancesArrayName READ getTJEuclideanDistancesArrayName WRITE setTJEuclideanDistancesArrayName)
 
   /**
@@ -237,7 +226,6 @@ public:
    * @return Value of GBEuclideanDistancesArrayName
    */
   QString getGBEuclideanDistancesArrayName() const;
-
   Q_PROPERTY(QString GBEuclideanDistancesArrayName READ getGBEuclideanDistancesArrayName WRITE setGBEuclideanDistancesArrayName)
 
   /**
@@ -249,7 +237,6 @@ public:
    * @return Value of InputStatsArrayPath
    */
   DataArrayPath getInputStatsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputStatsArrayPath READ getInputStatsArrayPath WRITE setInputStatsArrayPath)
 
   /**
@@ -261,7 +248,6 @@ public:
    * @return Value of InputPhaseTypesArrayPath
    */
   DataArrayPath getInputPhaseTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputPhaseTypesArrayPath READ getInputPhaseTypesArrayPath WRITE setInputPhaseTypesArrayPath)
 
   /**
@@ -273,7 +259,6 @@ public:
    * @return Value of InputPhaseNamesArrayPath
    */
   DataArrayPath getInputPhaseNamesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputPhaseNamesArrayPath READ getInputPhaseNamesArrayPath WRITE setInputPhaseNamesArrayPath)
 
   /**
@@ -285,7 +270,6 @@ public:
    * @return Value of InputShapeTypesArrayPath
    */
   DataArrayPath getInputShapeTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputShapeTypesArrayPath READ getInputShapeTypesArrayPath WRITE setInputShapeTypesArrayPath)
 
   /**
@@ -297,7 +281,6 @@ public:
    * @return Value of CsvOutputFile
    */
   QString getCsvOutputFile() const;
-
   Q_PROPERTY(QString CsvOutputFile READ getCsvOutputFile WRITE setCsvOutputFile)
 
   /**
@@ -309,7 +292,6 @@ public:
    * @return Value of PeriodicBoundaries
    */
   bool getPeriodicBoundaries() const;
-
   Q_PROPERTY(bool PeriodicBoundaries READ getPeriodicBoundaries WRITE setPeriodicBoundaries)
 
   /**
@@ -321,7 +303,6 @@ public:
    * @return Value of WriteGoalAttributes
    */
   bool getWriteGoalAttributes() const;
-
   Q_PROPERTY(bool WriteGoalAttributes READ getWriteGoalAttributes WRITE setWriteGoalAttributes)
 
   /**
@@ -333,7 +314,6 @@ public:
    * @return Value of HaveFeatures
    */
   int getHaveFeatures() const;
-
   Q_PROPERTY(int HaveFeatures READ getHaveFeatures WRITE setHaveFeatures)
 
   /**
@@ -345,7 +325,6 @@ public:
    * @return Value of MinStrutThickness
    */
   double getMinStrutThickness() const;
-
   Q_PROPERTY(double MinStrutThickness READ getMinStrutThickness WRITE setMinStrutThickness)
 
   /**
@@ -357,7 +336,6 @@ public:
    * @return Value of StrutThicknessVariability
    */
   float getStrutThicknessVariability() const;
-
   Q_PROPERTY(float StrutThicknessVariability READ getStrutThicknessVariability WRITE setStrutThicknessVariability)
 
   /**
@@ -369,7 +347,6 @@ public:
    * @return Value of StrutShapeVariability
    */
   float getStrutShapeVariability() const;
-
   Q_PROPERTY(float StrutShapeVariability READ getStrutShapeVariability WRITE setStrutShapeVariability)
 
   /**
@@ -381,7 +358,6 @@ public:
    * @return Value of SmoothStruts
    */
   bool getSmoothStruts() const;
-
   Q_PROPERTY(bool SmoothStruts READ getSmoothStruts WRITE setSmoothStruts)
 
   /**

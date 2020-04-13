@@ -50,8 +50,9 @@
 #include "SIMPLib/Geometry/ImageGeom.h"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/Math/SIMPLibMath.h"
 
-#include "OrientationLib/LaueOps/LaueOps.h"
+#include "EbsdLib/LaueOps/LaueOps.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
@@ -254,7 +255,7 @@ void AdaptiveAlignmentMisorientation::find_shifts(std::vector<int64_t>& xshifts,
   const uint64_t halfDim0 = static_cast<uint64_t>(dims[0] * 0.5f);
   const uint64_t halfDim1 = static_cast<uint64_t>(dims[1] * 0.5f);
 
-  float misorientationToleranceRad = m_MisorientationTolerance * SIMPLib::Constants::k_Pif / 180.0f;
+  float misorientationToleranceRad = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180;
 
   // Loop over the Z Direction
   for(uint64_t iter = 1; iter < dims[2]; iter++)

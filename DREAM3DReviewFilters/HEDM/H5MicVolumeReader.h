@@ -39,10 +39,10 @@
 #include <QtCore/QVector>
 
 //-- Ebsd Lib Includes
-#include "EbsdLib/EbsdConstants.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
-#include "EbsdLib/H5EbsdVolumeReader.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/IO/H5EbsdVolumeReader.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicPhase.h"
 
@@ -98,7 +98,7 @@ public:
    * primitive type that the data is stored as (Int, Float, etc).
    * @param featureName The name of the feature.
    */
-  Ebsd::NumType getPointerType(const QString& featureName) override;
+  EbsdLib::NumericTypes::Type getPointerType(const QString& featureName) override;
 
   /** @brief Allocates the proper amount of memory (after reading the header portion of the file)
    * and then splats '0' across all the bytes of the memory allocation

@@ -39,9 +39,9 @@
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
-#include "EbsdLib/EbsdConstants.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
 
 #include "MicConstants.h"
 

@@ -113,7 +113,6 @@ public:
    * @return Value of FindLength
    */
   bool getFindLength() const;
-
   Q_PROPERTY(bool FindLength READ getFindLength WRITE setFindLength)
 
   /**
@@ -125,7 +124,6 @@ public:
    * @return Value of FindMin
    */
   bool getFindMin() const;
-
   Q_PROPERTY(bool FindMin READ getFindMin WRITE setFindMin)
 
   /**
@@ -137,7 +135,6 @@ public:
    * @return Value of FindMax
    */
   bool getFindMax() const;
-
   Q_PROPERTY(bool FindMax READ getFindMax WRITE setFindMax)
 
   /**
@@ -149,7 +146,6 @@ public:
    * @return Value of FindMean
    */
   bool getFindMean() const;
-
   Q_PROPERTY(bool FindMean READ getFindMean WRITE setFindMean)
 
   /**
@@ -161,7 +157,6 @@ public:
    * @return Value of FindMedian
    */
   bool getFindMedian() const;
-
   Q_PROPERTY(bool FindMedian READ getFindMedian WRITE setFindMedian)
 
   /**
@@ -173,7 +168,6 @@ public:
    * @return Value of FindStdDeviation
    */
   bool getFindStdDeviation() const;
-
   Q_PROPERTY(bool FindStdDeviation READ getFindStdDeviation WRITE setFindStdDeviation)
 
   /**
@@ -185,7 +179,6 @@ public:
    * @return Value of FindSummation
    */
   bool getFindSummation() const;
-
   Q_PROPERTY(bool FindSummation READ getFindSummation WRITE setFindSummation)
 
   /**
@@ -197,7 +190,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -209,7 +201,6 @@ public:
    * @return Value of StandardizeData
    */
   bool getStandardizeData() const;
-
   Q_PROPERTY(bool StandardizeData READ getStandardizeData WRITE setStandardizeData)
 
   /**
@@ -221,7 +212,6 @@ public:
    * @return Value of ComputeByIndex
    */
   bool getComputeByIndex() const;
-
   Q_PROPERTY(bool ComputeByIndex READ getComputeByIndex WRITE setComputeByIndex)
 
   /**
@@ -233,7 +223,6 @@ public:
    * @return Value of DestinationAttributeMatrix
    */
   DataArrayPath getDestinationAttributeMatrix() const;
-
   Q_PROPERTY(DataArrayPath DestinationAttributeMatrix READ getDestinationAttributeMatrix WRITE setDestinationAttributeMatrix)
 
   /**
@@ -245,7 +234,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -257,7 +245,6 @@ public:
    * @return Value of LengthArrayName
    */
   QString getLengthArrayName() const;
-
   Q_PROPERTY(QString LengthArrayName READ getLengthArrayName WRITE setLengthArrayName)
 
   /**
@@ -269,7 +256,6 @@ public:
    * @return Value of MinimumArrayName
    */
   QString getMinimumArrayName() const;
-
   Q_PROPERTY(QString MinimumArrayName READ getMinimumArrayName WRITE setMinimumArrayName)
 
   /**
@@ -281,7 +267,6 @@ public:
    * @return Value of MaximumArrayName
    */
   QString getMaximumArrayName() const;
-
   Q_PROPERTY(QString MaximumArrayName READ getMaximumArrayName WRITE setMaximumArrayName)
 
   /**
@@ -293,7 +278,6 @@ public:
    * @return Value of MeanArrayName
    */
   QString getMeanArrayName() const;
-
   Q_PROPERTY(QString MeanArrayName READ getMeanArrayName WRITE setMeanArrayName)
 
   /**
@@ -305,7 +289,6 @@ public:
    * @return Value of MedianArrayName
    */
   QString getMedianArrayName() const;
-
   Q_PROPERTY(QString MedianArrayName READ getMedianArrayName WRITE setMedianArrayName)
 
   /**
@@ -317,7 +300,6 @@ public:
    * @return Value of StdDeviationArrayName
    */
   QString getStdDeviationArrayName() const;
-
   Q_PROPERTY(QString StdDeviationArrayName READ getStdDeviationArrayName WRITE setStdDeviationArrayName)
 
   /**
@@ -329,7 +311,6 @@ public:
    * @return Value of SummationArrayName
    */
   QString getSummationArrayName() const;
-
   Q_PROPERTY(QString SummationArrayName READ getSummationArrayName WRITE setSummationArrayName)
 
   /**
@@ -341,7 +322,6 @@ public:
    * @return Value of StandardizedArrayName
    */
   QString getStandardizedArrayName() const;
-
   Q_PROPERTY(QString StandardizedArrayName READ getStandardizedArrayName WRITE setStandardizedArrayName)
 
   /**
@@ -353,7 +333,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -365,7 +344,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**

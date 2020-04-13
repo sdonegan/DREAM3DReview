@@ -41,9 +41,9 @@
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 
-#include "EbsdLib/EbsdHeaderEntry.h"
+#include "EbsdLib/IO/EbsdHeaderEntry.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
 
 /**
  * @class MicHeaderEntry MicHeaderEntry.h EbsdLib/HEDM/MicHeaderEntry.h
@@ -70,7 +70,7 @@ public:
     return m_key;
   }
 
-#if EbsdLib_HDF5_SUPPORT
+#ifdef EbsdLib_ENABLE_HDF5
   QString getHDFType()
   {
     T value = static_cast<T>(0);

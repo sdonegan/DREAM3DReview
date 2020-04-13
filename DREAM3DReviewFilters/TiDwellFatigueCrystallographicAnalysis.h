@@ -60,6 +60,14 @@
 class DREAM3DReview_EXPORT TiDwellFatigueCrystallographicAnalysis : public AbstractFilter
 {
   Q_OBJECT
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(TiDwellFatigueCrystallographicAnalysis SUPERCLASS AbstractFilter)
+  PYB11_SHARED_POINTERS(TiDwellFatigueCrystallographicAnalysis)
+  PYB11_FILTER_NEW_MACRO(TiDwellFatigueCrystallographicAnalysis)
+  // TODO: Fill out the python bindings
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
+
 public:
   using Self = TiDwellFatigueCrystallographicAnalysis;
   using Pointer = std::shared_ptr<Self>;
@@ -89,7 +97,6 @@ public:
    * @return Value of DataContainerName
    */
   DataArrayPath getDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /* Place your input parameters here. You can use some of the DREAM3D Macros if you want to */
@@ -102,7 +109,6 @@ public:
    * @return Value of AlphaGlobPhasePresent
    */
   bool getAlphaGlobPhasePresent() const;
-
   Q_PROPERTY(bool AlphaGlobPhasePresent READ getAlphaGlobPhasePresent WRITE setAlphaGlobPhasePresent)
   /**
    * @brief Setter property for AlphaGlobPhase
@@ -113,7 +119,6 @@ public:
    * @return Value of AlphaGlobPhase
    */
   int getAlphaGlobPhase() const;
-
   Q_PROPERTY(int AlphaGlobPhase READ getAlphaGlobPhase WRITE setAlphaGlobPhase)
   /**
    * @brief Setter property for MTRPhase
@@ -124,7 +129,6 @@ public:
    * @return Value of MTRPhase
    */
   int getMTRPhase() const;
-
   Q_PROPERTY(int MTRPhase READ getMTRPhase WRITE setMTRPhase)
   /**
    * @brief Setter property for LatticeParameterA
@@ -135,7 +139,6 @@ public:
    * @return Value of LatticeParameterA
    */
   float getLatticeParameterA() const;
-
   Q_PROPERTY(float LatticeParameterA READ getLatticeParameterA WRITE setLatticeParameterA)
   /**
    * @brief Setter property for LatticeParameterC
@@ -146,7 +149,6 @@ public:
    * @return Value of LatticeParameterC
    */
   float getLatticeParameterC() const;
-
   Q_PROPERTY(float LatticeParameterC READ getLatticeParameterC WRITE setLatticeParameterC)
   /**
    * @brief Setter property for StressAxis
@@ -157,7 +159,6 @@ public:
    * @return Value of StressAxis
    */
   FloatVec3Type getStressAxis() const;
-
   Q_PROPERTY(FloatVec3Type StressAxis READ getStressAxis WRITE setStressAxis)
   /**
    * @brief Setter property for SubsurfaceDistance
@@ -168,7 +169,6 @@ public:
    * @return Value of SubsurfaceDistance
    */
   int getSubsurfaceDistance() const;
-
   Q_PROPERTY(int SubsurfaceDistance READ getSubsurfaceDistance WRITE setSubsurfaceDistance)
   Q_PROPERTY(float ConsiderationFraction READ getConsiderationFraction WRITE setConsiderationFraction)
   /**
@@ -190,7 +190,6 @@ public:
    * @return Value of DoNotAssumeInitiatorPresence
    */
   bool getDoNotAssumeInitiatorPresence() const;
-
   Q_PROPERTY(bool DoNotAssumeInitiatorPresence READ getDoNotAssumeInitiatorPresence WRITE setDoNotAssumeInitiatorPresence)
   /**
    * @brief Setter property for InitiatorLowerThreshold
@@ -201,7 +200,6 @@ public:
    * @return Value of InitiatorLowerThreshold
    */
   float getInitiatorLowerThreshold() const;
-
   Q_PROPERTY(float InitiatorLowerThreshold READ getInitiatorLowerThreshold WRITE setInitiatorLowerThreshold)
   /**
    * @brief Setter property for InitiatorUpperThreshold
@@ -212,7 +210,6 @@ public:
    * @return Value of InitiatorUpperThreshold
    */
   float getInitiatorUpperThreshold() const;
-
   Q_PROPERTY(float InitiatorUpperThreshold READ getInitiatorUpperThreshold WRITE setInitiatorUpperThreshold)
   /**
    * @brief Setter property for HardFeatureLowerThreshold
@@ -223,7 +220,6 @@ public:
    * @return Value of HardFeatureLowerThreshold
    */
   float getHardFeatureLowerThreshold() const;
-
   Q_PROPERTY(float HardFeatureLowerThreshold READ getHardFeatureLowerThreshold WRITE setHardFeatureLowerThreshold)
   /**
    * @brief Setter property for HardFeatureUpperThreshold
@@ -234,7 +230,6 @@ public:
    * @return Value of HardFeatureUpperThreshold
    */
   float getHardFeatureUpperThreshold() const;
-
   Q_PROPERTY(float HardFeatureUpperThreshold READ getHardFeatureUpperThreshold WRITE setHardFeatureUpperThreshold)
   /**
    * @brief Setter property for SoftFeatureLowerThreshold
@@ -245,7 +240,6 @@ public:
    * @return Value of SoftFeatureLowerThreshold
    */
   float getSoftFeatureLowerThreshold() const;
-
   Q_PROPERTY(float SoftFeatureLowerThreshold READ getSoftFeatureLowerThreshold WRITE setSoftFeatureLowerThreshold)
   /**
    * @brief Setter property for SoftFeatureUpperThreshold
@@ -256,7 +250,6 @@ public:
    * @return Value of SoftFeatureUpperThreshold
    */
   float getSoftFeatureUpperThreshold() const;
-
   Q_PROPERTY(float SoftFeatureUpperThreshold READ getSoftFeatureUpperThreshold WRITE setSoftFeatureUpperThreshold)
 
   /**
@@ -268,7 +261,6 @@ public:
    * @return Value of NewCellFeatureAttributeMatrixName
    */
   QString getNewCellFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString NewCellFeatureAttributeMatrixName READ getNewCellFeatureAttributeMatrixName WRITE setNewCellFeatureAttributeMatrixName)
 
   /**
@@ -280,7 +272,6 @@ public:
    * @return Value of SelectedFeaturesArrayName
    */
   QString getSelectedFeaturesArrayName() const;
-
   Q_PROPERTY(QString SelectedFeaturesArrayName READ getSelectedFeaturesArrayName WRITE setSelectedFeaturesArrayName)
 
   /**
@@ -292,7 +283,6 @@ public:
    * @return Value of InitiatorsArrayName
    */
   QString getInitiatorsArrayName() const;
-
   Q_PROPERTY(QString InitiatorsArrayName READ getInitiatorsArrayName WRITE setInitiatorsArrayName)
 
   /**
@@ -304,7 +294,6 @@ public:
    * @return Value of HardFeaturesArrayName
    */
   QString getHardFeaturesArrayName() const;
-
   Q_PROPERTY(QString HardFeaturesArrayName READ getHardFeaturesArrayName WRITE setHardFeaturesArrayName)
 
   /**
@@ -316,7 +305,6 @@ public:
    * @return Value of SoftFeaturesArrayName
    */
   QString getSoftFeaturesArrayName() const;
-
   Q_PROPERTY(QString SoftFeaturesArrayName READ getSoftFeaturesArrayName WRITE setSoftFeaturesArrayName)
 
   /**
@@ -328,7 +316,6 @@ public:
    * @return Value of HardSoftGroupsArrayName
    */
   QString getHardSoftGroupsArrayName() const;
-
   Q_PROPERTY(QString HardSoftGroupsArrayName READ getHardSoftGroupsArrayName WRITE setHardSoftGroupsArrayName)
 
   /**
@@ -340,7 +327,6 @@ public:
    * @return Value of CellFeatureAttributeMatrixName
    */
   QString getCellFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString CellFeatureAttributeMatrixName READ getCellFeatureAttributeMatrixName WRITE setCellFeatureAttributeMatrixName)
 
   /**
@@ -352,7 +338,6 @@ public:
    * @return Value of CellFeatureAttributeMatrixPath
    */
   DataArrayPath getCellFeatureAttributeMatrixPath() const;
-
   Q_PROPERTY(DataArrayPath CellFeatureAttributeMatrixPath READ getCellFeatureAttributeMatrixPath WRITE setCellFeatureAttributeMatrixPath)
 
   /**
@@ -364,7 +349,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**
@@ -376,7 +360,6 @@ public:
    * @return Value of CellParentIdsArrayName
    */
   QString getCellParentIdsArrayName() const;
-
   Q_PROPERTY(QString CellParentIdsArrayName READ getCellParentIdsArrayName WRITE setCellParentIdsArrayName)
 
   /**
@@ -388,7 +371,6 @@ public:
    * @return Value of FeatureParentIdsArrayName
    */
   QString getFeatureParentIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureParentIdsArrayName READ getFeatureParentIdsArrayName WRITE setFeatureParentIdsArrayName)
 
   /**
@@ -400,7 +382,6 @@ public:
    * @return Value of ActiveArrayName
    */
   QString getActiveArrayName() const;
-
   Q_PROPERTY(QString ActiveArrayName READ getActiveArrayName WRITE setActiveArrayName)
 
   /**
@@ -412,7 +393,6 @@ public:
    * @return Value of FeatureEulerAnglesArrayPath
    */
   DataArrayPath getFeatureEulerAnglesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureEulerAnglesArrayPath READ getFeatureEulerAnglesArrayPath WRITE setFeatureEulerAnglesArrayPath)
 
   /**
@@ -424,7 +404,6 @@ public:
    * @return Value of FeaturePhasesArrayPath
    */
   DataArrayPath getFeaturePhasesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeaturePhasesArrayPath READ getFeaturePhasesArrayPath WRITE setFeaturePhasesArrayPath)
 
   /**
@@ -436,7 +415,6 @@ public:
    * @return Value of NeighborListArrayPath
    */
   DataArrayPath getNeighborListArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NeighborListArrayPath READ getNeighborListArrayPath WRITE setNeighborListArrayPath)
 
   /**
@@ -448,7 +426,6 @@ public:
    * @return Value of CentroidsArrayPath
    */
   DataArrayPath getCentroidsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CentroidsArrayPath READ getCentroidsArrayPath WRITE setCentroidsArrayPath)
 
   /**
@@ -460,7 +437,6 @@ public:
    * @return Value of CrystalStructuresArrayPath
    */
   DataArrayPath getCrystalStructuresArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CrystalStructuresArrayPath READ getCrystalStructuresArrayPath WRITE setCrystalStructuresArrayPath)
 
   /**

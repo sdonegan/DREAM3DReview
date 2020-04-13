@@ -58,7 +58,6 @@ public:
    * @return Value of VertexDataContainerName
    */
   DataArrayPath getVertexDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath VertexDataContainerName READ getVertexDataContainerName WRITE setVertexDataContainerName)
 
   /**
@@ -70,7 +69,6 @@ public:
    * @return Value of HullDataContainerName
    */
   QString getHullDataContainerName() const;
-
   Q_PROPERTY(QString HullDataContainerName READ getHullDataContainerName WRITE setHullDataContainerName)
 
   /**
@@ -82,7 +80,6 @@ public:
    * @return Value of GridResolution
    */
   FloatVec3Type getGridResolution() const;
-
   Q_PROPERTY(FloatVec3Type GridResolution READ getGridResolution WRITE setGridResolution)
 
   /**
@@ -94,7 +91,6 @@ public:
    * @return Value of NumberOfEmptyNeighbors
    */
   int getNumberOfEmptyNeighbors() const;
-
   Q_PROPERTY(int NumberOfEmptyNeighbors READ getNumberOfEmptyNeighbors WRITE setNumberOfEmptyNeighbors)
 
   /**

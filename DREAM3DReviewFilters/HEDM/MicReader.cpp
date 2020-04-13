@@ -43,8 +43,9 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QObject>
 
-#include "EbsdLib/EbsdMacros.h"
-#include "EbsdLib/EbsdMath.h"
+#include "EbsdLib/Core/EbsdMacros.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
+#include "EbsdLib/Math/EbsdLibMath.h"
 
 #include "MicConstants.h"
 
@@ -247,45 +248,45 @@ void* MicReader::getPointerByName(const QString& featureName)
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-Ebsd::NumType MicReader::getPointerType(const QString& featureName)
+EbsdLib::NumericTypes::Type MicReader::getPointerType(const QString& featureName)
 {
   if(featureName.compare(Mic::Euler1) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Euler2) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Euler3) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Confidence) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Phase) == 0)
   {
-    return Ebsd::Int32;
+    return EbsdLib::NumericTypes::Type::Int32;
   }
   if(featureName.compare(Mic::Level) == 0)
   {
-    return Ebsd::Int32;
+    return EbsdLib::NumericTypes::Type::Int32;
   }
   if(featureName.compare(Mic::Up) == 0)
   {
-    return Ebsd::Int32;
+    return EbsdLib::NumericTypes::Type::Int32;
   }
   if(featureName.compare(Mic::X) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Y) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
-  return Ebsd::UnknownNumType;
+  return EbsdLib::NumericTypes::Type::UnknownNumType;
 }
 
 // -----------------------------------------------------------------------------
@@ -635,8 +636,8 @@ void MicReader::parseHeaderLine(QByteArray& line)
   std::cout << "#define ANG_" << upper << "     \"" << word << "\"" << std::endl;
   std::cout << "const QString " << word << "(ANG_" << upper << ");" << std::endl;
 
-  std::cout << "angInstanceProperty(AngHeaderEntry<float>. float, " << word << "Ebsd::Ang::" << word << std::endl;
-  std::cout << "m_Headermap[Ebsd::Ang::" << word << "] = AngHeaderEntry<float>::NewEbsdHeaderEntry(Ebsd::Ang::" << word << ");" << std::endl;
+  std::cout << "angInstanceProperty(AngHeaderEntry<float>. float, " << word << "EbsdLib::Ang::" << word << std::endl;
+  std::cout << "m_Headermap[EbsdLib::Ang::" << word << "] = AngHeaderEntry<float>::NewEbsdHeaderEntry(EbsdLib::Ang::" << word << ");" << std::endl;
   */
 #if 0
     std::cout << "<tr>\n    <td>" << word << "</td>\n    <td>" << "H5T_STRING" << "</td>\n";

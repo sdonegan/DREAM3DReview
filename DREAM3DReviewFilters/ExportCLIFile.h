@@ -58,7 +58,6 @@ public:
    * @return Value of EdgeGeometry
    */
   DataArrayPath getEdgeGeometry() const;
-
   Q_PROPERTY(DataArrayPath EdgeGeometry READ getEdgeGeometry WRITE setEdgeGeometry)
 
   /**
@@ -70,7 +69,6 @@ public:
    * @return Value of LayerIdsArrayPath
    */
   DataArrayPath getLayerIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath LayerIdsArrayPath READ getLayerIdsArrayPath WRITE setLayerIdsArrayPath)
 
   /**
@@ -82,7 +80,6 @@ public:
    * @return Value of SplitByGroup
    */
   bool getSplitByGroup() const;
-
   Q_PROPERTY(bool SplitByGroup READ getSplitByGroup WRITE setSplitByGroup)
 
   /**
@@ -94,7 +91,6 @@ public:
    * @return Value of GroupIdsArrayPath
    */
   DataArrayPath getGroupIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath GroupIdsArrayPath READ getGroupIdsArrayPath WRITE setGroupIdsArrayPath)
 
   /**
@@ -106,7 +102,6 @@ public:
    * @return Value of OutputDirectory
    */
   QString getOutputDirectory() const;
-
   Q_PROPERTY(QString OutputDirectory READ getOutputDirectory WRITE setOutputDirectory)
 
   /**
@@ -118,7 +113,6 @@ public:
    * @return Value of OutputFilePrefix
    */
   QString getOutputFilePrefix() const;
-
   Q_PROPERTY(QString OutputFilePrefix READ getOutputFilePrefix WRITE setOutputFilePrefix)
 
   /**
@@ -130,7 +124,6 @@ public:
    * @return Value of UnitsScaleFactor
    */
   double getUnitsScaleFactor() const;
-
   Q_PROPERTY(double UnitsScaleFactor READ getUnitsScaleFactor WRITE setUnitsScaleFactor)
 
   /**
@@ -142,7 +135,6 @@ public:
    * @return Value of Precision
    */
   int getPrecision() const;
-
   Q_PROPERTY(int Precision READ getPrecision WRITE setPrecision)
 
   /**

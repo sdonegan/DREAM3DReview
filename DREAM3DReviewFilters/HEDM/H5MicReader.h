@@ -41,7 +41,7 @@
 #include <QtCore/QVector>
 
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
 
 #include "MicPhase.h"
 #include "MicReader.h"

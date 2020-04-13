@@ -93,7 +93,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -105,7 +104,6 @@ public:
    * @return Value of AverageCellArrayPath
    */
   DataArrayPath getAverageCellArrayPath() const;
-
   Q_PROPERTY(DataArrayPath AverageCellArrayPath READ getAverageCellArrayPath WRITE setAverageCellArrayPath)
 
   /**
@@ -117,7 +115,6 @@ public:
    * @return Value of WeightedAverage
    */
   bool getWeightedAverage() const;
-
   Q_PROPERTY(bool WeightedAverage READ getWeightedAverage WRITE setWeightedAverage)
 
   /**

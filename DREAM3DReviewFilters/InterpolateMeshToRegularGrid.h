@@ -56,7 +56,6 @@ public:
    * @return Value of SelectedDataContainerName
    */
   QString getSelectedDataContainerName() const;
-
   Q_PROPERTY(QString SelectedDataContainerName READ getSelectedDataContainerName WRITE setSelectedDataContainerName)
 
   /**
@@ -68,7 +67,6 @@ public:
    * @return Value of InterpolatedDataContainerName
    */
   QString getInterpolatedDataContainerName() const;
-
   Q_PROPERTY(QString InterpolatedDataContainerName READ getInterpolatedDataContainerName WRITE setInterpolatedDataContainerName)
 
   /**
@@ -80,7 +78,6 @@ public:
    * @return Value of InterpolatedAttributeMatrixName
    */
   QString getInterpolatedAttributeMatrixName() const;
-
   Q_PROPERTY(QString InterpolatedAttributeMatrixName READ getInterpolatedAttributeMatrixName WRITE setInterpolatedAttributeMatrixName)
 
   /**
@@ -92,7 +89,6 @@ public:
    * @return Value of ScaleOrSpecifyNumCells
    */
   int getScaleOrSpecifyNumCells() const;
-
   Q_PROPERTY(int ScaleOrSpecifyNumCells READ getScaleOrSpecifyNumCells WRITE setScaleOrSpecifyNumCells)
 
   /**
@@ -104,7 +100,6 @@ public:
    * @return Value of SetXDimension
    */
   int getSetXDimension() const;
-
   Q_PROPERTY(int SetXDimension READ getSetXDimension WRITE setSetXDimension)
 
   /**
@@ -116,7 +111,6 @@ public:
    * @return Value of SetYDimension
    */
   int getSetYDimension() const;
-
   Q_PROPERTY(int SetYDimension READ getSetYDimension WRITE setSetYDimension)
 
   /**
@@ -128,7 +122,6 @@ public:
    * @return Value of ScaleFactorNumCells
    */
   int getScaleFactorNumCells() const;
-
   Q_PROPERTY(int ScaleFactorNumCells READ getScaleFactorNumCells WRITE setScaleFactorNumCells)
 
   /**
@@ -140,7 +133,6 @@ public:
    * @return Value of OutsideMeshIdentifier
    */
   int getOutsideMeshIdentifier() const;
-
   Q_PROPERTY(int OutsideMeshIdentifier READ getOutsideMeshIdentifier WRITE setOutsideMeshIdentifier)
 
   /**

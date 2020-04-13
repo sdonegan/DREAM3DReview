@@ -57,7 +57,6 @@ public:
    * @return Value of DataContainerName
    */
   DataArrayPath getDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -69,7 +68,6 @@ public:
    * @return Value of Lambda
    */
   float getLambda() const;
-
   Q_PROPERTY(float Lambda READ getLambda WRITE setLambda)
 
   /**
@@ -81,7 +79,6 @@ public:
    * @return Value of NumIterations
    */
   int getNumIterations() const;
-
   Q_PROPERTY(int NumIterations READ getNumIterations WRITE setNumIterations)
 
   /**
@@ -93,7 +90,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -105,7 +101,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**

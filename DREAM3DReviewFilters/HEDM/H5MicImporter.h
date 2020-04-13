@@ -44,9 +44,11 @@
 
 #include <QtCore/QString>
 
-#include "EbsdLib/EbsdImporter.h"
+#include "SIMPLib/Common/SIMPLibSetGetMacros.h"
+
+#include "EbsdLib/IO/EbsdImporter.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicReader.h"
 
 /**
@@ -61,9 +63,9 @@ class H5MicImporter : public EbsdImporter
 {
 
 public:
-  EBSD_SHARED_POINTERS(H5MicImporter)
-  EBSD_TYPE_MACRO(H5MicImporter)
-  EBSD_STATIC_NEW_SUPERCLASS(EbsdImporter, H5MicImporter)
+  SIMPL_SHARED_POINTERS(H5MicImporter)
+  SIMPL_TYPE_MACRO(H5MicImporter)
+  SIMPL_STATIC_NEW_SUPERCLASS(EbsdImporter, H5MicImporter)
 
   ~H5MicImporter() override;
 
@@ -73,7 +75,7 @@ public:
    * @param index The slice index for the file
    * @param MicFile The absolute path to the input .Mic file
    */
-  int importFile(hid_t fileId, int64_t index, const QString& MicFile);
+  int importFile(hid_t fileId, int64_t index, const QString& MicFile) override;
 
   /**
    * @brief Writes the phase data into the HDF5 file

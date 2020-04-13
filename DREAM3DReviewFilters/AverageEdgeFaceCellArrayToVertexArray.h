@@ -92,7 +92,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -104,7 +103,6 @@ public:
    * @return Value of AverageVertexArrayPath
    */
   DataArrayPath getAverageVertexArrayPath() const;
-
   Q_PROPERTY(DataArrayPath AverageVertexArrayPath READ getAverageVertexArrayPath WRITE setAverageVertexArrayPath)
 
   /**

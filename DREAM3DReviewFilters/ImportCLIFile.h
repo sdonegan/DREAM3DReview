@@ -56,7 +56,6 @@ public:
    * @return Value of CLIFile
    */
   QString getCLIFile() const;
-
   Q_PROPERTY(QString CLIFile READ getCLIFile WRITE setCLIFile)
 
   /**
@@ -68,7 +67,6 @@ public:
    * @return Value of EdgeDataContainerName
    */
   QString getEdgeDataContainerName() const;
-
   Q_PROPERTY(QString EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
 
   /**
@@ -80,7 +78,6 @@ public:
    * @return Value of VertexAttributeMatrixName
    */
   QString getVertexAttributeMatrixName() const;
-
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
 
   /**
@@ -92,7 +89,6 @@ public:
    * @return Value of EdgeAttributeMatrixName
    */
   QString getEdgeAttributeMatrixName() const;
-
   Q_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
 
   /**
@@ -104,7 +100,6 @@ public:
    * @return Value of LayerIdsArrayName
    */
   QString getLayerIdsArrayName() const;
-
   Q_PROPERTY(QString LayerIdsArrayName READ getLayerIdsArrayName WRITE setLayerIdsArrayName)
 
   /**
@@ -116,7 +111,6 @@ public:
    * @return Value of FeatureIdsArrayName
    */
   QString getFeatureIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
 
   /**

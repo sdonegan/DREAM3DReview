@@ -48,10 +48,10 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
-#include "OrientationLib/LaueOps/CubicOps.h"
-#include "OrientationLib/LaueOps/HexagonalOps.h"
-#include "OrientationLib/LaueOps/LaueOps.h"
-#include "OrientationLib/LaueOps/OrthoRhombicOps.h"
+#include "EbsdLib/LaueOps/CubicOps.h"
+#include "EbsdLib/LaueOps/HexagonalOps.h"
+#include "EbsdLib/LaueOps/LaueOps.h"
+#include "EbsdLib/LaueOps/OrthoRhombicOps.h"
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
@@ -118,7 +118,6 @@ public:
    * @return Value of CSL
    */
   float getCSL() const;
-
   Q_PROPERTY(float CSL READ getCSL WRITE setCSL)
   /**
    * @brief Setter property for AxisTolerance
@@ -129,7 +128,6 @@ public:
    * @return Value of AxisTolerance
    */
   float getAxisTolerance() const;
-
   Q_PROPERTY(float AxisTolerance READ getAxisTolerance WRITE setAxisTolerance)
   /**
    * @brief Setter property for AngleTolerance
@@ -140,7 +138,6 @@ public:
    * @return Value of AngleTolerance
    */
   float getAngleTolerance() const;
-
   Q_PROPERTY(float AngleTolerance READ getAngleTolerance WRITE setAngleTolerance)
 
   /**
@@ -152,7 +149,6 @@ public:
    * @return Value of AvgQuatsArrayPath
    */
   DataArrayPath getAvgQuatsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath AvgQuatsArrayPath READ getAvgQuatsArrayPath WRITE setAvgQuatsArrayPath)
 
   /**
@@ -164,7 +160,6 @@ public:
    * @return Value of FeaturePhasesArrayPath
    */
   DataArrayPath getFeaturePhasesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeaturePhasesArrayPath READ getFeaturePhasesArrayPath WRITE setFeaturePhasesArrayPath)
 
   /**
@@ -176,7 +171,6 @@ public:
    * @return Value of CrystalStructuresArrayPath
    */
   DataArrayPath getCrystalStructuresArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CrystalStructuresArrayPath READ getCrystalStructuresArrayPath WRITE setCrystalStructuresArrayPath)
 
   /**
@@ -188,7 +182,6 @@ public:
    * @return Value of SurfaceMeshFaceLabelsArrayPath
    */
   DataArrayPath getSurfaceMeshFaceLabelsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SurfaceMeshFaceLabelsArrayPath READ getSurfaceMeshFaceLabelsArrayPath WRITE setSurfaceMeshFaceLabelsArrayPath)
 
   /**
@@ -200,7 +193,6 @@ public:
    * @return Value of SurfaceMeshFaceNormalsArrayPath
    */
   DataArrayPath getSurfaceMeshFaceNormalsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SurfaceMeshFaceNormalsArrayPath READ getSurfaceMeshFaceNormalsArrayPath WRITE setSurfaceMeshFaceNormalsArrayPath)
 
   /**
@@ -212,7 +204,6 @@ public:
    * @return Value of SurfaceMeshCSLBoundaryArrayName
    */
   QString getSurfaceMeshCSLBoundaryArrayName() const;
-
   Q_PROPERTY(QString SurfaceMeshCSLBoundaryArrayName READ getSurfaceMeshCSLBoundaryArrayName WRITE setSurfaceMeshCSLBoundaryArrayName)
 
   /**
@@ -224,7 +215,6 @@ public:
    * @return Value of SurfaceMeshCSLBoundaryIncoherenceArrayName
    */
   QString getSurfaceMeshCSLBoundaryIncoherenceArrayName() const;
-
   Q_PROPERTY(QString SurfaceMeshCSLBoundaryIncoherenceArrayName READ getSurfaceMeshCSLBoundaryIncoherenceArrayName WRITE setSurfaceMeshCSLBoundaryIncoherenceArrayName)
 
   /**

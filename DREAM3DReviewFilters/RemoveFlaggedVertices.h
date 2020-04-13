@@ -90,7 +90,6 @@ public:
    * @return Value of VertexGeometry
    */
   DataArrayPath getVertexGeometry() const;
-
   Q_PROPERTY(DataArrayPath VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
 
   /**
@@ -102,7 +101,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -114,7 +112,6 @@ public:
    * @return Value of ReducedVertexGeometry
    */
   QString getReducedVertexGeometry() const;
-
   Q_PROPERTY(QString ReducedVertexGeometry READ getReducedVertexGeometry WRITE setReducedVertexGeometry)
 
   /**

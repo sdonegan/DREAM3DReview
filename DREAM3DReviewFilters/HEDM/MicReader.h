@@ -37,10 +37,10 @@
 
 #include <QtCore/QString>
 
-#include "EbsdLib/EbsdConstants.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdReader.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+#include "EbsdLib/IO/EbsdReader.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
 
 #include "MicConstants.h"
 #include "MicHeaderEntry.h"
@@ -154,7 +154,7 @@ public:
    * primitive type that the data is stored as (Int, Float, etc).
    * @param featureName The name of the feature.
    */
-  Ebsd::NumType getPointerType(const QString& featureName) override;
+  EbsdLib::NumericTypes::Type getPointerType(const QString& featureName) override;
 
   /**
    * @brief Reads the complete HEDM .Mic file.

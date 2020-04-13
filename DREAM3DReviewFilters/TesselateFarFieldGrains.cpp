@@ -34,8 +34,6 @@
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-#include <memory>
-
 #include "TesselateFarFieldGrains.h"
 
 #include <algorithm>
@@ -63,21 +61,20 @@
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 
+#include "EbsdLib/Core/Orientation.hpp"
+#include "EbsdLib/Core/OrientationMath.h"
+#include "EbsdLib/Core/OrientationTransformation.hpp"
+#include "EbsdLib/Core/Quaternion.hpp"
+#include "EbsdLib/Core/EbsdLibConstants.h"
+
+#include "DREAM3DReview/DREAM3DReviewVersion.h"
+
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
 #include <tbb/blocked_range3d.h>
 #include <tbb/parallel_for.h>
 #include <tbb/partitioner.h>
 #include <tbb/task_scheduler_init.h>
 #endif
-
-#include "OrientationLib/Core/Orientation.hpp"
-#include "OrientationLib/Core/OrientationMath.h"
-#include "OrientationLib/Core/OrientationTransformation.hpp"
-#include "OrientationLib/Core/Quaternion.hpp"
-
-#include "EbsdLib/EbsdConstants.h"
-
-#include "DREAM3DReview/DREAM3DReviewVersion.h"
 
 /* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
 enum createdPathID : RenameDataPath::DataID_t
@@ -587,8 +584,7 @@ void TesselateFarFieldGrains::dataCheck()
   dims.resize(1);
   dims[0] = 1;
   tempPath.update(getOutputCellAttributeMatrixName().getDataContainerName(), getOutputCellEnsembleAttributeMatrixName(), getCrystalStructuresArrayName());
-  m_CrystalStructuresPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<unsigned int>>(this, tempPath, Ebsd::CrystalStructure::UnknownCrystalStructure,
-                                                                                                                                        dims, "", DataArrayID36);
+  m_CrystalStructuresPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<unsigned int>>(this, tempPath, EbsdLib::CrystalStructure::UnknownCrystalStructure, dims, "", DataArrayID36);
   if(nullptr != m_CrystalStructuresPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
   {
     m_CrystalStructures = m_CrystalStructuresPtr.lock()->getPointer(0);
@@ -737,7 +733,7 @@ void TesselateFarFieldGrains::load_features()
     // variable for holding meta data
     int numPhases = 1;
     int numFeatures = 0;
-    unsigned int cStruct = Ebsd::CrystalStructure::UnknownCrystalStructure;
+    unsigned int cStruct = EbsdLib::CrystalStructure::UnknownCrystalStructure;
     float beamCenter = 0.0f, beamThickness = 0.0f, globalZPos = 0.0f;
     std::string keywordStr, phaseName, crystruct;
     float aRef = 0.0f, bRef = 0.0f, cRef = 0.0f, alphaRef = 0.0f, betaRef = 0.0f, gammaRef = 0.0f;
@@ -764,31 +760,31 @@ void TesselateFarFieldGrains::load_features()
       inFile >> phaseName >> crystruct >> aRef >> bRef >> cRef >> alphaRef >> betaRef >> gammaRef;
       if(crystruct == "Cubic")
       {
-        cStruct = Ebsd::CrystalStructure::Cubic_High;
+        cStruct = EbsdLib::CrystalStructure::Cubic_High;
       }
       else if(crystruct == "Hexagonal")
       {
-        cStruct = Ebsd::CrystalStructure::Hexagonal_High;
+        cStruct = EbsdLib::CrystalStructure::Hexagonal_High;
       }
       else if(crystruct == "Tetragonal")
       {
-        cStruct = Ebsd::CrystalStructure::Tetragonal_High;
+        cStruct = EbsdLib::CrystalStructure::Tetragonal_High;
       }
       else if(crystruct == "Orthorhombic")
       {
-        cStruct = Ebsd::CrystalStructure::OrthoRhombic;
+        cStruct = EbsdLib::CrystalStructure::OrthoRhombic;
       }
       else if(crystruct == "Trigonal")
       {
-        cStruct = Ebsd::CrystalStructure::Trigonal_High;
+        cStruct = EbsdLib::CrystalStructure::Trigonal_High;
       }
       else if(crystruct == "Monoclinic")
       {
-        cStruct = Ebsd::CrystalStructure::Monoclinic;
+        cStruct = EbsdLib::CrystalStructure::Monoclinic;
       }
       else if(crystruct == "Triclinic")
       {
-        cStruct = Ebsd::CrystalStructure::Triclinic;
+        cStruct = EbsdLib::CrystalStructure::Triclinic;
       }
       m_CrystalStructures[i] = cStruct;
     }

@@ -60,7 +60,6 @@ public:
    * @return Value of StlFilesPath
    */
   QString getStlFilesPath() const;
-
   Q_PROPERTY(QString StlFilesPath READ getStlFilesPath WRITE setStlFilesPath)
 
   /**
@@ -72,7 +71,6 @@ public:
    * @return Value of TriangleDataContainerName
    */
   QString getTriangleDataContainerName() const;
-
   Q_PROPERTY(QString TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
 
   /**
@@ -84,7 +82,6 @@ public:
    * @return Value of FaceAttributeMatrixName
    */
   QString getFaceAttributeMatrixName() const;
-
   Q_PROPERTY(QString FaceAttributeMatrixName READ getFaceAttributeMatrixName WRITE setFaceAttributeMatrixName)
 
   /**
@@ -96,7 +93,6 @@ public:
    * @return Value of FaceNormalsArrayName
    */
   QString getFaceNormalsArrayName() const;
-
   Q_PROPERTY(QString FaceNormalsArrayName READ getFaceNormalsArrayName WRITE setFaceNormalsArrayName)
 
   /**

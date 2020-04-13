@@ -37,15 +37,11 @@
  *     FA8650-07-D-5800 and FA8650-10-D-5226 and The Boeing Company
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
-#include <memory>
-
 #include "InsertTransformationPhases.h"
 
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
-
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/AttributeMatrixSelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/ChoiceFilterParameter.h"
@@ -65,16 +61,12 @@
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 
-#include "OrientationLib/Core/Orientation.hpp"
-#include "OrientationLib/LaueOps/LaueOps.h"
-
+#include "EbsdLib/Core/Orientation.hpp"
+#include "EbsdLib/LaueOps/LaueOps.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
-
-#include "EbsdLib/EbsdConstants.h"
-
-#include "Plugins/SyntheticBuilding/SyntheticBuildingConstants.h"
 
 /* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
 enum createdPathID : RenameDataPath::DataID_t
@@ -100,7 +92,7 @@ QTextStream& operator<<(QTextStream& os, const ShapeType::Type& value)
 // -----------------------------------------------------------------------------
 InsertTransformationPhases::InsertTransformationPhases()
 : m_ParentPhase(1)
-, m_TransCrystalStruct(Ebsd::CrystalStructure::UnknownCrystalStructure)
+, m_TransCrystalStruct(EbsdLib::CrystalStructure::UnknownCrystalStructure)
 , m_TransformationPhaseMisorientation(60.0f)
 , m_DefineHabitPlane(true)
 , m_UseAllVariants(true)

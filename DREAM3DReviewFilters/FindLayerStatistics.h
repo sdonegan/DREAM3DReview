@@ -59,7 +59,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -71,7 +70,6 @@ public:
    * @return Value of Plane
    */
   unsigned int getPlane() const;
-
   Q_PROPERTY(unsigned int Plane READ getPlane WRITE setPlane)
 
   /**
@@ -83,7 +81,6 @@ public:
    * @return Value of LayerIDsArrayName
    */
   QString getLayerIDsArrayName() const;
-
   Q_PROPERTY(QString LayerIDsArrayName READ getLayerIDsArrayName WRITE setLayerIDsArrayName)
 
   /**
@@ -95,7 +92,6 @@ public:
    * @return Value of LayerAttributeMatrixName
    */
   QString getLayerAttributeMatrixName() const;
-
   Q_PROPERTY(QString LayerAttributeMatrixName READ getLayerAttributeMatrixName WRITE setLayerAttributeMatrixName)
 
   /**
@@ -107,7 +103,6 @@ public:
    * @return Value of LayerMinArrayName
    */
   QString getLayerMinArrayName() const;
-
   Q_PROPERTY(QString LayerMinArrayName READ getLayerMinArrayName WRITE setLayerMinArrayName)
 
   /**
@@ -119,7 +114,6 @@ public:
    * @return Value of LayerMaxArrayName
    */
   QString getLayerMaxArrayName() const;
-
   Q_PROPERTY(QString LayerMaxArrayName READ getLayerMaxArrayName WRITE setLayerMaxArrayName)
 
   /**
@@ -131,7 +125,6 @@ public:
    * @return Value of LayerAvgArrayName
    */
   QString getLayerAvgArrayName() const;
-
   Q_PROPERTY(QString LayerAvgArrayName READ getLayerAvgArrayName WRITE setLayerAvgArrayName)
 
   /**
@@ -143,7 +136,6 @@ public:
    * @return Value of LayerStdArrayName
    */
   QString getLayerStdArrayName() const;
-
   Q_PROPERTY(QString LayerStdArrayName READ getLayerStdArrayName WRITE setLayerStdArrayName)
 
   /**
@@ -155,7 +147,6 @@ public:
    * @return Value of LayerVarArrayName
    */
   QString getLayerVarArrayName() const;
-
   Q_PROPERTY(QString LayerVarArrayName READ getLayerVarArrayName WRITE setLayerVarArrayName)
 
   /**

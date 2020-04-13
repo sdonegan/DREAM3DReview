@@ -93,7 +93,6 @@ public:
    * @return Value of InputArrayPath
    */
   DataArrayPath getInputArrayPath() const;
-
   Q_PROPERTY(DataArrayPath InputArrayPath READ getInputArrayPath WRITE setInputArrayPath)
 
   /**
@@ -105,7 +104,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**
@@ -117,7 +115,6 @@ public:
    * @return Value of GradientMagnitudeArrayPath
    */
   DataArrayPath getGradientMagnitudeArrayPath() const;
-
   Q_PROPERTY(DataArrayPath GradientMagnitudeArrayPath READ getGradientMagnitudeArrayPath WRITE setGradientMagnitudeArrayPath)
 
   /**

@@ -113,7 +113,7 @@ ReadMicData::ReadMicData()
 , m_CrystalStructuresArrayName(SIMPL::EnsembleData::CrystalStructures)
 , m_LatticeConstantsArrayName(SIMPL::EnsembleData::LatticeConstants)
 , m_RefFrameZDir(SIMPL::RefFrameZDir::UnknownRefFrameZDirection)
-, m_Manufacturer(Ebsd::OEM::Unknown)
+, m_Manufacturer(EbsdLib::OEM::Unknown)
 , d_ptr(new ReadMicDataPrivate(this))
 {
 }
@@ -344,7 +344,7 @@ void ReadMicData::dataCheck()
     setErrorCondition(-388, ss);
   }
 
-  if(m_InputFile.isEmpty() && m_Manufacturer == Ebsd::OEM::Unknown)
+  if(m_InputFile.isEmpty() && m_Manufacturer == EbsdLib::OEM::Unknown)
   {
     QString ss = QObject::tr("The input file must be set for property %1").arg("InputFile");
     setErrorCondition(-1, ss);
@@ -370,11 +370,11 @@ void ReadMicData::dataCheck()
       dims[0] = 1;
       for(qint32 i = 0; i < names.size(); ++i)
       {
-        if(reader->getPointerType(names[i]) == Ebsd::Int32)
+        if(reader->getPointerType(names[i]) == EbsdLib::NumericTypes::Type::Int32)
         {
           cellAttrMat->createAndAddAttributeArray<DataArray<int32_t>>(this, names[i], 0, dims);
         }
-        else if(reader->getPointerType(names[i]) == Ebsd::Float)
+        else if(reader->getPointerType(names[i]) == EbsdLib::NumericTypes::Type::Float)
         {
           cellAttrMat->createAndAddAttributeArray<DataArray<float>>(this, names[i], 0, dims);
         }
@@ -408,8 +408,7 @@ void ReadMicData::dataCheck()
 
     // typedef DataArray<unsigned int> XTalStructArrayType;
     tempPath.update(getDataContainerName().getDataContainerName(), getCellEnsembleAttributeMatrixName(), getCrystalStructuresArrayName());
-    m_CrystalStructuresPtr =
-        getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<uint32_t>>(this, tempPath, Ebsd::CrystalStructure::UnknownCrystalStructure, dim, "", DataArrayID33);
+    m_CrystalStructuresPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<uint32_t>>(this, tempPath, EbsdLib::CrystalStructure::UnknownCrystalStructure, dim, "", DataArrayID33);
     if(nullptr != m_CrystalStructuresPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
     {
       m_CrystalStructures = m_CrystalStructuresPtr.lock()->getPointer(0);
@@ -643,7 +642,7 @@ int ReadMicData::loadMaterialInfo(MicReader* reader)
 
   // Initialize the zero'th element to unknowns. The other elements will
   // be filled in based on values from the data file
-  crystalStructures->setValue(0, Ebsd::CrystalStructure::UnknownCrystalStructure);
+  crystalStructures->setValue(0, EbsdLib::CrystalStructure::UnknownCrystalStructure);
   materialNames->setValue(0, "Invalid Phase");
   latticeConstants->setComponent(0, 0, 0.0f);
   latticeConstants->setComponent(0, 1, 0.0f);
@@ -874,13 +873,13 @@ uint32_t ReadMicData::getRefFrameZDir() const
 }
 
 // -----------------------------------------------------------------------------
-void ReadMicData::setManufacturer(const Ebsd::OEM& value)
+void ReadMicData::setManufacturer(const EbsdLib::OEM& value)
 {
   m_Manufacturer = value;
 }
 
 // -----------------------------------------------------------------------------
-Ebsd::OEM ReadMicData::getManufacturer() const
+EbsdLib::OEM ReadMicData::getManufacturer() const
 {
   return m_Manufacturer;
 }

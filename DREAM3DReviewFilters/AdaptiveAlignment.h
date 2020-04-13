@@ -119,7 +119,6 @@ public:
    * @return Value of WriteAlignmentShifts
    */
   bool getWriteAlignmentShifts() const;
-
   Q_PROPERTY(bool WriteAlignmentShifts READ getWriteAlignmentShifts WRITE setWriteAlignmentShifts)
 
   /**
@@ -131,7 +130,6 @@ public:
    * @return Value of AlignmentShiftFileName
    */
   QString getAlignmentShiftFileName() const;
-
   Q_PROPERTY(QString AlignmentShiftFileName READ getAlignmentShiftFileName WRITE setAlignmentShiftFileName)
 
   /////////////// new:
@@ -145,7 +143,6 @@ public:
    * @return Value of GlobalCorrection
    */
   int getGlobalCorrection() const;
-
   Q_PROPERTY(int GlobalCorrection READ getGlobalCorrection WRITE setGlobalCorrection)
 
   /**
@@ -157,7 +154,6 @@ public:
    * @return Value of InputPath
    */
   QString getInputPath() const;
-
   Q_PROPERTY(QString InputPath READ getInputPath WRITE setInputPath)
 
   /**
@@ -169,7 +165,6 @@ public:
    * @return Value of ShiftX
    */
   float getShiftX() const;
-
   Q_PROPERTY(float ShiftX READ getShiftX WRITE setShiftX)
 
   /**
@@ -181,7 +176,6 @@ public:
    * @return Value of ShiftY
    */
   float getShiftY() const;
-
   Q_PROPERTY(float ShiftY READ getShiftY WRITE setShiftY)
 
   /**
@@ -193,7 +187,6 @@ public:
    * @return Value of ImageDataArrayPath
    */
   DataArrayPath getImageDataArrayPath() const;
-
   Q_PROPERTY(DataArrayPath ImageDataArrayPath READ getImageDataArrayPath WRITE setImageDataArrayPath)
 
   /**
@@ -205,7 +198,6 @@ public:
    * @return Value of NewCellArrayName
    */
   QString getNewCellArrayName() const;
-
   Q_PROPERTY(QString NewCellArrayName READ getNewCellArrayName WRITE setNewCellArrayName)
 
   /**
@@ -217,7 +209,6 @@ public:
    * @return Value of MinRadius
    */
   float getMinRadius() const;
-
   Q_PROPERTY(float MinRadius READ getMinRadius WRITE setMinRadius)
 
   /**
@@ -229,7 +220,6 @@ public:
    * @return Value of MaxRadius
    */
   float getMaxRadius() const;
-
   Q_PROPERTY(float MaxRadius READ getMaxRadius WRITE setMaxRadius)
 
   /**
@@ -241,7 +231,6 @@ public:
    * @return Value of NumberCircles
    */
   int getNumberCircles() const;
-
   Q_PROPERTY(int NumberCircles READ getNumberCircles WRITE setNumberCircles)
 
   /**
@@ -253,7 +242,6 @@ public:
    * @return Value of IgnoredDataArrayPaths
    */
   QVector<DataArrayPath> getIgnoredDataArrayPaths() const;
-
   Q_PROPERTY(QVector<DataArrayPath> IgnoredDataArrayPaths READ getIgnoredDataArrayPaths WRITE setIgnoredDataArrayPaths)
 
   /**

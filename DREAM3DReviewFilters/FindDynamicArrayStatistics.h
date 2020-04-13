@@ -60,7 +60,6 @@ public:
    * @return Value of FindLength
    */
   bool getFindLength() const;
-
   Q_PROPERTY(bool FindLength READ getFindLength WRITE setFindLength)
 
   /**
@@ -72,7 +71,6 @@ public:
    * @return Value of FindMin
    */
   bool getFindMin() const;
-
   Q_PROPERTY(bool FindMin READ getFindMin WRITE setFindMin)
 
   /**
@@ -84,7 +82,6 @@ public:
    * @return Value of FindMax
    */
   bool getFindMax() const;
-
   Q_PROPERTY(bool FindMax READ getFindMax WRITE setFindMax)
 
   /**
@@ -96,7 +93,6 @@ public:
    * @return Value of FindMean
    */
   bool getFindMean() const;
-
   Q_PROPERTY(bool FindMean READ getFindMean WRITE setFindMean)
 
   /**
@@ -108,7 +104,6 @@ public:
    * @return Value of FindMedian
    */
   bool getFindMedian() const;
-
   Q_PROPERTY(bool FindMedian READ getFindMedian WRITE setFindMedian)
 
   /**
@@ -120,7 +115,6 @@ public:
    * @return Value of FindStdDeviation
    */
   bool getFindStdDeviation() const;
-
   Q_PROPERTY(bool FindStdDeviation READ getFindStdDeviation WRITE setFindStdDeviation)
 
   /**
@@ -132,7 +126,6 @@ public:
    * @return Value of FindSummation
    */
   bool getFindSummation() const;
-
   Q_PROPERTY(bool FindSummation READ getFindSummation WRITE setFindSummation)
 
   /**
@@ -144,7 +137,6 @@ public:
    * @return Value of LengthArrayPath
    */
   DataArrayPath getLengthArrayPath() const;
-
   Q_PROPERTY(DataArrayPath LengthArrayPath READ getLengthArrayPath WRITE setLengthArrayPath)
 
   /**
@@ -156,7 +148,6 @@ public:
    * @return Value of MinimumArrayPath
    */
   DataArrayPath getMinimumArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MinimumArrayPath READ getMinimumArrayPath WRITE setMinimumArrayPath)
 
   /**
@@ -168,7 +159,6 @@ public:
    * @return Value of MaximumArrayPath
    */
   DataArrayPath getMaximumArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaximumArrayPath READ getMaximumArrayPath WRITE setMaximumArrayPath)
 
   /**
@@ -180,7 +170,6 @@ public:
    * @return Value of MeanArrayPath
    */
   DataArrayPath getMeanArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MeanArrayPath READ getMeanArrayPath WRITE setMeanArrayPath)
 
   /**
@@ -192,7 +181,6 @@ public:
    * @return Value of MedianArrayPath
    */
   DataArrayPath getMedianArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MedianArrayPath READ getMedianArrayPath WRITE setMedianArrayPath)
 
   /**
@@ -204,7 +192,6 @@ public:
    * @return Value of StdDeviationArrayPath
    */
   DataArrayPath getStdDeviationArrayPath() const;
-
   Q_PROPERTY(DataArrayPath StdDeviationArrayPath READ getStdDeviationArrayPath WRITE setStdDeviationArrayPath)
 
   /**
@@ -216,7 +203,6 @@ public:
    * @return Value of SummationArrayPath
    */
   DataArrayPath getSummationArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SummationArrayPath READ getSummationArrayPath WRITE setSummationArrayPath)
 
   /**
@@ -228,7 +214,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**

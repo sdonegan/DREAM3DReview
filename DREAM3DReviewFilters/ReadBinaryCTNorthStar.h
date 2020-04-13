@@ -80,7 +80,6 @@ public:
    * @return Value of InputHeaderFile
    */
   QString getInputHeaderFile() const;
-
   Q_PROPERTY(QString InputHeaderFile READ getInputHeaderFile WRITE setInputHeaderFile)
 
   /**
@@ -92,7 +91,6 @@ public:
    * @return Value of DataContainerName
    */
   QString getDataContainerName() const;
-
   Q_PROPERTY(QString DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -104,7 +102,6 @@ public:
    * @return Value of CellAttributeMatrixName
    */
   QString getCellAttributeMatrixName() const;
-
   Q_PROPERTY(QString CellAttributeMatrixName READ getCellAttributeMatrixName WRITE setCellAttributeMatrixName)
 
   /**
@@ -116,7 +113,6 @@ public:
    * @return Value of DensityArrayName
    */
   QString getDensityArrayName() const;
-
   Q_PROPERTY(QString DensityArrayName READ getDensityArrayName WRITE setDensityArrayName)
 
   /**

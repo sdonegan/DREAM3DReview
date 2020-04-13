@@ -39,10 +39,11 @@
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
-#include "EbsdLib/AbstractEbsdFields.h"
-#include "EbsdLib/EbsdConstants.h"
+#include "EbsdLib/Core/AbstractEbsdFields.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
 #include "EbsdLib/EbsdLib.h"
-#include "EbsdLib/EbsdSetGetMacros.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
+
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicConstants.h"
 
 /**

@@ -95,7 +95,6 @@ public:
    * @return Value of SelectedDataArrayPaths
    */
   QVector<DataArrayPath> getSelectedDataArrayPaths() const;
-
   Q_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
 
   /**
@@ -107,7 +106,6 @@ public:
    * @return Value of PCAttributeMatrixName
    */
   QString getPCAttributeMatrixName() const;
-
   Q_PROPERTY(QString PCAttributeMatrixName READ getPCAttributeMatrixName WRITE setPCAttributeMatrixName)
 
   /**
@@ -119,7 +117,6 @@ public:
    * @return Value of PCEigenvaluesName
    */
   QString getPCEigenvaluesName() const;
-
   Q_PROPERTY(QString PCEigenvaluesName READ getPCEigenvaluesName WRITE setPCEigenvaluesName)
 
   /**
@@ -131,7 +128,6 @@ public:
    * @return Value of PCEigenvectorsName
    */
   QString getPCEigenvectorsName() const;
-
   Q_PROPERTY(QString PCEigenvectorsName READ getPCEigenvectorsName WRITE setPCEigenvectorsName)
 
   /**
@@ -143,7 +139,6 @@ public:
    * @return Value of MatrixApproach
    */
   int getMatrixApproach() const;
-
   Q_PROPERTY(int MatrixApproach READ getMatrixApproach WRITE setMatrixApproach)
 
   /**
@@ -155,7 +150,6 @@ public:
    * @return Value of ProjectDataSpace
    */
   bool getProjectDataSpace() const;
-
   Q_PROPERTY(bool ProjectDataSpace READ getProjectDataSpace WRITE setProjectDataSpace)
 
   /**
@@ -167,7 +161,6 @@ public:
    * @return Value of NumberOfDimensionsForProjection
    */
   int getNumberOfDimensionsForProjection() const;
-
   Q_PROPERTY(int NumberOfDimensionsForProjection READ getNumberOfDimensionsForProjection WRITE setNumberOfDimensionsForProjection)
 
   /**
@@ -179,7 +172,6 @@ public:
    * @return Value of ProjectedDataSpaceArrayPath
    */
   DataArrayPath getProjectedDataSpaceArrayPath() const;
-
   Q_PROPERTY(DataArrayPath ProjectedDataSpaceArrayPath READ getProjectedDataSpaceArrayPath WRITE setProjectedDataSpaceArrayPath)
 
   /**

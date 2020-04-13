@@ -54,8 +54,9 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
-#include "OrientationLib/Core/Quaternion.hpp"
+#include "EbsdLib/Core/Quaternion.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 class LaueOps;
@@ -138,7 +139,6 @@ public:
    * @return Value of ParentPhase
    */
   int getParentPhase() const;
-
   Q_PROPERTY(int ParentPhase READ getParentPhase WRITE setParentPhase)
 
   /**
@@ -150,7 +150,6 @@ public:
    * @return Value of TransCrystalStruct
    */
   int getTransCrystalStruct() const;
-
   Q_PROPERTY(int TransCrystalStruct READ getTransCrystalStruct WRITE setTransCrystalStruct)
 
   /**
@@ -162,7 +161,6 @@ public:
    * @return Value of TransformationPhaseMisorientation
    */
   float getTransformationPhaseMisorientation() const;
-
   Q_PROPERTY(float TransformationPhaseMisorientation READ getTransformationPhaseMisorientation WRITE setTransformationPhaseMisorientation)
 
   /**
@@ -174,7 +172,6 @@ public:
    * @return Value of TransformationPhaseHabitPlane
    */
   FloatVec3Type getTransformationPhaseHabitPlane() const;
-
   Q_PROPERTY(FloatVec3Type TransformationPhaseHabitPlane READ getTransformationPhaseHabitPlane WRITE setTransformationPhaseHabitPlane)
 
   /**
@@ -186,7 +183,6 @@ public:
    * @return Value of DefineHabitPlane
    */
   bool getDefineHabitPlane() const;
-
   Q_PROPERTY(bool DefineHabitPlane READ getDefineHabitPlane WRITE setDefineHabitPlane)
 
   /**
@@ -198,7 +194,6 @@ public:
    * @return Value of UseAllVariants
    */
   bool getUseAllVariants() const;
-
   Q_PROPERTY(bool UseAllVariants READ getUseAllVariants WRITE setUseAllVariants)
 
   /**
@@ -210,7 +205,6 @@ public:
    * @return Value of CoherentFrac
    */
   float getCoherentFrac() const;
-
   Q_PROPERTY(float CoherentFrac READ getCoherentFrac WRITE setCoherentFrac)
 
   /**
@@ -222,7 +216,6 @@ public:
    * @return Value of TransformationPhaseThickness
    */
   float getTransformationPhaseThickness() const;
-
   Q_PROPERTY(float TransformationPhaseThickness READ getTransformationPhaseThickness WRITE setTransformationPhaseThickness)
 
   /**
@@ -234,7 +227,6 @@ public:
    * @return Value of NumTransformationPhasesPerFeature
    */
   int getNumTransformationPhasesPerFeature() const;
-
   Q_PROPERTY(int NumTransformationPhasesPerFeature READ getNumTransformationPhasesPerFeature WRITE setNumTransformationPhasesPerFeature)
 
   /**
@@ -246,7 +238,6 @@ public:
    * @return Value of PeninsulaFrac
    */
   float getPeninsulaFrac() const;
-
   Q_PROPERTY(float PeninsulaFrac READ getPeninsulaFrac WRITE setPeninsulaFrac)
 
   /**
@@ -258,7 +249,6 @@ public:
    * @return Value of StatsGenCellEnsembleAttributeMatrixPath
    */
   DataArrayPath getStatsGenCellEnsembleAttributeMatrixPath() const;
-
   Q_PROPERTY(DataArrayPath StatsGenCellEnsembleAttributeMatrixPath READ getStatsGenCellEnsembleAttributeMatrixPath WRITE setStatsGenCellEnsembleAttributeMatrixPath)
 
   /**
@@ -270,7 +260,6 @@ public:
    * @return Value of CellFeatureAttributeMatrixName
    */
   DataArrayPath getCellFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(DataArrayPath CellFeatureAttributeMatrixName READ getCellFeatureAttributeMatrixName WRITE setCellFeatureAttributeMatrixName)
 
   /**
@@ -282,7 +271,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**
@@ -294,7 +282,6 @@ public:
    * @return Value of CellEulerAnglesArrayPath
    */
   DataArrayPath getCellEulerAnglesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CellEulerAnglesArrayPath READ getCellEulerAnglesArrayPath WRITE setCellEulerAnglesArrayPath)
 
   /**
@@ -306,7 +293,6 @@ public:
    * @return Value of CellPhasesArrayPath
    */
   DataArrayPath getCellPhasesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CellPhasesArrayPath READ getCellPhasesArrayPath WRITE setCellPhasesArrayPath)
 
   /**
@@ -318,7 +304,6 @@ public:
    * @return Value of AvgQuatsArrayPath
    */
   DataArrayPath getAvgQuatsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath AvgQuatsArrayPath READ getAvgQuatsArrayPath WRITE setAvgQuatsArrayPath)
 
   /**
@@ -330,7 +315,6 @@ public:
    * @return Value of CentroidsArrayPath
    */
   DataArrayPath getCentroidsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CentroidsArrayPath READ getCentroidsArrayPath WRITE setCentroidsArrayPath)
 
   /**
@@ -342,7 +326,6 @@ public:
    * @return Value of EquivalentDiametersArrayPath
    */
   DataArrayPath getEquivalentDiametersArrayPath() const;
-
   Q_PROPERTY(DataArrayPath EquivalentDiametersArrayPath READ getEquivalentDiametersArrayPath WRITE setEquivalentDiametersArrayPath)
 
   /**
@@ -354,7 +337,6 @@ public:
    * @return Value of FeatureEulerAnglesArrayPath
    */
   DataArrayPath getFeatureEulerAnglesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureEulerAnglesArrayPath READ getFeatureEulerAnglesArrayPath WRITE setFeatureEulerAnglesArrayPath)
 
   /**
@@ -366,7 +348,6 @@ public:
    * @return Value of FeaturePhasesArrayPath
    */
   DataArrayPath getFeaturePhasesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeaturePhasesArrayPath READ getFeaturePhasesArrayPath WRITE setFeaturePhasesArrayPath)
 
   /**
@@ -378,7 +359,6 @@ public:
    * @return Value of FeatureParentIdsArrayName
    */
   QString getFeatureParentIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureParentIdsArrayName READ getFeatureParentIdsArrayName WRITE setFeatureParentIdsArrayName)
 
   /**
@@ -390,7 +370,6 @@ public:
    * @return Value of NumFeaturesPerParentArrayPath
    */
   DataArrayPath getNumFeaturesPerParentArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NumFeaturesPerParentArrayPath READ getNumFeaturesPerParentArrayPath WRITE setNumFeaturesPerParentArrayPath)
 
   /**
@@ -402,7 +381,6 @@ public:
    * @return Value of CrystalStructuresArrayPath
    */
   DataArrayPath getCrystalStructuresArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CrystalStructuresArrayPath READ getCrystalStructuresArrayPath WRITE setCrystalStructuresArrayPath)
 
   /**
@@ -414,7 +392,6 @@ public:
    * @return Value of PhaseTypesArrayPath
    */
   DataArrayPath getPhaseTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath PhaseTypesArrayPath READ getPhaseTypesArrayPath WRITE setPhaseTypesArrayPath)
 
   /**
@@ -426,7 +403,6 @@ public:
    * @return Value of ShapeTypesArrayPath
    */
   DataArrayPath getShapeTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath ShapeTypesArrayPath READ getShapeTypesArrayPath WRITE setShapeTypesArrayPath)
 
   /**
@@ -438,7 +414,6 @@ public:
    * @return Value of NumFeaturesArrayPath
    */
   DataArrayPath getNumFeaturesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NumFeaturesArrayPath READ getNumFeaturesArrayPath WRITE setNumFeaturesArrayPath)
 
   /**

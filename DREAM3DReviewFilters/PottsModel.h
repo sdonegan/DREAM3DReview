@@ -97,7 +97,6 @@ public:
    * @return Value of Iterations
    */
   int getIterations() const;
-
   Q_PROPERTY(int Iterations READ getIterations WRITE setIterations)
 
   /**
@@ -109,7 +108,6 @@ public:
    * @return Value of Temperature
    */
   double getTemperature() const;
-
   Q_PROPERTY(double Temperature READ getTemperature WRITE setTemperature)
 
   /**
@@ -121,7 +119,6 @@ public:
    * @return Value of PeriodicBoundaries
    */
   bool getPeriodicBoundaries() const;
-
   Q_PROPERTY(bool PeriodicBoundaries READ getPeriodicBoundaries WRITE setPeriodicBoundaries)
 
   /**
@@ -133,7 +130,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -145,7 +141,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**
@@ -157,7 +152,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**

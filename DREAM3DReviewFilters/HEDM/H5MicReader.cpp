@@ -39,8 +39,8 @@
 #include "H5Support/QH5Lite.h"
 #include "H5Support/QH5Utilities.h"
 
-#include "EbsdLib/EbsdConstants.h"
-#include "EbsdLib/EbsdMacros.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
+#include "EbsdLib/Core/EbsdMacros.h"
 #include "MicConstants.h"
 
 #if defined(H5Support_NAMESPACE)
@@ -178,7 +178,7 @@ int H5MicReader::readHeader(hid_t parId)
   }
 
   QList<QString> names;
-  err = QH5Utilities::getGroupObjects(phasesGid, H5Utilities::H5Support_GROUP, names);
+  err = QH5Utilities::getGroupObjects(phasesGid, H5Utilities::CustomHDFDataTypes::Group, names);
   if(err < 0 || names.empty())
   {
     std::cout << "H5MicReader Error: There were no Phase groups present in the HDF5 file" << std::endl;

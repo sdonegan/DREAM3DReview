@@ -43,13 +43,14 @@
 #include "H5Support/QH5Lite.h"
 #include "H5Support/QH5Utilities.h"
 
-#include "EbsdLib/EbsdConstants.h"
+#include "EbsdLib/Core/EbsdLibConstants.h"
+
+#include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicReader.h"
 
 #if defined(H5Support_NAMESPACE)
 using namespace H5Support_NAMESPACE;
 #endif
 
-#define AIM_STRING QString
 
 #define CHECK_FOR_CANCELED(AClass)                                                                                                                                                                     \
   if(m_Cancel == true)                                                                                                                                                                                 \
@@ -103,35 +104,13 @@ using namespace H5Support_NAMESPACE;
   }
 
 #if 0
-#define WRITE_Mic_HEADER_DATA(reader, m_msgType, prpty, key)                                                                                                                                           \
-  {                                                                                                                                                                                                    \
-    m_msgType t = reader.get##prpty();                                                                                                                                                                 \
-    err = QH5Lite::writeScalarDataset(gid, key, t);                                                                                                                                                    \
-    if(err < 0)                                                                                                                                                                                        \
-    {                                                                                                                                                                                                  \
-      std::ostringstream ss;                                                                                                                                                                           \
-      ss << "H5MicImporter Error: Could not write Mic Header value '" << t << "' to the HDF5 file with data set name '" << key << "'" << std::endl;                                                    \
-      progressMessage(ss.str(), 100);                                                                                                                                                                  \
-      err = H5Gclose(gid);                                                                                                                                                                             \
-      err = H5Gclose(MicGroup);                                                                                                                                                                        \
-      return -1;                                                                                                                                                                                       \
-    }                                                                                                                                                                                                  \
-  }
+#define; WRITE_Mic_HEADER_DATA(reader, m_msgType, prpty, key){m_msgType t = reader.get##prpty(); err = QH5Lite::writeScalarDataset(gid, key, t); if(err < 0){                                          \
+    std::ostringstream ss; ss << "H5MicImporter Error: Could not write Mic Header value '" << t << "' to the HDF5 file with data set name '" << key << "'" << std::endl;                               \
+    progressMessage(ss.str(), 100); err = H5Gclose(gid); err = H5Gclose(MicGroup); return -1; } }
 
-#define WRITE_Mic_HEADER_STRING_DATA(reader, m_msgType, prpty, key)                                                                                                                                    \
-  {                                                                                                                                                                                                    \
-    m_msgType t = reader.get##prpty();                                                                                                                                                                 \
-    err = QH5Lite::writeStringDataset(gid, key, t);                                                                                                                                                    \
-    if(err < 0)                                                                                                                                                                                        \
-    {                                                                                                                                                                                                  \
-      std::ostringstream ss;                                                                                                                                                                           \
-      ss << "H5MicImporter Error: Could not write Mic Header value '" << t << "' to the HDF5 file with data set name '" << key << "'" << std::endl;                                                    \
-      progressMessage(ss.str(), 100);                                                                                                                                                                  \
-      err = H5Gclose(gid);                                                                                                                                                                             \
-      err = H5Gclose(MicGroup);                                                                                                                                                                        \
-      return -1;                                                                                                                                                                                       \
-    }                                                                                                                                                                                                  \
-  }
+#define; WRITE_Mic_HEADER_STRING_DATA(reader, m_msgType, prpty, key){m_msgType t = reader.get##prpty(); err = QH5Lite::writeStringDataset(gid, key, t); if(err < 0){                                   \
+    std::ostringstream ss; ss << "H5MicImporter Error: Could not write Mic Header value '" << t << "' to the HDF5 file with data set name '" << key << "'" << std::endl;                               \
+    progressMessage(ss.str(), 100); err = H5Gclose(gid); err = H5Gclose(MicGroup); return -1; } }
 
 #define WRITE_Mic_DATA_ARRAY(reader, m_msgType, gid, prpty, key)                                                                                                                                       \
   {                                                                                                                                                                                                    \
@@ -274,67 +253,78 @@ int H5MicImporter::importFile(hid_t fileId, int64_t z, const QString& MicFile)
   xRes = reader.getXStep();
   yRes = reader.getYStep();
 
-  WRITE_Mic_HEADER_STRING_DATA(reader, QString, InfileBasename, Mic::InfileBasename) WRITE_Mic_HEADER_DATA(reader, int, InfileSerialLength, Mic::InfileSerialLength) WRITE_Mic_HEADER_STRING_DATA(
-      reader, QString, OutfileBasename, Mic::OutfileBasename) WRITE_Mic_HEADER_DATA(reader, int, OutfileSerialLength, Mic::OutfileSerialLength)
-      WRITE_Mic_HEADER_STRING_DATA(reader, QString, OutStructureBasename, Mic::OutStructureBasename) WRITE_Mic_HEADER_DATA(reader, int, BCPeakDetectorOffset, Mic::BCPeakDetectorOffset)
-          WRITE_Mic_HEADER_STRING_DATA(reader, QString, InFileType, Mic::InFileType) WRITE_Mic_HEADER_STRING_DATA(reader, QString, OutfileExtension, Mic::OutfileExtension)
-              WRITE_Mic_HEADER_STRING_DATA(reader, QString, InfileExtesnion, Mic::InfileExtesnion) WRITE_Mic_HEADER_DATA(reader, float, BeamEnergyWidth, Mic::BeamEnergyWidth)
-                  WRITE_Mic_HEADER_STRING_DATA(reader, QString, BeamDirection, Mic::BeamDirection) WRITE_Mic_HEADER_DATA(reader, int, BeamDeflectionChiLaue, Mic::BeamDeflectionChiLaue)
-                      WRITE_Mic_HEADER_DATA(reader, float, BeamHeight, Mic::BeamHeight) WRITE_Mic_HEADER_DATA(reader, float, BeamEnergy, Mic::BeamEnergy) WRITE_Mic_HEADER_STRING_DATA(
-                          reader, QString, DetectorFilename, Mic::DetectorFilename) WRITE_Mic_HEADER_STRING_DATA(reader, QString, OptimizationConstrainFilename, Mic::OptimizationConstrainFilename)
-                          WRITE_Mic_HEADER_DATA(reader, int, EtaLimit, Mic::EtaLimit) WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleFilename, Mic::SampleFilename) WRITE_Mic_HEADER_STRING_DATA(
-                              reader, QString, StructureFilename, Mic::StructureFilename) WRITE_Mic_HEADER_STRING_DATA(reader, QString, RotationRangeFilename, Mic::RotationRangeFilename)
-                              WRITE_Mic_HEADER_STRING_DATA(reader, QString, FundamentalZoneFilename, Mic::FundamentalZoneFilename) WRITE_Mic_HEADER_STRING_DATA(
-                                  reader, QString, SampleSymmetry, Mic::SampleSymmetry) WRITE_Mic_HEADER_DATA(reader, float, MinAmplitudeFraction, Mic::MinAmplitudeFraction)
-                                  WRITE_Mic_HEADER_DATA(reader, int, MaxQ, Mic::MaxQ) WRITE_Mic_HEADER_DATA(reader, float, MaxInitSideLength, Mic::MaxInitSideLength)
-                                      WRITE_Mic_HEADER_DATA(reader, float, MinSideLength, Mic::MinSideLength) WRITE_Mic_HEADER_DATA(
-                                          reader, float, LocalOrientationGridRadius, Mic::LocalOrientationGridRadius) WRITE_Mic_HEADER_DATA(reader, float, MinLocalResolution, Mic::MinLocalResolution)
-                                          WRITE_Mic_HEADER_DATA(reader, float, MaxLocalResolution, Mic::MaxLocalResolution) WRITE_Mic_HEADER_DATA(reader, float, MaxAcceptedCost, Mic::MaxAcceptedCost)
-                                              WRITE_Mic_HEADER_DATA(reader, float, MaxConvergenceCost, Mic::MaxConvergenceCost) WRITE_Mic_HEADER_DATA(reader, int, MaxMCSteps, Mic::MaxMCSteps)
-                                                  WRITE_Mic_HEADER_DATA(reader, float, MCRadiusScaleFactor, Mic::MCRadiusScaleFactor) WRITE_Mic_HEADER_DATA(
-                                                      reader, int, SuccessiveRestarts, Mic::SuccessiveRestarts) WRITE_Mic_HEADER_DATA(reader, int, SecondsBetweenSave, Mic::SecondsBetweenSave)
-                                                      WRITE_Mic_HEADER_DATA(reader, int, NumParameterOptimizationSteps, Mic::NumParameterOptimizationSteps) WRITE_Mic_HEADER_DATA(
-                                                          reader, int, NumElementToOptimizePerPE,
-                                                          Mic::NumElementToOptimizePerPE) WRITE_Mic_HEADER_STRING_DATA(reader, QString, OptimizationFilename, Mic::OptimizationFilename)
-                                                          WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectionLimitFilename, Mic::DetectionLimitFilename) WRITE_Mic_HEADER_DATA(
-                                                              reader,
-                                                              float, ParameterMCInitTemperature,
-                                                              Mic::ParameterMCInitTemperature) WRITE_Mic_HEADER_STRING_DATA(reader, QString, OrientationSearchMethod, Mic::OrientationSearchMethod)
-                                                              WRITE_Mic_HEADER_DATA(reader, float, CoolingFraction,
-                                                                                    Mic::CoolingFraction) WRITE_Mic_HEADER_DATA(reader, float, ThermalizeFraction, Mic::ThermalizeFraction)
-                                                                  WRITE_Mic_HEADER_DATA(reader, int, ParameterRefinements, Mic::ParameterRefinements) WRITE_Mic_HEADER_DATA(
-                                                                      reader,
-                                                                      int, NumDetectors, Mic::NumDetectors) WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectorSpacing, Mic::DetectorSpacing)
-                                                                      WRITE_Mic_HEADER_DATA(reader, float, DetectorSpacingDeviation, Mic::DetectorSpacingDeviation) WRITE_Mic_HEADER_STRING_DATA(
-                                                                          reader, QString, DetectorOrientationDeviationInEuler, Mic::DetectorOrientationDeviationInEuler)
-                                                                          WRITE_Mic_HEADER_DATA(reader, float, DetectorOrientationDeviationInSO3, Mic::DetectorOrientationDeviationInSO3)
-                                                                              WRITE_Mic_HEADER_DATA(reader, int, ParamMCMaxLocalRestarts, Mic::ParamMCMaxLocalRestarts)
-                                                                                  WRITE_Mic_HEADER_DATA(reader, int, ParamMCMaxGlobalRestarts, Mic::ParamMCMaxGlobalRestarts) WRITE_Mic_HEADER_DATA(
-                                                                                      reader, int, ParamMCNumGlobalSearchElements, Mic::ParamMCNumGlobalSearchElements)
-                                                                                      WRITE_Mic_HEADER_DATA(reader, int, ConstrainedOptimization, Mic::ConstrainedOptimization) WRITE_Mic_HEADER_DATA(
-                                                                                          reader, int, SearchVolumeReductionFactor,
-                                                                                          Mic::SearchVolumeReductionFactor) WRITE_Mic_HEADER_DATA(reader, int, FileNumStart, Mic::FileNumStart)
-                                                                                          WRITE_Mic_HEADER_DATA(reader, int, FileNumEnd, Mic::FileNumEnd)
-                                                                                              WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleLocation, Mic::SampleLocation)
-                                                                                                  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleOrientation, Mic::SampleOrientation)
-                                                                                                      WRITE_Mic_HEADER_DATA(reader, int, EnableStrain, Mic::EnableStrain)
-                                                                                                          WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleCenter, Mic::SampleCenter)
-                                                                                                              WRITE_Mic_HEADER_DATA(reader, float, SampleRadius, Mic::SampleRadius)
-                                                                                                                  WRITE_Mic_HEADER_DATA(reader, float, MaxDeepeningHitRatio, Mic::MaxDeepeningHitRatio)
-                                                                                                                      WRITE_Mic_HEADER_DATA(reader, float, ConsistencyError, Mic::ConsistencyError)
-                                                                                                                          WRITE_Mic_HEADER_DATA(reader, float, BraggFilterTolerance,
-                                                                                                                                                Mic::BraggFilterTolerance)
-                                                                                                                              WRITE_Mic_HEADER_DATA(reader, float, MinAccelerationThreshold,
-                                                                                                                                                    Mic::MinAccelerationThreshold)
-                                                                                                                                  WRITE_Mic_HEADER_DATA(reader, int, MaxDiscreteCandidates,
-                                                                                                                                                        Mic::MaxDiscreteCandidates)
-                                                                                                                                      WRITE_Mic_HEADER_DATA(reader, int, XDim, Mic::XDim)
-                                                                                                                                          WRITE_Mic_HEADER_DATA(reader, int, YDim, Mic::YDim)
-                                                                                                                                              WRITE_Mic_HEADER_DATA(reader, float, XRes, Mic::XRes)
-                                                                                                                                                  WRITE_Mic_HEADER_DATA(reader, float, YRes, Mic::YRes)
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, InfileBasename, Mic::InfileBasename);
+  WRITE_Mic_HEADER_DATA(reader, int, InfileSerialLength, Mic::InfileSerialLength);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OutfileBasename, Mic::OutfileBasename);
+  WRITE_Mic_HEADER_DATA(reader, int, OutfileSerialLength, Mic::OutfileSerialLength);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OutStructureBasename, Mic::OutStructureBasename);
+  WRITE_Mic_HEADER_DATA(reader, int, BCPeakDetectorOffset, Mic::BCPeakDetectorOffset);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, InFileType, Mic::InFileType);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OutfileExtension, Mic::OutfileExtension);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, InfileExtesnion, Mic::InfileExtesnion);
+  WRITE_Mic_HEADER_DATA(reader, float, BeamEnergyWidth, Mic::BeamEnergyWidth);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, BeamDirection, Mic::BeamDirection);
+  WRITE_Mic_HEADER_DATA(reader, int, BeamDeflectionChiLaue, Mic::BeamDeflectionChiLaue);
+  WRITE_Mic_HEADER_DATA(reader, float, BeamHeight, Mic::BeamHeight);
+  WRITE_Mic_HEADER_DATA(reader, float, BeamEnergy, Mic::BeamEnergy);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectorFilename, Mic::DetectorFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OptimizationConstrainFilename, Mic::OptimizationConstrainFilename);
+  WRITE_Mic_HEADER_DATA(reader, int, EtaLimit, Mic::EtaLimit);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleFilename, Mic::SampleFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, StructureFilename, Mic::StructureFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, RotationRangeFilename, Mic::RotationRangeFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, FundamentalZoneFilename, Mic::FundamentalZoneFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleSymmetry, Mic::SampleSymmetry);
+  WRITE_Mic_HEADER_DATA(reader, float, MinAmplitudeFraction, Mic::MinAmplitudeFraction);
+  WRITE_Mic_HEADER_DATA(reader, int, MaxQ, Mic::MaxQ);
+  WRITE_Mic_HEADER_DATA(reader, float, MaxInitSideLength, Mic::MaxInitSideLength);
+  WRITE_Mic_HEADER_DATA(reader, float, MinSideLength, Mic::MinSideLength);
+  WRITE_Mic_HEADER_DATA(reader, float, LocalOrientationGridRadius, Mic::LocalOrientationGridRadius);
+  WRITE_Mic_HEADER_DATA(reader, float, MinLocalResolution, Mic::MinLocalResolution);
+  WRITE_Mic_HEADER_DATA(reader, float, MaxLocalResolution, Mic::MaxLocalResolution);
+  WRITE_Mic_HEADER_DATA(reader, float, MaxAcceptedCost, Mic::MaxAcceptedCost);
+  WRITE_Mic_HEADER_DATA(reader, float, MaxConvergenceCost, Mic::MaxConvergenceCost);
+  WRITE_Mic_HEADER_DATA(reader, int, MaxMCSteps, Mic::MaxMCSteps);
+  WRITE_Mic_HEADER_DATA(reader, float, MCRadiusScaleFactor, Mic::MCRadiusScaleFactor);
+  WRITE_Mic_HEADER_DATA(reader, int, SuccessiveRestarts, Mic::SuccessiveRestarts);
+  WRITE_Mic_HEADER_DATA(reader, int, SecondsBetweenSave, Mic::SecondsBetweenSave);
+  WRITE_Mic_HEADER_DATA(reader, int, NumParameterOptimizationSteps, Mic::NumParameterOptimizationSteps);
+  WRITE_Mic_HEADER_DATA(reader, int, NumElementToOptimizePerPE, Mic::NumElementToOptimizePerPE);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OptimizationFilename, Mic::OptimizationFilename);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectionLimitFilename, Mic::DetectionLimitFilename);
+  WRITE_Mic_HEADER_DATA(reader, float, ParameterMCInitTemperature, Mic::ParameterMCInitTemperature);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, OrientationSearchMethod, Mic::OrientationSearchMethod);
+  WRITE_Mic_HEADER_DATA(reader, float, CoolingFraction, Mic::CoolingFraction);
+  WRITE_Mic_HEADER_DATA(reader, float, ThermalizeFraction, Mic::ThermalizeFraction);
+  WRITE_Mic_HEADER_DATA(reader, int, ParameterRefinements, Mic::ParameterRefinements);
+  WRITE_Mic_HEADER_DATA(reader, int, NumDetectors, Mic::NumDetectors);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectorSpacing, Mic::DetectorSpacing);
+  WRITE_Mic_HEADER_DATA(reader, float, DetectorSpacingDeviation, Mic::DetectorSpacingDeviation);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, DetectorOrientationDeviationInEuler, Mic::DetectorOrientationDeviationInEuler);
+  WRITE_Mic_HEADER_DATA(reader, float, DetectorOrientationDeviationInSO3, Mic::DetectorOrientationDeviationInSO3);
+  WRITE_Mic_HEADER_DATA(reader, int, ParamMCMaxLocalRestarts, Mic::ParamMCMaxLocalRestarts);
+  WRITE_Mic_HEADER_DATA(reader, int, ParamMCMaxGlobalRestarts, Mic::ParamMCMaxGlobalRestarts);
+  WRITE_Mic_HEADER_DATA(reader, int, ParamMCNumGlobalSearchElements, Mic::ParamMCNumGlobalSearchElements);
+  WRITE_Mic_HEADER_DATA(reader, int, ConstrainedOptimization, Mic::ConstrainedOptimization);
+  WRITE_Mic_HEADER_DATA(reader, int, SearchVolumeReductionFactor, Mic::SearchVolumeReductionFactor);
+  WRITE_Mic_HEADER_DATA(reader, int, FileNumStart, Mic::FileNumStart);
+  WRITE_Mic_HEADER_DATA(reader, int, FileNumEnd, Mic::FileNumEnd);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleLocation, Mic::SampleLocation);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleOrientation, Mic::SampleOrientation);
+  WRITE_Mic_HEADER_DATA(reader, int, EnableStrain, Mic::EnableStrain);
+  WRITE_Mic_HEADER_STRING_DATA(reader, QString, SampleCenter, Mic::SampleCenter);
+  WRITE_Mic_HEADER_DATA(reader, float, SampleRadius, Mic::SampleRadius);
+  WRITE_Mic_HEADER_DATA(reader, float, MaxDeepeningHitRatio, Mic::MaxDeepeningHitRatio);
+  WRITE_Mic_HEADER_DATA(reader, float, ConsistencyError, Mic::ConsistencyError);
+  WRITE_Mic_HEADER_DATA(reader, float, BraggFilterTolerance, Mic::BraggFilterTolerance);
+  WRITE_Mic_HEADER_DATA(reader, float, MinAccelerationThreshold, Mic::MinAccelerationThreshold);
+  WRITE_Mic_HEADER_DATA(reader, int, MaxDiscreteCandidates, Mic::MaxDiscreteCandidates);
+  WRITE_Mic_HEADER_DATA(reader, int, XDim, Mic::XDim);
+  WRITE_Mic_HEADER_DATA(reader, int, YDim, Mic::YDim);
+  WRITE_Mic_HEADER_DATA(reader, float, XRes, Mic::XRes);
+  WRITE_Mic_HEADER_DATA(reader, float, YRes, Mic::YRes);
 
-                                                                                                                                                      QString micCompleteHeader =
-                                                                                                                                                          reader.getOriginalHeader();
+  QString micCompleteHeader = reader.getOriginalHeader();
   err = QH5Lite::writeStringDataset(gid, Mic::H5Mic::OriginalHeader, micCompleteHeader);
 
   // Close the "Header" group

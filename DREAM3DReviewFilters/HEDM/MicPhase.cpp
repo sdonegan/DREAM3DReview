@@ -106,23 +106,23 @@ unsigned int MicPhase::determineLaueGroup()
   unsigned int crystal_structure;
   if(m_Symmetry.compare(Mic::Cubic) == 0)
   {
-    crystal_structure = Ebsd::CrystalStructure::Cubic_High;
+    crystal_structure = EbsdLib::CrystalStructure::Cubic_High;
   }
   else if(m_Symmetry.compare(Mic::Hexagonal) == 0)
   {
-    crystal_structure = Ebsd::CrystalStructure::Hexagonal_High;
+    crystal_structure = EbsdLib::CrystalStructure::Hexagonal_High;
   }
   else if(m_Symmetry.compare(Mic::OrthoRhombic) == 0)
   {
-    crystal_structure = Ebsd::CrystalStructure::OrthoRhombic;
+    crystal_structure = EbsdLib::CrystalStructure::OrthoRhombic;
   }
   else if(m_Symmetry.compare(Mic::Tetragonal) == 0)
   {
-    crystal_structure = Ebsd::CrystalStructure::UnknownCrystalStructure;
+    crystal_structure = EbsdLib::CrystalStructure::UnknownCrystalStructure;
   }
   else
   {
-    crystal_structure = Ebsd::CrystalStructure::UnknownCrystalStructure;
+    crystal_structure = EbsdLib::CrystalStructure::UnknownCrystalStructure;
   }
 
   return crystal_structure;

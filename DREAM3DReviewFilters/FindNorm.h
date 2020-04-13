@@ -93,7 +93,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -105,7 +104,6 @@ public:
    * @return Value of NormArrayPath
    */
   DataArrayPath getNormArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NormArrayPath READ getNormArrayPath WRITE setNormArrayPath)
 
   /**
@@ -117,7 +115,6 @@ public:
    * @return Value of PSpace
    */
   float getPSpace() const;
-
   Q_PROPERTY(float PSpace READ getPSpace WRITE setPSpace)
 
   /**

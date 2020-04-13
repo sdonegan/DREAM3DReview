@@ -111,7 +111,6 @@ public:
    * @return Value of EdgeDataContainerName
    */
   DataArrayPath getEdgeDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
   /**
    * @brief Setter property for VertexAttributeMatrixName
@@ -122,7 +121,6 @@ public:
    * @return Value of VertexAttributeMatrixName
    */
   QString getVertexAttributeMatrixName() const;
-
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
   /**
    * @brief Setter property for EdgeAttributeMatrixName
@@ -133,7 +131,6 @@ public:
    * @return Value of EdgeAttributeMatrixName
    */
   QString getEdgeAttributeMatrixName() const;
-
   Q_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
 
   /**
@@ -145,7 +142,6 @@ public:
    * @return Value of InputFile
    */
   QString getInputFile() const;
-
   Q_PROPERTY(QString InputFile READ getInputFile WRITE setInputFile)
   /**
    * @brief Setter property for BurgersVector
@@ -156,7 +152,6 @@ public:
    * @return Value of BurgersVector
    */
   float getBurgersVector() const;
-
   Q_PROPERTY(float BurgersVector READ getBurgersVector WRITE setBurgersVector)
 
   /**
@@ -168,7 +163,6 @@ public:
    * @return Value of NumberOfArmsArrayName
    */
   QString getNumberOfArmsArrayName() const;
-
   Q_PROPERTY(QString NumberOfArmsArrayName READ getNumberOfArmsArrayName WRITE setNumberOfArmsArrayName)
 
   /**
@@ -180,7 +174,6 @@ public:
    * @return Value of NodeConstraintsArrayName
    */
   QString getNodeConstraintsArrayName() const;
-
   Q_PROPERTY(QString NodeConstraintsArrayName READ getNodeConstraintsArrayName WRITE setNodeConstraintsArrayName)
 
   /**
@@ -192,7 +185,6 @@ public:
    * @return Value of BurgersVectorsArrayName
    */
   QString getBurgersVectorsArrayName() const;
-
   Q_PROPERTY(QString BurgersVectorsArrayName READ getBurgersVectorsArrayName WRITE setBurgersVectorsArrayName)
 
   /**
@@ -204,7 +196,6 @@ public:
    * @return Value of SlipPlaneNormalsArrayName
    */
   QString getSlipPlaneNormalsArrayName() const;
-
   Q_PROPERTY(QString SlipPlaneNormalsArrayName READ getSlipPlaneNormalsArrayName WRITE setSlipPlaneNormalsArrayName)
 
   /**

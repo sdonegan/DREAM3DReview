@@ -56,7 +56,6 @@ public:
    * @return Value of MovingGeometry
    */
   DataArrayPath getMovingGeometry() const;
-
   Q_PROPERTY(DataArrayPath MovingGeometry READ getMovingGeometry WRITE setMovingGeometry)
 
   /**
@@ -68,7 +67,6 @@ public:
    * @return Value of TargetGeometry
    */
   DataArrayPath getTargetGeometry() const;
-
   Q_PROPERTY(DataArrayPath TargetGeometry READ getTargetGeometry WRITE setTargetGeometry)
 
   /**
@@ -80,7 +78,6 @@ public:
    * @return Value of AlignmentType
    */
   int getAlignmentType() const;
-
   Q_PROPERTY(int AlignmentType READ getAlignmentType WRITE setAlignmentType)
 
   /**

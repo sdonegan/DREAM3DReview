@@ -92,7 +92,6 @@ public:
    * @return Value of SourcePointSet
    */
   DataArrayPath getSourcePointSet() const;
-
   Q_PROPERTY(DataArrayPath SourcePointSet READ getSourcePointSet WRITE setSourcePointSet)
 
   /**
@@ -104,7 +103,6 @@ public:
    * @return Value of DestPointSet
    */
   DataArrayPath getDestPointSet() const;
-
   Q_PROPERTY(DataArrayPath DestPointSet READ getDestPointSet WRITE setDestPointSet)
 
   /**
@@ -116,7 +114,6 @@ public:
    * @return Value of UseScaling
    */
   bool getUseScaling() const;
-
   Q_PROPERTY(bool UseScaling READ getUseScaling WRITE setUseScaling)
 
   /**
@@ -128,7 +125,6 @@ public:
    * @return Value of TransformationAttributeMatrixName
    */
   QString getTransformationAttributeMatrixName() const;
-
   Q_PROPERTY(QString TransformationAttributeMatrixName READ getTransformationAttributeMatrixName WRITE setTransformationAttributeMatrixName)
 
   /**
@@ -140,7 +136,6 @@ public:
    * @return Value of TransformationMatrixName
    */
   QString getTransformationMatrixName() const;
-
   Q_PROPERTY(QString TransformationMatrixName READ getTransformationMatrixName WRITE setTransformationMatrixName)
 
   /**

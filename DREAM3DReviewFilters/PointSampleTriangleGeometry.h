@@ -101,7 +101,6 @@ public:
    * @return Value of SamplesNumberType
    */
   int getSamplesNumberType() const;
-
   Q_PROPERTY(int SamplesNumberType READ getSamplesNumberType WRITE setSamplesNumberType)
 
   /**
@@ -113,7 +112,6 @@ public:
    * @return Value of TriangleGeometry
    */
   DataArrayPath getTriangleGeometry() const;
-
   Q_PROPERTY(DataArrayPath TriangleGeometry READ getTriangleGeometry WRITE setTriangleGeometry)
 
   /**
@@ -125,7 +123,6 @@ public:
    * @return Value of VertexGeometry
    */
   QString getVertexGeometry() const;
-
   Q_PROPERTY(QString VertexGeometry READ getVertexGeometry WRITE setVertexGeometry)
 
   /**
@@ -137,7 +134,6 @@ public:
    * @return Value of VertexAttributeMatrixName
    */
   QString getVertexAttributeMatrixName() const;
-
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
 
   /**
@@ -149,7 +145,6 @@ public:
    * @return Value of NumberOfSamples
    */
   int getNumberOfSamples() const;
-
   Q_PROPERTY(int NumberOfSamples READ getNumberOfSamples WRITE setNumberOfSamples)
 
   /**
@@ -161,7 +156,6 @@ public:
    * @return Value of ParentGeometry
    */
   DataArrayPath getParentGeometry() const;
-
   Q_PROPERTY(DataArrayPath ParentGeometry READ getParentGeometry WRITE setParentGeometry)
 
   /**
@@ -173,7 +167,6 @@ public:
    * @return Value of TriangleAreasArrayPath
    */
   DataArrayPath getTriangleAreasArrayPath() const;
-
   Q_PROPERTY(DataArrayPath TriangleAreasArrayPath READ getTriangleAreasArrayPath WRITE setTriangleAreasArrayPath)
 
   /**
@@ -185,7 +178,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -197,7 +189,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -209,7 +200,6 @@ public:
    * @return Value of SelectedDataArrayPaths
    */
   QVector<DataArrayPath> getSelectedDataArrayPaths() const;
-
   Q_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
 
   /**

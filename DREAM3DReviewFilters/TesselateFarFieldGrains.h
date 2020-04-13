@@ -43,7 +43,7 @@
 #include <vector>
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
-#include "OrientationLib/LaueOps/OrthoRhombicOps.h"
+#include "EbsdLib/LaueOps/OrthoRhombicOps.h"
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/IDataArray.h"
@@ -120,7 +120,6 @@ public:
    * @return Value of OutputCellAttributeMatrixName
    */
   DataArrayPath getOutputCellAttributeMatrixName() const;
-
   Q_PROPERTY(DataArrayPath OutputCellAttributeMatrixName READ getOutputCellAttributeMatrixName WRITE setOutputCellAttributeMatrixName)
 
   /**
@@ -132,7 +131,6 @@ public:
    * @return Value of OutputCellFeatureAttributeMatrixName
    */
   QString getOutputCellFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString OutputCellFeatureAttributeMatrixName READ getOutputCellFeatureAttributeMatrixName WRITE setOutputCellFeatureAttributeMatrixName)
 
   /**
@@ -144,7 +142,6 @@ public:
    * @return Value of OutputCellEnsembleAttributeMatrixName
    */
   QString getOutputCellEnsembleAttributeMatrixName() const;
-
   Q_PROPERTY(QString OutputCellEnsembleAttributeMatrixName READ getOutputCellEnsembleAttributeMatrixName WRITE setOutputCellEnsembleAttributeMatrixName)
 
   /**
@@ -156,7 +153,6 @@ public:
    * @return Value of FeatureIdsArrayName
    */
   QString getFeatureIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
 
   /**
@@ -168,7 +164,6 @@ public:
    * @return Value of CellPhasesArrayName
    */
   QString getCellPhasesArrayName() const;
-
   Q_PROPERTY(QString CellPhasesArrayName READ getCellPhasesArrayName WRITE setCellPhasesArrayName)
 
   /**
@@ -190,7 +185,6 @@ public:
    * @return Value of FeaturePhasesArrayName
    */
   QString getFeaturePhasesArrayName() const;
-
   Q_PROPERTY(QString FeaturePhasesArrayName READ getFeaturePhasesArrayName WRITE setFeaturePhasesArrayName)
 
   /**
@@ -202,7 +196,6 @@ public:
    * @return Value of FeatureEulerAnglesArrayName
    */
   QString getFeatureEulerAnglesArrayName() const;
-
   Q_PROPERTY(QString FeatureEulerAnglesArrayName READ getFeatureEulerAnglesArrayName WRITE setFeatureEulerAnglesArrayName)
 
   /**
@@ -214,7 +207,6 @@ public:
    * @return Value of ElasticStrainsArrayName
    */
   QString getElasticStrainsArrayName() const;
-
   Q_PROPERTY(QString ElasticStrainsArrayName READ getElasticStrainsArrayName WRITE setElasticStrainsArrayName)
 
   /**
@@ -226,7 +218,6 @@ public:
    * @return Value of CentroidsArrayName
    */
   QString getCentroidsArrayName() const;
-
   Q_PROPERTY(QString CentroidsArrayName READ getCentroidsArrayName WRITE setCentroidsArrayName)
 
   /**
@@ -238,7 +229,6 @@ public:
    * @return Value of VolumesArrayName
    */
   QString getVolumesArrayName() const;
-
   Q_PROPERTY(QString VolumesArrayName READ getVolumesArrayName WRITE setVolumesArrayName)
 
   /**
@@ -250,7 +240,6 @@ public:
    * @return Value of AxisLengthsArrayName
    */
   QString getAxisLengthsArrayName() const;
-
   Q_PROPERTY(QString AxisLengthsArrayName READ getAxisLengthsArrayName WRITE setAxisLengthsArrayName)
 
   /**
@@ -262,7 +251,6 @@ public:
    * @return Value of AxisEulerAnglesArrayName
    */
   QString getAxisEulerAnglesArrayName() const;
-
   Q_PROPERTY(QString AxisEulerAnglesArrayName READ getAxisEulerAnglesArrayName WRITE setAxisEulerAnglesArrayName)
 
   /**
@@ -274,7 +262,6 @@ public:
    * @return Value of Omega3sArrayName
    */
   QString getOmega3sArrayName() const;
-
   Q_PROPERTY(QString Omega3sArrayName READ getOmega3sArrayName WRITE setOmega3sArrayName)
 
   /**
@@ -286,7 +273,6 @@ public:
    * @return Value of EquivalentDiametersArrayName
    */
   QString getEquivalentDiametersArrayName() const;
-
   Q_PROPERTY(QString EquivalentDiametersArrayName READ getEquivalentDiametersArrayName WRITE setEquivalentDiametersArrayName)
 
   /**
@@ -298,7 +284,6 @@ public:
    * @return Value of CrystalStructuresArrayName
    */
   QString getCrystalStructuresArrayName() const;
-
   Q_PROPERTY(QString CrystalStructuresArrayName READ getCrystalStructuresArrayName WRITE setCrystalStructuresArrayName)
 
   typedef DataArray<float>::Pointer SharedFloatArray;
@@ -313,7 +298,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -325,7 +309,6 @@ public:
    * @return Value of FeatureInputFileListInfo
    */
   StackFileListInfo getFeatureInputFileListInfo() const;
-
   Q_PROPERTY(StackFileListInfo FeatureInputFileListInfo READ getFeatureInputFileListInfo WRITE setFeatureInputFileListInfo)
 
   /**

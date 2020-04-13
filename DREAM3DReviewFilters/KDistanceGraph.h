@@ -94,7 +94,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -106,7 +105,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -118,7 +116,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -130,7 +127,6 @@ public:
    * @return Value of KDistanceArrayPath
    */
   DataArrayPath getKDistanceArrayPath() const;
-
   Q_PROPERTY(DataArrayPath KDistanceArrayPath READ getKDistanceArrayPath WRITE setKDistanceArrayPath)
 
   /**
@@ -142,7 +138,6 @@ public:
    * @return Value of MinDist
    */
   int getMinDist() const;
-
   Q_PROPERTY(int MinDist READ getMinDist WRITE setMinDist)
 
   /**
@@ -154,7 +149,6 @@ public:
    * @return Value of DistanceMetric
    */
   int getDistanceMetric() const;
-
   Q_PROPERTY(int DistanceMetric READ getDistanceMetric WRITE setDistanceMetric)
 
   /**

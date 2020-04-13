@@ -90,7 +90,6 @@ public:
    * @return Value of TriangleDataContainerName
    */
   DataArrayPath getTriangleDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath TriangleDataContainerName READ getTriangleDataContainerName WRITE setTriangleDataContainerName)
 
   /**
@@ -102,7 +101,6 @@ public:
    * @return Value of NodeTypesArrayPath
    */
   DataArrayPath getNodeTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NodeTypesArrayPath READ getNodeTypesArrayPath WRITE setNodeTypesArrayPath)
 
   /**
@@ -114,7 +112,6 @@ public:
    * @return Value of InternalTrianglesName
    */
   QString getInternalTrianglesName() const;
-
   Q_PROPERTY(QString InternalTrianglesName READ getInternalTrianglesName WRITE setInternalTrianglesName)
 
   /**

@@ -96,7 +96,6 @@ public:
    * @return Value of SelectedDataArrayPaths
    */
   QVector<DataArrayPath> getSelectedDataArrayPaths() const;
-
   Q_PROPERTY(QVector<DataArrayPath> SelectedDataArrayPaths READ getSelectedDataArrayPaths WRITE setSelectedDataArrayPaths)
 
   /**
@@ -108,7 +107,6 @@ public:
    * @return Value of NormalizeType
    */
   int getNormalizeType() const;
-
   Q_PROPERTY(int NormalizeType READ getNormalizeType WRITE setNormalizeType)
 
   /**
@@ -120,7 +118,6 @@ public:
    * @return Value of RangeMin
    */
   double getRangeMin() const;
-
   Q_PROPERTY(double RangeMin READ getRangeMin WRITE setRangeMin)
 
   /**
@@ -132,7 +129,6 @@ public:
    * @return Value of RangeMax
    */
   double getRangeMax() const;
-
   Q_PROPERTY(double RangeMax READ getRangeMax WRITE setRangeMax)
 
   /**
@@ -144,7 +140,6 @@ public:
    * @return Value of Postfix
    */
   QString getPostfix() const;
-
   Q_PROPERTY(QString Postfix READ getPostfix WRITE setPostfix)
 
   /**
@@ -156,7 +151,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -168,7 +162,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -180,7 +173,6 @@ public:
    * @return Value of DefaultValue
    */
   double getDefaultValue() const;
-
   Q_PROPERTY(double DefaultValue READ getDefaultValue WRITE setDefaultValue)
 
   /**

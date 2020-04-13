@@ -106,7 +106,6 @@ public:
    * @return Value of EdgeDataContainerName
    */
   DataArrayPath getEdgeDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath EdgeDataContainerName READ getEdgeDataContainerName WRITE setEdgeDataContainerName)
 
   /**
@@ -118,7 +117,6 @@ public:
    * @return Value of CellSize
    */
   FloatVec3Type getCellSize() const;
-
   Q_PROPERTY(FloatVec3Type CellSize READ getCellSize WRITE setCellSize)
 
   // The user selects a new DataContainerName
@@ -131,7 +129,6 @@ public:
    * @return Value of OutputDataContainerName
    */
   DataArrayPath getOutputDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath OutputDataContainerName READ getOutputDataContainerName WRITE setOutputDataContainerName)
   // Name the new AttributeMatrix that will get created
   /**
@@ -143,7 +140,6 @@ public:
    * @return Value of OutputAttributeMatrixName
    */
   QString getOutputAttributeMatrixName() const;
-
   Q_PROPERTY(QString OutputAttributeMatrixName READ getOutputAttributeMatrixName WRITE setOutputAttributeMatrixName)
 
   // Give the created data array a name
@@ -156,7 +152,6 @@ public:
    * @return Value of OutputArrayName
    */
   QString getOutputArrayName() const;
-
   Q_PROPERTY(QString OutputArrayName READ getOutputArrayName WRITE setOutputArrayName)
 
   /**

@@ -56,7 +56,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -68,7 +67,6 @@ public:
    * @return Value of AttributeMatrixName
    */
   QString getAttributeMatrixName() const;
-
   Q_PROPERTY(QString AttributeMatrixName READ getAttributeMatrixName WRITE setAttributeMatrixName)
 
   /**
@@ -80,7 +78,6 @@ public:
    * @return Value of MinkowskiBouligandDimensionArrayName
    */
   QString getMinkowskiBouligandDimensionArrayName() const;
-
   Q_PROPERTY(QString MinkowskiBouligandDimensionArrayName READ getMinkowskiBouligandDimensionArrayName WRITE setMinkowskiBouligandDimensionArrayName)
 
   /**

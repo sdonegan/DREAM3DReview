@@ -97,7 +97,6 @@ public:
    * @return Value of ManualTransformationMatrix
    */
   DynamicTableData getManualTransformationMatrix() const;
-
   Q_PROPERTY(DynamicTableData ManualTransformationMatrix READ getManualTransformationMatrix WRITE setManualTransformationMatrix)
 
   /**
@@ -109,7 +108,6 @@ public:
    * @return Value of ComputedTransformationMatrix
    */
   DataArrayPath getComputedTransformationMatrix() const;
-
   Q_PROPERTY(DataArrayPath ComputedTransformationMatrix READ getComputedTransformationMatrix WRITE setComputedTransformationMatrix)
 
   /**
@@ -121,7 +119,6 @@ public:
    * @return Value of GeometryToTransform
    */
   DataArrayPath getGeometryToTransform() const;
-
   Q_PROPERTY(DataArrayPath GeometryToTransform READ getGeometryToTransform WRITE setGeometryToTransform)
 
   /**
@@ -133,7 +130,6 @@ public:
    * @return Value of TransformationMatrixType
    */
   int getTransformationMatrixType() const;
-
   Q_PROPERTY(int TransformationMatrixType READ getTransformationMatrixType WRITE setTransformationMatrixType)
 
   /**
@@ -145,7 +141,6 @@ public:
    * @return Value of RotationAxis
    */
   FloatVec3Type getRotationAxis() const;
-
   Q_PROPERTY(FloatVec3Type RotationAxis READ getRotationAxis WRITE setRotationAxis)
 
   /**
@@ -157,7 +152,6 @@ public:
    * @return Value of RotationAngle
    */
   float getRotationAngle() const;
-
   Q_PROPERTY(float RotationAngle READ getRotationAngle WRITE setRotationAngle)
 
   /**
@@ -169,7 +163,6 @@ public:
    * @return Value of Translation
    */
   FloatVec3Type getTranslation() const;
-
   Q_PROPERTY(FloatVec3Type Translation READ getTranslation WRITE setTranslation)
 
   /**
@@ -181,7 +174,6 @@ public:
    * @return Value of Scale
    */
   FloatVec3Type getScale() const;
-
   Q_PROPERTY(FloatVec3Type Scale READ getScale WRITE setScale)
 
   /**

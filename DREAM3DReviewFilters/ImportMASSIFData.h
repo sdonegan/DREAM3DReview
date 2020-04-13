@@ -63,7 +63,6 @@ public:
    * @return Value of MassifInputFilePath
    */
   QString getMassifInputFilePath() const;
-
   Q_PROPERTY(QString MassifInputFilePath READ getMassifInputFilePath WRITE setMassifInputFilePath)
 
   /**
@@ -75,7 +74,6 @@ public:
    * @return Value of FilePrefix
    */
   QString getFilePrefix() const;
-
   Q_PROPERTY(QString FilePrefix READ getFilePrefix WRITE setFilePrefix)
 
   /**
@@ -87,7 +85,6 @@ public:
    * @return Value of StepNumber
    */
   int getStepNumber() const;
-
   Q_PROPERTY(int StepNumber READ getStepNumber WRITE setStepNumber)
 
   /**

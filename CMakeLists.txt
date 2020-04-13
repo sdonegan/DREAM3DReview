@@ -248,7 +248,6 @@ target_link_libraries(${plug_target_name}
                     Qt5::Core
                     SIMPLib
                     EbsdLib
-                    OrientationLib
                     ${ITK_LIBRARIES}
 )
 

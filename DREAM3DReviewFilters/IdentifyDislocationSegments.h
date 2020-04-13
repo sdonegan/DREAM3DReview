@@ -103,7 +103,6 @@ public:
    * @return Value of EdgeFeatureAttributeMatrixName
    */
   QString getEdgeFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString EdgeFeatureAttributeMatrixName READ getEdgeFeatureAttributeMatrixName WRITE setEdgeFeatureAttributeMatrixName)
 
   /**
@@ -120,7 +119,6 @@ public:
    * @return Value of BurgersVectorsArrayPath
    */
   DataArrayPath getBurgersVectorsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath BurgersVectorsArrayPath READ getBurgersVectorsArrayPath WRITE setBurgersVectorsArrayPath)
 
   /**
@@ -132,7 +130,6 @@ public:
    * @return Value of SlipPlaneNormalsArrayPath
    */
   DataArrayPath getSlipPlaneNormalsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SlipPlaneNormalsArrayPath READ getSlipPlaneNormalsArrayPath WRITE setSlipPlaneNormalsArrayPath)
 
   /**
@@ -144,7 +141,6 @@ public:
    * @return Value of DislocationIdsArrayName
    */
   QString getDislocationIdsArrayName() const;
-
   Q_PROPERTY(QString DislocationIdsArrayName READ getDislocationIdsArrayName WRITE setDislocationIdsArrayName)
 
   /**
@@ -156,7 +152,6 @@ public:
    * @return Value of ActiveArrayName
    */
   QString getActiveArrayName() const;
-
   Q_PROPERTY(QString ActiveArrayName READ getActiveArrayName WRITE setActiveArrayName)
 
   /**

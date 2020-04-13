@@ -58,7 +58,6 @@ public:
    * @return Value of CADDataContainerName
    */
   DataArrayPath getCADDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath CADDataContainerName READ getCADDataContainerName WRITE setCADDataContainerName)
 
   /**
@@ -70,7 +69,6 @@ public:
    * @return Value of TriangleAttributeMatrixName
    */
   QString getTriangleAttributeMatrixName() const;
-
   Q_PROPERTY(QString TriangleAttributeMatrixName READ getTriangleAttributeMatrixName WRITE setTriangleAttributeMatrixName)
 
   /**
@@ -82,7 +80,6 @@ public:
    * @return Value of RegionIdArrayName
    */
   QString getRegionIdArrayName() const;
-
   Q_PROPERTY(QString RegionIdArrayName READ getRegionIdArrayName WRITE setRegionIdArrayName)
 
   /**

@@ -115,7 +115,6 @@ public:
    * @return Value of VtkOutput
    */
   bool getVtkOutput() const;
-
   Q_PROPERTY(bool VtkOutput READ getVtkOutput WRITE setVtkOutput)
 
   /**
@@ -127,7 +126,6 @@ public:
    * @return Value of VtkFileName
    */
   QString getVtkFileName() const;
-
   Q_PROPERTY(QString VtkFileName READ getVtkFileName WRITE setVtkFileName)
 
   /**
@@ -139,7 +137,6 @@ public:
    * @return Value of TxtOutput
    */
   bool getTxtOutput() const;
-
   Q_PROPERTY(bool TxtOutput READ getTxtOutput WRITE setTxtOutput)
 
   /**
@@ -151,7 +148,6 @@ public:
    * @return Value of TxtFileName
    */
   QString getTxtFileName() const;
-
   Q_PROPERTY(QString TxtFileName READ getTxtFileName WRITE setTxtFileName)
 
   /**
@@ -163,7 +159,6 @@ public:
    * @return Value of FeatureIdsArrayPath
    */
   DataArrayPath getFeatureIdsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath FeatureIdsArrayPath READ getFeatureIdsArrayPath WRITE setFeatureIdsArrayPath)
 
   /**
@@ -175,7 +170,6 @@ public:
    * @return Value of CellPhasesArrayPath
    */
   DataArrayPath getCellPhasesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CellPhasesArrayPath READ getCellPhasesArrayPath WRITE setCellPhasesArrayPath)
 
   /**
@@ -187,7 +181,6 @@ public:
    * @return Value of Plane
    */
   int getPlane() const;
-
   Q_PROPERTY(int Plane READ getPlane WRITE setPlane)
 
   /**
@@ -199,7 +192,6 @@ public:
    * @return Value of Sites
    */
   int getSites() const;
-
   Q_PROPERTY(int Sites READ getSites WRITE setSites)
 
   /**

@@ -24,7 +24,7 @@ get_filename_component(${PLUGIN_NAME}_PARENT_SOURCE_DIR "${${PLUGIN_NAME}_SOURCE
 get_filename_component(${PLUGIN_NAME}_PARENT_BINARY_DIR "${${PLUGIN_NAME}_BINARY_DIR}" DIRECTORY)
 
 set(Anisotropy_Data_DIR ${${PLUGIN_NAME}_SOURCE_DIR}/Data/Anisotropy)
-list(APPEND ${PLUGIN_NAME}_LINK_LIBS Qt5::Core H5Support SIMPLib ${ITK_LIBRARIES})
+list(APPEND ${PLUGIN_NAME}_LINK_LIBS Qt5::Core SIMPLib ${ITK_LIBRARIES})
 
 SIMPL_GenerateUnitTestFile(PLUGIN_NAME ${PLUGIN_NAME}
                            TEST_DATA_DIR ${${PLUGIN_NAME}_SOURCE_DIR}/Test/Data

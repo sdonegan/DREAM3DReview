@@ -11,8 +11,7 @@
 * Subsequent changes to the codes by others may elect to add a copyright and license
 * for those changes.
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifndef _ImportVolumeGraphicsFile_h_
-#define _ImportVolumeGraphicsFile_h_
+#pragma once
 
 #include <memory>
 
@@ -23,13 +22,21 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The ImportVolumeGraphicsFile class. See [Filter documentation](@ref ImportVolumeGraphicsFile) for details.
  */
-class ImportVolumeGraphicsFile : public AbstractFilter
+class DREAM3DReview_EXPORT ImportVolumeGraphicsFile : public AbstractFilter
 {
   Q_OBJECT
-
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ImportVolumeGraphicsFile SUPERCLASS AbstractFilter)
+  PYB11_SHARED_POINTERS(ImportVolumeGraphicsFile)
+  PYB11_FILTER_NEW_MACRO(ImportVolumeGraphicsFile)
+  // TODO: Fill out the python bindings
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
 public:
   using Self = ImportVolumeGraphicsFile;
   using Pointer = std::shared_ptr<Self>;
@@ -60,7 +67,6 @@ public:
    * @return Value of InputFile
    */
   QString getInputFile() const;
-
   Q_PROPERTY(QString InputFile READ getInputFile WRITE setInputFile)
 
   /**
@@ -72,7 +78,6 @@ public:
    * @return Value of InputHeaderFile
    */
   QString getInputHeaderFile() const;
-
   Q_PROPERTY(QString InputHeaderFile READ getInputHeaderFile WRITE setInputHeaderFile)
 
   /**
@@ -84,7 +89,6 @@ public:
    * @return Value of DataContainerName
    */
   QString getDataContainerName() const;
-
   Q_PROPERTY(QString DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -96,7 +100,6 @@ public:
    * @return Value of CellAttributeMatrixName
    */
   QString getCellAttributeMatrixName() const;
-
   Q_PROPERTY(QString CellAttributeMatrixName READ getCellAttributeMatrixName WRITE setCellAttributeMatrixName)
 
   /**
@@ -108,7 +111,6 @@ public:
    * @return Value of DensityArrayName
    */
   QString getDensityArrayName() const;
-
   Q_PROPERTY(QString DensityArrayName READ getDensityArrayName WRITE setDensityArrayName)
 
   /**
@@ -218,9 +220,9 @@ private:
   QFile m_InHeaderStream;
   QFile m_InStream;
 
-  ImportVolumeGraphicsFile(const ImportVolumeGraphicsFile&) = delete; // Copy Constructor Not Implemented
-  ImportVolumeGraphicsFile(ImportVolumeGraphicsFile&&) = delete;      // Move Constructor Not Implemented
-  void operator=(const ImportVolumeGraphicsFile&) = delete;     // Operator '=' Not Implemented
+public:
+  ImportVolumeGraphicsFile(const ImportVolumeGraphicsFile&) = delete;            // Copy Constructor Not Implemented
+  ImportVolumeGraphicsFile(ImportVolumeGraphicsFile&&) = delete;                 // Move Constructor Not Implemented
+  ImportVolumeGraphicsFile& operator=(const ImportVolumeGraphicsFile&) = delete; // Copy Assignment Not Implemented
+  ImportVolumeGraphicsFile& operator=(ImportVolumeGraphicsFile&&) = delete;      // Move Assignment Not Implemented
 };
-
-#endif /* _ImportVolumeGraphicsFile_H_ */

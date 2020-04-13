@@ -59,7 +59,6 @@ public:
    * @return Value of DataContainerName
    */
   DataArrayPath getDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -71,7 +70,6 @@ public:
    * @return Value of ImageDataContainerName
    */
   QString getImageDataContainerName() const;
-
   Q_PROPERTY(QString ImageDataContainerName READ getImageDataContainerName WRITE setImageDataContainerName)
 
   /**
@@ -83,7 +81,6 @@ public:
    * @return Value of ImageDataContainerPath
    */
   DataArrayPath getImageDataContainerPath() const;
-
   Q_PROPERTY(DataArrayPath ImageDataContainerPath READ getImageDataContainerPath WRITE setImageDataContainerPath)
 
   /**
@@ -95,7 +92,6 @@ public:
    * @return Value of VoxelIndicesArrayPath
    */
   DataArrayPath getVoxelIndicesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath VoxelIndicesArrayPath READ getVoxelIndicesArrayPath WRITE setVoxelIndicesArrayPath)
 
   /**
@@ -107,7 +103,6 @@ public:
    * @return Value of GridDimensions
    */
   IntVec3Type getGridDimensions() const;
-
   Q_PROPERTY(IntVec3Type GridDimensions READ getGridDimensions WRITE setGridDimensions)
 
   /**
@@ -119,7 +114,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -131,7 +125,6 @@ public:
    * @return Value of CreateDataContainer
    */
   int getCreateDataContainer() const;
-
   Q_PROPERTY(int CreateDataContainer READ getCreateDataContainer WRITE setCreateDataContainer)
 
   /**
@@ -143,7 +136,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**

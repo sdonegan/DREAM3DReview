@@ -57,7 +57,6 @@ public:
    * @return Value of NodeTypesArrayPath
    */
   DataArrayPath getNodeTypesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath NodeTypesArrayPath READ getNodeTypesArrayPath WRITE setNodeTypesArrayPath)
 
   /**
@@ -69,7 +68,6 @@ public:
    * @return Value of EdgeGeometry
    */
   QString getEdgeGeometry() const;
-
   Q_PROPERTY(QString EdgeGeometry READ getEdgeGeometry WRITE setEdgeGeometry)
 
   /**
@@ -81,7 +79,6 @@ public:
    * @return Value of VertexAttributeMatrixName
    */
   QString getVertexAttributeMatrixName() const;
-
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
 
   /**
@@ -93,7 +90,6 @@ public:
    * @return Value of EdgeAttributeMatrixName
    */
   QString getEdgeAttributeMatrixName() const;
-
   Q_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
 
   /**
@@ -105,7 +101,6 @@ public:
    * @return Value of NodeTypesArrayName
    */
   QString getNodeTypesArrayName() const;
-
   Q_PROPERTY(QString NodeTypesArrayName READ getNodeTypesArrayName WRITE setNodeTypesArrayName)
 
   /**
@@ -117,7 +112,6 @@ public:
    * @return Value of SmoothTripleLines
    */
   bool getSmoothTripleLines() const;
-
   Q_PROPERTY(bool SmoothTripleLines READ getSmoothTripleLines WRITE setSmoothTripleLines)
 
   /**

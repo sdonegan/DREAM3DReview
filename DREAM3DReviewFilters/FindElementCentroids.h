@@ -91,7 +91,6 @@ public:
    * @return Value of CellCentroidsArrayPath
    */
   DataArrayPath getCellCentroidsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath CellCentroidsArrayPath READ getCellCentroidsArrayPath WRITE setCellCentroidsArrayPath)
 
   /**
@@ -103,7 +102,6 @@ public:
    * @return Value of CreateVertexDataContainer
    */
   bool getCreateVertexDataContainer() const;
-
   Q_PROPERTY(bool CreateVertexDataContainer READ getCreateVertexDataContainer WRITE setCreateVertexDataContainer)
 
   /**
@@ -115,7 +113,6 @@ public:
    * @return Value of NewDataContainerName
    */
   DataArrayPath getNewDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath NewDataContainerName READ getNewDataContainerName WRITE setNewDataContainerName)
 
   /**
@@ -127,7 +124,6 @@ public:
    * @return Value of VertexAttributeMatrixName
    */
   QString getVertexAttributeMatrixName() const;
-
   Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
 
   /**

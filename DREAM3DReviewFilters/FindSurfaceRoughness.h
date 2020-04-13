@@ -57,7 +57,6 @@ public:
    * @return Value of BoundaryCellsArrayPath
    */
   DataArrayPath getBoundaryCellsArrayPath() const;
-
   Q_PROPERTY(DataArrayPath BoundaryCellsArrayPath READ getBoundaryCellsArrayPath WRITE setBoundaryCellsArrayPath)
 
   /**
@@ -69,7 +68,6 @@ public:
    * @return Value of AttributeMatrixName
    */
   QString getAttributeMatrixName() const;
-
   Q_PROPERTY(QString AttributeMatrixName READ getAttributeMatrixName WRITE setAttributeMatrixName)
 
   /**
@@ -81,7 +79,6 @@ public:
    * @return Value of RoughnessParamsArrayName
    */
   QString getRoughnessParamsArrayName() const;
-
   Q_PROPERTY(QString RoughnessParamsArrayName READ getRoughnessParamsArrayName WRITE setRoughnessParamsArrayName)
 
   /**

@@ -80,7 +80,6 @@ public:
    * @return Value of CADDataContainerName
    */
   DataArrayPath getCADDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath CADDataContainerName READ getCADDataContainerName WRITE setCADDataContainerName)
 
   /**
@@ -92,7 +91,6 @@ public:
    * @return Value of SliceDataContainerName
    */
   QString getSliceDataContainerName() const;
-
   Q_PROPERTY(QString SliceDataContainerName READ getSliceDataContainerName WRITE setSliceDataContainerName)
 
   /**
@@ -104,7 +102,6 @@ public:
    * @return Value of EdgeAttributeMatrixName
    */
   QString getEdgeAttributeMatrixName() const;
-
   Q_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
 
   /**
@@ -116,7 +113,6 @@ public:
    * @return Value of SliceAttributeMatrixName
    */
   QString getSliceAttributeMatrixName() const;
-
   Q_PROPERTY(QString SliceAttributeMatrixName READ getSliceAttributeMatrixName WRITE setSliceAttributeMatrixName)
 
   /**
@@ -128,7 +124,6 @@ public:
    * @return Value of SliceIdArrayName
    */
   QString getSliceIdArrayName() const;
-
   Q_PROPERTY(QString SliceIdArrayName READ getSliceIdArrayName WRITE setSliceIdArrayName)
 
   /**
@@ -140,7 +135,6 @@ public:
    * @return Value of AreasArrayName
    */
   QString getAreasArrayName() const;
-
   Q_PROPERTY(QString AreasArrayName READ getAreasArrayName WRITE setAreasArrayName)
 
   /**
@@ -152,7 +146,6 @@ public:
    * @return Value of PerimetersArrayName
    */
   QString getPerimetersArrayName() const;
-
   Q_PROPERTY(QString PerimetersArrayName READ getPerimetersArrayName WRITE setPerimetersArrayName)
 
   /**
@@ -164,7 +157,6 @@ public:
    * @return Value of HaveRegionIds
    */
   bool getHaveRegionIds() const;
-
   Q_PROPERTY(bool HaveRegionIds READ getHaveRegionIds WRITE setHaveRegionIds)
 
   /**
@@ -176,7 +168,6 @@ public:
    * @return Value of RegionIdArrayPath
    */
   DataArrayPath getRegionIdArrayPath() const;
-
   Q_PROPERTY(DataArrayPath RegionIdArrayPath READ getRegionIdArrayPath WRITE setRegionIdArrayPath)
 
   /**
@@ -188,7 +179,6 @@ public:
    * @return Value of SliceDirection
    */
   FloatVec3Type getSliceDirection() const;
-
   Q_PROPERTY(FloatVec3Type SliceDirection READ getSliceDirection WRITE setSliceDirection)
 
   /**
@@ -200,7 +190,6 @@ public:
    * @return Value of SliceResolution
    */
   float getSliceResolution() const;
-
   Q_PROPERTY(float SliceResolution READ getSliceResolution WRITE setSliceResolution)
 
   /**
@@ -212,7 +201,6 @@ public:
    * @return Value of Zstart
    */
   float getZstart() const;
-
   Q_PROPERTY(float Zstart READ getZstart WRITE setZstart)
 
   /**
@@ -224,7 +212,6 @@ public:
    * @return Value of Zend
    */
   float getZend() const;
-
   Q_PROPERTY(float Zend READ getZend WRITE setZend)
 
   /**
@@ -236,7 +223,6 @@ public:
    * @return Value of SliceRange
    */
   int getSliceRange() const;
-
   Q_PROPERTY(int SliceRange READ getSliceRange WRITE setSliceRange)
 
   /**

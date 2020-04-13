@@ -61,7 +61,6 @@ public:
    * @return Value of DataContainerName
    */
   DataArrayPath getDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
 
   /**
@@ -73,7 +72,6 @@ public:
    * @return Value of ArraysToInterpolate
    */
   QVector<DataArrayPath> getArraysToInterpolate() const;
-
   Q_PROPERTY(QVector<DataArrayPath> ArraysToInterpolate READ getArraysToInterpolate WRITE setArraysToInterpolate)
 
   /**
@@ -85,7 +83,6 @@ public:
    * @return Value of ArraysToCopy
    */
   QVector<DataArrayPath> getArraysToCopy() const;
-
   Q_PROPERTY(QVector<DataArrayPath> ArraysToCopy READ getArraysToCopy WRITE setArraysToCopy)
 
   /**
@@ -97,7 +94,6 @@ public:
    * @return Value of VoxelIndicesArrayPath
    */
   DataArrayPath getVoxelIndicesArrayPath() const;
-
   Q_PROPERTY(DataArrayPath VoxelIndicesArrayPath READ getVoxelIndicesArrayPath WRITE setVoxelIndicesArrayPath)
 
   /**
@@ -109,7 +105,6 @@ public:
    * @return Value of InterpolatedDataContainerName
    */
   DataArrayPath getInterpolatedDataContainerName() const;
-
   Q_PROPERTY(DataArrayPath InterpolatedDataContainerName READ getInterpolatedDataContainerName WRITE setInterpolatedDataContainerName)
 
   /**
@@ -121,7 +116,6 @@ public:
    * @return Value of InterpolatedAttributeMatrixName
    */
   QString getInterpolatedAttributeMatrixName() const;
-
   Q_PROPERTY(QString InterpolatedAttributeMatrixName READ getInterpolatedAttributeMatrixName WRITE setInterpolatedAttributeMatrixName)
 
   /**
@@ -133,7 +127,6 @@ public:
    * @return Value of InterpolationTechnique
    */
   int getInterpolationTechnique() const;
-
   Q_PROPERTY(int InterpolationTechnique READ getInterpolationTechnique WRITE setInterpolationTechnique)
 
   /**
@@ -145,7 +138,6 @@ public:
    * @return Value of KernelSize
    */
   FloatVec3Type getKernelSize() const;
-
   Q_PROPERTY(FloatVec3Type KernelSize READ getKernelSize WRITE setKernelSize)
 
   /**
@@ -157,7 +149,6 @@ public:
    * @return Value of Sigmas
    */
   FloatVec3Type getSigmas() const;
-
   Q_PROPERTY(FloatVec3Type Sigmas READ getSigmas WRITE setSigmas)
 
   /**
@@ -169,7 +160,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -181,7 +171,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -193,7 +182,6 @@ public:
    * @return Value of StoreKernelDistances
    */
   bool getStoreKernelDistances() const;
-
   Q_PROPERTY(bool StoreKernelDistances READ getStoreKernelDistances WRITE setStoreKernelDistances)
 
   /**
@@ -205,7 +193,6 @@ public:
    * @return Value of KernelDistancesArrayName
    */
   QString getKernelDistancesArrayName() const;
-
   Q_PROPERTY(QString KernelDistancesArrayName READ getKernelDistancesArrayName WRITE setKernelDistancesArrayName)
 
   /**

@@ -43,7 +43,9 @@
 #include "H5Support/QH5Lite.h"
 #include "H5Support/QH5Utilities.h"
 
-#include "EbsdLib/EbsdConstants.h"
+#include "SIMPLib/Common/Constants.h"
+
+#include "EbsdLib/Core/EbsdLibConstants.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/H5MicReader.h"
 
@@ -157,37 +159,37 @@ void* H5MicVolumeReader::getPointerByName(const QString& featureName)
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-Ebsd::NumType H5MicVolumeReader::getPointerType(const QString& featureName)
+EbsdLib::NumericTypes::Type H5MicVolumeReader::getPointerType(const QString& featureName)
 {
   if(featureName.compare(Mic::Euler1) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Euler2) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Euler3) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Confidence) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Phase) == 0)
   {
-    return Ebsd::Int32;
+    return EbsdLib::NumericTypes::Type::Int32;
   }
   if(featureName.compare(Mic::X) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
   if(featureName.compare(Mic::Y) == 0)
   {
-    return Ebsd::Float;
+    return EbsdLib::NumericTypes::Type::Float;
   }
-  return Ebsd::UnknownNumType;
+  return EbsdLib::NumericTypes::Type::UnknownNumType;
 }
 
 // -----------------------------------------------------------------------------

@@ -98,7 +98,6 @@ public:
    * @return Value of SelectedArrayPath
    */
   DataArrayPath getSelectedArrayPath() const;
-
   Q_PROPERTY(DataArrayPath SelectedArrayPath READ getSelectedArrayPath WRITE setSelectedArrayPath)
 
   /**
@@ -110,7 +109,6 @@ public:
    * @return Value of UseMask
    */
   bool getUseMask() const;
-
   Q_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
 
   /**
@@ -122,7 +120,6 @@ public:
    * @return Value of MaskArrayPath
    */
   DataArrayPath getMaskArrayPath() const;
-
   Q_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
 
   /**
@@ -134,7 +131,6 @@ public:
    * @return Value of FeatureIdsArrayName
    */
   QString getFeatureIdsArrayName() const;
-
   Q_PROPERTY(QString FeatureIdsArrayName READ getFeatureIdsArrayName WRITE setFeatureIdsArrayName)
 
   /**
@@ -146,7 +142,6 @@ public:
    * @return Value of MeansArrayName
    */
   QString getMeansArrayName() const;
-
   Q_PROPERTY(QString MeansArrayName READ getMeansArrayName WRITE setMeansArrayName)
 
   /**
@@ -158,7 +153,6 @@ public:
    * @return Value of InitClusters
    */
   int getInitClusters() const;
-
   Q_PROPERTY(int InitClusters READ getInitClusters WRITE setInitClusters)
 
   /**
@@ -170,7 +164,6 @@ public:
    * @return Value of FeatureAttributeMatrixName
    */
   QString getFeatureAttributeMatrixName() const;
-
   Q_PROPERTY(QString FeatureAttributeMatrixName READ getFeatureAttributeMatrixName WRITE setFeatureAttributeMatrixName)
 
   /**
@@ -182,7 +175,6 @@ public:
    * @return Value of DistanceMetric
    */
   int getDistanceMetric() const;
-
   Q_PROPERTY(int DistanceMetric READ getDistanceMetric WRITE setDistanceMetric)
 
   /**
