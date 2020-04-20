@@ -60,7 +60,6 @@
 #include <tbb/blocked_range3d.h>
 #include <tbb/parallel_for.h>
 #include <tbb/partitioner.h>
-#include <tbb/task_scheduler_init.h>
 #include <tbb/task_group.h>
 // clang-format on
 #endif
@@ -2773,7 +2772,6 @@ void EstablishFoamMorphology::assign_voxels()
     ShapeOps* shapeOps = m_ShapeOps[shapeclass].get();
 
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-    tbb::task_scheduler_init init;
     bool doParallel = true;
 
     if(doParallel)
@@ -3410,7 +3408,6 @@ void EstablishFoamMorphology::find_euclideandistmap()
   }
 
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-  tbb::task_scheduler_init init;
   bool doParallel = true;
 
   if(doParallel)

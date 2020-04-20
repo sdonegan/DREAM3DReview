@@ -47,7 +47,6 @@
 #include <tbb/blocked_range.h>
 #include <tbb/parallel_for.h>
 #include <tbb/partitioner.h>
-#include <tbb/task_scheduler_init.h>
 #endif
 
 #include <QtCore/QTextStream>
@@ -716,7 +715,6 @@ void findStatistics(IDataArray::Pointer source, Int32ArrayType::Pointer featureI
     }
 
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-    tbb::task_scheduler_init init;
     bool doParallel = true;
 #endif
 

@@ -73,7 +73,6 @@
 #include <tbb/blocked_range3d.h>
 #include <tbb/parallel_for.h>
 #include <tbb/partitioner.h>
-#include <tbb/task_scheduler_init.h>
 #endif
 
 /* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
@@ -897,11 +896,6 @@ void TesselateFarFieldGrains::assign_voxels()
       static_cast<int64_t>(udims[2]),
   };
 
-#ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-  tbb::task_scheduler_init init;
-  bool doParallel = true;
-#endif
-
   int64_t column, row, plane;
   float xc, yc, zc;
   float size[3] = {m_SizeX, m_SizeY, m_SizeZ};
@@ -1001,17 +995,12 @@ void TesselateFarFieldGrains::assign_voxels()
 
 //#if 0
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-    if(doParallel)
-    {
-      tbb::parallel_for(tbb::blocked_range3d<int, int, int>(zmin, zmax + 1, ymin, ymax + 1, xmin, xmax + 1),
-                        AssignVoxelsImpl(dims, spacing.data(), radCur, xx, m_EllipsoidOps, ga, size, i, newownersPtr, ellipfuncsPtr), tbb::auto_partitioner());
-    }
-    else
+    tbb::parallel_for(tbb::blocked_range3d<int, int, int>(zmin, zmax + 1, ymin, ymax + 1, xmin, xmax + 1),
+                      AssignVoxelsImpl(dims, spacing.data(), radCur, xx, m_EllipsoidOps, ga, size, i, newownersPtr, ellipfuncsPtr), tbb::auto_partitioner());
+#else
+    AssignVoxelsImpl serial(dims, spacing.data(), radCur, xx, m_EllipsoidOps, ga, size, i, newownersPtr, ellipfuncsPtr);
+    serial.convert(zmin, zmax + 1, ymin, ymax + 1, xmin, xmax + 1);
 #endif
-    {
-      AssignVoxelsImpl serial(dims, spacing.data(), radCur, xx, m_EllipsoidOps, ga, size, i, newownersPtr, ellipfuncsPtr);
-      serial.convert(zmin, zmax + 1, ymin, ymax + 1, xmin, xmax + 1);
-    }
   }
 
   QVector<bool> activeObjects(totalFeatures, false);
