@@ -1,7 +1,7 @@
 /* ============================================================================
  * Software developed by US federal government employees (including military personnel)
  * as part of their official duties is not subject to copyright protection and is
- * considered “public domain” (see 17 USC Section 105). Public domain software can be used
+ * considered "public domain" (see 17 USC Section 105). Public domain software can be used
  * by anyone for any purpose, and cannot be released under a copyright license
  * (including typical open source software licenses).
  *
@@ -11,6 +11,7 @@
  * Subsequent changes to the codes by others may elect to add a copyright and license
  * for those changes.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 #pragma once
 
 #include <memory>
@@ -21,15 +22,18 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Geometry/IGeometry.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The SliceTriangleGeometry class. See [Filter documentation](@ref SliceTriangleGeometry) for details.
  */
-class SliceTriangleGeometry : public AbstractFilter
+class DREAM3DReview_EXPORT SliceTriangleGeometry : public AbstractFilter
 {
   Q_OBJECT
 
-#ifdef SIMPL_ENABLE_PYTHON
-  PYB11_CREATE_BINDINGS(SliceTriangleGeometry SUPERCLASS AbstractFilter)
+  // clang-format off
+  PYB11_BEGIN_BINDINGS(SliceTriangleGeometry SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
   PYB11_SHARED_POINTERS(SliceTriangleGeometry)
   PYB11_FILTER_NEW_MACRO(SliceTriangleGeometry)
 
@@ -46,9 +50,9 @@ class SliceTriangleGeometry : public AbstractFilter
   PYB11_PROPERTY(float SliceResolution READ getSliceResolution WRITE setSliceResolution)
   PYB11_PROPERTY(float Zstart READ getZstart WRITE setZstart)
   PYB11_PROPERTY(float Zend READ getZend WRITE setZend)
-  PYB11_PROPERTYQ_PROPERTY(int SliceRange READ getSliceRange WRITE setSliceRange)
-
-#endif
+  PYB11_PROPERTY(int SliceRange READ getSliceRange WRITE setSliceRange)
+  PYB11_END_BINDINGS()
+  // clang-format on
 
 public:
   using Self = SliceTriangleGeometry;
