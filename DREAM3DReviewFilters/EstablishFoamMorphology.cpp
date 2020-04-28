@@ -554,22 +554,18 @@ void EstablishFoamMorphology::setupFilterParameters()
     parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Statistics", InputStatsArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
   }
   {
-	  DataArraySelectionFilterParameter::RequirementType req =
-		  DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::StatsDataArray, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
-	  IGeometry::Types geomTypes;
-	  geomTypes.push_back(IGeometry::Type::Image);
-	  geomTypes.push_back(IGeometry::Type::Unknown);
-	  req.dcGeometryTypes = geomTypes;
+    DataArraySelectionFilterParameter::RequirementType req =
+        DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::UInt32, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
+    IGeometry::Types geomTypes;
+    req.dcGeometryTypes = geomTypes;
 	  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Types", InputPhaseTypesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
   }
   {
-	  DataArraySelectionFilterParameter::RequirementType req =
-		  DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::UInt32, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
-	  IGeometry::Types geomTypes;
-	  geomTypes.push_back(IGeometry::Type::Image);
-	  geomTypes.push_back(IGeometry::Type::Unknown);
-	  req.dcGeometryTypes = geomTypes;
-	  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Names", InputPhaseNamesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    DataArraySelectionFilterParameter::RequirementType req =
+        DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::StringArray, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
+    IGeometry::Types geomTypes;
+    req.dcGeometryTypes = geomTypes;
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Names", InputPhaseNamesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
   }
   {
 	  DataArraySelectionFilterParameter::RequirementType req =
