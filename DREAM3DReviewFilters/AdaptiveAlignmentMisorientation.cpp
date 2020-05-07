@@ -35,7 +35,6 @@
 
 #include "AdaptiveAlignmentMisorientation.h"
 
-#include <memory>
 #include <fstream>
 
 #include <QtCore/QDateTime>

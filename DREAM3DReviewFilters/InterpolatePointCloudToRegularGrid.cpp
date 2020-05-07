@@ -14,7 +14,6 @@
 
 #include "InterpolatePointCloudToRegularGrid.h"
 
-#include <memory>
 
 #include <QtCore/QTextStream>
 

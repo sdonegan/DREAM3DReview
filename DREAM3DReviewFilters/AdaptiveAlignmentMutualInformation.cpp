@@ -36,7 +36,6 @@
 #include "AdaptiveAlignmentMutualInformation.h"
 
 #include <fstream>
-#include <memory>
 
 #include <QtCore/QTextStream>
 

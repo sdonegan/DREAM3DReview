@@ -39,7 +39,6 @@
 
 #include "FindCSLBoundaries.h"
 
-#include <memory>
 
 
 #include <QtCore/QTextStream>

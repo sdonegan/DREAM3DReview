@@ -34,7 +34,6 @@
 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "RobustAutomaticThreshold.h"
 
-#include <memory>
 
 #include <QtCore/QTextStream>
 
