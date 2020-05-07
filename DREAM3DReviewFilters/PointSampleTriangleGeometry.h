@@ -41,7 +41,6 @@
 
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-
 #include "SIMPLib/Geometry/VertexGeom.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 

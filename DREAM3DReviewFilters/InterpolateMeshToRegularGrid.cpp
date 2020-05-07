@@ -19,7 +19,6 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/TemplateHelpers.h"
-
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataContainerSelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/IntFilterParameter.h"

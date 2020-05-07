@@ -9,7 +9,6 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/SIMPLib.h"
-
 #include "SIMPLib/CoreFilters/FileWriter.h"
 #include "SIMPLib/DataArrays/StringDataArray.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"

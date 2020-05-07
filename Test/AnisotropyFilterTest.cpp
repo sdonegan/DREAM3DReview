@@ -35,11 +35,9 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QJsonDocument>
-
 #include <QtCore/QDebug>
 
 #include "SIMPLib/DataArrays/DataArray.hpp"
-
 #include "SIMPLib/FilterParameters/FileListInfoFilterParameter.h"
 #include "SIMPLib/FilterParameters/FloatVec3FilterParameter.h"
 #include "SIMPLib/Filtering/ComparisonInputs.h"
