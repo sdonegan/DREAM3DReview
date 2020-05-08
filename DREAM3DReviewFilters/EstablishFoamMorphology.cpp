@@ -355,17 +355,23 @@ public:
     int32_t* newowners = m_NewOwnersPtr->getPointer(0);
     float* ellipfuncs = mEllipFuncsPtr->getPointer(0);
 
+    const std::array<int64_t, 3> dims = {
+        static_cast<int64_t>(m_UDims[0]),
+        static_cast<int64_t>(m_UDims[1]),
+        static_cast<int64_t>(m_UDims[2]),
+    };
+
     int64_t dim0_dim_1 = m_UDims[0] * m_UDims[1];
     for(int64_t iter1 = xStart; iter1 < xEnd; iter1++)
     {
       column = iter1;
       if(iter1 < 0)
       {
-        column = iter1 + m_UDims[0];
+        column = iter1 + dims[0];
       }
-      else if(iter1 > m_UDims[0] - 1)
+      else if(iter1 > dims[0] - 1)
       {
-        column = iter1 - m_UDims[0];
+        column = iter1 - dims[0];
       }
 
       for(int64_t iter2 = yStart; iter2 < yEnd; iter2++)
@@ -373,24 +379,24 @@ public:
         row = iter2;
         if(iter2 < 0)
         {
-          row = iter2 + m_UDims[1];
+          row = iter2 + dims[1];
         }
-        else if(iter2 > m_UDims[1] - 1)
+        else if(iter2 > dims[1] - 1)
         {
-          row = iter2 - m_UDims[1];
+          row = iter2 - dims[1];
         }
-        size_t row_dim = row * m_UDims[0];
+        size_t row_dim = row * dims[0];
 
         for(int64_t iter3 = zStart; iter3 < zEnd; iter3++)
         {
           plane = iter3;
           if(iter3 < 0)
           {
-            plane = iter3 + m_UDims[2];
+            plane = iter3 + dims[2];
           }
-          else if(iter3 > m_UDims[2] - 1)
+          else if(iter3 > dims[2] - 1)
           {
-            plane = iter3 - m_UDims[2];
+            plane = iter3 - dims[2];
           }
 
           index = static_cast<int64_t>((plane * dim0_dim_1) + (row_dim) + column);
@@ -2610,7 +2616,7 @@ void EstablishFoamMorphology::assign_voxels()
 
   SizeVec3Type udims = m->getGeometryAs<ImageGeom>()->getDimensions();
 
-  std::array<int64_t, 3> dims = {
+  const std::array<int64_t, 3> dims = {
       static_cast<int64_t>(udims[0]),
       static_cast<int64_t>(udims[1]),
       static_cast<int64_t>(udims[2]),
@@ -2714,25 +2720,25 @@ void EstablishFoamMorphology::assign_voxels()
       {
         xmin = -dims[0];
       }
-      if(xmax > 2 * udims[0] - 1)
+      if(xmax > 2 * dims[0] - 1)
       {
-        xmax = (2 * udims[0] - 1);
+        xmax = (2 * dims[0] - 1);
       }
       if(ymin < -dims[1])
       {
         ymin = -dims[1];
       }
-      if(ymax > 2 * udims[1] - 1)
+      if(ymax > 2 * dims[1] - 1)
       {
-        ymax = (2 * udims[1] - 1);
+        ymax = (2 * dims[1] - 1);
       }
       if(zmin < -dims[2])
       {
         zmin = -dims[2];
       }
-      if(zmax > 2 * udims[2] - 1)
+      if(zmax > 2 * dims[2] - 1)
       {
-        zmax = (2 * udims[2] - 1);
+        zmax = (2 * dims[2] - 1);
       }
     }
     else
@@ -2741,25 +2747,25 @@ void EstablishFoamMorphology::assign_voxels()
       {
         xmin = 0;
       }
-      if(xmax > udims[0] - 1)
+      if(xmax > dims[0] - 1)
       {
-        xmax = udims[0] - 1;
+        xmax = dims[0] - 1;
       }
       if(ymin < 0)
       {
         ymin = 0;
       }
-      if(ymax > udims[1] - 1)
+      if(ymax > dims[1] - 1)
       {
-        ymax = udims[1] - 1;
+        ymax = dims[1] - 1;
       }
       if(zmin < 0)
       {
         zmin = 0;
       }
-      if(zmax > udims[2] - 1)
+      if(zmax > dims[2] - 1)
       {
-        zmax = udims[2] - 1;
+        zmax = dims[2] - 1;
       }
     }
 

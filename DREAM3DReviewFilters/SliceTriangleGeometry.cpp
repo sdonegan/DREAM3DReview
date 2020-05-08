@@ -453,8 +453,8 @@ void SliceTriangleGeometry::execute()
     {
       maxTriDim = maxDim;
     }
-    size_t firstSlice = static_cast<size_t>(minTriDim / m_SliceResolution);
-    size_t lastSlice = static_cast<size_t>(maxTriDim / m_SliceResolution);
+    int64_t firstSlice = static_cast<int64_t>(minTriDim / m_SliceResolution);
+    int64_t lastSlice = static_cast<int64_t>(maxTriDim / m_SliceResolution);
     if(firstSlice < minSlice)
     {
       firstSlice = minSlice;
@@ -477,7 +477,7 @@ void SliceTriangleGeometry::execute()
     triCross[0] = vecAB[1] * vecAC[2] - vecAB[2] * vecAC[1];
     triCross[1] = vecAB[2] * vecAC[0] - vecAB[0] * vecAC[2];
     triCross[2] = vecAB[0] * vecAC[1] - vecAB[1] * vecAC[0];
-    for(size_t j = firstSlice; j <= lastSlice; j++)
+    for(int64_t j = firstSlice; j <= lastSlice; j++)
     {
       int cut = 0;
       bool cornerHit = false;
