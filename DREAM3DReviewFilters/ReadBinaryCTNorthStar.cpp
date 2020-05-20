@@ -14,6 +14,8 @@
 
 #include "ReadBinaryCTNorthStar.h"
 
+#include <tuple>
+
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
@@ -251,7 +253,7 @@ int32_t ReadBinaryCTNorthStar::readBinaryCTFiles(size_t dims[3])
         {
           // Compute the proper index into the final storage array
           index = (dims[0] * dims[1] * z) + (dims[0] * (dims[1] - y - 1)) + (dims[0] - x - 1);
-          fread(ptr + index, sizeof(float), 1, f);
+          std::ignore = fread(ptr + index, sizeof(float), 1, f);
 
           // Check for progress
           if(counter > prog)
