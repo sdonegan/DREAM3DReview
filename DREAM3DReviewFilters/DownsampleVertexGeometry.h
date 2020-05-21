@@ -14,71 +14,98 @@
 
 #pragma once
 
-#include <memory>
-
+#include "SIMPLib/FilterParameters/FloatVec3FilterParameter.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
 /**
- * @brief The AlignGeometries class. See [Filter documentation](@ref aligngeometries) for details.
+ * @brief The DownsampleVertexGeometry class. See [Filter documentation](@ref DownsampleVertexGeometry) for details.
  */
-class AlignGeometries : public AbstractFilter
+class DownsampleVertexGeometry : public AbstractFilter
 {
   Q_OBJECT
 
 public:
-  using Self = AlignGeometries;
+  using Self = DownsampleVertexGeometry;
   using Pointer = std::shared_ptr<Self>;
   using ConstPointer = std::shared_ptr<const Self>;
   using WeakPointer = std::weak_ptr<Self>;
   using ConstWeakPointer = std::weak_ptr<const Self>;
   static Pointer NullPointer();
 
-  static std::shared_ptr<AlignGeometries> New();
+  static std::shared_ptr<DownsampleVertexGeometry> New();
 
   /**
-   * @brief Returns the name of the class for AlignGeometries
+   * @brief Returns the name of the class for DownsampleVertexGeometry
    */
   QString getNameOfClass() const override;
+
   /**
-   * @brief Returns the name of the class for AlignGeometries
+   * @brief Returns the name of the class for DownsampleVertexGeometry
    */
   static QString ClassName();
 
-  ~AlignGeometries() override;
+  ~DownsampleVertexGeometry() override;
 
   /**
-   * @brief Setter property for MovingGeometry
+   * @brief Setter property for VertexAttrMatPath
    */
-  void setMovingGeometry(const DataArrayPath& value);
-  /**
-   * @brief Getter property for MovingGeometry
-   * @return Value of MovingGeometry
-   */
-  DataArrayPath getMovingGeometry() const;
-  Q_PROPERTY(DataArrayPath MovingGeometry READ getMovingGeometry WRITE setMovingGeometry)
+  void setVertexAttrMatPath(const DataArrayPath& value);
 
   /**
-   * @brief Setter property for TargetGeometry
+   * @brief Getter property for VertexAttrMatPath
+   * @return Value of VertexAttrMatPath
    */
-  void setTargetGeometry(const DataArrayPath& value);
-  /**
-   * @brief Getter property for TargetGeometry
-   * @return Value of TargetGeometry
-   */
-  DataArrayPath getTargetGeometry() const;
-  Q_PROPERTY(DataArrayPath TargetGeometry READ getTargetGeometry WRITE setTargetGeometry)
+  DataArrayPath getVertexAttrMatPath() const;
+  Q_PROPERTY(DataArrayPath VertexAttrMatPath READ getVertexAttrMatPath WRITE setVertexAttrMatPath)
 
   /**
-   * @brief Setter property for AlignmentType
+   * @brief Setter property for DownsampleType
    */
-  void setAlignmentType(int value);
+  void setDownsampleType(const int& value);
+
   /**
-   * @brief Getter property for AlignmentType
-   * @return Value of AlignmentType
+   * @brief Getter property for DownsampleType
+   * @return Value of DownsampleType
    */
-  int getAlignmentType() const;
-  Q_PROPERTY(int AlignmentType READ getAlignmentType WRITE setAlignmentType)
+  int getDownsampleType() const;
+  Q_PROPERTY(int DownsampleType READ getDownsampleType WRITE setDownsampleType)
+
+  /**
+   * @brief Setter property for DecimationFreq
+   */
+  void setDecimationFreq(const int& value);
+
+  /**
+   * @brief Getter property for DecimationFreq
+   * @return Value of DecimationFreq
+   */
+  int getDecimationFreq() const;
+  Q_PROPERTY(int DecimationFreq READ getDecimationFreq WRITE setDecimationFreq)
+
+  /**
+   * @brief Setter property for DecimationFraction
+   */
+  void setDecimationFraction(const float& value);
+
+  /**
+   * @brief Getter property for DecimationFraction
+   * @return Value of DecimationFraction
+   */
+  float getDecimationFraction() const;
+  Q_PROPERTY(float DecimationFraction READ getDecimationFraction WRITE setDecimationFraction)
+
+  /**
+   * @brief Setter property for GridResolution
+   */
+  void setGridResolution(const FloatVec3Type& value);
+
+  /**
+   * @brief Getter property for GridResolution
+   * @return Value of GridResolution
+   */
+  FloatVec3Type getGridResolution() const;
+  Q_PROPERTY(FloatVec3Type GridResolution READ getGridResolution WRITE setGridResolution)
 
   /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
@@ -125,6 +152,11 @@ public:
   void setupFilterParameters() override;
 
   /**
+   * @brief readFilterParameters Reimplemented from @see AbstractFilter class
+   */
+  void readFilterParameters(AbstractFilterParametersReader* reader, int index) override;
+
+  /**
    * @brief execute Reimplemented from @see AbstractFilter class
    */
   void execute() override;
@@ -136,7 +168,7 @@ public:
   QUuid getUuid() const override;
 
 protected:
-  AlignGeometries();
+  DownsampleVertexGeometry();
 
   /**
    * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
@@ -149,11 +181,20 @@ protected:
   void initialize();
 
 private:
-  DataArrayPath m_MovingGeometry = {};
-  DataArrayPath m_TargetGeometry = {};
-  int m_AlignmentType = {};
+  DataArrayPath m_VertexAttrMatPath = {};
+  int m_DownsampleType = {};
+  int m_DecimationFreq = {};
+  float m_DecimationFraction = {};
+  FloatVec3Type m_GridResolution = {};
 
-  AlignGeometries(const AlignGeometries&); // Copy Constructor Not Implemented
-  AlignGeometries(AlignGeometries&&);      // Move Constructor Not Implemented
-  void operator=(const AlignGeometries&);  // Operator '=' Not Implemented
+  void removeNthPoint();
+
+  void removeFractionPoints();
+
+  void gridDownsample();
+
+
+  DownsampleVertexGeometry(const DownsampleVertexGeometry&) = delete; // Copy Constructor Not Implemented
+  DownsampleVertexGeometry(DownsampleVertexGeometry&&) = delete;      // Move Constructor Not Implemented
+  void operator=(const DownsampleVertexGeometry&) = delete;     // Operator '=' Not Implemented
 };
