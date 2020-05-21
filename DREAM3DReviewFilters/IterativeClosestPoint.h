@@ -209,9 +209,6 @@ private:
   QString m_TransformArrayName = {"Transform"};
 
 public:
-  /* Rule of 5: All special member functions should be defined if any are defined.
-   * https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md#c21-if-you-define-or-delete-any-default-operation-define-or-delete-them-all
-   */
   IterativeClosestPoint(const IterativeClosestPoint&) = delete;            // Copy Constructor Not Implemented
   IterativeClosestPoint& operator=(const IterativeClosestPoint&) = delete; // Copy Assignment Not Implemented
   IterativeClosestPoint(IterativeClosestPoint&&) = delete;                 // Move Constructor Not Implemented

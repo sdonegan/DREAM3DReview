@@ -165,7 +165,9 @@ private:
   DataArrayPath m_TargetGeometry = {"", "", ""};
   int m_AlignmentType = {0};
 
-  AlignGeometries(const AlignGeometries&); // Copy Constructor Not Implemented
-  AlignGeometries(AlignGeometries&&);      // Move Constructor Not Implemented
-  void operator=(const AlignGeometries&);  // Operator '=' Not Implemented
+public:
+  AlignGeometries(const AlignGeometries&) = delete;            // Copy Constructor Not Implemented
+  AlignGeometries(AlignGeometries&&) = delete;                 // Move Constructor Not Implemented
+  AlignGeometries& operator=(const AlignGeometries&) = delete; // Copy Assignment Not Implemented
+  AlignGeometries& operator=(AlignGeometries&&) = delete;      // Move Assignment Not Implemented
 };
