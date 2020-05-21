@@ -26,6 +26,19 @@ class DREAM3DReview_EXPORT IterativeClosestPoint : public AbstractFilter
 {
   Q_OBJECT
 
+  PYB11_BEGIN_BINDINGS(IterativeClosestPoint SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(IterativeClosestPoint)
+  PYB11_FILTER_NEW_MACRO(IterativeClosestPoint)
+  PYB11_PROPERTY(DataArrayPath MovingVertexGeometry READ getMovingVertexGeometry WRITE setMovingVertexGeometry)
+  PYB11_PROPERTY(DataArrayPath TargetVertexGeometry READ getTargetVertexGeometry WRITE setTargetVertexGeometry)
+  PYB11_PROPERTY(int Iterations READ getIterations WRITE setIterations)
+  PYB11_PROPERTY(bool ApplyTransform READ getApplyTransform WRITE setApplyTransform)
+  PYB11_PROPERTY(QString TransformAttributeMatrixName READ getTransformAttributeMatrixName WRITE setTransformAttributeMatrixName)
+  PYB11_PROPERTY(QString TransformArrayName READ getTransformArrayName WRITE setTransformArrayName)
+
+  PYB11_END_BINDINGS()
+
 public:
   using Self = IterativeClosestPoint;
   using Pointer = std::shared_ptr<Self>;
@@ -188,12 +201,12 @@ protected:
   void initialize();
 
 private:
-  DataArrayPath m_MovingVertexGeometry = {};
-  DataArrayPath m_TargetVertexGeometry = {};
-  int m_Iterations = {};
-  bool m_ApplyTransform = {};
-  QString m_TransformAttributeMatrixName = {};
-  QString m_TransformArrayName = {};
+  DataArrayPath m_MovingVertexGeometry = {"", "", ""};
+  DataArrayPath m_TargetVertexGeometry = {"", "", ""};
+  int m_Iterations = {100};
+  bool m_ApplyTransform = {false};
+  QString m_TransformAttributeMatrixName = {"TransformAttributeMatrix"};
+  QString m_TransformArrayName = {"Transform"};
 
 public:
   /* Rule of 5: All special member functions should be defined if any are defined.

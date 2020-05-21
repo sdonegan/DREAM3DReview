@@ -36,15 +36,7 @@
 //
 // -----------------------------------------------------------------------------
 DownsampleVertexGeometry::DownsampleVertexGeometry()
-: m_VertexAttrMatPath("", "", "")
-, m_DownsampleType(0)
-, m_DecimationFreq(2)
-, m_DecimationFraction(0.5)
 {
-  m_GridResolution[0] = 1.0f;
-  m_GridResolution[1] = 1.0f;
-  m_GridResolution[2] = 1.0f;
-
   initialize();
 }
 
@@ -221,12 +213,12 @@ void DownsampleVertexGeometry::removeNthPoint()
 
   vertices->resizeVertexList(currentSlot);
 
-  if(removeList.size() > 0)
+  if(!removeList.empty())
   {
     QList<QString> headers = attrMat->getAttributeArrayNames();
     for(QList<QString>::iterator iter = headers.begin(); iter != headers.end(); ++iter)
     {
-      if(getCancel() == true)
+      if(getCancel())
       {
         return;
       }
@@ -273,7 +265,6 @@ void DownsampleVertexGeometry::removeFractionPoints()
   int64_t progIncrement = numDecimatedPoints / 100;
   int64_t prog = 1;
   int64_t progressInt = 0;
-  int32_t freqCounter = 1;
 
   while(counter < numDecimatedPoints)
   {
@@ -313,12 +304,12 @@ void DownsampleVertexGeometry::removeFractionPoints()
   std::memcpy(vertex, tmpVerts.data(), sizeof(float) * tmpVerts.size());
   std::sort(std::begin(removeList), std::end(removeList));
 
-  if(removeList.size() > 0)
+  if(!removeList.empty())
   {
     QList<QString> headers = attrMat->getAttributeArrayNames();
     for(QList<QString>::iterator iter = headers.begin(); iter != headers.end(); ++iter)
     {
-      if(getCancel() == true)
+      if(getCancel())
       {
         return;
       }
@@ -529,39 +520,37 @@ void DownsampleVertexGeometry::gridDownsample()
           counter++;
           continue;
         }
-        else
-        {
-          for(auto vert : vertsInVoxels[index])
-          {
-            vertCounter++;
-            xAvg += verts[3 * vert + 0];
-            yAvg += verts[3 * vert + 1];
-            zAvg += verts[3 * vert + 2];
-          }
-          xAvg /= static_cast<float>(vertCounter);
-          yAvg /= static_cast<float>(vertCounter);
-          zAvg /= static_cast<float>(vertCounter);
-          tmpVerts.push_back(xAvg);
-          tmpVerts.push_back(yAvg);
-          tmpVerts.push_back(zAvg);
-          vertCounter = 0;
-          xAvg = 0.0f;
-          yAvg = 0.0f;
-          zAvg = 0.0f;
 
-          QList<QString> headers = downsampledData->getAttributeArrayNames();
-          for(QList<QString>::iterator iter = headers.begin(); iter != headers.end(); ++iter)
-          {
-            if(getCancel() == true)
-            {
-              return;
-            }
-            IDataArray::Pointer source = attrMat->getAttributeArray(*iter);
-            IDataArray::Pointer dest = downsampledData->getAttributeArray(*iter);
-            EXECUTE_FUNCTION_TEMPLATE(this, downsampleDataByAveraging, source, source, dest, vertsInVoxels[index], globalIndex)
-          }
-          globalIndex++;
+        for(auto vert : vertsInVoxels[index])
+        {
+          vertCounter++;
+          xAvg += verts[3 * vert + 0];
+          yAvg += verts[3 * vert + 1];
+          zAvg += verts[3 * vert + 2];
         }
+        xAvg /= static_cast<float>(vertCounter);
+        yAvg /= static_cast<float>(vertCounter);
+        zAvg /= static_cast<float>(vertCounter);
+        tmpVerts.push_back(xAvg);
+        tmpVerts.push_back(yAvg);
+        tmpVerts.push_back(zAvg);
+        vertCounter = 0;
+        xAvg = 0.0f;
+        yAvg = 0.0f;
+        zAvg = 0.0f;
+
+        QList<QString> headers = downsampledData->getAttributeArrayNames();
+        for(QList<QString>::iterator iter = headers.begin(); iter != headers.end(); ++iter)
+        {
+          if(getCancel())
+          {
+            return;
+          }
+          IDataArray::Pointer source = attrMat->getAttributeArray(*iter);
+          IDataArray::Pointer dest = downsampledData->getAttributeArray(*iter);
+          EXECUTE_FUNCTION_TEMPLATE(this, downsampleDataByAveraging, source, source, dest, vertsInVoxels[index], globalIndex)
+        }
+        globalIndex++;
 
         if(counter > prog)
         {
@@ -620,7 +609,7 @@ void DownsampleVertexGeometry::execute()
 AbstractFilter::Pointer DownsampleVertexGeometry::newFilterInstance(bool copyFilterParameters) const
 {
   DownsampleVertexGeometry::Pointer filter = DownsampleVertexGeometry::New();
-  if(true == copyFilterParameters)
+  if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
   }

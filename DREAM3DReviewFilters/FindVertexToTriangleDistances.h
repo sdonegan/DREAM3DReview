@@ -20,12 +20,25 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The FindVertexToTriangleDistances class. See [Filter documentation](@ref findvertextotriangledistances) for details.
  */
-class FindVertexToTriangleDistances : public AbstractFilter
+class DREAM3DReview_EXPORT FindVertexToTriangleDistances : public AbstractFilter
 {
   Q_OBJECT
+
+  PYB11_BEGIN_BINDINGS(FindVertexToTriangleDistances SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(FindVertexToTriangleDistances)
+  PYB11_FILTER_NEW_MACRO(FindVertexToTriangleDistances)
+  PYB11_PROPERTY(DataArrayPath VertexDataContainer READ getVertexDataContainer WRITE setVertexDataContainer)
+  PYB11_PROPERTY(DataArrayPath TriangleDataContainer READ getTriangleDataContainer WRITE setTriangleDataContainer)
+  PYB11_PROPERTY(DataArrayPath TriangleNormalsArrayPath READ getTriangleNormalsArrayPath WRITE setTriangleNormalsArrayPath)
+  PYB11_PROPERTY(DataArrayPath DistancesArrayPath READ getDistancesArrayPath WRITE setDistancesArrayPath)
+  PYB11_PROPERTY(DataArrayPath ClosestTriangleIdArrayPath READ getClosestTriangleIdArrayPath WRITE setClosestTriangleIdArrayPath)
+  PYB11_END_BINDINGS()
 
 public:
   using Self = FindVertexToTriangleDistances;
@@ -178,11 +191,11 @@ protected:
   void initialize();
 
 private:
-  DataArrayPath m_VertexDataContainer = {};
-  DataArrayPath m_TriangleDataContainer = {};
-  DataArrayPath m_TriangleNormalsArrayPath = {};
-  DataArrayPath m_DistancesArrayPath = {};
-  DataArrayPath m_ClosestTriangleIdArrayPath = {};
+  DataArrayPath m_VertexDataContainer = {"", "", ""};
+  DataArrayPath m_TriangleDataContainer = {"", "", ""};
+  DataArrayPath m_TriangleNormalsArrayPath = {"", "", ""};
+  DataArrayPath m_DistancesArrayPath = {"", "", "Distances"};
+  DataArrayPath m_ClosestTriangleIdArrayPath = {"", "", "ClosestTriangleId"};
   std::weak_ptr<DoubleArrayType> m_NormalsPtr;
   double* m_Normals = nullptr;
   std::weak_ptr<FloatArrayType> m_DistancesPtr;
@@ -225,13 +238,15 @@ private:
   void sendThreadSafeProgressMessage(int64_t counter);
 
   QMutex m_Mutex;
-  int64_t m_ProgressCounter;
-  int64_t m_TotalElements;
-  int64_t m_LastProgressInt;
+  int64_t m_ProgressCounter = {0};
+  int64_t m_TotalElements = {0};
+  int64_t m_LastProgressInt = {0};
 
   friend class FindVertexToTriangleDistancesImpl;
 
-  FindVertexToTriangleDistances(const FindVertexToTriangleDistances&) = delete; // Copy Constructor Not Implemented
-  FindVertexToTriangleDistances(FindVertexToTriangleDistances&&) = delete;      // Move Constructor Not Implemented
-  void operator=(const FindVertexToTriangleDistances&) = delete;                // Operator '=' Not Implemented
+public:
+  FindVertexToTriangleDistances(const FindVertexToTriangleDistances&) = delete;            // Copy Constructor Not Implemented
+  FindVertexToTriangleDistances(FindVertexToTriangleDistances&&) = delete;                 // Move Constructor Not Implemented
+  FindVertexToTriangleDistances& operator=(const FindVertexToTriangleDistances&) = delete; // Copy Assignment Not Implemented
+  FindVertexToTriangleDistances& operator=(FindVertexToTriangleDistances&&) = delete;      // Move Assignment Not Implemented
 };

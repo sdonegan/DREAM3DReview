@@ -18,12 +18,25 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The DownsampleVertexGeometry class. See [Filter documentation](@ref DownsampleVertexGeometry) for details.
  */
-class DownsampleVertexGeometry : public AbstractFilter
+class DREAM3DReview_EXPORT DownsampleVertexGeometry : public AbstractFilter
 {
   Q_OBJECT
+
+  PYB11_BEGIN_BINDINGS(DownsampleVertexGeometry SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(DownsampleVertexGeometry)
+  PYB11_FILTER_NEW_MACRO(DownsampleVertexGeometry)
+  PYB11_PROPERTY(DataArrayPath VertexAttrMatPath READ getVertexAttrMatPath WRITE setVertexAttrMatPath)
+  PYB11_PROPERTY(int DownsampleType READ getDownsampleType WRITE setDownsampleType)
+  PYB11_PROPERTY(int DecimationFreq READ getDecimationFreq WRITE setDecimationFreq)
+  PYB11_PROPERTY(float DecimationFraction READ getDecimationFraction WRITE setDecimationFraction)
+  PYB11_PROPERTY(FloatVec3Type GridResolution READ getGridResolution WRITE setGridResolution)
+  PYB11_END_BINDINGS()
 
 public:
   using Self = DownsampleVertexGeometry;
@@ -181,11 +194,11 @@ protected:
   void initialize();
 
 private:
-  DataArrayPath m_VertexAttrMatPath = {};
-  int m_DownsampleType = {};
-  int m_DecimationFreq = {};
-  float m_DecimationFraction = {};
-  FloatVec3Type m_GridResolution = {};
+  DataArrayPath m_VertexAttrMatPath = {"", "", ""};
+  int m_DownsampleType = {0};
+  int m_DecimationFreq = {2};
+  float m_DecimationFraction = {0.5};
+  FloatVec3Type m_GridResolution = {1.0f, 1.0f, 1.0f};
 
   void removeNthPoint();
 
@@ -193,8 +206,9 @@ private:
 
   void gridDownsample();
 
-
-  DownsampleVertexGeometry(const DownsampleVertexGeometry&) = delete; // Copy Constructor Not Implemented
-  DownsampleVertexGeometry(DownsampleVertexGeometry&&) = delete;      // Move Constructor Not Implemented
-  void operator=(const DownsampleVertexGeometry&) = delete;     // Operator '=' Not Implemented
+public:
+  DownsampleVertexGeometry(const DownsampleVertexGeometry&) = delete;            // Copy Constructor Not Implemented
+  DownsampleVertexGeometry(DownsampleVertexGeometry&&) = delete;                 // Move Constructor Not Implemented
+  DownsampleVertexGeometry& operator=(const DownsampleVertexGeometry&) = delete; // Copy Assignment Not Implemented
+  DownsampleVertexGeometry& operator=(DownsampleVertexGeometry&&) = delete;      // Move Assignment Not Implemented
 };

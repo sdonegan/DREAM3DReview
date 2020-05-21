@@ -107,16 +107,6 @@ private:
 //
 // -----------------------------------------------------------------------------
 FindVertexToTriangleDistances::FindVertexToTriangleDistances()
-: m_VertexDataContainer("")
-, m_TriangleDataContainer("")
-, m_TriangleNormalsArrayPath("", "", "")
-, m_DistancesArrayPath("", "", "Distances")
-, m_ClosestTriangleIdArrayPath("", "", "ClosestTriangleId")
-, m_Normals(nullptr)
-, m_Distances(nullptr)
-, m_ClosestTriangleIds(nullptr)
-, m_ProgressCounter(0)
-, m_TotalElements(0)
 {
   initialize();
 }
@@ -413,7 +403,7 @@ void FindVertexToTriangleDistances::execute()
 AbstractFilter::Pointer FindVertexToTriangleDistances::newFilterInstance(bool copyFilterParameters) const
 {
   FindVertexToTriangleDistances::Pointer filter = FindVertexToTriangleDistances::New();
-  if(true == copyFilterParameters)
+  if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
   }

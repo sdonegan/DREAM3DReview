@@ -37,17 +37,8 @@
 //
 // -----------------------------------------------------------------------------
 MapPointCloudToRegularGrid::MapPointCloudToRegularGrid()
-: m_DataContainerName("")
-, m_ImageDataContainerName("ImageDataContainer")
-, m_ImageDataContainerPath("")
-, m_VoxelIndicesArrayPath("", "", "VoxelIndices")
-, m_UseMask(false)
-, m_CreateDataContainer(0)
-, m_MaskArrayPath("", "", "")
 {
-  m_GridDimensions[0] = 10;
-  m_GridDimensions[1] = 10;
-  m_GridDimensions[2] = 10;
+  initialize();
 }
 
 // -----------------------------------------------------------------------------

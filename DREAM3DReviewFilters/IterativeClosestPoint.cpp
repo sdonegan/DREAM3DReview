@@ -41,11 +41,15 @@ template <typename Derived> struct VertexGeomAdaptor
   inline float kdtree_get_pt(const size_t idx, const size_t dim) const
   {
     if(dim == 0)
+    {
       return derived()->getVertexPointer(idx)[0];
-    else if(dim == 1)
+    }
+    if(dim == 1)
+    {
       return derived()->getVertexPointer(idx)[1];
-    else
-      return derived()->getVertexPointer(idx)[2];
+    }
+
+    return derived()->getVertexPointer(idx)[2];
   }
 
   template <class BBOX> bool kdtree_get_bbox(BBOX& /*bb*/) const
@@ -65,12 +69,6 @@ enum createdPathID : RenameDataPath::DataID_t
 //
 // -----------------------------------------------------------------------------
 IterativeClosestPoint::IterativeClosestPoint()
-: m_MovingVertexGeometry("", "", "")
-, m_TargetVertexGeometry("", "", "")
-, m_Iterations(100)
-, m_ApplyTransform(false)
-, m_TransformAttributeMatrixName("TransformAttributeMatrix")
-, m_TransformArrayName("Transform")
 {
   initialize();
 }
@@ -78,10 +76,7 @@ IterativeClosestPoint::IterativeClosestPoint()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-IterativeClosestPoint::~IterativeClosestPoint()
-{
-}
-
+IterativeClosestPoint::~IterativeClosestPoint() = default;
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------

@@ -34,9 +34,6 @@
 //
 // -----------------------------------------------------------------------------
 AlignGeometries::AlignGeometries()
-: m_MovingGeometry("")
-, m_TargetGeometry("")
-, m_AlignmentType(0)
 {
   initialize();
 }
@@ -44,9 +41,7 @@ AlignGeometries::AlignGeometries()
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-AlignGeometries::~AlignGeometries()
-{
-}
+AlignGeometries::~AlignGeometries() = default;
 
 // -----------------------------------------------------------------------------
 //
