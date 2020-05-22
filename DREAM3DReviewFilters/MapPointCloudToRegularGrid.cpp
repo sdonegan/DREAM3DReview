@@ -37,17 +37,8 @@
 //
 // -----------------------------------------------------------------------------
 MapPointCloudToRegularGrid::MapPointCloudToRegularGrid()
-: m_DataContainerName("")
-, m_ImageDataContainerName("ImageDataContainer")
-, m_ImageDataContainerPath("")
-, m_VoxelIndicesArrayPath("", "", "VoxelIndices")
-, m_UseMask(false)
-, m_CreateDataContainer(0)
-, m_MaskArrayPath("", "", "")
 {
-  m_GridDimensions[0] = 10;
-  m_GridDimensions[1] = 10;
-  m_GridDimensions[2] = 10;
+  initialize();
 }
 
 // -----------------------------------------------------------------------------
@@ -63,14 +54,14 @@ void MapPointCloudToRegularGrid::setupFilterParameters()
   FilterParameterVectorType parameters;
   {
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
-    parameter->setHumanLabel("Create Data Container");
+    parameter->setHumanLabel("Sampling Grid Type");
     parameter->setPropertyName("CreateDataContainer");
     parameter->setSetterCallback(SIMPL_BIND_SETTER(MapPointCloudToRegularGrid, this, CreateDataContainer));
     parameter->setGetterCallback(SIMPL_BIND_GETTER(MapPointCloudToRegularGrid, this, CreateDataContainer));
 
     QVector<QString> choices;
-    choices.push_back("Create New Data Image Data Container");
-    choices.push_back("Use Exsting Data Image Data Container");
+    choices.push_back("Manual");
+    choices.push_back("Use Exsting Image Geometry");
     parameter->setChoices(choices);
     QStringList linkedProps2;
     linkedProps2 << "GridDimensions"
@@ -82,7 +73,6 @@ void MapPointCloudToRegularGrid::setupFilterParameters()
     parameters.push_back(parameter);
   }
   parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Grid Dimensions", GridDimensions, FilterParameter::Parameter, MapPointCloudToRegularGrid, 0));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Image Data Container", ImageDataContainerName, FilterParameter::CreatedArray, MapPointCloudToRegularGrid, 0));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types reqGeom = {IGeometry::Type::Image};

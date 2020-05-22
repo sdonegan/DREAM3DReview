@@ -42,7 +42,6 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
-
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 /**

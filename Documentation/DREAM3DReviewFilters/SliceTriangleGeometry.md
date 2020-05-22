@@ -2,37 +2,46 @@
 
 ## Group (Subgroup) ##
 
-AM Process Monitoring (Geometry)
+Sampling (Geometry)
 
 ## Description ##
 
-This **Filter** does the following...
+This **Filter** slices an input **Triangle Geometry**, producing an **Edge Geometry**.  The user can control the direction along which the slicing occurs, the range over which to slice (either the entire range of the geoemtry or a specified subregion), and the spacing bewteen slices.  The total area and perimieter of each slice is also computed and stored as an attribute on each created slice.
+
+Additionally, if the input **Triangle Geometry** is labeled with an identifier array (such as different regions or features), the user may select this array and the resulting edges will inherit these identifiers.
+
 
 ## Parameters ##
 
 | Name | Type | Description |
 |------|------|-------------|
-| Parameter Name | Parameter Type | Description of parameter... |
+| Slice Direction (ijk) | float (3x) | Direction on which to slice the **Triangle Geometry** |
+| Slice Range | Enumeration | Type of slice range to use, either *Full Range* or *User Defined Range* |
+| Slice Spacing | float | Spacing between slices |
+| Have Region Ids | bool | Whether to supply an id array that propagates to the created edges |
 
 ## Required Geometry ###
 
-Required Geometry Type -or- Not Applicable
+Triangle
 
 ## Required Objects ##
 
 | Kind | Default Name | Type | Component Dimensions | Description |
 |------|--------------|------|----------------------|-------------|
-| **Data Container** | Data Container Name | N/A | N/A | Description of object... |
-| **Attribute Matrix** | Attribute Matrix Name | Element/Feature/Ensemble/etc. | N/A | Description of object... |
-| **Element/Feature/Ensemble/etc. Attribute Array** | AttributeArray Name | int32_t/float/etc. | (1)/(3)/etc. | Description of object... |
+| **Data Container** | None| N/A | N/A | **Data Container** that contains the **Triangle Geometry** to be sliced |
+| **Triangle Attribute Array** | None | int32_t | (1) | Optional identifier array, if *Have Region Ids* is selected |
 
 ## Created Objects ##
 
 | Kind | Default Name | Type | Component Dimensions | Description |
 |------|--------------|------|----------------------|-------------|
-| **Data Container** | Data Container Name | N/A | N/A | Description of object... |
-| **Attribute Matrix** | Attribute Matrix Name | Element/Feature/Ensemble/etc. | N/A | Description of object... |
-| **Element/Feature/Ensemble/etc. Attribute Array** | AttributeArray Name | int32_t/float/etc. | (1)/(3)/etc. | Description of object... |
+| **Data Container** | SliceDataContainer | N/A | N/A | **Data Container** for the resulting **Edge Geoemtry** |
+| **Attribute Matrix** | EdgeData | Edge | N/A | **Attribute Matrix** to store information about the created edges |
+| **Edge Attribute Array** | SliceIds | int32_t | (1) | Identifies the slice to which each edge belongs |
+| **Edge Attribute Array** | RegionIds | int32_t | (1) | Identifies the region from which each edge came from in the original **Triangle Geoemtry**, if *Have Region Ids* is selected |
+| **Attribute Matrix** | SliceData | Edge Feature | N/A | **Attribute Matrix** to store information about the created edges |
+| **Feature Attribute Array** | SliceAreas | Feature | (1) | The total area (i.e., summed area of each enclosed polygon) of a given slice |
+| **Feature Attribute Array** | SlicePerimeters | Feature | (1) | The total perimeter (i.e., summed edge length) of a given slice |
 
 ## License & Copyright ##
 

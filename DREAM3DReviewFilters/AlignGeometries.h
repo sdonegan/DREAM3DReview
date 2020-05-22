@@ -11,20 +11,32 @@
  * Subsequent changes to the codes by others may elect to add a copyright and license
  * for those changes.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifndef _aligngeometries_h_
-#define _aligngeometries_h_
+
+#pragma once
 
 #include <memory>
 
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The AlignGeometries class. See [Filter documentation](@ref aligngeometries) for details.
  */
-class AlignGeometries : public AbstractFilter
+class DREAM3DReview_EXPORT AlignGeometries : public AbstractFilter
 {
   Q_OBJECT
+
+  PYB11_BEGIN_BINDINGS(AlignGeometries SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(AlignGeometries)
+  PYB11_FILTER_NEW_MACRO(AlignGeometries)
+  PYB11_PROPERTY(DataArrayPath MovingGeometry READ getMovingGeometry WRITE setMovingGeometry)
+  PYB11_PROPERTY(DataArrayPath TargetGeometry READ getTargetGeometry WRITE setTargetGeometry)
+  PYB11_PROPERTY(int AlignmentType READ getAlignmentType WRITE setAlignmentType)
+
+  PYB11_END_BINDINGS()
 
 public:
   using Self = AlignGeometries;
@@ -149,13 +161,13 @@ protected:
   void initialize();
 
 private:
-  DataArrayPath m_MovingGeometry = {};
-  DataArrayPath m_TargetGeometry = {};
-  int m_AlignmentType = {};
+  DataArrayPath m_MovingGeometry = {"", "", ""};
+  DataArrayPath m_TargetGeometry = {"", "", ""};
+  int m_AlignmentType = {0};
 
-  AlignGeometries(const AlignGeometries&); // Copy Constructor Not Implemented
-  AlignGeometries(AlignGeometries&&);      // Move Constructor Not Implemented
-  void operator=(const AlignGeometries&);  // Operator '=' Not Implemented
+public:
+  AlignGeometries(const AlignGeometries&) = delete;            // Copy Constructor Not Implemented
+  AlignGeometries(AlignGeometries&&) = delete;                 // Move Constructor Not Implemented
+  AlignGeometries& operator=(const AlignGeometries&) = delete; // Copy Assignment Not Implemented
+  AlignGeometries& operator=(AlignGeometries&&) = delete;      // Move Assignment Not Implemented
 };
-
-#endif /* _aligngeometries_h_ */

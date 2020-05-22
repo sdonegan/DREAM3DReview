@@ -17,14 +17,15 @@ set(_PublicFilters
   AverageEdgeFaceCellArrayToVertexArray
   AverageVertexArrayToEdgeFaceCellArray
   ComputeUmeyamaTransform
-
   EstablishFoamMorphology
-  
   DBSCAN
+  DownsampleVertexGeometry
   ExtractInternalSurfacesFromTriangleGeometry
   FindArrayStatistics
   FindElementCentroids
   FindNorm
+  FindVertexToTriangleDistances
+  IterativeClosestPoint
   KDistanceGraph
   KMeans
   KMedoids
@@ -121,6 +122,7 @@ ADD_SIMPL_SUPPORT_HEADER_SUBDIR(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName}
 ADD_SIMPL_SUPPORT_HEADER_SUBDIR(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName} SilhouetteTemplate.hpp util/EvaluationAlgorithms)
 ADD_SIMPL_SUPPORT_HEADER_SUBDIR(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName} KDistanceTemplate.hpp util/EvaluationAlgorithms)
 ADD_SIMPL_SUPPORT_HEADER_SUBDIR(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName} DistanceTemplate.hpp util)
+ADD_SIMPL_SUPPORT_HEADER_SUBDIR(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName} nanoflann.hpp util) 
 
 
 ADD_SIMPL_SUPPORT_HEADER(${${PLUGIN_NAME}_SOURCE_DIR} ${_filterGroupName} HEDM/H5MicImporter.h)

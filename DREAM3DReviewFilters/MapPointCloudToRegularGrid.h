@@ -11,8 +11,7 @@
  * Subsequent changes to the codes by others may elect to add a copyright and license
  * for those changes.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifndef _mappointcloudtoregulargrid_h_
-#define _mappointcloudtoregulargrid_h_
+#pragma once
 
 #include <memory>
 
@@ -22,13 +21,28 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Geometry/IGeometry.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The MapPointCloudToRegularGrid class. See [Filter documentation](@ref mappointcloudtoregulargrid) for details.
  */
-class MapPointCloudToRegularGrid : public AbstractFilter
+class DREAM3DReview_EXPORT MapPointCloudToRegularGrid : public AbstractFilter
 {
   Q_OBJECT
 
+  PYB11_BEGIN_BINDINGS(MapPointCloudToRegularGrid SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(MapPointCloudToRegularGrid)
+  PYB11_FILTER_NEW_MACRO(MapPointCloudToRegularGrid)
+  PYB11_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
+  PYB11_PROPERTY(QString ImageDataContainerName READ getImageDataContainerName WRITE setImageDataContainerName)
+  PYB11_PROPERTY(DataArrayPath ImageDataContainerPath READ getImageDataContainerPath WRITE setImageDataContainerPath)
+  PYB11_PROPERTY(DataArrayPath VoxelIndicesArrayPath READ getVoxelIndicesArrayPath WRITE setVoxelIndicesArrayPath)
+  PYB11_PROPERTY(IntVec3Type GridDimensions READ getGridDimensions WRITE setGridDimensions)
+  PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
+  PYB11_PROPERTY(int CreateDataContainer READ getCreateDataContainer WRITE setCreateDataContainer)
+  PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
+  PYB11_END_BINDINGS()
 public:
   using Self = MapPointCloudToRegularGrid;
   using Pointer = std::shared_ptr<Self>;
@@ -223,21 +237,21 @@ private:
   std::weak_ptr<DataArray<bool>> m_MaskPtr;
   bool* m_Mask = nullptr;
 
-  DataArrayPath m_DataContainerName = {};
-  QString m_ImageDataContainerName = {};
-  DataArrayPath m_ImageDataContainerPath = {};
-  DataArrayPath m_VoxelIndicesArrayPath = {};
-  IntVec3Type m_GridDimensions = {};
-  bool m_UseMask = {};
-  int m_CreateDataContainer = {};
-  DataArrayPath m_MaskArrayPath = {};
+  DataArrayPath m_DataContainerName = {"", "", ""};
+  QString m_ImageDataContainerName = {"ImageDataContainer"};
+  DataArrayPath m_ImageDataContainerPath = {"", "", ""};
+  DataArrayPath m_VoxelIndicesArrayPath = {"", "", "VoxelIndices"};
+  IntVec3Type m_GridDimensions = {10, 10, 10};
+  bool m_UseMask = {false};
+  int m_CreateDataContainer = {0};
+  DataArrayPath m_MaskArrayPath = {"", "", ""};
 
   std::vector<float> m_MeshMinExtents;
   std::vector<float> m_MeshMaxExtents;
 
-  MapPointCloudToRegularGrid(const MapPointCloudToRegularGrid&) = delete; // Copy Constructor Not Implemented
-  MapPointCloudToRegularGrid(MapPointCloudToRegularGrid&&) = delete;      // Move Constructor Not Implemented
-  void operator=(const MapPointCloudToRegularGrid&) = delete;             // Operator '=' Not Implemented
+public:
+  MapPointCloudToRegularGrid(const MapPointCloudToRegularGrid&) = delete;            // Copy Constructor Not Implemented
+  MapPointCloudToRegularGrid(MapPointCloudToRegularGrid&&) = delete;                 // Move Constructor Not Implemented
+  MapPointCloudToRegularGrid& operator=(const MapPointCloudToRegularGrid&) = delete; // Copy Assignment Not Implemented
+  MapPointCloudToRegularGrid& operator=(MapPointCloudToRegularGrid&&) = delete;      // Move Assignment Not Implemented
 };
-
-#endif /* _MapPointCloudToRegularGrid_H_ */

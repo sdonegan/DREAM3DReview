@@ -33,13 +33,12 @@
  *                   FA8650-07-D-5800 and FA8650-10-D-5226
  *
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-
 #pragma once
 
 #include <memory>
+#include <set>
 
 #include <QtCore/QString>
-#include <set>
 
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/Common/Constants.h"
@@ -51,7 +50,6 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
-
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 /**
