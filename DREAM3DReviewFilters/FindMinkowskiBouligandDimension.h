@@ -19,10 +19,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The FindMinkowskiBouligandDimension class. See [Filter documentation](@ref findminkowskibouliganddimension) for details.
  */
-class FindMinkowskiBouligandDimension : public AbstractFilter
+class DREAM3DReview_EXPORT FindMinkowskiBouligandDimension : public AbstractFilter
 {
   Q_OBJECT
 

@@ -21,10 +21,11 @@
 #include "SIMPLib/Geometry/ImageGeom.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 /**
  * @brief The ApproximatePointCloudHull class. See [Filter documentation](@ref approximatepointcloudhull) for details.
  */
-class ApproximatePointCloudHull : public AbstractFilter
+class DREAM3DReview_EXPORT ApproximatePointCloudHull : public AbstractFilter
 {
   Q_OBJECT
 

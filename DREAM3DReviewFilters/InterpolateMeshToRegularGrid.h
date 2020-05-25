@@ -19,10 +19,12 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The InterpolateMeshToRegularGrid class. See [Filter documentation](@ref interpolatemeshtoregulargrid) for details.
  */
-class InterpolateMeshToRegularGrid : public AbstractFilter
+class DREAM3DReview_EXPORT InterpolateMeshToRegularGrid : public AbstractFilter
 {
   Q_OBJECT
 

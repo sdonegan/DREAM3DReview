@@ -20,10 +20,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The LaplacianSmoothPointCloud class. See [Filter documentation](@ref laplaciansmoothpointcloud) for details.
  */
-class LaplacianSmoothPointCloud : public AbstractFilter
+class DREAM3DReview_EXPORT LaplacianSmoothPointCloud : public AbstractFilter
 {
   Q_OBJECT
 

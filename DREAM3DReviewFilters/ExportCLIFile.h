@@ -20,10 +20,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The ExportCLIFile class. See [Filter documentation](@ref exportclifile) for details.
  */
-class ExportCLIFile : public AbstractFilter
+class DREAM3DReview_EXPORT ExportCLIFile : public AbstractFilter
 {
   Q_OBJECT
 

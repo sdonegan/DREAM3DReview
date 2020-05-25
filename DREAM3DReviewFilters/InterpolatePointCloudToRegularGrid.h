@@ -24,10 +24,12 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Geometry/IGeometry.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The InterpolatePointCloudToRegularGrid class. See [Filter documentation](@ref interpolatepointcloudtoregulargrid) for details.
  */
-class InterpolatePointCloudToRegularGrid : public AbstractFilter
+class DREAM3DReview_EXPORT InterpolatePointCloudToRegularGrid : public AbstractFilter
 {
   Q_OBJECT
 

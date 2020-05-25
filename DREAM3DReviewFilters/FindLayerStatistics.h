@@ -20,13 +20,15 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 class IDataArray;
 using IDataArrayWkPtrType = std::weak_ptr<IDataArray>;
 
 /**
  * @brief The FindLayerStatistics class. See [Filter documentation](@ref findlayerstatistics) for details.
  */
-class FindLayerStatistics : public AbstractFilter
+class DREAM3DReview_EXPORT FindLayerStatistics : public AbstractFilter
 {
   Q_OBJECT
 public:

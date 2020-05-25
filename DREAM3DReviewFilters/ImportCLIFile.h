@@ -19,10 +19,12 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The ImportCLIFile class. See [Filter documentation](@ref importclifile) for details.
  */
-class ImportCLIFile : public AbstractFilter
+class DREAM3DReview_EXPORT ImportCLIFile : public AbstractFilter
 {
   Q_OBJECT
 

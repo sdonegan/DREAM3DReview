@@ -20,10 +20,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The FindSurfaceRoughness class. See [Filter documentation](@ref FindSurfaceRoughness) for details.
  */
-class FindSurfaceRoughness : public AbstractFilter
+class DREAM3DReview_EXPORT FindSurfaceRoughness : public AbstractFilter
 {
   Q_OBJECT
 

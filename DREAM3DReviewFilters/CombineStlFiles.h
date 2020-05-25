@@ -23,10 +23,11 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 /**
  * @brief The CombineStlFiles class. See [Filter documentation](@ref combinestlfiles) for details.
  */
-class CombineStlFiles : public AbstractFilter
+class DREAM3DReview_EXPORT CombineStlFiles : public AbstractFilter
 {
   Q_OBJECT
 

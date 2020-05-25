@@ -49,8 +49,8 @@
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicPhase.h"
-
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 class MicReader;
 
@@ -71,7 +71,6 @@ enum MIC_READ_FLAG
 // our PIMPL private class
 class ReadMicDataPrivate;
 
-#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 /**
  * @class ReadMicData ReadMicData.h /FilterCategoryFilters/ReadMicData.h

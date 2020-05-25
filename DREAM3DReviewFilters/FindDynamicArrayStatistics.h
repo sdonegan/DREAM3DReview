@@ -20,13 +20,15 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 class IDataArray;
 using IDataArrayWkPtrType = std::weak_ptr<IDataArray>;
 
 /**
  * @brief The FindDynamicArrayStatistics class. See [Filter documentation](@ref finddynamicarraystatistics) for details.
  */
-class FindDynamicArrayStatistics : public AbstractFilter
+class DREAM3DReview_EXPORT FindDynamicArrayStatistics : public AbstractFilter
 {
   Q_OBJECT
 

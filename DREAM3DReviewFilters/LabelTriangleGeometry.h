@@ -21,10 +21,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The LabelTriangleGeometry class. See [Filter documentation](@ref LabelTriangleGeometry) for details.
  */
-class LabelTriangleGeometry : public AbstractFilter
+class DREAM3DReview_EXPORT LabelTriangleGeometry : public AbstractFilter
 {
   Q_OBJECT
 

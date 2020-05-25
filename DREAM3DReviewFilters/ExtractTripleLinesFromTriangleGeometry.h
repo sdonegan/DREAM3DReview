@@ -20,10 +20,12 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The ExtractTripleLinesFromTriangleGeometry class. See [Filter documentation](@ref extracttriplelinesfromtrianglegeometry) for details.
  */
-class ExtractTripleLinesFromTriangleGeometry : public AbstractFilter
+class DREAM3DReview_EXPORT ExtractTripleLinesFromTriangleGeometry : public AbstractFilter
 {
   Q_OBJECT
 
