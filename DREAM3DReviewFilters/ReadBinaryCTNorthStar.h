@@ -23,6 +23,8 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
+#include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+
 /**
  * @brief The ReadBinaryCTNorthStar class. See [Filter documentation](@ref readbinaryctnorthstar) for details.
  */
