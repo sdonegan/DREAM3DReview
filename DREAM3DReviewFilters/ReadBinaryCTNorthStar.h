@@ -30,6 +30,19 @@ class ReadBinaryCTNorthStar : public AbstractFilter
 {
   Q_OBJECT
 
+  // clang-format off
+  // Start Python bindings declarations
+  PYB11_BEGIN_BINDINGS(ReadBinaryCTNorthStar SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(ReadBinaryCTNorthStar)
+  PYB11_FILTER_NEW_MACRO(ReadBinaryCTNorthStar)
+
+  PYB11_PROPERTY(int32_t LengthUnit READ getLengthUnit WRITE setLengthUnit)
+
+  PYB11_END_BINDINGS()
+  // End Python bindings declarations
+  // clang-format on
+
 public:
   using Self = ReadBinaryCTNorthStar;
   using Pointer = std::shared_ptr<Self>;
@@ -116,6 +129,24 @@ public:
   Q_PROPERTY(QString DensityArrayName READ getDensityArrayName WRITE setDensityArrayName)
 
   /**
+   * @brief Setter property for LengthUnit
+   */
+  void setLengthUnit(int32_t value);
+  /**
+   * @brief Getter property for LengthUnit
+   * @return Value of LengthUnit
+   */
+  int32_t getLengthUnit() const;
+  Q_PROPERTY(int32_t LengthUnit READ getLengthUnit WRITE setLengthUnit)
+
+  /**
+   * @brief getNewBoxDimensions
+   * @return
+   */
+  QString getVolumeDescription();
+  Q_PROPERTY(QString VolumeDescription READ getVolumeDescription)
+
+  /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
    */
   QString getCompiledLibraryName() const override;
@@ -158,11 +189,6 @@ public:
    * @brief setupFilterParameters Reimplemented from @see AbstractFilter class
    */
   void setupFilterParameters() override;
-
-  /**
-   * @brief readFilterParameters Reimplemented from @see AbstractFilter class
-   */
-  void readFilterParameters(AbstractFilterParametersReader* reader, int index) override;
 
   /**
    * @brief execute Reimplemented from @see AbstractFilter class
@@ -223,9 +249,15 @@ private:
   QFile m_InHeaderStream;
   QFile m_InStream;
 
-  ReadBinaryCTNorthStar(const ReadBinaryCTNorthStar&) = delete; // Copy Constructor Not Implemented
-  ReadBinaryCTNorthStar(ReadBinaryCTNorthStar&&) = delete;      // Move Constructor Not Implemented
-  void operator=(const ReadBinaryCTNorthStar&) = delete;        // Operator '=' Not Implemented
+  ImageGeom::Pointer m_CachedGeometry;
+
+  int32_t m_LengthUnit = 7; // millimeter length units
+
+public:
+  ReadBinaryCTNorthStar(const ReadBinaryCTNorthStar&) = delete;            // Copy Constructor Not Implemented
+  ReadBinaryCTNorthStar(ReadBinaryCTNorthStar&&) = delete;                 // Move Constructor Not Implemented
+  ReadBinaryCTNorthStar& operator=(const ReadBinaryCTNorthStar&) = delete; // Copy Assignment Not Implemented
+  ReadBinaryCTNorthStar& operator=(ReadBinaryCTNorthStar&&) = delete;      // Move Assignment Not Implemented
 };
 
 #endif /* _ReadBinaryCTNorthStar_H_ */

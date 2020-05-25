@@ -27,6 +27,8 @@
 #include "SIMPLib/FilterParameters/LinkedPathCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
+#include "SIMPLib/FilterParameters/ChoiceFilterParameter.h"
+#include "SIMPLib/FilterParameters/PreflightUpdatedValueFilterParameter.h"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 
@@ -62,20 +64,15 @@ void ReadBinaryCTNorthStar::setupFilterParameters()
   parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
   parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::CreatedArray, ReadBinaryCTNorthStar));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::CreatedArray, ReadBinaryCTNorthStar));
-  setFilterParameters(parameters);
-}
 
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void ReadBinaryCTNorthStar::readFilterParameters(AbstractFilterParametersReader* reader, int index)
-{
-  reader->openFilterGroup(this, index);
-  setInputHeaderFile(reader->readString("InputHeaderFile", getInputHeaderFile()));
-  setDataContainerName(reader->readString("DataContainerName", getDataContainerName()));
-  setCellAttributeMatrixName(reader->readString("CellAttributeMatrixName", getCellAttributeMatrixName()));
-  setDensityArrayName(reader->readString("DensityArrayName", getDensityArrayName()));
-  reader->closeFilterGroup();
+  QVector<QString> choices = IGeometry::GetAllLengthUnitStrings();
+  parameters.push_back(SIMPL_NEW_CHOICE_FP("Length Unit", LengthUnit, FilterParameter::Parameter, ReadBinaryCTNorthStar, choices, false));
+
+  PreflightUpdatedValueFilterParameter::Pointer param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Volume Size", VolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  param->setReadOnly(true);
+  parameters.push_back(param);
+
+  setFilterParameters(parameters);
 }
 
 // -----------------------------------------------------------------------------
@@ -84,9 +81,13 @@ void ReadBinaryCTNorthStar::readFilterParameters(AbstractFilterParametersReader*
 void ReadBinaryCTNorthStar::initialize()
 {
   if(m_InHeaderStream.isOpen())
+  {
     m_InHeaderStream.close();
+  }
   if(m_InStream.isOpen())
+  {
     m_InStream.close();
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -101,12 +102,12 @@ void ReadBinaryCTNorthStar::dataCheck()
 
   QFileInfo fiHdr(getInputHeaderFile());
 
-  if(getInputHeaderFile().isEmpty() == true)
+  if(getInputHeaderFile().isEmpty())
   {
     QString ss = QObject::tr("The input header file must be set");
     setErrorCondition(-387, ss);
   }
-  else if(fiHdr.exists() == false)
+  else if(!fiHdr.exists())
   {
     QString ss = QObject::tr("The input header file does not exist");
     setErrorCondition(-388, ss);
@@ -117,7 +118,7 @@ void ReadBinaryCTNorthStar::dataCheck()
     return;
   }
 
-  if(m_InHeaderStream.isOpen() == true)
+  if(m_InHeaderStream.isOpen())
   {
     m_InHeaderStream.close();
   }
@@ -150,7 +151,7 @@ void ReadBinaryCTNorthStar::dataCheck()
     QFileInfo fi(headerDir.absolutePath() + "/" + m_InputFiles[iter]);
     m_InputFiles[iter] = headerDir.absolutePath() + "/" + m_InputFiles[iter];
 
-    if(fi.exists() == false)
+    if(!fi.exists())
     {
       QString ss = QObject::tr("The input binary CT file: %1 could not be found in the path: %2. The input binary CT file name was obtained from the provided header.  Please ensure the file is in "
                                "the same path as the header and the name has not been altered.")
@@ -178,8 +179,8 @@ void ReadBinaryCTNorthStar::dataCheck()
 
   DataArrayPath path(getDataContainerName(), getCellAttributeMatrixName(), getDensityArrayName());
 
-  m_DensityPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_DensityPtr.lock().get())                                                                      /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_DensityPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims);
+  if(nullptr != m_DensityPtr.lock())
   {
     m_Density = m_DensityPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -194,7 +195,7 @@ int32_t ReadBinaryCTNorthStar::sanityCheckFileSizeVersusAllocatedSize(size_t all
   {
     return -1;
   }
-  else if(fileSize > allocatedBytes)
+  if(fileSize > allocatedBytes)
   {
     return 1;
   }
@@ -279,7 +280,7 @@ int32_t ReadBinaryCTNorthStar::readBinaryCTFiles(size_t dims[3])
 int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
 {
   int32_t error = 0;
-
+  m_CachedGeometry = ImageGeom::NullPointer();
   m_InputFiles.clear();
   m_SlicesPerFile.clear();
 
@@ -287,13 +288,13 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
   QList<QByteArray> tokens;
   bool ok = false;
 
-  size_t dims[3] = {0, 0, 0};
-  float maxRes[3] = {0.0, 0.0, 0.0};
-  float minRes[3] = {0.0, 0.0, 0.0};
-  float res[3] = {0.0, 0.0, 0.0};
+  SizeVec3Type voxels = {0, 0, 0};
+  FloatVec3Type maxLocation = {0.0f, 0.0f, 0.0f};
+  FloatVec3Type minLocation = {0.0f, 0.0f, 0.0f};
+  FloatVec3Type spacing = {0.0f, 0.0f, 0.0f};
   bool done = false;
 
-  while(m_InHeaderStream.atEnd() == false && done == false)
+  while(!m_InHeaderStream.atEnd() && !done)
   {
     buf = m_InHeaderStream.readLine();
     buf = buf.trimmed();
@@ -302,17 +303,17 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
     {
       if(tokens[i] == "<Voxels>")
       {
-        dims[1] = tokens[i + 1].toULongLong(&ok);
+        voxels[1] = tokens[i + 1].toULongLong(&ok);
         if(!ok)
         {
           return -1;
         }
-        dims[2] = tokens[i + 2].toULongLong(&ok);
+        voxels[2] = tokens[i + 2].toULongLong(&ok);
         if(!ok)
         {
           return -1;
         }
-        dims[0] = tokens[i + 3].toULongLong(&ok);
+        voxels[0] = tokens[i + 3].toULongLong(&ok);
         if(!ok)
         {
           return -1;
@@ -326,7 +327,7 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
   m_InHeaderStream.reset();
   done = false;
 
-  while(m_InHeaderStream.atEnd() == false && done == false)
+  while(!m_InHeaderStream.atEnd() && !done)
   {
     buf = m_InHeaderStream.readLine();
     buf = buf.trimmed();
@@ -342,17 +343,17 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
         {
           if(tokens[j] == "<Min>")
           {
-            minRes[1] = tokens[j + 1].toFloat(&ok);
+            minLocation[1] = tokens[j + 1].toFloat(&ok);
             if(!ok)
             {
               return -1;
             }
-            minRes[2] = tokens[j + 2].toFloat(&ok);
+            minLocation[2] = tokens[j + 2].toFloat(&ok);
             if(!ok)
             {
               return -1;
             }
-            minRes[0] = tokens[j + 3].toFloat(&ok);
+            minLocation[0] = tokens[j + 3].toFloat(&ok);
             if(!ok)
             {
               return -1;
@@ -367,17 +368,17 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
         {
           if(tokens[j] == "<Max>")
           {
-            maxRes[1] = tokens[j + 1].toFloat(&ok);
+            maxLocation[1] = tokens[j + 1].toFloat(&ok);
             if(!ok)
             {
               return -1;
             }
-            maxRes[2] = tokens[j + 2].toFloat(&ok);
+            maxLocation[2] = tokens[j + 2].toFloat(&ok);
             if(!ok)
             {
               return -1;
             }
-            maxRes[0] = tokens[j + 3].toFloat(&ok);
+            maxLocation[0] = tokens[j + 3].toFloat(&ok);
             if(!ok)
             {
               return -1;
@@ -393,7 +394,7 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
   m_InHeaderStream.reset();
   done = false;
 
-  while(m_InHeaderStream.atEnd() == false && done == false)
+  while(!m_InHeaderStream.atEnd() && !done)
   {
     buf = m_InHeaderStream.readLine();
     buf = buf.trimmed();
@@ -402,7 +403,7 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
     {
       if(tokens[i] == "<Files>")
       {
-        while(done == false)
+        while(!done)
         {
           buf = m_InHeaderStream.readLine();
           if(m_InHeaderStream.atEnd())
@@ -443,12 +444,14 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
 
   for(size_t i = 0; i < 3; i++)
   {
-    res[i] = (maxRes[i] - minRes[i]) / dims[i];
+    spacing[i] = (maxLocation[i] - minLocation[i]) / voxels[i];
   }
 
-  image->setDimensions(dims);
-  image->setSpacing(res);
-
+  image->setDimensions(voxels);
+  image->setSpacing(spacing);
+  image->setOrigin(minLocation);
+  image->setUnits(static_cast<IGeometry::LengthUnit>(getLengthUnit()));
+  m_CachedGeometry = image;
   return error;
 }
 
@@ -480,6 +483,19 @@ void ReadBinaryCTNorthStar::execute()
   }
 
   notifyStatusMessage("Complete");
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+QString ReadBinaryCTNorthStar::getVolumeDescription()
+{
+  QString desc = QString("Geometry Not initialized.");
+  if(m_CachedGeometry.get() != nullptr)
+  {
+    desc = m_CachedGeometry->getInfoString(SIMPL::InfoStringFormat::HtmlFormat);
+  }
+  return desc;
 }
 
 // -----------------------------------------------------------------------------
@@ -653,4 +669,16 @@ void ReadBinaryCTNorthStar::setDensityArrayName(const QString& value)
 QString ReadBinaryCTNorthStar::getDensityArrayName() const
 {
   return m_DensityArrayName;
+}
+
+// -----------------------------------------------------------------------------
+void ReadBinaryCTNorthStar::setLengthUnit(int32_t value)
+{
+  m_LengthUnit = value;
+}
+
+// -----------------------------------------------------------------------------
+int32_t ReadBinaryCTNorthStar::getLengthUnit() const
+{
+  return m_LengthUnit;
 }
