@@ -26,7 +26,7 @@
 /**
  * @brief The ReadBinaryCTNorthStar class. See [Filter documentation](@ref readbinaryctnorthstar) for details.
  */
-class ReadBinaryCTNorthStar : public AbstractFilter
+class DREAM3DReview_EXPORT ReadBinaryCTNorthStar : public AbstractFilter
 {
   Q_OBJECT
 
