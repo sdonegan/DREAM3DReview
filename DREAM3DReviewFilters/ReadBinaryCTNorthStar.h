@@ -11,8 +11,39 @@
  * Subsequent changes to the codes by others may elect to add a copyright and license
  * for those changes.
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifndef _readbinaryctnorthstar_h_
-#define _readbinaryctnorthstar_h_
+/* Revisions past APRIL 5 2019 use the below license */
+/* ============================================================================
+ * Copyright (c) 2020 BlueQuartz Software, LLC
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the names of any of the BlueQuartz Software contributors
+ * may be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#pragma once
 
 #include <memory>
 
@@ -38,9 +69,17 @@ class DREAM3DReview_EXPORT ReadBinaryCTNorthStar : public AbstractFilter
   PYB11_FILTER()
   PYB11_SHARED_POINTERS(ReadBinaryCTNorthStar)
   PYB11_FILTER_NEW_MACRO(ReadBinaryCTNorthStar)
-
+  PYB11_PROPERTY(QString InputHeaderFile READ getInputHeaderFile WRITE setInputHeaderFile)
+  PYB11_PROPERTY(QString DataContainerName READ getDataContainerName WRITE setDataContainerName)
+  PYB11_PROPERTY(QString CellAttributeMatrixName READ getCellAttributeMatrixName WRITE setCellAttributeMatrixName)
+  PYB11_PROPERTY(QString DensityArrayName READ getDensityArrayName WRITE setDensityArrayName)
   PYB11_PROPERTY(int32_t LengthUnit READ getLengthUnit WRITE setLengthUnit)
-
+  PYB11_PROPERTY(bool ImportSubvolume READ getImportSubvolume WRITE setImportSubvolume)
+  PYB11_PROPERTY(IntVec3Type StartVoxelCoord READ getStartVoxelCoord WRITE setStartVoxelCoord)
+  PYB11_PROPERTY(IntVec3Type EndVoxelCoord READ getEndVoxelCoord WRITE setEndVoxelCoord)
+  PYB11_PROPERTY(QString VolumeDescription READ getVolumeDescription)
+  PYB11_PROPERTY(QString DataFileInfo READ getDataFileInfo)
+  PYB11_PROPERTY(QString ImportedVolumeDescription READ getImportedVolumeDescription)
   PYB11_END_BINDINGS()
   // End Python bindings declarations
   // clang-format on
@@ -65,26 +104,6 @@ public:
   static QString ClassName();
 
   ~ReadBinaryCTNorthStar() override;
-
-  /**
-   * @brief Setter property for InputFiles
-   */
-  void setInputFiles(const std::vector<QString>& value);
-  /**
-   * @brief Getter property for InputFiles
-   * @return Value of InputFiles
-   */
-  std::vector<QString> getInputFiles() const;
-
-  /**
-   * @brief Setter property for SlicesPerFile
-   */
-  void setSlicesPerFile(const std::vector<int64_t>& value);
-  /**
-   * @brief Getter property for SlicesPerFile
-   * @return Value of SlicesPerFile
-   */
-  std::vector<int64_t> getSlicesPerFile() const;
 
   /**
    * @brief Setter property for InputHeaderFile
@@ -142,11 +161,58 @@ public:
   Q_PROPERTY(int32_t LengthUnit READ getLengthUnit WRITE setLengthUnit)
 
   /**
+   * @brief Setter property for ImportSubvolume
+   */
+  void setImportSubvolume(bool value);
+  /**
+   * @brief Getter property for ImportSubvolume
+   * @return Value of ImportSubvolume
+   */
+  bool getImportSubvolume() const;
+  Q_PROPERTY(bool ImportSubvolume READ getImportSubvolume WRITE setImportSubvolume)
+
+  /**
+   * @brief Setter property for StartVoxelCoord
+   */
+  void setStartVoxelCoord(const IntVec3Type& value);
+  /**
+   * @brief Getter property for StartVoxelCoord
+   * @return Value of StartVoxelCoord
+   */
+  IntVec3Type getStartVoxelCoord() const;
+  Q_PROPERTY(IntVec3Type StartVoxelCoord READ getStartVoxelCoord WRITE setStartVoxelCoord)
+
+  /**
+   * @brief Setter property for EndVoxelCoord
+   */
+  void setEndVoxelCoord(const IntVec3Type& value);
+  /**
+   * @brief Getter property for EndVoxelCoord
+   * @return Value of EndVoxelCoord
+   */
+  IntVec3Type getEndVoxelCoord() const;
+  Q_PROPERTY(IntVec3Type EndVoxelCoord READ getEndVoxelCoord WRITE setEndVoxelCoord)
+
+  /**
    * @brief getNewBoxDimensions
    * @return
    */
   QString getVolumeDescription();
   Q_PROPERTY(QString VolumeDescription READ getVolumeDescription)
+
+  /**
+   * @brief getNewBoxDimensions
+   * @return
+   */
+  QString getDataFileInfo();
+  Q_PROPERTY(QString DataFileInfo READ getDataFileInfo)
+
+  /**
+   * @brief getNewBoxDimensions
+   * @return
+   */
+  QString getImportedVolumeDescription();
+  Q_PROPERTY(QString ImportedVolumeDescription READ getImportedVolumeDescription)
 
   /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
@@ -219,14 +285,14 @@ protected:
    * @brief readBinaryCTFile Reads the raw binary CT file
    * @return Integer error code
    */
-  int32_t readBinaryCTFiles(size_t dims[3]);
+  int32_t readBinaryCTFiles();
 
   /**
    * @brief readHeaderMetaData Reads the number of voxels and voxel extents
    * from the NSI header file
    * @return Integer error code
    */
-  int32_t readHeaderMetaData(ImageGeom::Pointer image);
+  int32_t readHeaderMetaData();
   /**
    * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
    */
@@ -241,19 +307,23 @@ private:
   std::weak_ptr<DataArray<float>> m_DensityPtr;
   float* m_Density = nullptr;
 
-  std::vector<QString> m_InputFiles = {};
-  std::vector<int64_t> m_SlicesPerFile = {};
+  bool m_ImportSubvolume = {false};
+  IntVec3Type m_StartVoxelCoord = {0, 0, 0};
+  IntVec3Type m_EndVoxelCoord = {1, 1, 1};
+
+  std::vector<std::pair<QString, int64_t>> m_DataFiles;
   QString m_InputHeaderFile = {};
-  QString m_DataContainerName = {};
-  QString m_CellAttributeMatrixName = {};
-  QString m_DensityArrayName = {};
+  QString m_DataContainerName = {"CT DataContainer"};
+  QString m_CellAttributeMatrixName = {"CT Scan Data"};
+  QString m_DensityArrayName = {"Density"};
 
   QFile m_InHeaderStream;
   QFile m_InStream;
 
-  ImageGeom::Pointer m_CachedGeometry;
+  ImageGeom::Pointer m_OriginalVolume;
+  ImageGeom::Pointer m_ImportedVolume;
 
-  int32_t m_LengthUnit = 7; // millimeter length units
+  int32_t m_LengthUnit = {7}; // millimeter length units
 
 public:
   ReadBinaryCTNorthStar(const ReadBinaryCTNorthStar&) = delete;            // Copy Constructor Not Implemented
@@ -261,5 +331,3 @@ public:
   ReadBinaryCTNorthStar& operator=(const ReadBinaryCTNorthStar&) = delete; // Copy Assignment Not Implemented
   ReadBinaryCTNorthStar& operator=(ReadBinaryCTNorthStar&&) = delete;      // Move Assignment Not Implemented
 };
-
-#endif /* _ReadBinaryCTNorthStar_H_ */

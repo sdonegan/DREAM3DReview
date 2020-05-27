@@ -28,6 +28,8 @@
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
 #include "SIMPLib/FilterParameters/ChoiceFilterParameter.h"
+#include "SIMPLib/FilterParameters/IntVec3FilterParameter.h"
+#include "SIMPLib/FilterParameters/LinkedBooleanFilterParameter.h"
 #include "SIMPLib/FilterParameters/PreflightUpdatedValueFilterParameter.h"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
@@ -39,13 +41,8 @@
 //
 // -----------------------------------------------------------------------------
 ReadBinaryCTNorthStar::ReadBinaryCTNorthStar()
-: m_InputFiles(0, "")
-, m_SlicesPerFile(0, 0)
-, m_InputHeaderFile("")
-, m_DataContainerName("ImageDataContainer")
-, m_CellAttributeMatrixName("CellData")
-, m_DensityArrayName("Density")
 {
+  initialize();
 }
 
 // -----------------------------------------------------------------------------
@@ -68,7 +65,20 @@ void ReadBinaryCTNorthStar::setupFilterParameters()
   QVector<QString> choices = IGeometry::GetAllLengthUnitStrings();
   parameters.push_back(SIMPL_NEW_CHOICE_FP("Length Unit", LengthUnit, FilterParameter::Parameter, ReadBinaryCTNorthStar, choices, false));
 
-  PreflightUpdatedValueFilterParameter::Pointer param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Volume Size", VolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  PreflightUpdatedValueFilterParameter::Pointer param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Original Volume", VolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  param->setReadOnly(true);
+  parameters.push_back(param);
+  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Dat Files", DataFileInfo, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  param->setReadOnly(true);
+  parameters.push_back(param);
+
+  QStringList linkedProps = {"StartVoxelCoord", "EndVoxelCoord", "ImportedVolumeDescription"};
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Import Subvolume", ImportSubvolume, FilterParameter::Parameter, ReadBinaryCTNorthStar, linkedProps));
+
+  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Starting XYZ Voxel", StartVoxelCoord, FilterParameter::Parameter, ReadBinaryCTNorthStar));
+  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Ending XYZ Voxel", EndVoxelCoord, FilterParameter::Parameter, ReadBinaryCTNorthStar));
+
+  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Imported Volume", ImportedVolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
   param->setReadOnly(true);
   parameters.push_back(param);
 
@@ -98,23 +108,19 @@ void ReadBinaryCTNorthStar::dataCheck()
   clearErrorCode();
   clearWarningCode();
   initialize();
-  int32_t err = 0;
 
   QFileInfo fiHdr(getInputHeaderFile());
 
   if(getInputHeaderFile().isEmpty())
   {
     QString ss = QObject::tr("The input header file must be set");
-    setErrorCondition(-387, ss);
+    setErrorCondition(-38700, ss);
+    return;
   }
-  else if(!fiHdr.exists())
+  if(!fiHdr.exists())
   {
     QString ss = QObject::tr("The input header file does not exist");
-    setErrorCondition(-388, ss);
-  }
-
-  if(getErrorCode() < 0)
-  {
+    setErrorCondition(-38701, ss);
     return;
   }
 
@@ -128,36 +134,79 @@ void ReadBinaryCTNorthStar::dataCheck()
   if(!m_InHeaderStream.open(QIODevice::ReadOnly | QIODevice::Text))
   {
     QString ss = QObject::tr("Error opening input file: %1").arg(getInputHeaderFile());
-    setErrorCondition(-100, ss);
+    setErrorCondition(-38702, ss);
     return;
   }
 
-  ImageGeom::Pointer image = ImageGeom::CreateGeometry(SIMPL::Geometry::ImageGeometry);
-
-  err = readHeaderMetaData(image);
-
-  if(err < 0)
+  if(readHeaderMetaData() < 0)
   {
     QString ss = QObject::tr("Error reading input header file: %1").arg(getInputHeaderFile());
-    setErrorCondition(-100, ss);
+    setErrorCondition(-38703, ss);
+    return;
+  }
+
+  // Sanity check the Start/End Voxels
+  if(getImportSubvolume())
+  {
+    if(m_StartVoxelCoord[0] > m_EndVoxelCoord[0])
+    {
+      QString ss = QObject::tr("Starting X Voxel > Ending X Voxel (%1 > %2)").arg(m_StartVoxelCoord[0]).arg(m_EndVoxelCoord[0]);
+      setErrorCondition(-38712, ss);
+    }
+    if(m_StartVoxelCoord[1] > m_EndVoxelCoord[1])
+    {
+      QString ss = QObject::tr("Starting Y Voxel > Ending Y Voxel (%1 > %2)").arg(m_StartVoxelCoord[1]).arg(m_EndVoxelCoord[1]);
+      setErrorCondition(-38713, ss);
+    }
+    if(m_StartVoxelCoord[2] > m_EndVoxelCoord[2])
+    {
+      QString ss = QObject::tr("Starting Z Voxel > Ending Z Voxel (%1 > %2)").arg(m_StartVoxelCoord[2]).arg(m_EndVoxelCoord[2]);
+      setErrorCondition(-38714, ss);
+    }
+
+    if(m_StartVoxelCoord[0] < 0 || m_StartVoxelCoord[1] < 0 || m_StartVoxelCoord[1] < 0)
+    {
+      QString ss = QObject::tr("Start Voxel < ZERO.(%1, %2, %3)").arg(m_StartVoxelCoord[0]).arg(m_StartVoxelCoord[1]).arg(m_StartVoxelCoord[2]);
+      setErrorCondition(-38715, ss);
+    }
+
+    SizeVec3Type origDims = m_OriginalVolume->getDimensions();
+    if(m_EndVoxelCoord[0] >= origDims[0])
+    {
+      QString ss = QObject::tr("Ending X Voxel > Original Volume Dimension (%1 >= %2)").arg(m_EndVoxelCoord[0]).arg(origDims[0]);
+      setErrorCondition(-38716, ss);
+    }
+    if(m_EndVoxelCoord[1] >= origDims[1])
+    {
+      QString ss = QObject::tr("Ending Y Voxel > Original Volume Dimension (%1 >= %2)").arg(m_EndVoxelCoord[1]).arg(origDims[1]);
+      setErrorCondition(-38717, ss);
+    }
+    if(m_EndVoxelCoord[2] >= origDims[2])
+    {
+      QString ss = QObject::tr("Ending Z Voxel > Original Volume Dimension (%1 >= %2)").arg(m_EndVoxelCoord[2]).arg(origDims[2]);
+      setErrorCondition(-38718, ss);
+    }
+  }
+  if(getErrorCode() < 0)
+  {
     return;
   }
 
   QFileInfo headerPath(getInputHeaderFile());
   QDir headerDir = headerPath.absoluteDir();
 
-  for(size_t iter = 0; iter < m_InputFiles.size(); iter++)
+  for(auto& p : m_DataFiles)
   {
-    QFileInfo fi(headerDir.absolutePath() + "/" + m_InputFiles[iter]);
-    m_InputFiles[iter] = headerDir.absolutePath() + "/" + m_InputFiles[iter];
+    QFileInfo fi(headerDir.absolutePath() + "/" + p.first);
+    p.first = headerDir.absolutePath() + "/" + p.first;
 
     if(!fi.exists())
     {
       QString ss = QObject::tr("The input binary CT file: %1 could not be found in the path: %2. The input binary CT file name was obtained from the provided header.  Please ensure the file is in "
                                "the same path as the header and the name has not been altered.")
-                       .arg(m_InputFiles[iter])
+                       .arg(p.first)
                        .arg(headerDir.absolutePath());
-      setErrorCondition(-388, ss);
+      setErrorCondition(-38704, ss);
     }
   }
 
@@ -168,9 +217,9 @@ void ReadBinaryCTNorthStar::dataCheck()
     return;
   }
 
-  m->setGeometry(image);
+  m->setGeometry(m_ImportedVolume);
 
-  SizeVec3Type dims = image->getDimensions();
+  SizeVec3Type dims = m_ImportedVolume->getDimensions();
 
   std::vector<size_t> tDims = {dims[0], dims[1], dims[2]};
   std::vector<size_t> cDims(1, 1);
@@ -183,7 +232,7 @@ void ReadBinaryCTNorthStar::dataCheck()
   if(nullptr != m_DensityPtr.lock())
   {
     m_Density = m_DensityPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -206,69 +255,91 @@ int32_t ReadBinaryCTNorthStar::sanityCheckFileSizeVersusAllocatedSize(size_t all
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-int32_t ReadBinaryCTNorthStar::readBinaryCTFiles(size_t dims[3])
+int32_t ReadBinaryCTNorthStar::readBinaryCTFiles()
 {
+
+  SizeVec3Type origDims = m_OriginalVolume->getDimensions();
+  SizeVec3Type importedDims = m_ImportedVolume->getDimensions();
+
+  size_t deltaX = m_EndVoxelCoord[0] - m_StartVoxelCoord[0] + 1;
+
   int32_t error = 0;
   size_t zShift = 0;
+  int32_t fileIndex = 1;
 
-  for(size_t iter = 0; iter < m_InputFiles.size(); iter++)
+  FloatArrayType& density = *(m_DensityPtr.lock().get());
+  density.initializeWithValue(0xABCDEF);
+  float* ptr = m_DensityPtr.lock()->getPointer(0);
+
+  for(const auto& dataFileInput : m_DataFiles)
   {
-    QFileInfo fi(m_InputFiles[iter]);
+    QFileInfo fi(dataFileInput.first);
     size_t filesize = static_cast<size_t>(fi.size());
     // allocated bytes should be the x * y dims * number of slices in the current data file....not necessarily the size of the whole density array
-    size_t allocatedBytes = dims[0] * dims[1] * m_SlicesPerFile[iter] * sizeof(float);
+    size_t allocatedBytes = origDims[0] * origDims[1] * dataFileInput.second * sizeof(float);
 
     error = sanityCheckFileSizeVersusAllocatedSize(allocatedBytes, filesize);
 
     if(error < 0)
     {
       QString ss = QObject::tr("Binary file size is smaller than the number of allocated bytes");
-      setErrorCondition(-100, ss);
+      setErrorCondition(-38705, ss);
       return getErrorCode();
     }
 
-    FILE* f = fopen(m_InputFiles[iter].toLatin1().data(), "rb");
+    FILE* f = fopen(dataFileInput.first.toLatin1().data(), "rb");
     if(nullptr == f)
     {
-      QString ss = QObject::tr("Error opening binary input file: %1").arg(m_InputFiles[iter]);
-      setErrorCondition(-100, ss);
+      QString ss = QObject::tr("Error opening binary input file: %1").arg(dataFileInput.first);
+      setErrorCondition(-38706, ss);
       return getErrorCode();
     }
 
     ScopedFileMonitor monitor(f);
 
-    float* ptr = m_DensityPtr.lock()->getPointer(0);
-
+    size_t fileZSlice = 0;
     size_t index = 0;
-    size_t totalPoints = dims[0] * dims[1] * m_SlicesPerFile[iter];
-    int64_t progIncrement = static_cast<int64_t>(totalPoints / 100);
-    int64_t prog = 1;
-    int64_t progressInt = 0;
-    int64_t counter = 0;
 
-    for(size_t z = zShift; z < (zShift + m_SlicesPerFile[iter]); z++)
+    for(size_t z = zShift; z < (zShift + dataFileInput.second); z++)
     {
-      for(size_t y = 0; y < dims[1]; y++)
+      if(m_ImportSubvolume && (z < m_StartVoxelCoord[2] || z > m_EndVoxelCoord[2]))
       {
-        for(size_t x = 0; x < dims[0]; x++)
+        fileZSlice++;
+        continue;
+      }
+      QString ss = QObject::tr("Importing Data || Data File: %1 || Importing Slice %2").arg(dataFileInput.first).arg(z);
+      notifyStatusMessage(ss);
+      for(size_t y = 0; y < origDims[1]; y++)
+      {
+        if(m_ImportSubvolume && (y < m_StartVoxelCoord[1] || y > m_EndVoxelCoord[1]))
         {
-          // Compute the proper index into the final storage array
-          index = (dims[0] * dims[1] * z) + (dims[0] * (dims[1] - y - 1)) + (dims[0] - x - 1);
-          std::ignore = fread(ptr + index, sizeof(float), 1, f);
+          continue;
+        }
 
-          // Check for progress
-          if(counter > prog)
-          {
-            progressInt = static_cast<int64_t>((static_cast<float>(counter) / totalPoints) * 100.0f);
-            QString ss = QObject::tr("Reading Data || Data File: %1 of %2 || %3% Completed").arg(iter + 1).arg(m_InputFiles.size()).arg(progressInt);
-            notifyStatusMessage(ss);
-            prog = prog + progIncrement;
-          }
-          counter++;
+        size_t fpOffset = ((origDims[1] * origDims[0] * fileZSlice) + (origDims[0] * y) + m_StartVoxelCoord[0]) * sizeof(float);
+        if(fseek(f, fpOffset, SEEK_SET) != 0)
+        {
+          QString ss = QObject::tr("Could not seek to postion %1 in file %2").arg(fpOffset).arg(dataFileInput.first);
+          setErrorCondition(-38707, ss);
+          fclose(f);
+          return getErrorCode();
+        }
+
+        index = (importedDims[0] * importedDims[1] * (z - m_StartVoxelCoord[2])) + (importedDims[0] * (y - m_StartVoxelCoord[1])) + (0);
+        ptr = density.getPointer(index);
+        if(fread(ptr, sizeof(float), deltaX, f) != deltaX)
+        {
+          QString ss = QObject::tr("Error reading file at position %1 in file %2").arg(fpOffset).arg(dataFileInput.first);
+          setErrorCondition(-387008, ss);
+          fclose(f);
+          return getErrorCode();
         }
       }
+      fileZSlice++;
     }
-    zShift += m_SlicesPerFile[iter];
+    zShift += dataFileInput.second;
+    fileIndex++;
+    fclose(f);
   }
 
   return error;
@@ -277,12 +348,12 @@ int32_t ReadBinaryCTNorthStar::readBinaryCTFiles(size_t dims[3])
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
+int32_t ReadBinaryCTNorthStar::readHeaderMetaData()
 {
   int32_t error = 0;
-  m_CachedGeometry = ImageGeom::NullPointer();
-  m_InputFiles.clear();
-  m_SlicesPerFile.clear();
+  m_OriginalVolume = ImageGeom::NullPointer();
+  m_ImportedVolume = ImageGeom::NullPointer();
+  m_DataFiles.clear();
 
   QByteArray buf;
   QList<QByteArray> tokens;
@@ -393,52 +464,44 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
 
   m_InHeaderStream.reset();
   done = false;
-
-  while(!m_InHeaderStream.atEnd() && !done)
+  // Look for all the input files
+  QString contents = m_InHeaderStream.readAll();
+  QStringList list = contents.split(QRegExp("\\n"));
+  QStringListIterator sourceLines(list);
+  bool filesSectionActive = false;
+  QString inputDataFile;
+  QString nbSlices;
+  while(sourceLines.hasNext())
   {
-    buf = m_InHeaderStream.readLine();
-    buf = buf.trimmed();
-    tokens = buf.split(' ');
-    for(qint32 i = 0; i < tokens.size(); i++)
+    QString line = sourceLines.next();
+    std::pair<std::string, int64_t> input;
+
+    if(line.trimmed().startsWith("<Files>"))
     {
-      if(tokens[i] == "<Files>")
-      {
-        while(!done)
-        {
-          buf = m_InHeaderStream.readLine();
-          if(m_InHeaderStream.atEnd())
-          {
-            done = true;
-            break;
-          }
-          buf = buf.trimmed();
-          // splitting by the right chevron instead of space to keep spaces in file names and account for when file name is butted up against the chevron with no space
-          tokens = buf.split('>');
-          for(qint32 j = 0; j < tokens.size(); j++)
-          {
-            if(tokens[j] == "</Files")
-            {
-              done = true;
-              break;
-            }
-            if(tokens[j] == "<Name")
-            {
-              m_InputFiles.push_back(tokens[j + 1]);
-              break;
-            }
-            if(tokens[j] == "<NbSlices")
-            {
-              m_SlicesPerFile.push_back(tokens[j + 1].trimmed().toULongLong(&ok));
-              if(!ok)
-              {
-                return -1;
-              }
-              break;
-            }
-          }
-        }
-        break;
-      }
+      filesSectionActive = true;
+    }
+    else if(line.trimmed().startsWith("<Name>") && filesSectionActive)
+    {
+      inputDataFile = line;
+      inputDataFile = inputDataFile.replace("<Name>", "").trimmed();
+    }
+    else if(line.trimmed().startsWith("<NbSlices>") && filesSectionActive)
+    {
+      nbSlices = line;
+      nbSlices = nbSlices.replace("<NbSlices>", "").trimmed();
+    }
+    else if(line.trimmed().startsWith("</Files>"))
+    {
+      filesSectionActive = false;
+      break; // We are done getting the file list
+    }
+
+    if(!inputDataFile.isEmpty() && !nbSlices.isEmpty())
+    {
+      std::pair<QString, int64_t> p(inputDataFile, nbSlices.trimmed().toULongLong(&ok));
+      m_DataFiles.push_back(p);
+      inputDataFile.clear();
+      nbSlices.clear();
     }
   }
 
@@ -447,11 +510,37 @@ int32_t ReadBinaryCTNorthStar::readHeaderMetaData(ImageGeom::Pointer image)
     spacing[i] = (maxLocation[i] - minLocation[i]) / voxels[i];
   }
 
-  image->setDimensions(voxels);
-  image->setSpacing(spacing);
-  image->setOrigin(minLocation);
-  image->setUnits(static_cast<IGeometry::LengthUnit>(getLengthUnit()));
-  m_CachedGeometry = image;
+  m_OriginalVolume = ImageGeom::CreateGeometry(SIMPL::Geometry::ImageGeometry);
+
+  m_OriginalVolume->setDimensions(voxels);
+  m_OriginalVolume->setSpacing(spacing);
+  m_OriginalVolume->setOrigin(minLocation);
+  m_OriginalVolume->setUnits(static_cast<IGeometry::LengthUnit>(getLengthUnit()));
+
+  if(m_ImportSubvolume)
+  {
+    // Now figure out the Imported Volume Information
+    m_ImportedVolume = ImageGeom::CreateGeometry(SIMPL::Geometry::ImageGeometry);
+    // Origin
+    minLocation[0] = minLocation[0] + (m_StartVoxelCoord[0] * spacing[0]);
+    minLocation[1] = minLocation[1] + (m_StartVoxelCoord[1] * spacing[1]);
+    minLocation[2] = minLocation[2] + (m_StartVoxelCoord[2] * spacing[2]);
+    m_ImportedVolume->setOrigin(minLocation);
+    // Spacing
+    m_ImportedVolume->setSpacing(spacing);
+    // Dimensions
+    SizeVec3Type dims = {static_cast<size_t>(m_EndVoxelCoord[0] - m_StartVoxelCoord[0] + 1), static_cast<size_t>(m_EndVoxelCoord[1] - m_StartVoxelCoord[1] + 1),
+                         static_cast<size_t>(m_EndVoxelCoord[2] - m_StartVoxelCoord[2] + 1)};
+    m_ImportedVolume->setDimensions(dims);
+    m_ImportedVolume->setUnits(static_cast<IGeometry::LengthUnit>(getLengthUnit()));
+  }
+  else
+  {
+    m_ImportedVolume = m_OriginalVolume;
+    m_StartVoxelCoord = {0, 0, 0};
+    m_EndVoxelCoord = {static_cast<int32_t>(voxels[0] - 1), static_cast<int32_t>(voxels[1] - 1), static_cast<int32_t>(voxels[2] - 1)};
+  }
+
   return error;
 }
 
@@ -468,21 +557,29 @@ void ReadBinaryCTNorthStar::execute()
     return;
   }
 
-  int32_t err = 0;
-
-  ImageGeom::Pointer image = getDataContainerArray()->getDataContainer(getDataContainerName())->getGeometryAs<ImageGeom>();
-
-  SizeVec3Type dims = image->getDimensions();
-
-  err = readBinaryCTFiles(dims.data());
-
-  if(err < 0)
+  if(readBinaryCTFiles() < 0)
   {
-    QString ss = QObject::tr("Error reading binary input file");
-    setErrorCondition(-100, ss);
+    notifyStatusMessage("Error during import");
+    return;
   }
 
   notifyStatusMessage("Complete");
+}
+
+// -----------------------------------------------------------------------------
+QString GenerateGeometryInfoString(ImageGeom* geom)
+{
+  QString desc;
+  QTextStream ss(&desc);
+  SizeVec3Type dims = geom->getDimensions();
+  FloatVec3Type origin = geom->getOrigin();
+  FloatVec3Type spacing = geom->getSpacing();
+  QString lengthUnit = IGeometry::LengthUnitToString(static_cast<IGeometry::LengthUnit>(geom->getUnits()));
+
+  ss << "X Range: " << origin[0] << " to " << (origin[0] + (dims[0] * spacing[0])) << " (Delta: " << (dims[0] * spacing[0]) << " " << lengthUnit << ") " << 0 << "-" << dims[0] - 1 << " Voxels\n";
+  ss << "Y Range: " << origin[1] << " to " << (origin[1] + (dims[1] * spacing[1])) << " (Delta: " << (dims[1] * spacing[1]) << " " << lengthUnit << ") " << 0 << "-" << dims[1] - 1 << " Voxels\n";
+  ss << "Z Range: " << origin[2] << " to " << (origin[2] + (dims[2] * spacing[2])) << " (Delta: " << (dims[2] * spacing[2]) << " " << lengthUnit << ") " << 0 << "-" << dims[2] - 1 << " Voxels\n";
+  return desc;
 }
 
 // -----------------------------------------------------------------------------
@@ -491,9 +588,44 @@ void ReadBinaryCTNorthStar::execute()
 QString ReadBinaryCTNorthStar::getVolumeDescription()
 {
   QString desc = QString("Geometry Not initialized.");
-  if(m_CachedGeometry.get() != nullptr)
+  if(m_OriginalVolume.get() != nullptr)
   {
-    desc = m_CachedGeometry->getInfoString(SIMPL::InfoStringFormat::HtmlFormat);
+    desc = GenerateGeometryInfoString(m_OriginalVolume.get());
+  }
+  return desc;
+}
+
+// -----------------------------------------------------------------------------
+QString ReadBinaryCTNorthStar::getDataFileInfo()
+{
+  QString desc;
+  QTextStream out(&desc);
+  for(const auto& dataFileInput : m_DataFiles)
+  {
+    QFileInfo fi(dataFileInput.first);
+    out << fi.fileName();
+    if(fi.exists())
+    {
+      out << " [ok]";
+    }
+    else
+    {
+      out << " [!]";
+    }
+    out << "\n";
+  }
+  return desc;
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+QString ReadBinaryCTNorthStar::getImportedVolumeDescription()
+{
+  QString desc = QString("Geometry Not initialized.");
+  if(m_ImportedVolume.get() != nullptr)
+  {
+    desc = GenerateGeometryInfoString(m_ImportedVolume.get());
   }
   return desc;
 }
@@ -559,7 +691,7 @@ QString ReadBinaryCTNorthStar::getSubGroupName() const
 // -----------------------------------------------------------------------------
 QString ReadBinaryCTNorthStar::getHumanLabel() const
 {
-  return "Import Binary CT File (North Star Imaging)";
+  return "Import North Star Imaging CT (.nsihdr/.nsidat)";
 }
 
 // -----------------------------------------------------------------------------
@@ -597,30 +729,6 @@ QString ReadBinaryCTNorthStar::getNameOfClass() const
 QString ReadBinaryCTNorthStar::ClassName()
 {
   return QString("ReadBinaryCTNorthStar");
-}
-
-// -----------------------------------------------------------------------------
-void ReadBinaryCTNorthStar::setInputFiles(const std::vector<QString>& value)
-{
-  m_InputFiles = value;
-}
-
-// -----------------------------------------------------------------------------
-std::vector<QString> ReadBinaryCTNorthStar::getInputFiles() const
-{
-  return m_InputFiles;
-}
-
-// -----------------------------------------------------------------------------
-void ReadBinaryCTNorthStar::setSlicesPerFile(const std::vector<int64_t>& value)
-{
-  m_SlicesPerFile = value;
-}
-
-// -----------------------------------------------------------------------------
-std::vector<int64_t> ReadBinaryCTNorthStar::getSlicesPerFile() const
-{
-  return m_SlicesPerFile;
 }
 
 // -----------------------------------------------------------------------------
@@ -681,4 +789,40 @@ void ReadBinaryCTNorthStar::setLengthUnit(int32_t value)
 int32_t ReadBinaryCTNorthStar::getLengthUnit() const
 {
   return m_LengthUnit;
+}
+
+// -----------------------------------------------------------------------------
+void ReadBinaryCTNorthStar::setStartVoxelCoord(const IntVec3Type& value)
+{
+  m_StartVoxelCoord = value;
+}
+
+// -----------------------------------------------------------------------------
+IntVec3Type ReadBinaryCTNorthStar::getStartVoxelCoord() const
+{
+  return m_StartVoxelCoord;
+}
+
+// -----------------------------------------------------------------------------
+void ReadBinaryCTNorthStar::setEndVoxelCoord(const IntVec3Type& value)
+{
+  m_EndVoxelCoord = value;
+}
+
+// -----------------------------------------------------------------------------
+IntVec3Type ReadBinaryCTNorthStar::getEndVoxelCoord() const
+{
+  return m_EndVoxelCoord;
+}
+
+// -----------------------------------------------------------------------------
+void ReadBinaryCTNorthStar::setImportSubvolume(bool value)
+{
+  m_ImportSubvolume = value;
+}
+
+// -----------------------------------------------------------------------------
+bool ReadBinaryCTNorthStar::getImportSubvolume() const
+{
+  return m_ImportSubvolume;
 }
