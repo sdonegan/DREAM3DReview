@@ -18,7 +18,7 @@
 //
 // -----------------------------------------------------------------------------
 DREAM3DReviewPlugin::DREAM3DReviewPlugin()
-: m_Version(DREAM3DReview::Version::Package())
+: m_Version(DREAM3DReview::Version::Complete())
 , m_CompatibilityVersion(DREAM3DReview::Version::Package())
 , m_Vendor("Open-Source")
 , // Initialize DREAM3DReview's Vendor Name Here
