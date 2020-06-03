@@ -36,12 +36,12 @@
 #pragma once
 
 #include <memory>
-
 #include <array>
 
 #include "SIMPLib/SIMPLib.h"
-#include "SIMPLib/Filtering/AbstractFilter.h"
+#include "SIMPLib/Common/Constants.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
+#include "SIMPLib/Filtering/AbstractFilter.h"
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
@@ -229,12 +229,12 @@ private:
   std::weak_ptr<DataArray<bool>> m_MaskPtr;
   bool* m_Mask = nullptr;
 
-  int m_Iterations = {};
-  double m_Temperature = {};
-  bool m_PeriodicBoundaries = {};
-  bool m_UseMask = {};
-  DataArrayPath m_FeatureIdsArrayPath = {};
-  DataArrayPath m_MaskArrayPath = {};
+  int m_Iterations = {100};
+  double m_Temperature = {273.0};
+  bool m_PeriodicBoundaries = {false};
+  bool m_UseMask = {false};
+  DataArrayPath m_FeatureIdsArrayPath = {SIMPL::Defaults::ImageDataContainerName, SIMPL::Defaults::CellAttributeMatrixName, SIMPL::CellData::FeatureIds};
+  DataArrayPath m_MaskArrayPath = {SIMPL::Defaults::ImageDataContainerName, SIMPL::Defaults::CellAttributeMatrixName, SIMPL::CellData::Mask};
 
 public:
   PottsModel(const PottsModel&) = delete;            // Copy Constructor Not Implemented

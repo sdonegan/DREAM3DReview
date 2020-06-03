@@ -37,8 +37,8 @@
 #include <cassert>
 #include <chrono>
 #include <deque>
+#include <exception>
 #include <random>
-#include <utility>
 #include <utility>
 
 #include <QtCore/QTextStream>
@@ -261,6 +261,7 @@ private:
     return neigh;
   }
 
+  // -----------------------------------------------------------------------------
   void initialize()
   {
     determine_dimensionality();
@@ -271,6 +272,7 @@ private:
     gen_.seed(seed_);
   }
 
+  // -----------------------------------------------------------------------------
   void determine_dimensionality()
   {
     SizeVec3Type dims = image_->getDimensions();
@@ -278,8 +280,10 @@ private:
     dims_[1] = dims[1];
     dims_[2] = dims[2];
 
-    auto num_single_dim = std::count(std::begin(dims_), std::end(dims_), 1);
-    assert(num_single_dim <= 1);
+    if(std::count(std::begin(dims_), std::end(dims_), 1) > 1)
+    {
+      throw std::range_error("PotssModel::SpinLattice total dims > 1");
+    }
 
     dim_type_ = Dimension::Three;
 
@@ -346,12 +350,6 @@ private:
 //
 // -----------------------------------------------------------------------------
 PottsModel::PottsModel()
-: m_Iterations(100)
-, m_Temperature(273.0)
-, m_PeriodicBoundaries(false)
-, m_UseMask(false)
-, m_FeatureIdsArrayPath(SIMPL::Defaults::ImageDataContainerName, SIMPL::Defaults::CellAttributeMatrixName, SIMPL::CellData::FeatureIds)
-, m_MaskArrayPath(SIMPL::Defaults::ImageDataContainerName, SIMPL::Defaults::CellAttributeMatrixName, SIMPL::CellData::Mask)
 {
   initialize();
 }
