@@ -160,7 +160,7 @@ public:
     Int32ArrayType::Pointer phases2 = std::dynamic_pointer_cast<Int32ArrayType>(featureAttrMat2->getAttributeArray(::k_Phases2));
     numTuples = phases2->getNumberOfTuples();
     DREAM3D_REQUIRED(numTuples, >, 2400)
-    DREAM3D_REQUIRED(numTuples, <, 2900)
+    DREAM3D_REQUIRED(numTuples, <, 2910)
 
     return EXIT_SUCCESS;
   }
