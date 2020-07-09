@@ -1,7 +1,7 @@
 # Pipeline : (03) SmallIN100 Mesh Statistics (from EBSD Surface Meshing)
 # Tests the Robust Automatic Threshold filter
 #
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -10,7 +10,7 @@ import orientationanalysispy
 import surfacemeshingpy
 import dream3dreviewpy
 
-def robust_automatic_threshold_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -199,4 +199,7 @@ def robust_automatic_threshold_test():
         print('WriteDREAM3DFile ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    robust_automatic_threshold_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))
+    

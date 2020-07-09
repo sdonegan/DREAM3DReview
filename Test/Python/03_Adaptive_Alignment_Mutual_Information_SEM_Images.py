@@ -1,7 +1,7 @@
 '''
 Pipeline example based on 03_Adaptive Alignment - Mutual Information - SEM Images in Anisotropy examples
 '''
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -11,7 +11,7 @@ import dream3dreviewpy
 import itkimageprocessing
 import itkimageprocessingpy
 
-def adaptive_alignment():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -60,4 +60,6 @@ def adaptive_alignment():
         print('AdaptiveAlignment Mutual Information %d' % err)
 
 if __name__ == '__main__':
-    adaptive_alignment()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

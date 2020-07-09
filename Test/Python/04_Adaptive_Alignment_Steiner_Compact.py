@@ -1,7 +1,7 @@
 '''
 Pipeline example based on 04_Steiner Compact in Anisotropy examples
 '''
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -11,13 +11,13 @@ import dream3dreviewpy
 import reconstructionpy
 import processingpy
 
-def adaptive_alignment():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
     # Read H5EBSD File
     err = orientationanalysispy.read_h5_ebsd(dca, 'AlMgSc Data', 'Phase Data', 'EBSD SEM Scan Data',
-                                            sd.GetBuildDirectory() + '/Debug/Data/AlMgSc.h5ebsd',
+                                            sd.GetBuildDirectory() + '/Data/Anisotropy/AlMgSc.h5ebsd',
                                             0, 9, True, sc.AngleRepresentation.Radians,
                                             simpl.StringSet({'Fit', 'Image Quality', 'EulerAngles',
                                                              'SEM Signal', 'Confidence Index', 'Phases',
@@ -88,4 +88,6 @@ def adaptive_alignment():
         print('SteinerCompact ErrorCondition %d' % err)
 
 if __name__ == '__main__':
-    adaptive_alignment()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

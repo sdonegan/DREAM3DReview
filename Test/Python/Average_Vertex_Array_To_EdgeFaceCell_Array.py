@@ -2,7 +2,7 @@
 # Tests the Average Vertex Array to Edge/Face/Cell Array filter
 
 # These are the simpl_py python modules
-
+import os
 import simpl
 import simplpy
 import simpl_test_dirs as sd
@@ -10,7 +10,7 @@ import dream3dreviewpy
 import surfacemeshingpy
 import orientationanalysispy
 
-def average_face_value_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -196,4 +196,6 @@ def average_face_value_test():
         print('DataContainerWriter ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    average_face_value_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

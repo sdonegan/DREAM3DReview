@@ -1,7 +1,7 @@
 # Based on (01) SmallIN100 Quick Mesh (from EBSD Surface Meshing)
 # Tests the Potts Model filter
 # NOTE: The Potts Model takes several minutes to run on this pipeline
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -10,7 +10,7 @@ import samplingpy
 import surfacemeshingpy
 import dream3dreviewpy
 
-def potts_model_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -161,4 +161,6 @@ def potts_model_test():
         print('WriteDREAM3DFile ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    potts_model_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

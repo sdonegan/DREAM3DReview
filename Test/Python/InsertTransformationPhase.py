@@ -1,6 +1,6 @@
 # Insert Transformation Phase
 # Based on InsertTransformationPhase example pipeline
-
+import os
 import simpl
 import simpl_helpers as sc
 import simpl_test_dirs as sd
@@ -11,7 +11,7 @@ import statisticspy
 import syntheticbuildingpy as syntheticbuilding
 import dream3dreviewpy
 
-def insert_transformation_phase():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -277,4 +277,6 @@ def insert_transformation_phase():
         print('FeatureDataCsvWriter ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    insert_transformation_phase()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

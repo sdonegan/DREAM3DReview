@@ -2,14 +2,14 @@
 # Tests the Find Norm filter
 
 # These are the simpl_py python modules
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
 import simpl_test_dirs as sd
 import dream3dreviewpy
 
-def find_norm_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -119,4 +119,6 @@ def find_norm_test():
         print('DataContainerWriter ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    find_norm_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

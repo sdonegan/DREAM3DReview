@@ -1,14 +1,14 @@
 # Pipeline : Based on (01) SmallIN100 Quick Mesh (from EBSD Surface Meshing)
 # This pipeline is designed to test the K Means filter
 #
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
 import simpl_test_dirs as sd
 import dream3dreviewpy
 
-def k_means_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -136,4 +136,6 @@ def k_means_test():
         print('WriteDREAM3DFile ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    k_means_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

@@ -1,7 +1,7 @@
 # Based on (03) SmallIN100 Mesh Statistics (from EBSD Surface Meshing)
 # Tests the Normalize Attribute Arrays filter
 #
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -10,7 +10,7 @@ import orientationanalysispy
 import surfacemeshingpy
 import dream3dreviewpy
 
-def normalize_arrays_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -193,4 +193,6 @@ def normalize_arrays_test():
         print('WriteDREAM3DFile ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    normalize_arrays_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

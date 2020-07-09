@@ -8,7 +8,7 @@ import simpl_helpers as sc
 import simpl_test_dirs as sd
 import orientationanalysispy
 
-def import_data():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -21,4 +21,7 @@ def import_data():
 
 
 if __name__ == '__main__':
-    import_data()
+    print('Starting Test %s ' % os.path.basename(__file__) )
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__) )
+

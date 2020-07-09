@@ -1,7 +1,7 @@
 # Pipeline : (01) SmallIN100 Quick Mesh (from EBSD Surface Meshing)
 # Tests the Extract Internal Surfaces From Triangle Geometry filter
 #
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -10,7 +10,7 @@ import samplingpy as sampling
 import surfacemeshingpy
 import dream3dreviewpy
 
-def extract_internal_surfaces():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -166,4 +166,6 @@ def extract_internal_surfaces():
         print('WriteDREAM3DFile ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    extract_internal_surfaces()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))

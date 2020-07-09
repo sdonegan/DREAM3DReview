@@ -1,7 +1,7 @@
 # Pipeline : (03) SmallIN100 Mesh Statistics (from EBSD Surface Meshing)
 # Tests the Principal Component Analysis filter
 #
-
+import os
 import simpl
 import simplpy
 import simpl_helpers as sc
@@ -10,7 +10,7 @@ import orientationanalysispy
 import surfacemeshingpy
 import dream3dreviewpy
 
-def principal_component_analysis_test():
+def start_test():
     # Create Data Container Array
     dca = simpl.DataContainerArray()
 
@@ -214,4 +214,6 @@ def principal_component_analysis_test():
         print('WriteAsciiData ErrorCondition: %d' % err)
 
 if __name__ == '__main__':
-    principal_component_analysis_test()
+    print('Starting Test %s ' % os.path.basename(__file__))
+    start_test()
+    print('Ending Test %s ' % os.path.basename(__file__))
