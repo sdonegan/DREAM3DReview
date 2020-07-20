@@ -3,7 +3,7 @@ Pipeline example based on 02_Adaptive Alignment - Misorientation - Zero Shifts i
 '''
 import os
 import simpl
-import simpl_helpers as sc
+import simpl_helpers as sh
 import simpl_test_dirs as sd
 import orientationanalysispy
 import dream3dreviewpy
@@ -15,20 +15,18 @@ def start_test():
     # Read H5EBSD File
     err = orientationanalysispy.read_h5_ebsd(dca, 'AlMgSc Data', 'Phase Data', 'EBSD SEM Scan Data',
                                             sd.GetBuildDirectory() + '/Data/Anisotropy/AlMgSc.h5ebsd',
-                                             0, 9, True, sc.AngleRepresentation.Radians,
+                                             0, 9, True, sh.AngleRepresentation.Radians,
                                              simpl.StringSet({'Fit', 'Image Quality', 'EulerAngles',
                                                              'SEM Signal', 'Confidence Index', 'Phases',
                                                              'X Position', 'Y Position'}))
-    if err < 0:
-        print('ReadH5Ebsd ErrorCondition %d' % err)
+    assert err == 0, f'ReadH5Ebsd ErrorCondition {err}'
 
     # Convert Orientation Representation
     err = orientationanalysispy.convert_orientations(dca, 0, 2,
                                                      simpl.DataArrayPath('AlMgSc Data', 'EBSD SEM Scan Data',
                                                                          'EulerAngles'),
                                                      'Quats')
-    if err < 0:
-        print('Convert Orientations ErrorCondition %d' % err)
+    assert err == 0, f'Convert Orientations ErrorCondition {err}'
 
     # Adaptive Alignment Misorientation
     err = dream3dreviewpy.adaptive_alignment_misorientation(dca, 5, False,
@@ -39,8 +37,7 @@ def start_test():
                                                          simpl.DataArrayPath('', '', ''),
                                                          simpl.DataArrayPath('AlMgSc Data', 'Phase Data',
                                                                              'CrystalStructures'))
-    if err < 0:
-        print('AdaptiveAlignment Misorientation %d' % err)
+    assert err == 0, f'AdaptiveAlignment Misorientation {err}'
 
 if __name__ == '__main__':
     print('Starting Test %s ' % os.path.basename(__file__))

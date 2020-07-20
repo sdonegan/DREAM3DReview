@@ -5,7 +5,7 @@
 import os
 import simpl
 import simplpy
-import simpl_helpers as sc
+import simpl_helpers as sh
 import simpl_test_dirs as sd
 import dream3dreviewpy
 
@@ -15,95 +15,29 @@ def start_test():
 
     # Create the Data Container
     err = simplpy.create_data_container(dca, 'DataContainer')
-    if err < 0:
-        print('DataContainer ErrorCondition: %d' % err)
+    assert err == 0, f'DataContainer ErrorCondition: {err}'
 
-    # Import ASCII Data - #1 - Vertex Coordinates
-    import_file = sd.GetBuildDirectory() + '/Data/SIMPL/VertexCoordinates.csv'
-    wizard_data = {
-        'inputFilePath': import_file,
-        'beginIndex': 2,
-        'numberOfLines': 145,
-        'delimiters': [','],
-        'consecutiveDelimiters': False,
-        'automaticAM': True,
-        'selectedPath': simpl.DataArrayPath('DataContainer', 'Bounds', ''),
-        'headers': ['x', 'y', 'z'],
-        'attrMatType': 3,
-        'tupleDimensions': [144],
-        'dataTypes': ['float', 'float', 'float']
-    }
-    err = simplpy.read_ascii_data(dca, wizard_data)
-    if err < 0:
-        print('Import ASCII Data #1 -  ErrorCondition: %d' % err)
+    # Read vertices
+    err = simplpy.create_attribute_matrix(dca, simpl.DataArrayPath('DataContainer', 'Bounds', ''), simpl.AttributeMatrix.Type.Cell, sh.CreateDynamicTableData([[144]]))
+    assert err == 0, f'CreateAttributeMatrix - Error: {err}'
 
-    # Import ASCII Data - #2 - Edge Connectivity
-    import_file = sd.GetBuildDirectory() + '/Data/SIMPL/QuadConnectivity.csv'
-    wizard_data = {
-        'inputFilePath': import_file,
-        'beginIndex': 2,
-        'numberOfLines': 122,
-        'delimiters': [','],
-        'consecutiveDelimiters': False,
-        'automaticAM': True,
-        'selectedPath': simpl.DataArrayPath('DataContainer', 'QuadList', ''),
-        'headers': ['V0', 'V1', 'V2', 'V3'],
-        'attrMatType': 3,
-        'tupleDimensions': [121],
-        'dataTypes': ['int64_t', 'int64_t', 'int64_t', 'int64_t']
-    }
-    err = simplpy.read_ascii_data(dca, wizard_data)
-    if err < 0:
-        print('Import ASCII Data #2 -  ErrorCondition: %d' % err)
+    err = simplpy.import_asci_data_array(dca, simpl.DataArrayPath('DataContainer', 'Bounds', 'Vertices'), simpl.NumericTypes.Float, 3, 1, sd.GetBuildDirectory() + '/Data/SIMPL/VertexCoordinates.csv', 0)
+    assert err == 0, f'ImportAsciDataArray - Error {err}'
 
-    # Combine Attribute Arrays # 1:
-    selected_data_array_paths = [simpl.DataArrayPath('DataContainer', 'Bounds', 'x'),
-                                 simpl.DataArrayPath('DataContainer', 'Bounds', 'y'),
-                                 simpl.DataArrayPath('DataContainer', 'Bounds', 'z')]
-    err = simplpy.combine_attribute_arrays(dca, selected_data_array_paths, 'Vertices', False)
-    if err < 0:
-        print('Combined Attribute Arrays #1 -  ErrorCondition: %d' % err)
+    # Read quads
+    err = simplpy.create_attribute_matrix(dca, simpl.DataArrayPath('DataContainer', 'QuadList', ''), simpl.AttributeMatrix.Type.Cell, sh.CreateDynamicTableData([[121]]))
+    assert err == 0, f'CreateAttributeMatrix - Error: {err}'
 
-    # Delete Data # 1
-    dcap = simpl.DataContainerArrayProxy()
-    dcap.getDataContainerProxy('DataContainer').Flag = 0
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('Bounds').Flag = 0
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('Bounds').getDataArrayProxy('x').Flag = 2
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('Bounds').getDataArrayProxy('y').Flag = 2
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('Bounds').getDataArrayProxy('z').Flag = 2
-    err = simplpy.remove_arrays(dca, dcap)
-    if err < 0:
-        print('Remove Arrays #1 -  ErrorCondition: %d' % err)
-
-    # Combine Attribute Arrays #2:
-    selected_data_array_paths = [simpl.DataArrayPath('DataContainer', 'QuadList', 'V0'),
-                                 simpl.DataArrayPath('DataContainer', 'QuadList', 'V1'),
-                                 simpl.DataArrayPath('DataContainer', 'QuadList', 'V2'),
-                                 simpl.DataArrayPath('DataContainer', 'QuadList', 'V3')]
-    err = simplpy.combine_attribute_arrays(dca, selected_data_array_paths, 'Quads', False)
-    if err < 0:
-        print('Combined Attribute Arrays #2 -  ErrorCondition: %d' % err)
-
-    # Delete Data # 2
-    dcap = simpl.DataContainerArrayProxy()
-    dcap.getDataContainerProxy('DataContainer').Flag = 0
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('QuadList').Flag = 0
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('QuadList').getDataArrayProxy('V0').Flag = 2
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('QuadList').getDataArrayProxy('V1').Flag = 2
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('QuadList').getDataArrayProxy('V2').Flag = 2
-    dcap.getDataContainerProxy('DataContainer').getAttributeMatrixProxy('QuadList').getDataArrayProxy('V3').Flag = 2
-    err = simplpy.remove_arrays(dca, dcap)
-    if err < 0:
-        print('Remove Arrays #2 -  ErrorCondition: %d' % err)
+    err = simplpy.import_asci_data_array(dca, simpl.DataArrayPath('DataContainer', 'QuadList', 'Quads'), simpl.NumericTypes.SizeT, 4, 1, sd.GetBuildDirectory() + '/Data/SIMPL/QuadConnectivity.csv', 0)
+    assert err == 0, f'ImportAsciDataArray - Error {err}'
 
     # Create Geometry
-    err = sc.CreateGeometry(dca, 0, simpl.IGeometry.Type.Quad, 'DataContainer', False,
+    err = sh.CreateGeometry(dca, 0, simpl.IGeometry.Type.Quad, 'DataContainer', False,
                             shared_vertex_list_array_path=simpl.DataArrayPath('DataContainer', 'Bounds', 'Vertices'),
                             shared_quad_list_array_path=simpl.DataArrayPath('DataContainer', 'QuadList', 'Quads'),
                             vertex_attribute_matrix_name='VertexData',
                             face_attribute_matrix_name='FaceData')
-    if err < 0:
-        print('Create Geometry -  ErrorCondition: %d' % err)
+    assert err == 0, f'Create Geometry -  ErrorCondition: {err}'
 
     # K Distance Graph
     err = dream3dreviewpy.k_distance_graph(dca, simpl.DataArrayPath('DataContainer', 'QuadList',
@@ -111,15 +45,13 @@ def start_test():
                                            False, simpl.DataArrayPath('', '', ''),
                                            simpl.DataArrayPath('DataContainer', 'QuadList',
                                                                'KDistance'), 7, 3)
-    if err < 0:
-        print('KDistanceGraph ErrorCondition: %d' % err)
+    assert err == 0, f'KDistanceGraph ErrorCondition: {err}'
 
     # Write DREAM3D File
     err = simplpy.data_container_writer(dca, sd.GetBuildDirectory() +
                                         '/Data/Output/DREAM3DReview/' +
                                         'KDistanceGraph.dream3d', True, False)
-    if err < 0:
-        print('DataContainerWriter ErrorCondition: %d' % err)
+    assert err == 0, f'DataContainerWriter ErrorCondition: {err}'
 
 if __name__ == '__main__':
     print('Starting Test %s ' % os.path.basename(__file__))
