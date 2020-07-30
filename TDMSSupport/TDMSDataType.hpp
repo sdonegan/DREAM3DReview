@@ -127,7 +127,7 @@ inline void AllocateStringArray(IDataArray::Pointer ptr)
   {
     return;
   }
-  data->resize(data->getNumberOfTuples());
+  data->resizeTuples(data->getNumberOfTuples());
   data->initializeWithValue(QString("??????????"));
 }
 

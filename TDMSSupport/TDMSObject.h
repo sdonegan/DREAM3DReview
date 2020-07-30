@@ -1,5 +1,7 @@
 #ifndef _tdmsobject_h
 
+#include <memory>
+
 class IDataArray;
 using IDataArrayShPtrType = std::shared_ptr<IDataArray>;
 

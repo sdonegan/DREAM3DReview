@@ -208,6 +208,10 @@ target_sources(${plug_target_name}
   ${${PLUGIN_NAME}_BINARY_DIR}/${VERSION_HEADER_FILE_NAME}
   ${${PLUGIN_NAME}_BINARY_DIR}/${VERSION_SOURCE_FILE_NAME}
 
+  # -- Add in the TDMSSupport source files
+  ${TDMSSupport_SRCS}
+  ${TDMSSupport_HDRS}
+
   # -- Add in the DLL Export Header File
   ${${PLUGIN_NAME}_BINARY_DIR}/${PLUGIN_NAME}DLLExport.h
 

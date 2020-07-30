@@ -12,6 +12,7 @@ set(TEST_NAMES
   ImportMASSIFDataTest
   FFTHDFWriterFilterTest
   EstablishFoamMorphologyTest
+  ImportQMMeltpoolTDMSFileTest
 )
 
 #------------------------------------------------------------------------------
