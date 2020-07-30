@@ -4,12 +4,12 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
-#include "AFRLDistributionC/AFRLDistributionCPlugin.h"
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
 
 /**
  * @brief The ImportQMMeltpoolTDMSFile class. See [Filter documentation](@ref importqmmeltpooltdmsfile) for details.
  */
-class AFRLDistributionC_EXPORT ImportQMMeltpoolTDMSFile : public AbstractFilter
+class DREAM3DReview_EXPORT ImportQMMeltpoolTDMSFile : public AbstractFilter
 {
   Q_OBJECT
 

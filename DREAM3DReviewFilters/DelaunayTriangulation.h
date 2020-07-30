@@ -4,10 +4,12 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
+
 /**
  * @brief The DelaunayTriangulation class. See [Filter documentation](@ref delaunaytriangulation) for details.
  */
-class DelaunayTriangulation : public AbstractFilter
+class DREAM3DReview_EXPORT DelaunayTriangulation : public AbstractFilter
 {
   Q_OBJECT
 

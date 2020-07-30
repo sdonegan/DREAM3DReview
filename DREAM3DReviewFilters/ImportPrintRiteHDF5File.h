@@ -4,10 +4,12 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
+
 /**
  * @brief The ImportPrintRiteHDF5File class. See [Filter documentation](@ref importprintritehdf5file) for details.
  */
-class ImportPrintRiteHDF5File : public AbstractFilter
+class DREAM3DReview_EXPORT ImportPrintRiteHDF5File : public AbstractFilter
 {
   Q_OBJECT
 

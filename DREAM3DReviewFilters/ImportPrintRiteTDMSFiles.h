@@ -9,12 +9,13 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
 
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
 #include "DREAM3DReview/DREAM3DReviewFilters/util/PrintRiteHelpers.h"
 
 /**
  * @brief The ImportPrintRiteTDMSFiles class. See [Filter documentation](@ref importprintritetdmsfiles) for details.
  */
-class ImportPrintRiteTDMSFiles : public AbstractFilter
+class DREAM3DReview_EXPORT ImportPrintRiteTDMSFiles : public AbstractFilter
 {
   Q_OBJECT
 
