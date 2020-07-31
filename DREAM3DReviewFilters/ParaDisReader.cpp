@@ -141,11 +141,11 @@ void ParaDisReader::updateVertexInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_NumberOfArmsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_NumberOfArmsPtr.lock())
   {
     m_NumberOfArms = m_NumberOfArmsPtr.lock()->getPointer(0);
   }                                          /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_NodeConstraintsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_NodeConstraintsPtr.lock())
   {
     m_NodeConstraints = m_NodeConstraintsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -159,11 +159,11 @@ void ParaDisReader::updateEdgeInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_BurgersVectorsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_BurgersVectorsPtr.lock())
   {
     m_BurgersVectors = m_BurgersVectorsPtr.lock()->getPointer(0);
   }                                           /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_SlipPlaneNormalsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_SlipPlaneNormalsPtr.lock())
   {
     m_SlipPlaneNormals = m_SlipPlaneNormalsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -230,33 +230,33 @@ void ParaDisReader::dataCheck()
   std::vector<size_t> dims(1, 1);
   tempPath.update(getEdgeDataContainerName().getDataContainerName(), getVertexAttributeMatrixName(), getNumberOfArmsArrayName());
   m_NumberOfArmsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, dims);
-  if(nullptr != m_NumberOfArmsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_NumberOfArmsPtr.lock())
   {
     m_NumberOfArms = m_NumberOfArmsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   tempPath.update(getEdgeDataContainerName().getDataContainerName(), getVertexAttributeMatrixName(), getNodeConstraintsArrayName());
   m_NodeConstraintsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, dims);
-  if(nullptr != m_NodeConstraintsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_NodeConstraintsPtr.lock())
   {
     m_NodeConstraints = m_NodeConstraintsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   dims[0] = 3;
   tempPath.update(getEdgeDataContainerName().getDataContainerName(), getEdgeAttributeMatrixName(), getBurgersVectorsArrayName());
   m_BurgersVectorsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0.0, dims);
-  if(nullptr != m_BurgersVectorsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_BurgersVectorsPtr.lock())
   {
     m_BurgersVectors = m_BurgersVectorsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   tempPath.update(getEdgeDataContainerName().getDataContainerName(), getEdgeAttributeMatrixName(), getSlipPlaneNormalsArrayName());
   m_SlipPlaneNormalsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0.0, dims);
-  if(nullptr != m_SlipPlaneNormalsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_SlipPlaneNormalsPtr.lock())
   {
     m_SlipPlaneNormals = m_SlipPlaneNormalsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   dims[0] = 6;
   tempPath.update(getEdgeDataContainerName().getDataContainerName(), "_MetaData", getDomainBoundsArrayName());
   m_DomainBoundsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0.0, dims);
-  if(nullptr != m_DomainBoundsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_DomainBoundsPtr.lock())
   {
     m_DomainBounds = m_DomainBoundsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

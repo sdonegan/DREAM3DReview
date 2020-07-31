@@ -169,9 +169,8 @@ void FindDynamicArrayStatistics::dataCheck()
 
   if(m_FindLength)
   {
-    m_LengthPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter, int32_t>(this, getLengthArrayPath(), 0,
-                                                                                                                     cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_LengthPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_LengthPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>, AbstractFilter, int32_t>(this, getLengthArrayPath(), 0, cDims);
+    if(nullptr != m_LengthPtr.lock().get())
     {
       m_Length = m_LengthPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */

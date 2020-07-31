@@ -209,7 +209,7 @@ void ComputeUmeyamaTransform::dataCheck()
   DataArrayPath path(getSourcePointSet().getDataContainerName(), getTransformationAttributeMatrixName(), getTransformationMatrixName());
 
   m_TransformationMatrixPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims, "", DataArrayID31);
-  if(nullptr != m_TransformationMatrixPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_TransformationMatrixPtr.lock())
   {
     m_TransformationMatrix = m_TransformationMatrixPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

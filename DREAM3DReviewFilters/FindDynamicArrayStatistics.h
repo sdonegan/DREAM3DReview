@@ -314,8 +314,7 @@ protected:
 
     if(m_FindMin)
     {
-      m_MinimumPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMinimumArrayPath(), 0,
-                                                                                                            cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_MinimumPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMinimumArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getMinimumArrayPath());
@@ -324,8 +323,7 @@ protected:
 
     if(m_FindMax)
     {
-      m_MaximumPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMaximumArrayPath(), 0,
-                                                                                                            cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_MaximumPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMaximumArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getMaximumArrayPath());
@@ -334,8 +332,7 @@ protected:
 
     if(m_FindMean)
     {
-      m_MeanPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMeanArrayPath(), 0,
-                                                                                                         cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_MeanPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMeanArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getMeanArrayPath());
@@ -344,8 +341,7 @@ protected:
 
     if(m_FindMedian)
     {
-      m_MedianPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMedianArrayPath(), 0,
-                                                                                                           cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_MedianPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getMedianArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getMedianArrayPath());
@@ -354,8 +350,7 @@ protected:
 
     if(m_FindStdDeviation)
     {
-      m_StandardDeviationPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(
-          this, getStdDeviationArrayPath(), 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_StandardDeviationPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getStdDeviationArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getStdDeviationArrayPath());
@@ -364,8 +359,7 @@ protected:
 
     if(m_FindSummation)
     {
-      m_SummationPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getSummationArrayPath(), 0,
-                                                                                                              cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
+      m_SummationPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<T>, AbstractFilter, T>(this, getSummationArrayPath(), 0, cDims);
       if(getErrorCode() >= 0)
       {
         dataArrayPaths.push_back(getSummationArrayPath());

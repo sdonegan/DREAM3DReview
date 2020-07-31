@@ -17,6 +17,8 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
+#include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArrayCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
@@ -27,8 +29,6 @@
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
 #include "SIMPLib/Geometry/ImageGeom.h"
 #include "SIMPLib/Geometry/VertexGeom.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
-#include "SIMPLib/DataContainers/DataContainer.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
@@ -188,9 +188,8 @@ void MapPointCloudToRegularGrid::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
 
-  m_VoxelIndicesPtr =
-      getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<size_t>>(this, getVoxelIndicesArrayPath(), 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_VoxelIndicesPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_VoxelIndicesPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<size_t>>(this, getVoxelIndicesArrayPath(), 0, cDims);
+  if(nullptr != m_VoxelIndicesPtr.lock().get())
   {
     m_VoxelIndices = m_VoxelIndicesPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -201,8 +200,8 @@ void MapPointCloudToRegularGrid::dataCheck()
 
   if(getUseMask() == true)
   {
-    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_MaskPtr.lock().get())                                                                          /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
+    if(nullptr != m_MaskPtr.lock().get())
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */

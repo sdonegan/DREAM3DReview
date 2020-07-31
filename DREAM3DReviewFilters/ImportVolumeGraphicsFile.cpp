@@ -173,8 +173,8 @@ void ImportVolumeGraphicsFile::dataCheck()
 
   DataArrayPath path(getDataContainerName(), getCellAttributeMatrixName(), getDensityArrayName());
 
-  m_DensityPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_DensityPtr.lock().get())                                                                      /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_DensityPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims);
+  if(nullptr != m_DensityPtr.lock().get())
   {
     m_Density = m_DensityPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

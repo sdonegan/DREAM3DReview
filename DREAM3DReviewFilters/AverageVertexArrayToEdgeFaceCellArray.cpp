@@ -314,9 +314,8 @@ void AverageVertexArrayToEdgeFaceCellArray::dataCheck()
   std::vector<size_t> cDims = m_InVertexArrayPtr.lock()->getComponentDimensions();
   size_t numVertexTuples = m_InVertexArrayPtr.lock()->getNumberOfTuples();
 
-  m_AverageCellArrayPtr =
-      getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, getAverageCellArrayPath(), 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_AverageCellArrayPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_AverageCellArrayPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, getAverageCellArrayPath(), 0, cDims);
+  if(nullptr != m_AverageCellArrayPtr.lock())
   {
     m_AverageCellArray = m_AverageCellArrayPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

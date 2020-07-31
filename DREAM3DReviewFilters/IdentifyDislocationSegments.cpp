@@ -130,7 +130,7 @@ void IdentifyDislocationSegments::updateEdgeFeatureInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_ActivePtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_ActivePtr.lock())
   {
     m_Active = m_ActivePtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -184,28 +184,26 @@ void IdentifyDislocationSegments::dataCheck()
 
   // Get the name and create the array in the new data attrMat
   std::vector<size_t> dims(1, 3);
-  m_BurgersVectorsPtr =
-      getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>>(this, getBurgersVectorsArrayPath(), dims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_BurgersVectorsPtr.lock())                                                                        /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_BurgersVectorsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>>(this, getBurgersVectorsArrayPath(), dims);
+  if(nullptr != m_BurgersVectorsPtr.lock())
   {
     m_BurgersVectors = m_BurgersVectorsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
-  m_SlipPlaneNormalsPtr =
-      getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>>(this, getSlipPlaneNormalsArrayPath(), dims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_SlipPlaneNormalsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_SlipPlaneNormalsPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<float>>(this, getSlipPlaneNormalsArrayPath(), dims);
+  if(nullptr != m_SlipPlaneNormalsPtr.lock())
   {
     m_SlipPlaneNormals = m_SlipPlaneNormalsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   dims[0] = 1;
   tempPath.update(getBurgersVectorsArrayPath().getDataContainerName(), getBurgersVectorsArrayPath().getAttributeMatrixName(), getDislocationIdsArrayName());
   m_DislocationIdsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, dims, "", DataArrayID31);
-  if(nullptr != m_DislocationIdsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_DislocationIdsPtr.lock())
   {
     m_DislocationIds = m_DislocationIdsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
   tempPath.update(getBurgersVectorsArrayPath().getDataContainerName(), getEdgeFeatureAttributeMatrixName(), getActiveArrayName());
   m_ActivePtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<bool>>(this, tempPath, true, dims, "", DataArrayID32);
-  if(nullptr != m_ActivePtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_ActivePtr.lock())
   {
     m_Active = m_ActivePtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

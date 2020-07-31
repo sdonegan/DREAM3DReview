@@ -144,8 +144,8 @@ void CombineStlFiles::dataCheck()
 
   std::vector<size_t> cDims(1, 3);
   DataArrayPath path(getTriangleDataContainerName(), getFaceAttributeMatrixName(), getFaceNormalsArrayName());
-  m_FaceNormalsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, path, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_FaceNormalsPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_FaceNormalsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, path, 0, cDims);
+  if(nullptr != m_FaceNormalsPtr.lock().get())
   {
     m_FaceNormals = m_FaceNormalsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

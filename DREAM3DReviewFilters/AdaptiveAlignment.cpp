@@ -209,9 +209,8 @@ void AdaptiveAlignment::dataCheck()
       numImageComp = iDataArray->getNumberOfComponents();
     }
     std::vector<size_t> cDims(1, numImageComp);
-    m_ImageDataPtr =
-        getDataContainerArray()->getPrereqArrayFromPath<DataArray<uint8_t>>(this, getImageDataArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_ImageDataPtr.lock())                                                                           /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_ImageDataPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<uint8_t>>(this, getImageDataArrayPath(), cDims);
+    if(nullptr != m_ImageDataPtr.lock())
     {
       m_ImageData = m_ImageDataPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -241,9 +240,8 @@ void AdaptiveAlignment::create_array_for_flattened_image()
   std::vector<size_t> cDims(1, 1);
   DataArrayPath tempPath;
   tempPath.update(getImageDataArrayPath().getDataContainerName(), getImageDataArrayPath().getAttributeMatrixName(), "tempFlatImageDataName");
-  m_FlatImageDataPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<AnisotropyConstants::DefaultPixelType>>(
-      this, tempPath, 0, cDims);           /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_FlatImageDataPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_FlatImageDataPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<AnisotropyConstants::DefaultPixelType>>(this, tempPath, 0, cDims);
+  if(nullptr != m_FlatImageDataPtr.lock())
   {
     m_FlatImageData = m_FlatImageDataPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

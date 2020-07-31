@@ -101,7 +101,7 @@ void InterpolatePointCloudToRegularGrid::setupFilterParameters()
   }
   parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
   {
-    DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int64, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
+    DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::SizeT, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
     parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
@@ -354,9 +354,8 @@ void InterpolatePointCloudToRegularGrid::dataCheck()
     }
   }
 
-  m_VoxelIndicesPtr =
-      getDataContainerArray()->getPrereqArrayFromPath<DataArray<size_t>>(this, getVoxelIndicesArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_VoxelIndicesPtr.lock().get())                                                                    /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_VoxelIndicesPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<size_t>>(this, getVoxelIndicesArrayPath(), cDims);
+  if(nullptr != m_VoxelIndicesPtr.lock().get())
   {
     m_VoxelIndices = m_VoxelIndicesPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -367,8 +366,8 @@ void InterpolatePointCloudToRegularGrid::dataCheck()
 
   if(getUseMask())
   {
-    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_MaskPtr.lock().get())                                                                          /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
+    if(nullptr != m_MaskPtr.lock().get())
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */

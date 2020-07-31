@@ -121,8 +121,8 @@ void LaplacianSmoothPointCloud::dataCheck()
   if(getUseMask() == true)
   {
     std::vector<size_t> cDims(1, 1);
-    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_MaskPtr.lock().get())                                                                          /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_MaskPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<bool>>(this, getMaskArrayPath(), cDims);
+    if(nullptr != m_MaskPtr.lock().get())
     {
       m_Mask = m_MaskPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */

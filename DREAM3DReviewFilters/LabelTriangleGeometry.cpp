@@ -79,7 +79,7 @@ void LabelTriangleGeometry::updateTriangleInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_RegionIdPtr.lock().get())
   {
     m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -107,8 +107,8 @@ void LabelTriangleGeometry::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
   tempPath.update(getCADDataContainerName().getDataContainerName(), getTriangleAttributeMatrixName(), getRegionIdArrayName());
-  m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
+  if(nullptr != m_RegionIdPtr.lock().get())
   {
     m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

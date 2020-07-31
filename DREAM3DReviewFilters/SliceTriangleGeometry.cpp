@@ -127,11 +127,11 @@ void SliceTriangleGeometry::updateEdgeInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_SliceIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_SliceIdPtr.lock().get())
   {
     m_SliceId = m_SliceIdPtr.lock()->getPointer(0);
   }                                         /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_RegionIdPtr.lock().get())
   {
     m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -145,11 +145,11 @@ void SliceTriangleGeometry::updateSliceInstancePointers()
   clearErrorCode();
   clearWarningCode();
 
-  if(nullptr != m_AreaPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_AreaPtr.lock().get())
   {
     m_Area = m_AreaPtr.lock()->getPointer(0);
   }                                          /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_PerimeterPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  if(nullptr != m_PerimeterPtr.lock().get())
   {
     m_Perimeter = m_PerimeterPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -197,9 +197,8 @@ void SliceTriangleGeometry::dataCheck()
   std::vector<size_t> cDims(1, 1);
   if(m_HaveRegionIds)
   {
-    m_TriRegionIdPtr =
-        getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>>(this, getRegionIdArrayPath(), cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_TriRegionIdPtr.lock().get())                                                                  /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_TriRegionIdPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>>(this, getRegionIdArrayPath(), cDims);
+    if(nullptr != m_TriRegionIdPtr.lock().get())
     {
       m_TriRegionId = m_TriRegionIdPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -209,8 +208,8 @@ void SliceTriangleGeometry::dataCheck()
     }
 
     tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getRegionIdArrayPath().getDataArrayName());
-    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-    if(nullptr != m_RegionIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
+    if(nullptr != m_RegionIdPtr.lock().get())
     {
       m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
     } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -221,8 +220,8 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getSliceIdArrayName());
-  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_SliceIdPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
+  if(nullptr != m_SliceIdPtr.lock().get())
   {
     m_SliceId = m_SliceIdPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -232,8 +231,8 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getAreasArrayName());
-  m_AreaPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_AreaPtr.lock().get())                                                                          /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_AreaPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_AreaPtr.lock().get())
   {
     m_Area = m_AreaPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
@@ -243,8 +242,8 @@ void SliceTriangleGeometry::dataCheck()
   }
 
   tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getPerimetersArrayName());
-  m_PerimeterPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_PerimeterPtr.lock().get()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_PerimeterPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_PerimeterPtr.lock().get())
   {
     m_Perimeter = m_PerimeterPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */

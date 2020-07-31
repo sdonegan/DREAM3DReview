@@ -278,43 +278,43 @@ void FindLayerStatistics::dataCheck()
 
   std::vector<size_t> cDims(1, 1);
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getSelectedArrayPath().getAttributeMatrixName(), getLayerIDsArrayName());
-  m_LayerIDsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerIDsPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerIDsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerIDsPtr.lock())
   {
     m_LayerIDs = m_LayerIDsPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
 
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getLayerAttributeMatrixName(), getLayerMinArrayName());
-  m_LayerMinPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerMinPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerMinPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerMinPtr.lock())
   {
     m_LayerMin = m_LayerMinPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
 
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getLayerAttributeMatrixName(), getLayerMaxArrayName());
-  m_LayerMaxPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerMaxPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerMaxPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerMaxPtr.lock())
   {
     m_LayerMax = m_LayerMaxPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
 
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getLayerAttributeMatrixName(), getLayerAvgArrayName());
-  m_LayerAvgPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerAvgPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerAvgPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerAvgPtr.lock())
   {
     m_LayerAvg = m_LayerAvgPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
 
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getLayerAttributeMatrixName(), getLayerStdArrayName());
-  m_LayerStdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerStdPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerStdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerStdPtr.lock())
   {
     m_LayerStd = m_LayerStdPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
 
   tempPath.update(getSelectedArrayPath().getDataContainerName(), getLayerAttributeMatrixName(), getLayerVarArrayName());
-  m_LayerVarPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims); /* Assigns the shared_ptr<> to an instance variable that is a weak_ptr<> */
-  if(nullptr != m_LayerVarPtr.lock()) /* Validate the Weak Pointer wraps a non-nullptr pointer to a DataArray<T> object */
+  m_LayerVarPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
+  if(nullptr != m_LayerVarPtr.lock())
   {
     m_LayerVar = m_LayerVarPtr.lock()->getPointer(0);
   } /* Now assign the raw pointer to data from the DataArray<T> object */
