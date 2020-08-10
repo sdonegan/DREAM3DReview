@@ -8,6 +8,8 @@
 
 #include <QtCore/QTextStream>
 
+#include "H5Support/H5SupportTypeDefs.h"
+
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/CoreFilters/FileWriter.h"
 #include "SIMPLib/DataArrays/StringDataArray.h"

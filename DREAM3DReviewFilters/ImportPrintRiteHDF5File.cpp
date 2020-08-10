@@ -2,6 +2,8 @@
 
 #include <QtCore/QFileInfo>
 
+#include "H5Support/QH5Lite.h"
+
 #include "H5Support/H5ScopedSentinel.h"
 #include "H5Support/QH5Utilities.h"
 #include "SIMPLib/Common/Constants.h"
@@ -14,6 +16,7 @@
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
 #include "SIMPLib/Geometry/VertexGeom.h"
+#include "SIMPLib/HDF5/H5DataArrayReader.h"
 #include "SIMPLib/Math/SIMPLibMath.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
