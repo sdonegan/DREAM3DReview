@@ -178,7 +178,7 @@ protected:
    * @param xneedshifts
    * @param yneedshifts
    */
-  virtual void find_shifts(std::vector<int64_t>& xshifts, std::vector<int64_t>& yshifts, std::vector<float>& xneedshifts, std::vector<float>& yneedshifts);
+  void find_shifts(std::vector<int64_t>& xshifts, std::vector<int64_t>& yshifts, std::vector<float>& xneedshifts, std::vector<float>& yneedshifts) override;
 
   /**
    * @brief compute_error1 Determines error between the current and desired shifts

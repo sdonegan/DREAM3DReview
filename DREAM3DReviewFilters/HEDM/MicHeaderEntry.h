@@ -162,7 +162,7 @@ public:
     m_value = value;
   }
 
-  void parseValue(std::string& value)
+  void parseValue(std::string& value) override
   {
     m_value = value;
   }

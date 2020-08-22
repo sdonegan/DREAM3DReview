@@ -277,13 +277,13 @@ protected:
    * @brief readHeader
    * @return
    */
-  virtual int readHeader();
+  int readHeader() override;
 
   /**
    * @brief readFile
    * @return
    */
-  virtual int readFile();
+  int readFile() override;
 
   /**
    * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
