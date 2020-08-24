@@ -278,7 +278,7 @@ void ImportPrintRiteHDF5File::dataCheck()
     return;
   }
 
-  H5ScopedFileSentinel sentinel(&fileId, true);
+  H5ScopedFileSentinel sentinel(fileId, true);
 
   size_t totalHFVertices = 0;
   size_t tmpHFVerts = 0;
@@ -494,7 +494,7 @@ void ImportPrintRiteHDF5File::execute()
     return;
   }
 
-  H5ScopedFileSentinel sentinel(&fileId, true);
+  H5ScopedFileSentinel sentinel(fileId, true);
 
   // TODO: the following needs to be checked up in data check
 

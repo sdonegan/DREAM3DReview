@@ -203,7 +203,7 @@ void ImportMASSIFData::dataCheck()
     QString parentPath = QH5Utilities::getParentPath(hdf5ArrayPath);
 
     hid_t parentId = QH5Utilities::openHDF5Object(fileId, parentPath);
-    H5ScopedGroupSentinel sentinel(&parentId, false);
+    H5ScopedGroupSentinel sentinel(parentId, false);
     // Read dataset into DREAM.3D structure
     QString objectName = QH5Utilities::getObjectNameFromPath(hdf5ArrayPath);
     std::vector<size_t> geometryDims = {geoDims[0], geoDims[1], geoDims[2]};
@@ -310,7 +310,7 @@ void ImportMASSIFData::getDataContainerGeometry(std::vector<size_t>& tDims, Floa
     return;
   }
 
-  H5ScopedFileSentinel sentinel(&fileId, true);
+  H5ScopedFileSentinel sentinel(fileId, true);
 
   QString totalPath = MASSIFUtilitiesConstants::ImportMassifData::DCGrpName;
   hid_t gid = QH5Utilities::openHDF5Object(fileId, MASSIFUtilitiesConstants::ImportMassifData::DCGrpName);
@@ -320,7 +320,7 @@ void ImportMASSIFData::getDataContainerGeometry(std::vector<size_t>& tDims, Floa
     setErrorCondition(-3006, ss);
     return;
   }
-  sentinel.addGroupId(&gid);
+  sentinel.addGroupId(gid);
 
   // Build up the step
   m_PaddedStep = m_FilePrefix;
@@ -334,7 +334,7 @@ void ImportMASSIFData::getDataContainerGeometry(std::vector<size_t>& tDims, Floa
     setErrorCondition(-3007, ss);
     return;
   }
-  sentinel.addGroupId(&stepGid);
+  sentinel.addGroupId(stepGid);
 
   totalPath.append("/" + MASSIFUtilitiesConstants::ImportMassifData::GeometryGrpName);
   hid_t geoGid = QH5Utilities::openHDF5Object(stepGid, MASSIFUtilitiesConstants::ImportMassifData::GeometryGrpName);
@@ -344,7 +344,7 @@ void ImportMASSIFData::getDataContainerGeometry(std::vector<size_t>& tDims, Floa
     setErrorCondition(-3007, ss);
     return;
   }
-  sentinel.addGroupId(&geoGid);
+  sentinel.addGroupId(geoGid);
 
   herr_t err = QH5Lite::readPointerDataset(geoGid, MASSIFUtilitiesConstants::ImportMassifData::DimGrpName, tDims.data());
   if(err < 0)

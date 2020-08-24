@@ -218,7 +218,7 @@ void FFTHDFWriterFilter::execute()
   }
 
   // This will make sure if we return early from this method that the HDF5 File is properly closed.
-  H5ScopedFileSentinel scopedFileSentinel(&m_FileId, true);
+  H5ScopedFileSentinel scopedFileSentinel(m_FileId, true);
 
   // Create DataContainer group!
 
@@ -231,7 +231,7 @@ void FFTHDFWriterFilter::execute()
   }
 
   hid_t dcaGid = H5Gopen(m_FileId, SIMPL::StringConstants::DataContainerGroupName.toLatin1().data(), H5P_DEFAULT);
-  scopedFileSentinel.addGroupId(&dcaGid);
+  scopedFileSentinel.addGroupId(dcaGid);
 
   AttributeMatrix::Pointer attrMat = getDataContainerArray()->getAttributeMatrix(m_FeatureIdsArrayPath);
   std::vector<size_t> tDims = attrMat->getTupleDimensions();
