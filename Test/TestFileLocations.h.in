@@ -1,6 +1,7 @@
 #pragma once
 
 // clang-format off
+#include <cstdint>
 #include <QtCore/QString>
 
 #define REMOVE_TEST_FILES 1
@@ -12,48 +13,47 @@
  *
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  */
 
-
 namespace UnitTest
 {
-  const QString DataDir("@DREAM3D_DATA_DIR@");
-  const QString DREAM3DProjDir("@DREAM3DProj_SOURCE_DIR@");
-  const QString TestTempDir("@TEST_TEMP_DIR@");
-  const QString PluginSourceDir("@DREAM3DReview_SOURCE_DIR@");
-  const QString PluginName("@PLUGIN_NAME@");
-  
+  inline const QString DataDir("@DREAM3D_DATA_DIR@");
+  inline const QString DREAM3DProjDir("@DREAM3DProj_SOURCE_DIR@");
+  inline const QString TestTempDir("@TEST_TEMP_DIR@");
+  inline const QString PluginSourceDir("@DREAM3DReview_SOURCE_DIR@");
+  inline const QString PluginName("@PLUGIN_NAME@");
+
   namespace FFTHDFWriterFilterTest
   {
-    const QString TestFile1("@TEST_TEMP_DIR@/TestFile1.txt");
-    const QString TestFile2("@TEST_TEMP_DIR@/TestFile2.txt");
+    inline const QString TestFile1("@TEST_TEMP_DIR@/TestFile1.txt");
+    inline const QString TestFile2("@TEST_TEMP_DIR@/TestFile2.txt");
   }
-  
+
   namespace HEDMAnalysisFilterTest
   {
-    const QString TestFile1("@TEST_TEMP_DIR@/TestFile1.txt");
-    const QString TestFile2("@TEST_TEMP_DIR@/TestFile2.txt");
+    inline const QString TestFile1("@TEST_TEMP_DIR@/TestFile1.txt");
+    inline const QString TestFile2("@TEST_TEMP_DIR@/TestFile2.txt");
   } // namespace HEDMAnalysisFilterTest
-  
+
   namespace AnisotropyTest
   {
-    const QString InputDir("@Anisotropy_Data_DIR@");
+    inline const QString InputDir("@Anisotropy_Data_DIR@");
 
-    const QString TestInput("@Anisotropy_Data_DIR@/AlMgSc.h5ebsd");
+    inline const QString TestInput("@Anisotropy_Data_DIR@/AlMgSc.h5ebsd");
 
-    const QString TestOutput1("@TEST_TEMP_DIR@/AdaptiveAlignmentFeature.txt");
-    const QString TestOutput2("@TEST_TEMP_DIR@/AdaptiveAlignmentMisorientation.txt");
-    const QString TestOutput3("@TEST_TEMP_DIR@/AdaptiveAlignmentMutualInformation.txt");
-    const QString TestOutput4("@TEST_TEMP_DIR@/SteinerCompact.vtk");
-    const QString TestOutput5("@TEST_TEMP_DIR@/SteinerCompact.txt");
+    inline const QString TestOutput1("@TEST_TEMP_DIR@/AdaptiveAlignmentFeature.txt");
+    inline const QString TestOutput2("@TEST_TEMP_DIR@/AdaptiveAlignmentMisorientation.txt");
+    inline const QString TestOutput3("@TEST_TEMP_DIR@/AdaptiveAlignmentMutualInformation.txt");
+    inline const QString TestOutput4("@TEST_TEMP_DIR@/SteinerCompact.vtk");
+    inline const QString TestOutput5("@TEST_TEMP_DIR@/SteinerCompact.txt");
+
+    inline const QString PipelineJsonFile("@TEST_TEMP_DIR@/TestPipeline.json");
+
+    inline const QString TestTifPrefix("AlMgSc-TD_");
+    inline const QString TestTifSuffix("");
+    inline const QString TestTifExtension("tif");
     
-    const QString PipelineJsonFile("@TEST_TEMP_DIR@/TestPipeline.json");
-    
-    const QString TestTifPrefix("AlMgSc-TD_");
-    const QString TestTifSuffix("");
-    const QString TestTifExtension("tif");
-    
-    const int TestTifPaddingDigits = 3;
-    const int TestTifStartIndex = 0;
-    const int TestTifEndIndex = 9;
+    inline constexpr int32_t TestTifPaddingDigits = 3;
+    inline constexpr int32_t TestTifStartIndex = 0;
+    inline constexpr int32_t TestTifEndIndex = 9;
   } // namespace AnisotropyTest
 } // namespace UnitTest
 
