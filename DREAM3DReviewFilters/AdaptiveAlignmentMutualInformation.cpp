@@ -242,9 +242,9 @@ void AdaptiveAlignmentMutualInformation::find_shifts(std::vector<int64_t>& xshif
     mindisorientation[a].resize(maxstoredshifts, std::numeric_limits<float>::max());
   }
 
-  float** mutualinfo12 = nullptr;
-  float* mutualinfo1 = nullptr;
-  float* mutualinfo2 = nullptr;
+  std::vector<std::vector<float>> mutualinfo12 = {};
+  std::vector<float> mutualinfo1 = {};
+  std::vector<float> mutualinfo2 = {};
   int32_t featurecount1 = 0, featurecount2 = 0;
   int64_t oldxshift = 0;
   int64_t oldyshift = 0;
@@ -274,14 +274,14 @@ void AdaptiveAlignmentMutualInformation::find_shifts(std::vector<int64_t>& xshif
     slice = (dims[2] - 1) - iter;
     featurecount1 = featurecounts[slice];
     featurecount2 = featurecounts[slice + 1];
-    mutualinfo12 = new float*[featurecount1];
-    mutualinfo1 = new float[featurecount1];
-    mutualinfo2 = new float[featurecount2];
+    mutualinfo12.resize(featurecount1);
+    mutualinfo1.resize(featurecount1);
+    mutualinfo2.resize(featurecount2);
 
     for(int32_t a = 0; a < featurecount1; a++)
     {
       mutualinfo1[a] = 0.0f;
-      mutualinfo12[a] = new float[featurecount2];
+      mutualinfo12[a].resize(featurecount2);
       for(int32_t b = 0; b < featurecount2; b++)
       {
         mutualinfo12[a][b] = 0.0f;
@@ -414,17 +414,6 @@ void AdaptiveAlignmentMutualInformation::find_shifts(std::vector<int64_t>& xshif
     }
     xshifts[iter] = xshifts[iter - 1] + newxshift[iter][0];
     yshifts[iter] = yshifts[iter - 1] + newyshift[iter][0];
-
-    delete[] mutualinfo1;
-    delete[] mutualinfo2;
-    for(int32_t i = 0; i < featurecount1; i++)
-    {
-      delete mutualinfo12[i];
-    }
-    delete[] mutualinfo12;
-    mutualinfo1 = nullptr;
-    mutualinfo2 = nullptr;
-    mutualinfo12 = nullptr;
   }
 
   std::vector<uint64_t> curindex(dims[2], 0);
