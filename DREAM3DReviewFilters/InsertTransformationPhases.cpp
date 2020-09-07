@@ -672,8 +672,11 @@ void InsertTransformationPhases::insertTransformationPhases()
         }
       }
       // find where the habit plane points
-      QuatF q1(m_AvgQuats + curFeature * 4);
-      OrientationTransformation::qu2om<QuatF, OrientationF>(q1).toGMatrix(g);
+      float* currentAvgQuatPtr = m_AvgQuats + curFeature * 4;
+      {
+        QuatF q1(currentAvgQuatPtr[0], currentAvgQuatPtr[1], currentAvgQuatPtr[2], currentAvgQuatPtr[3]);
+        OrientationTransformation::qu2om<QuatF, OrientationF>(q1).toGMatrix(g);
+      }
       MatrixMath::Transpose3x3(g, gT);
       MatrixMath::Multiply3x3with3x1(gT, crystalHabitPlane, sampleHabitPlane);
 

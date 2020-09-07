@@ -250,7 +250,7 @@ void AdaptiveAlignmentMisorientation::find_shifts(std::vector<int64_t>& xshifts,
   const uint64_t halfDim1 = static_cast<uint64_t>(dims[1] * 0.5f);
 
   float misorientationToleranceRad = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180;
-
+  float* currentQuatPtr = nullptr;
   // Loop over the Z Direction
   for(uint64_t iter = 1; iter < dims[2]; iter++)
   {
@@ -298,9 +298,12 @@ void AdaptiveAlignmentMisorientation::find_shifts(std::vector<int64_t>& xshifts,
                     OrientationD axisAngle(0.0, 0.0, 0.0, std::numeric_limits<double>::max());
                     if(m_CellPhases[refposition] > 0 && m_CellPhases[curposition] > 0)
                     {
-                      QuatF q1(m_Quats + refposition * 4);
+                      currentQuatPtr = m_Quats + refposition * 4;
+
+                      QuatF q1(currentQuatPtr[0], currentQuatPtr[1], currentQuatPtr[2], currentQuatPtr[3]);
                       phase1 = m_CrystalStructures[m_CellPhases[refposition]];
-                      QuatF q2(m_Quats + curposition * 4);
+                      currentQuatPtr = m_Quats + curposition * 4;
+                      QuatF q2(currentQuatPtr[0], currentQuatPtr[1], currentQuatPtr[2], currentQuatPtr[3]);
                       phase2 = m_CrystalStructures[m_CellPhases[curposition]];
                       if(phase1 == phase2 && phase1 < static_cast<uint32_t>(m_OrientationOps.size()))
                       {

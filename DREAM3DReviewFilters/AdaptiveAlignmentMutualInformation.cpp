@@ -682,6 +682,7 @@ void AdaptiveAlignmentMutualInformation::form_features_sections()
   neighpoints[3] = dims[0];
 
   uint32_t phase1 = 0, phase2 = 0;
+  float* currentQuatPtr = nullptr;
 
   for(int64_t slice = 0; slice < dims[2]; slice++)
   {
@@ -741,7 +742,8 @@ void AdaptiveAlignmentMutualInformation::form_features_sections()
           col = currentpoint % dims[0];
           row = (currentpoint / dims[0]) % dims[1];
 
-          QuatF q1(m_Quats + currentpoint * 4);
+          currentQuatPtr = m_Quats + currentpoint * 4;
+          QuatF q1(currentQuatPtr[0], currentQuatPtr[1], currentQuatPtr[2], currentQuatPtr[3]); // Copy data into Quaternion
 
           phase1 = m_CrystalStructures[m_CellPhases[currentpoint]];
           for(int32_t i = 0; i < 4; i++)
@@ -767,8 +769,8 @@ void AdaptiveAlignmentMutualInformation::form_features_sections()
             if(good && miFeatureIds[neighbor] <= 0 && m_CellPhases[neighbor] > 0)
             {
               w = std::numeric_limits<float>::max();
-
-              QuatF q2(m_Quats + neighbor * 4);
+              currentQuatPtr = m_Quats + neighbor * 4;
+              QuatF q2(currentQuatPtr[0], currentQuatPtr[1], currentQuatPtr[2], currentQuatPtr[3]); // Copy data into Quaternion
               phase2 = m_CrystalStructures[m_CellPhases[neighbor]];
               if(phase1 == phase2)
               {
