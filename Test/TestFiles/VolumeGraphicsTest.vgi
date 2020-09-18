@@ -1,0 +1,32 @@
+{volume1}
+[representation]
+size = 50 20 80
+resamplemode = not activated
+mirror = 0 0 0 0
+datatype = float
+datarange = -0.0447715 0.0782186
+bitsperelement = 32
+[file1]
+RegionOfInterestStart = 0 0 0
+RegionOfInterestEnd = 49 19 79
+FileFormat = raw
+Size = 50 20 80
+Name = VolumeGraphicsTest.vol
+Datatype = float
+datarange = -0.0447715 0.0782186
+BitsPerElement = 32
+{volumeprimitive1}
+[section1]
+min = -0.0447715
+max = 0.0782186
+offset = 0
+name = section [0]
+[geometry]
+status = visible
+relativeposition = 0 0 0
+position = -0.5 6.5 0
+resolution = 0.0563464 0.0563464 0.0563464
+scale = 1 1 1
+center = 511.5 149.5 512
+rotate = 1 0 0 0 1 0 0 0 1
+unit = mm

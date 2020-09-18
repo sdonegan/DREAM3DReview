@@ -16,33 +16,74 @@
 
 #include <tuple>
 
+#include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
 #include "SIMPLib/Common/ScopedFileMonitor.hpp"
+#include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/InputFileFilterParameter.h"
 #include "SIMPLib/FilterParameters/LinkedPathCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
-#include "SIMPLib/DataContainers/DataContainer.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+#define CREATE_BLOCK_CONST(VAR) static inline const QString k_##VAR##Block("[" #VAR "]");
+
+#define CREATE_ELEMENT_CONST(VAR) static inline const QString k_##VAR(#VAR);
+
+namespace ImportVolumeGraphicsFileConstants
+{
+static inline constexpr int32_t k_EmptyFileInput = -91500;
+static inline constexpr int32_t k_FileDoesNotExist = -91501;
+static inline constexpr int32_t k_VgiOpenError = -91502;
+static inline constexpr int32_t k_VgiParseError = -91503;
+static inline constexpr int32_t k_FileIsDirectory = -91507;
+
+static inline constexpr int32_t k_VolBinaryAllocateMismatch = -91504;
+static inline constexpr int32_t k_VolOpenError = -91505;
+static inline constexpr int32_t k_VolReadError = -91506;
+
+static inline const QString k_Millimeter("mm");
+
+CREATE_BLOCK_CONST(representation)
+
+// File Block
+CREATE_BLOCK_CONST(file1)
+
+CREATE_ELEMENT_CONST(RegionOfInterestStart)
+CREATE_ELEMENT_CONST(RegionOfInterestEnd)
+CREATE_ELEMENT_CONST(FileFormat)
+CREATE_ELEMENT_CONST(Size)
+CREATE_ELEMENT_CONST(Name)
+CREATE_ELEMENT_CONST(Datatype)
+CREATE_ELEMENT_CONST(datarange)
+CREATE_ELEMENT_CONST(BitsPerElement)
+
+// Geometry Block
+CREATE_BLOCK_CONST(geometry)
+
+CREATE_ELEMENT_CONST(status)
+CREATE_ELEMENT_CONST(relativeposition)
+CREATE_ELEMENT_CONST(position)
+CREATE_ELEMENT_CONST(resolution)
+CREATE_ELEMENT_CONST(scale)
+CREATE_ELEMENT_CONST(center)
+CREATE_ELEMENT_CONST(rotate)
+CREATE_ELEMENT_CONST(unit)
+
+} // namespace ImportVolumeGraphicsFileConstants
+
+using namespace ImportVolumeGraphicsFileConstants;
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-ImportVolumeGraphicsFile::ImportVolumeGraphicsFile()
-: m_InputFile("")
-, m_InputHeaderFile("")
-, m_DataContainerName("ImageDataContainer")
-, m_CellAttributeMatrixName("CellData")
-, m_DensityArrayName("Density")
-{
-}
+ImportVolumeGraphicsFile::ImportVolumeGraphicsFile() = default;
 
 // -----------------------------------------------------------------------------
 //
@@ -55,27 +96,13 @@ ImportVolumeGraphicsFile::~ImportVolumeGraphicsFile() = default;
 void ImportVolumeGraphicsFile::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input CT File", InputFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vol", "Voxel data"));
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input Header File", InputHeaderFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vgi", "NSI header"));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vgi File", VGHeaderFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vgi", "Volume Graphics Header"));
+  // parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vol File", VGDataFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vol", "Volume Graphics Data"));
   parameters.push_back(SIMPL_NEW_STRING_FP("Data Container", DataContainerName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
   parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
   parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
   setFilterParameters(parameters);
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void ImportVolumeGraphicsFile::readFilterParameters(AbstractFilterParametersReader* reader, int index)
-{
-  reader->openFilterGroup(this, index);
-  setInputFile(reader->readString("InputFile", getInputFile()));
-  setInputHeaderFile(reader->readString("InputHeaderFile", getInputHeaderFile()));
-  setDataContainerName(reader->readString("DataContainerName", getDataContainerName()));
-  setCellAttributeMatrixName(reader->readString("CellAttributeMatrixName", getCellAttributeMatrixName()));
-  setDensityArrayName(reader->readString("DensityArrayName", getDensityArrayName()));
-  reader->closeFilterGroup();
 }
 
 // -----------------------------------------------------------------------------
@@ -99,30 +126,22 @@ void ImportVolumeGraphicsFile::dataCheck()
   initialize();
   int32_t err = 0;
 
-  QFileInfo fi(getInputFile());
+  QFileInfo fiHdr(getVGHeaderFile());
 
-  if(getInputFile().isEmpty() == true)
+  if(getVGHeaderFile().isEmpty() == true)
   {
-    QString ss = QObject::tr("The input binary CT voxel file must be set");
-    setErrorCondition(-387, ss);
+    QString ss = QObject::tr("The Volume Graphics header file (.vgi) must be set");
+    setErrorCondition(k_EmptyFileInput, ss);
   }
-  else if(fi.exists() == false)
+  else if(fiHdr.isDir() == true)
   {
-    QString ss = QObject::tr("The input binary CT voxel file does not exist");
-    setErrorCondition(-388, ss);
-  }
-
-  QFileInfo fiHdr(getInputHeaderFile());
-
-  if(getInputHeaderFile().isEmpty() == true)
-  {
-    QString ss = QObject::tr("The input header file must be set");
-    setErrorCondition(-387, ss);
+    QString ss = QObject::tr("The file path is a directory. Please select a file with the .vgi extension. '%1'").arg(getVGHeaderFile());
+    setErrorCondition(k_FileIsDirectory, ss);
   }
   else if(fiHdr.exists() == false)
   {
-    QString ss = QObject::tr("The input header file does not exist");
-    setErrorCondition(-388, ss);
+    QString ss = QObject::tr("The Volume Graphics header file (.vgi) file does not exist. '%1'").arg(getVGHeaderFile());
+    setErrorCondition(k_FileDoesNotExist, ss);
   }
 
   if(getErrorCode() < 0)
@@ -135,23 +154,42 @@ void ImportVolumeGraphicsFile::dataCheck()
     m_InHeaderStream.close();
   }
 
-  m_InHeaderStream.setFileName(getInputHeaderFile());
+  m_InHeaderStream.setFileName(getVGHeaderFile());
 
   if(!m_InHeaderStream.open(QIODevice::ReadOnly | QIODevice::Text))
   {
-    QString ss = QObject::tr("Error opening input header file: %1").arg(getInputHeaderFile());
-    setErrorCondition(-100, ss);
+    QString ss = QObject::tr("Error opening input header file: %1").arg(getVGHeaderFile());
+    setErrorCondition(k_VgiOpenError, ss);
     return;
   }
 
   ImageGeom::Pointer image = ImageGeom::CreateGeometry(SIMPL::Geometry::ImageGeometry);
 
-  err = readHeaderMetaData(image);
+  readHeaderMetaData(image);
+  if(getErrorCode() < 0)
+  {
+    return;
+  }
+  QFileInfo fi(getVGDataFile());
+
+  if(getVGDataFile().isEmpty() == true)
+  {
+    QString ss = QObject::tr("The Volume Graphics voxel file (.vol) must be set");
+    setErrorCondition(k_EmptyFileInput, ss);
+  }
+  else if(fi.isDir() == true)
+  {
+    QString ss = QObject::tr("The file path is a directory. Please select a file with the .vgi extension. '%1'").arg(getVGDataFile());
+    setErrorCondition(k_FileIsDirectory, ss);
+  }
+  else if(fi.exists() == false)
+  {
+    QString ss = QObject::tr("The Volume Graphics voxel file (.vol) file does not exist. '%1'").arg(getVGDataFile());
+    setErrorCondition(k_FileDoesNotExist, ss);
+  }
 
   if(err < 0)
   {
-    QString ss = QObject::tr("Error reading input header file: %1").arg(getInputHeaderFile());
-    setErrorCondition(-100, ss);
     return;
   }
 
@@ -177,200 +215,7 @@ void ImportVolumeGraphicsFile::dataCheck()
   if(nullptr != m_DensityPtr.lock().get())
   {
     m_Density = m_DensityPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-int32_t ImportVolumeGraphicsFile::sanityCheckFileSizeVersusAllocatedSize(size_t allocatedBytes, size_t fileSize)
-{
-  if(fileSize < allocatedBytes)
-  {
-    return -1;
   }
-  else if(fileSize > allocatedBytes)
-  {
-    return 1;
-  }
-  // File Size and Allocated Size are equal so we  are good to go
-  return 0;
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-int32_t ImportVolumeGraphicsFile::readBinaryCTFile(size_t dims[3])
-{
-  int32_t error = 0;
-
-  QFileInfo fi(getInputFile());
-  size_t filesize = static_cast<size_t>(fi.size());
-  size_t allocatedBytes = m_DensityPtr.lock()->getSize() * sizeof(float);
-
-  error = sanityCheckFileSizeVersusAllocatedSize(allocatedBytes, filesize);
-
-  if(error < 0)
-  {
-    QString ss = QObject::tr("Binary file size is smaller than the number of allocated bytes");
-    setErrorCondition(-100, ss);
-    return getErrorCode();
-  }
-
-  FILE* f = fopen(getInputFile().toLatin1().data(), "rb");
-  if(nullptr == f)
-  {
-    QString ss = QObject::tr("Error opening binary input file: %1").arg(getInputFile());
-    setErrorCondition(-100, ss);
-    return getErrorCode();
-  }
-
-  ScopedFileMonitor monitor(f);
-
-  float* ptr = m_DensityPtr.lock()->getPointer(0);
-
-  size_t index = 0;
-  size_t totalPoints = dims[0] * dims[1] * dims[2];
-  int64_t progIncrement = static_cast<int64_t>(totalPoints / 100);
-  int64_t prog = 1;
-  int64_t progressInt = 0;
-  int64_t counter = 0;
-
-  for(size_t z = 0; z < dims[2]; z++)
-  {
-    for(size_t y = 0; y < dims[1]; y++)
-    {
-      for(size_t x = 0; x < dims[0]; x++)
-      {
-        // Compute the proper index into the final storage array
-        index = (dims[0] * dims[1] * z) + (dims[0] * (dims[1] - y - 1)) + (dims[0] - x - 1);
-        std::ignore = fread(ptr + index, sizeof(float), 1, f);
-
-        // Check for progress
-        if(counter > prog)
-        {
-          progressInt = static_cast<int64_t>((static_cast<float>(counter) / totalPoints) * 100.0f);
-          QString ss = QObject::tr("Reading Data || %1% Completed").arg(progressInt);
-          notifyStatusMessage(ss);
-          prog = prog + progIncrement;
-        }
-        counter++;
-      }
-    }
-  }
-
-  return error;
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-int32_t ImportVolumeGraphicsFile::readHeaderMetaData(ImageGeom::Pointer image)
-{
-  int32_t error = 0;
-
-  QByteArray buf;
-  QList<QByteArray> tokens;
-  bool ok = false;
-
-  size_t dims[3] = {0, 0, 0};
-  float res[3] = {0.0, 0.0, 0.0};
-  bool done = false;
-
-  while(m_InHeaderStream.atEnd() == false && done == false)
-  {
-    buf = m_InHeaderStream.readLine();
-    buf = buf.trimmed();
-    tokens = buf.split(' ');
-    for(qint32 i = 0; i < tokens.size(); i++)
-    {
-      if(tokens[i] == "[representation]")
-      {
-        buf = m_InHeaderStream.readLine();
-        buf = buf.trimmed();
-        tokens = buf.split(' ');
-        for(qint32 j = 0; j < tokens.size(); j++)
-        {
-          if(tokens[j] == "size")
-          {
-            dims[0] = tokens[j + 2].toULongLong(&ok);
-            if(!ok)
-            {
-              return -1;
-            }
-            dims[1] = tokens[j + 3].toULongLong(&ok);
-            if(!ok)
-            {
-              return -1;
-            }
-            dims[2] = tokens[j + 4].toULongLong(&ok);
-            if(!ok)
-            {
-              return -1;
-            }
-            done = true;
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  m_InHeaderStream.reset();
-  done = false;
-
-  while(m_InHeaderStream.atEnd() == false && done == false)
-  {
-    buf = m_InHeaderStream.readLine();
-    buf = buf.trimmed();
-    tokens = buf.split(' ');
-    for(qint32 i = 0; i < tokens.size(); i++)
-    {
-      if(tokens[i] == "[geometry]")
-      {
-        bool done2 = false;
-        while(m_InHeaderStream.atEnd() == false && done2 == false)
-        {
-          buf = m_InHeaderStream.readLine();
-          buf = buf.trimmed();
-          tokens = buf.split(' ');
-          for(qint32 j = 0; j < tokens.size(); j++)
-          {
-            if(tokens[j] == "resolution")
-            {
-              res[0] = tokens[j + 2].toFloat(&ok);
-              if(!ok)
-              {
-                return -1;
-              }
-              res[1] = tokens[j + 3].toFloat(&ok);
-              if(!ok)
-              {
-                return -1;
-              }
-              res[2] = tokens[j + 4].toFloat(&ok);
-              if(!ok)
-              {
-                return -1;
-              }
-              done2 = true;
-              break;
-            }
-          }
-        }
-        if(done2 == true)
-        {
-          done = true;
-          break;
-        }
-      }
-    }
-  }
-
-  image->setDimensions(dims);
-  image->setSpacing(res);
-
-  return error;
 }
 
 // -----------------------------------------------------------------------------
@@ -386,21 +231,321 @@ void ImportVolumeGraphicsFile::execute()
     return;
   }
 
-  int32_t err = 0;
-
-  ImageGeom::Pointer image = getDataContainerArray()->getDataContainer(getDataContainerName())->getGeometryAs<ImageGeom>();
-
-  SizeVec3Type dims = image->getDimensions();
-
-  err = readBinaryCTFile(dims.data());
-
+  int32_t err = readVolFile();
   if(err < 0)
   {
     QString ss = QObject::tr("Error reading binary input file");
-    setErrorCondition(-100, ss);
+    setErrorCondition(k_VolReadError, ss);
   }
 
   notifyStatusMessage("Complete");
+}
+
+// -----------------------------------------------------------------------------
+int32_t ImportVolumeGraphicsFile::readVolFile()
+{
+  ImageGeom::Pointer image = getDataContainerArray()->getDataContainer(getDataContainerName())->getGeometryAs<ImageGeom>();
+  int32_t error = 0;
+
+  QFileInfo fi(getVGDataFile());
+
+  size_t filesize = static_cast<size_t>(fi.size());
+  FloatArrayType& density = *(m_DensityPtr.lock().get());
+  size_t allocatedBytes = density.getSize() * sizeof(float);
+
+  if(filesize < allocatedBytes)
+  {
+    QString ss = QObject::tr("Binary file size is smaller than the number of allocated bytes");
+    setErrorCondition(k_VolBinaryAllocateMismatch, ss);
+    return getErrorCode();
+  }
+
+  FILE* f = fopen(getVGDataFile().toLatin1().data(), "rb");
+  if(nullptr == f)
+  {
+    QString ss = QObject::tr("Error opening binary input file: %1").arg(getVGDataFile());
+    setErrorCondition(k_VolOpenError, ss);
+    return getErrorCode();
+  }
+  ScopedFileMonitor monitor(f);
+
+  QString ss = QObject::tr("Reading Data from .vol File.....");
+  notifyStatusMessage(ss);
+  if(fread(density.getTuplePointer(0), 1, filesize, f) != filesize)
+  {
+    QString ss = QObject::tr("Error Reading .vol file. Not enough bytes read....");
+    setErrorCondition(k_VolReadError, ss);
+    return getErrorCode();
+  }
+
+  return error;
+}
+
+// -----------------------------------------------------------------------------
+SizeVec3Type ParseSizeVec3(ImportVolumeGraphicsFile* filter, const QList<QByteArray>& tokens)
+{
+  SizeVec3Type vec = {0, 0, 0};
+  bool ok = false;
+
+  vec[0] = tokens[2].toULongLong(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing size_t values from vgi file.");
+    return {0, 0, 0};
+  }
+  vec[1] = tokens[3].toULongLong(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing size_t values from vgi file.");
+    return {0, 0, 0};
+  }
+  vec[2] = tokens[4].toULongLong(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing size_t values from vgi file.");
+    return {0, 0, 0};
+  }
+
+  return vec;
+}
+
+// -----------------------------------------------------------------------------
+FloatVec2Type ParseFloatVec2(ImportVolumeGraphicsFile* filter, const QList<QByteArray>& tokens)
+{
+  FloatVec2Type vec = {0.0F, 0.0F};
+  bool ok = false;
+
+  vec[0] = tokens[2].toFloat(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+    return {0.0F, 0.0F};
+  }
+  vec[1] = tokens[3].toFloat(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+    return {0.0F, 0.0F};
+  }
+
+  return vec;
+}
+
+// -----------------------------------------------------------------------------
+FloatVec3Type ParseFloatVec3(ImportVolumeGraphicsFile* filter, const QList<QByteArray>& tokens)
+{
+  FloatVec3Type vec = {0.0F, 0.0F, 0.0F};
+  bool ok = false;
+
+  vec[0] = tokens[2].toFloat(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+    return {0.0F, 0.0F, 0.0F};
+  }
+  vec[1] = tokens[3].toFloat(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+    return {0.0F, 0.0F, 0.0F};
+  }
+  vec[2] = tokens[4].toFloat(&ok);
+  if(!ok)
+  {
+    filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+    return {0.0F, 0.0F, 0.0F};
+  }
+
+  return vec;
+}
+
+// -----------------------------------------------------------------------------
+template <typename T, size_t Dimension = 9>
+std::array<T, Dimension> ParseFloatArray(ImportVolumeGraphicsFile* filter, const QList<QByteArray>& tokens)
+{
+  std::array<T, Dimension> vec;
+  bool ok = false;
+
+  for(size_t i = 0; i < Dimension; i++)
+  {
+    vec[i] = tokens[i + 2].toFloat(&ok);
+    if(!ok)
+    {
+      filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+      return {};
+    }
+  }
+
+  return vec;
+}
+
+// -----------------------------------------------------------------------------
+template <typename T, size_t Dimension = 9>
+std::array<T, Dimension> ParseIntArray(ImportVolumeGraphicsFile* filter, const QList<QByteArray>& tokens)
+{
+  std::array<T, Dimension> vec;
+  bool ok = false;
+
+  for(size_t i = 0; i < Dimension; i++)
+  {
+    vec[i] = tokens[i + 2].toFloat(&ok);
+    if(!ok)
+    {
+      filter->setErrorCondition(k_VgiParseError, "Error parsing float values from vgi file.");
+      return {};
+    }
+  }
+
+  return vec;
+}
+
+// -----------------------------------------------------------------------------
+ImportVolumeGraphicsFile::FileBlock ParseFileBlock(ImportVolumeGraphicsFile* filter, QFile& in)
+{
+  ImportVolumeGraphicsFile::FileBlock fileBlock;
+
+  int64_t currentPos = in.pos();
+  QByteArray buf = in.readLine();
+  buf = buf.trimmed();
+  QList<QByteArray> tokens;
+  bool ok = false;
+
+  while(buf[0] != '[' && in.atEnd() == false)
+  {
+    tokens = buf.split(' ');
+    if(tokens[0] == k_RegionOfInterestStart)
+    {
+      fileBlock.RegionOfInterestStart = ParseSizeVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_RegionOfInterestEnd)
+    {
+      fileBlock.RegionOfInterestEnd = ParseSizeVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_FileFormat)
+    {
+      fileBlock.FileFormat = tokens[2].toStdString();
+    }
+    else if(tokens[0] == k_Size)
+    {
+      fileBlock.Size = ParseSizeVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_Name)
+    {
+      fileBlock.Name = tokens[2].toStdString();
+    }
+    else if(tokens[0] == k_Datatype)
+    {
+      fileBlock.Datatype = tokens[2].toStdString();
+    }
+    else if(tokens[0] == k_datarange)
+    {
+      fileBlock.datarange = ParseFloatVec2(filter, tokens);
+    }
+    else if(tokens[0] == k_BitsPerElement)
+    {
+      fileBlock.BitsPerElement = tokens[2].toInt(&ok);
+    }
+
+    currentPos = in.pos();
+    buf = in.readLine(); // Read the next line
+    buf = buf.trimmed();
+  }
+  in.seek(currentPos); // Put the file position back before the last read.
+  return fileBlock;
+}
+
+// -----------------------------------------------------------------------------
+ImportVolumeGraphicsFile::GeometryBlock ParseGeometryBlock(ImportVolumeGraphicsFile* filter, QFile& in)
+{
+  ImportVolumeGraphicsFile::GeometryBlock block;
+
+  int64_t currentPos = in.pos();
+  QByteArray buf = in.readLine();
+  buf = buf.trimmed();
+  QList<QByteArray> tokens;
+
+  while(buf[0] != '[' && in.atEnd() == false)
+  {
+    tokens = buf.split(' ');
+    if(tokens[0] == k_status)
+    {
+      block.status = tokens[2].toStdString();
+    }
+    else if(tokens[0] == k_relativeposition)
+    {
+      block.relativeposition = ParseFloatVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_position)
+    {
+      block.position = ParseFloatVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_resolution)
+    {
+      block.resolution = ParseFloatVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_scale)
+    {
+      block.scale = ParseFloatVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_center)
+    {
+      block.center = ParseFloatVec3(filter, tokens);
+    }
+    else if(tokens[0] == k_rotate)
+    {
+      block.rotate = ParseIntArray<int32_t, 9>(filter, tokens);
+    }
+    else if(tokens[0] == k_unit)
+    {
+      block.unit = tokens[2].toStdString();
+    }
+    currentPos = in.pos();
+    buf = in.readLine(); // Read the next line
+    buf = buf.trimmed();
+  }
+  in.seek(currentPos); // Put the file position back before the last read.
+  return block;
+}
+
+// -----------------------------------------------------------------------------
+void ImportVolumeGraphicsFile::readHeaderMetaData(ImageGeom::Pointer image)
+{
+  QByteArray buf;
+  SizeVec3Type dims = {0, 0, 0};
+  FloatVec3Type res = {0.0, 0.0, 0.0};
+  FileBlock fileBlock;
+  GeometryBlock geomBlock;
+
+  while(m_InHeaderStream.atEnd() == false)
+  {
+    buf = m_InHeaderStream.readLine();
+    buf = buf.trimmed();
+
+    if(buf == k_file1Block)
+    {
+      fileBlock = ParseFileBlock(this, m_InHeaderStream);
+      dims = fileBlock.Size;
+    }
+
+    else if(buf == k_geometryBlock)
+    {
+      geomBlock = ParseGeometryBlock(this, m_InHeaderStream);
+      res = geomBlock.resolution;
+    }
+  }
+
+  m_InHeaderStream.reset();
+
+  image->setDimensions(dims);
+  image->setSpacing(res);
+  if(geomBlock.unit == k_Millimeter.toStdString())
+  {
+    image->setUnits(IGeometry::LengthUnit::Millimeter);
+  }
+
+  // Set the input .vol file from the header part.
+  QFileInfo fiHdr(getVGHeaderFile());
+  setVGDataFile(fiHdr.absolutePath() + QDir::separator() + QString::fromStdString(fileBlock.Name));
 }
 
 // -----------------------------------------------------------------------------
@@ -464,7 +609,7 @@ QString ImportVolumeGraphicsFile::getSubGroupName() const
 // -----------------------------------------------------------------------------
 QString ImportVolumeGraphicsFile::getHumanLabel() const
 {
-  return "Import Binary CT File (XRadia)";
+  return "Import Volume Graphics File (.vgi/.vol)";
 }
 
 // -----------------------------------------------------------------------------
@@ -505,27 +650,27 @@ QString ImportVolumeGraphicsFile::ClassName()
 }
 
 // -----------------------------------------------------------------------------
-void ImportVolumeGraphicsFile::setInputFile(const QString& value)
+void ImportVolumeGraphicsFile::setVGDataFile(const QString& value)
 {
-  m_InputFile = value;
+  m_VGDataFile = value;
 }
 
 // -----------------------------------------------------------------------------
-QString ImportVolumeGraphicsFile::getInputFile() const
+QString ImportVolumeGraphicsFile::getVGDataFile() const
 {
-  return m_InputFile;
+  return m_VGDataFile;
 }
 
 // -----------------------------------------------------------------------------
-void ImportVolumeGraphicsFile::setInputHeaderFile(const QString& value)
+void ImportVolumeGraphicsFile::setVGHeaderFile(const QString& value)
 {
-  m_InputHeaderFile = value;
+  m_VGHeaderFile = value;
 }
 
 // -----------------------------------------------------------------------------
-QString ImportVolumeGraphicsFile::getInputHeaderFile() const
+QString ImportVolumeGraphicsFile::getVGHeaderFile() const
 {
-  return m_InputHeaderFile;
+  return m_VGHeaderFile;
 }
 
 // -----------------------------------------------------------------------------

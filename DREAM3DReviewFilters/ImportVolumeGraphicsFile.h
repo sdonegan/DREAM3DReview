@@ -34,7 +34,11 @@ class DREAM3DReview_EXPORT ImportVolumeGraphicsFile : public AbstractFilter
   PYB11_BEGIN_BINDINGS(ImportVolumeGraphicsFile SUPERCLASS AbstractFilter)
   PYB11_SHARED_POINTERS(ImportVolumeGraphicsFile)
   PYB11_FILTER_NEW_MACRO(ImportVolumeGraphicsFile)
-  // TODO: Fill out the python bindings
+  PYB11_PROPERTY(QString VGHeaderFile READ getVGHeaderFile WRITE setVGHeaderFile)
+  PYB11_PROPERTY(QString DataContainerName READ getDataContainerName WRITE setDataContainerName)
+  PYB11_PROPERTY(QString CellAttributeMatrixName READ getCellAttributeMatrixName WRITE setCellAttributeMatrixName)
+  PYB11_PROPERTY(QString DensityArrayName READ getDensityArrayName WRITE setDensityArrayName)
+  PYB11_METHOD(QString getVGDataFile)
   PYB11_END_BINDINGS()
   // End Python bindings declarations
 public:
@@ -58,27 +62,59 @@ public:
 
   ~ImportVolumeGraphicsFile() override;
 
-  /**
-   * @brief Setter property for InputFile
-   */
-  void setInputFile(const QString& value);
-  /**
-   * @brief Getter property for InputFile
-   * @return Value of InputFile
-   */
-  QString getInputFile() const;
-  Q_PROPERTY(QString InputFile READ getInputFile WRITE setInputFile)
+  struct RepresentationBlock
+  {
+    SizeVec3Type size = {0, 0, 0};
+    std::string resamplemode;
+    FloatVec4Type mirror = {0.0F, 0.0F, 0.0F, 0.0F};
+    std::string dataType;
+    FloatVec2Type dataRange = {0.0F, 0.0F};
+    int8_t bitsPerElement = {0};
+  };
+  struct FileBlock
+  {
+    SizeVec3Type RegionOfInterestStart = {0, 0, 0};
+    SizeVec3Type RegionOfInterestEnd = {0, 0, 0};
+    std::string FileFormat = "raw";
+    SizeVec3Type Size = {0, 0, 0};
+    std::string Name = "AS_N610_02.vol";
+    std::string Datatype = "float";
+    FloatVec2Type datarange = {0.0F, 0.0F};
+    int8_t BitsPerElement = 32;
+  };
+  struct GeometryBlock
+  {
+    std::string status = "visible";
+    FloatVec3Type relativeposition = {0.0F, 0.0F, 0.0F};
+    FloatVec3Type position = {0.0F, 0.0F, 0.0F};
+    FloatVec3Type resolution = {0.0F, 0.0F, 0.0F};
+    FloatVec3Type scale = {1.0F, 1.0F, 1.0F};
+    FloatVec3Type center = {0.0F, 0.0F, 0.0F};
+    std::array<int32_t, 9> rotate = {1, 0, 0, 0, 1, 0, 0, 0, 1};
+    std::string unit = "mm";
+  };
 
   /**
-   * @brief Setter property for InputHeaderFile
+   * @brief Setter property for VGDataFile
    */
-  void setInputHeaderFile(const QString& value);
+  void setVGDataFile(const QString& value);
   /**
-   * @brief Getter property for InputHeaderFile
-   * @return Value of InputHeaderFile
+   * @brief Getter property for VGDataFile
+   * @return Value of VGDataFile
    */
-  QString getInputHeaderFile() const;
-  Q_PROPERTY(QString InputHeaderFile READ getInputHeaderFile WRITE setInputHeaderFile)
+  QString getVGDataFile() const;
+  Q_PROPERTY(QString VGDataFile READ getVGDataFile WRITE setVGDataFile)
+
+  /**
+   * @brief Setter property for VGHeaderFile
+   */
+  void setVGHeaderFile(const QString& value);
+  /**
+   * @brief Getter property for VGHeaderFile
+   * @return Value of VGHeaderFile
+   */
+  QString getVGHeaderFile() const;
+  Q_PROPERTY(QString VGHeaderFile READ getVGHeaderFile WRITE setVGHeaderFile)
 
   /**
    * @brief Setter property for DataContainerName
@@ -158,11 +194,6 @@ public:
   void setupFilterParameters() override;
 
   /**
-   * @brief readFilterParameters Reimplemented from @see AbstractFilter class
-   */
-  void readFilterParameters(AbstractFilterParametersReader* reader, int index) override;
-
-  /**
    * @brief execute Reimplemented from @see AbstractFilter class
    */
   void execute() override;
@@ -177,26 +208,25 @@ protected:
   ImportVolumeGraphicsFile();
 
   /**
-   * @brief sanityCheckFileSizeVersusAllocatedSize Ensures the allocated array and the raw
-   * binary file have the same number of bytes
-   * @param allocatedBytes Number of bytes allocated
-   * @param fileSize Size of the raw binary file
-   * @return Integer error code
-   */
-  int32_t sanityCheckFileSizeVersusAllocatedSize(size_t allocatedBytes, size_t fileSize);
-
-  /**
    * @brief readBinaryCTFile Reads the raw binary CT file
    * @return Integer error code
    */
-  int32_t readBinaryCTFile(size_t dims[3]);
+  int32_t readVolFile();
 
   /**
    * @brief readHeaderMetaData Reads the number of voxels and voxel extents
    * from the NSI header file
    * @return Integer error code
    */
-  int32_t readHeaderMetaData(ImageGeom::Pointer image);
+  void readHeaderMetaData(ImageGeom::Pointer image);
+
+  /**
+   * @brief parseDimensions
+   * @param in
+   * @return
+   */
+  SizeVec3Type parseDimensions(QFile& in);
+
   /**
    * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
    */
@@ -211,11 +241,11 @@ private:
   std::weak_ptr<DataArray<float>> m_DensityPtr;
   float* m_Density = nullptr;
 
-  QString m_InputFile = {};
-  QString m_InputHeaderFile = {};
-  QString m_DataContainerName = {};
-  QString m_CellAttributeMatrixName = {};
-  QString m_DensityArrayName = {};
+  QString m_VGDataFile = {};
+  QString m_VGHeaderFile = {};
+  QString m_DataContainerName = {"VolumeGraphics"};
+  QString m_CellAttributeMatrixName = {"CT Data"};
+  QString m_DensityArrayName = {"Density"};
 
   QFile m_InHeaderStream;
   QFile m_InStream;
