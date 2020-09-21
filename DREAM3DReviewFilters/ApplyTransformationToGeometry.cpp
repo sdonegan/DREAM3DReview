@@ -1,5 +1,5 @@
 /* ============================================================================
- * Copyright (c) 2009-2016 BlueQuartz Software, LLC
+ * Copyright (c) 2009-2020 BlueQuartz Software, LLC
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -39,6 +39,7 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
+#include "SIMPLib/Common/SIMPLRange.h"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
@@ -51,13 +52,72 @@
 #include "SIMPLib/Geometry/IGeometry3D.h"
 #include "SIMPLib/Geometry/VertexGeom.h"
 #include "SIMPLib/Math/SIMPLibMath.h"
+#include "SIMPLib/Utilities/ParallelDataAlgorithm.h"
 
 #include "EbsdLib/Core/Orientation.hpp"
 #include "EbsdLib/Core/OrientationTransformation.hpp"
-#include "EbsdLib/Core/Quaternion.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
+
+namespace ApplyTransformationProgress
+{
+static size_t s_InstanceIndex = 0;
+static std::map<size_t, int64_t> s_ProgressValues;
+static std::map<size_t, int64_t> s_LastProgressInt;
+} // namespace ApplyTransformationProgress
+
+class ApplyTransformationToGeometryImpl
+{
+
+public:
+  ApplyTransformationToGeometryImpl(ApplyTransformationToGeometry& filter, float* transformationMatrix, const SharedVertexList::Pointer verticesPtr)
+  : m_Filter(filter)
+  , m_TransformationMatrix(transformationMatrix)
+  , m_Vertices(verticesPtr)
+  {
+  }
+  ~ApplyTransformationToGeometryImpl() = default;
+
+  void convert(size_t start, size_t end) const
+  {
+    using ProjectiveMatrix = Eigen::Matrix<float, 4, 4, Eigen::RowMajor>;
+    Eigen::Map<ProjectiveMatrix> transformation(m_TransformationMatrix);
+
+    int64_t progCounter = 0;
+    int64_t totalElements = (end - start);
+    int64_t progIncrement = static_cast<int64_t>(totalElements / 100);
+
+    SharedVertexList& vertices = *(m_Vertices.get());
+    for(size_t i = start; i < end; i++)
+    {
+      if(m_Filter.getCancel())
+      {
+        return;
+      }
+      Eigen::Vector4f position(vertices[3 * i + 0], vertices[3 * i + 1], vertices[3 * i + 2], 1);
+      Eigen::Vector4f transformedPosition = transformation * position;
+      vertices.setTuple(i, transformedPosition.data());
+
+      if(progCounter > progIncrement)
+      {
+        m_Filter.sendThreadSafeProgressMessage(progCounter);
+        progCounter = 0;
+      }
+      progCounter++;
+    }
+  }
+
+  void operator()(const SIMPLRange& range) const
+  {
+    convert(range.min(), range.max());
+  }
+
+private:
+  ApplyTransformationToGeometry& m_Filter;
+  float* m_TransformationMatrix = nullptr;
+  SharedVertexList::Pointer m_Vertices;
+};
 
 // -----------------------------------------------------------------------------
 //
@@ -297,30 +357,26 @@ void ApplyTransformationToGeometry::dataCheck()
 // -----------------------------------------------------------------------------
 void ApplyTransformationToGeometry::applyTransformation()
 {
+
   IGeometry::Pointer igeom = getDataContainerArray()->getDataContainer(m_GeometryToTransform)->getGeometry();
 
-  int64_t numVertices = 0;
-  float* vertices = nullptr;
+  SharedVertexList::Pointer vertexList;
 
   if(IGeometry2D::Pointer igeom2D = std::dynamic_pointer_cast<IGeometry2D>(igeom))
   {
-    numVertices = igeom2D->getNumberOfVertices();
-    vertices = igeom2D->getVertexPointer(0);
+    vertexList = igeom2D->getVertices();
   }
   else if(IGeometry3D::Pointer igeom3D = std::dynamic_pointer_cast<IGeometry3D>(igeom))
   {
-    numVertices = igeom3D->getNumberOfVertices();
-    vertices = igeom3D->getVertexPointer(0);
+    vertexList = igeom3D->getVertices();
   }
   else if(VertexGeom::Pointer vertex = std::dynamic_pointer_cast<VertexGeom>(igeom))
   {
-    numVertices = vertex->getNumberOfVertices();
-    vertices = vertex->getVertexPointer(0);
+    vertexList = vertex->getVertices();
   }
   else if(EdgeGeom::Pointer edge = std::dynamic_pointer_cast<EdgeGeom>(igeom))
   {
-    numVertices = edge->getNumberOfVertices();
-    vertices = vertex->getVertexPointer(0);
+    vertexList = edge->getVertices();
   }
   else
   {
@@ -329,31 +385,17 @@ void ApplyTransformationToGeometry::applyTransformation()
 
   using ProjectiveMatrix = Eigen::Matrix<float, 4, 4, Eigen::RowMajor>;
   Eigen::Map<ProjectiveMatrix> transformation(m_TransformationMatrix);
-
-  int64_t progIncrement = numVertices / 100;
-  int64_t prog = 1;
-  int64_t progressInt = 0;
-  int64_t counter = 0;
-
-  for(int64_t i = 0; i < numVertices; i++)
-  {
-    if(getCancel())
-    {
-      return;
-    }
-    Eigen::Vector4f position(vertices[3 * i + 0], vertices[3 * i + 1], vertices[3 * i + 2], 1);
-    Eigen::Vector4f transformedPosition = transformation * position;
-    std::memcpy(vertices + (3 * i), transformedPosition.data(), sizeof(float) * 3);
-
-    if(counter > prog)
-    {
-      progressInt = static_cast<int64_t>((static_cast<float>(counter) / numVertices) * 100.0f);
-      QString ss = QObject::tr("Transforming Geometry || %1% Completed").arg(progressInt);
-      notifyStatusMessage(ss);
-      prog = prog + progIncrement;
-    }
-    counter++;
-  }
+  m_TotalElements = vertexList->getNumberOfTuples();
+  // Allow data-based parallelization
+#if 1
+  ParallelDataAlgorithm dataAlg;
+  dataAlg.setRange(0, m_TotalElements);
+  dataAlg.execute(ApplyTransformationToGeometryImpl(*this, m_TransformationMatrix, vertexList));
+#else
+  // THis chunk of code will FORCE single threaded mode. Don't do this unless you really mean it.
+  ApplyTransformationToGeometryImpl doThis(*this, m_TransformationMatrix, vertexList);
+  doThis({0, vertexList->getNumberOfTuples()});
+#endif
 }
 
 // -----------------------------------------------------------------------------
@@ -377,8 +419,38 @@ void ApplyTransformationToGeometry::execute()
   {
     return;
   }
+  // Needed for Threaded Progress Messages
+  m_InstanceIndex = ++ApplyTransformationProgress::s_InstanceIndex;
+  ApplyTransformationProgress::s_ProgressValues[m_InstanceIndex] = 0;
+  ApplyTransformationProgress::s_LastProgressInt[m_InstanceIndex] = 0;
 
   applyTransformation();
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+void ApplyTransformationToGeometry::sendThreadSafeProgressMessage(int64_t counter)
+{
+  std::lock_guard<std::mutex> guard(m_ProgressMessage_Mutex);
+
+  int64_t& progCounter = ApplyTransformationProgress::s_ProgressValues[m_InstanceIndex];
+  progCounter += counter;
+  int64_t progressInt = static_cast<int64_t>((static_cast<float>(progCounter) / m_TotalElements) * 100.0f);
+
+  int64_t progIncrement = m_TotalElements / 100;
+  int64_t prog = 1;
+
+  int64_t& lastProgressInt = ApplyTransformationProgress::s_LastProgressInt[m_InstanceIndex];
+
+  if(progCounter > prog && lastProgressInt != progressInt)
+  {
+    QString ss = QObject::tr("Transforming || %1% Completed").arg(progressInt);
+    notifyStatusMessage(ss);
+    prog += progIncrement;
+  }
+
+  lastProgressInt = progressInt;
 }
 
 // -----------------------------------------------------------------------------

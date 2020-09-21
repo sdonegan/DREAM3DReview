@@ -36,6 +36,7 @@
 #pragma once
 
 #include <memory>
+#include <mutex>
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
@@ -250,6 +251,12 @@ protected:
    */
   void dataCheck() override;
 
+  /**
+   * @brief sendThreadSafeProgressMessage
+   * @param counter
+   */
+  void sendThreadSafeProgressMessage(int64_t counter);
+
 private:
   std::weak_ptr<DataArray<float>> m_TransformationMatrixPtr;
   float* m_TransformationMatrix = nullptr;
@@ -264,6 +271,13 @@ private:
   FloatVec3Type m_Scale = {};
 
   FloatArrayType::Pointer m_TransformationReference;
+
+  // Threadsafe Progress Message
+  mutable std::mutex m_ProgressMessage_Mutex;
+  size_t m_InstanceIndex = {0};
+  int64_t m_TotalElements = {};
+
+  friend class ApplyTransformationToGeometryImpl;
 
 public:
   ApplyTransformationToGeometry(const ApplyTransformationToGeometry&) = delete;            // Copy Constructor Not Implemented
