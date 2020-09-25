@@ -463,20 +463,20 @@ int LocalDislocationDensityCalculator::determine_slip_system(int edgeNum)
   float tol = 0.000001f;
 
   int system = 12;
-  planeFam1 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3 + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3 +
-              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3;
-  planeFam2 = m_SlipPlaneNormals[3 * edgeNum + 0] * -SIMPLib::Constants::k_1OverRoot3 + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3 +
-              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3;
-  planeFam3 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3 + m_SlipPlaneNormals[3 * edgeNum + 1] * -SIMPLib::Constants::k_1OverRoot3 +
-              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3;
-  planeFam4 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3 + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3 +
-              m_SlipPlaneNormals[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot3;
-  slipDir1 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 2] * 0.0;
-  slipDir2 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 1] * 0.0 + m_BurgersVectors[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot2;
-  slipDir3 = m_BurgersVectors[3 * edgeNum + 0] * 0.0 + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot2;
-  slipDir4 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 1] * -SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 2] * 0.0;
-  slipDir5 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 1] * 0.0 + m_BurgersVectors[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot2;
-  slipDir6 = m_BurgersVectors[3 * edgeNum + 0] * 0.0 + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2 + m_BurgersVectors[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot2;
+  planeFam1 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3D + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3D +
+              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3D;
+  planeFam2 = m_SlipPlaneNormals[3 * edgeNum + 0] * -SIMPLib::Constants::k_1OverRoot3D + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3D +
+              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3D;
+  planeFam3 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3D + m_SlipPlaneNormals[3 * edgeNum + 1] * -SIMPLib::Constants::k_1OverRoot3D +
+              m_SlipPlaneNormals[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot3D;
+  planeFam4 = m_SlipPlaneNormals[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot3D + m_SlipPlaneNormals[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot3D +
+              m_SlipPlaneNormals[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot3D;
+  slipDir1 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 2] * 0.0;
+  slipDir2 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 1] * 0.0 + m_BurgersVectors[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot2D;
+  slipDir3 = m_BurgersVectors[3 * edgeNum + 0] * 0.0 + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 2] * SIMPLib::Constants::k_1OverRoot2D;
+  slipDir4 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 1] * -SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 2] * 0.0;
+  slipDir5 = m_BurgersVectors[3 * edgeNum + 0] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 1] * 0.0 + m_BurgersVectors[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot2D;
+  slipDir6 = m_BurgersVectors[3 * edgeNum + 0] * 0.0 + m_BurgersVectors[3 * edgeNum + 1] * SIMPLib::Constants::k_1OverRoot2D + m_BurgersVectors[3 * edgeNum + 2] * -SIMPLib::Constants::k_1OverRoot2D;
   if(fabs(fabs(planeFam1) - 1.0) < tol)
   {
     if(fabs(fabs(slipDir4) - 1.0) < tol)

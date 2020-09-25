@@ -264,7 +264,7 @@ void SliceTriangleGeometry::rotateVertices(unsigned int direction, float* n, int
   float angle = GeometryMath::AngleBetweenVectors(sliceDirection, n);
   float rotMat[3][3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
   float invRotMat[3][3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
-  if(angle > (0.01f * SIMPLib::Constants::k_PiOver180))
+  if(angle > (0.01f * SIMPLib::Constants::k_PiOver180D))
   {
     float crossDirection[3];
     crossDirection[0] = m_SliceDirection[1];

@@ -882,7 +882,7 @@ float TiDwellFatigueCrystallographicAnalysis::find_angle(float g[3][3], float pl
   w = GeometryMath::CosThetaBetweenVectors(v, sampleLoading);
   w = acos(w);
   // Convert from radian to degrees
-  return w *= SIMPLib::Constants::k_180OverPi;
+  return w *= SIMPLib::Constants::k_180OverPiD;
 }
 
 // -----------------------------------------------------------------------------

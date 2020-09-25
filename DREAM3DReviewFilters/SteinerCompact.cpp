@@ -290,11 +290,11 @@ void SteinerCompact::rose_of_intersections(std::vector<std::vector<float>>& ROI)
     QString ss = QObject::tr("Evaluate random intersections || %1% Complete").arg(progressInt);
     notifyStatusMessage(ss);
 
-    alpha = (static_cast<float>(i) + 0.5f) * SIMPLib::Constants::k_Pi / static_cast<float>(directions);
+    alpha = (static_cast<float>(i) + 0.5f) * SIMPLib::Constants::k_PiD / static_cast<float>(directions);
     // alpha = (static_cast<float>(i)) * SIMPLib::Constants::k_Pi / directions;
 
     // the line is represented as line[0]*x+line[1]*y+line[2]=0;
-    if(fabs(alpha - SIMPLib::Constants::k_Pi / 2) < zero)
+    if(fabs(alpha - SIMPLib::Constants::k_PiD / 2) < zero)
     {
       line[0] = 1.0f;
       line[1] = 0.0f;
@@ -736,7 +736,7 @@ void SteinerCompact::find_one_site_vertices(std::vector<float> ROI, int64_t inde
   {
     if(i > 0)
     {
-      ang = -(static_cast<float>(i)) * SIMPLib::Constants::k_Pi / static_cast<float>(size);
+      ang = -(static_cast<float>(i)) * SIMPLib::Constants::k_PiD / static_cast<float>(size);
       coor = (ROI2[0] * cos(ang) - ROI2[i]) / sin(ang);
       if(coor < cmin)
       {
@@ -745,7 +745,7 @@ void SteinerCompact::find_one_site_vertices(std::vector<float> ROI, int64_t inde
     }
     if(i < size - 1)
     {
-      ang = (static_cast<float>(i + 1)) * SIMPLib::Constants::k_Pi / static_cast<float>(size);
+      ang = (static_cast<float>(i + 1)) * SIMPLib::Constants::k_PiD / static_cast<float>(size);
       coor = (ROI2[0] * cos(ang) - ROI2[size - 1 - i]) / sin(ang);
       if(coor > cmax)
       {
@@ -762,14 +762,14 @@ void SteinerCompact::find_one_site_vertices(std::vector<float> ROI, int64_t inde
 
   // now convert to polar coordinates and rotate the vertices
   radius = sqrt(ROI2[0] * ROI2[0] + cmin * cmin);
-  ang = atan2(cmin, ROI2[0]) + 0.5f * SIMPLib::Constants::k_Pi / static_cast<float>(size);
-  vertices[0] = radius * cos(ang + SIMPLib::Constants::k_Pi * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
-  vertices[1] = radius * sin(ang + SIMPLib::Constants::k_Pi * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
+  ang = atan2(cmin, ROI2[0]) + 0.5f * SIMPLib::Constants::k_PiD / static_cast<float>(size);
+  vertices[0] = radius * cos(ang + SIMPLib::Constants::k_PiD * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
+  vertices[1] = radius * sin(ang + SIMPLib::Constants::k_PiD * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
 
   radius = sqrt(ROI2[0] * ROI2[0] + cmax * cmax);
-  ang = atan2(cmax, ROI2[0]) + 0.5f * SIMPLib::Constants::k_Pi / static_cast<float>(size);
-  vertices[2] = radius * cos(ang + SIMPLib::Constants::k_Pi * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
-  vertices[3] = radius * sin(ang + SIMPLib::Constants::k_Pi * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
+  ang = atan2(cmax, ROI2[0]) + 0.5f * SIMPLib::Constants::k_PiD / static_cast<float>(size);
+  vertices[2] = radius * cos(ang + SIMPLib::Constants::k_PiD * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
+  vertices[3] = radius * sin(ang + SIMPLib::Constants::k_PiD * (static_cast<float>(index) / static_cast<float>(size) + 0.5f));
 }
 
 // -----------------------------------------------------------------------------
@@ -884,7 +884,7 @@ void SteinerCompact::output_vtk(std::vector<std::vector<float>>& vertices_x, std
   }
 
   // points for reference Steiner compact (regular polygon)
-  float angle = SIMPLib::Constants::k_Pif / static_cast<float>(numdirections);
+  float angle = SIMPLib::Constants::k_PiF / static_cast<float>(numdirections);
   float r = 1.0f / cosf(0.5f * angle);
   float s, c, p;
   for(size_t phase = 1; phase <= numphases; phase++)
@@ -992,7 +992,7 @@ void SteinerCompact::output_txt(std::vector<std::vector<float>>& vertices_x, std
 
   fprintf(txt, "Distances_of_edges_from_origin\n");
   fprintf(txt, "Phase   Angle   Distance\n");
-  float stepangle = SIMPLib::Constants::k_Pif / numdirections;
+  float stepangle = SIMPLib::Constants::k_PiF / numdirections;
   float angle = 0;
   for(uint64_t phase = 1; phase <= numphases; phase++)
   {
@@ -1000,8 +1000,8 @@ void SteinerCompact::output_txt(std::vector<std::vector<float>>& vertices_x, std
     {
       for(uint64_t site = 0; site < numdirections; site++)
       {
-        angle = (static_cast<float>(site + symmetry * numdirections) + 0.5f) * stepangle + 0.5f * SIMPLib::Constants::k_Pif;
-        angle *= 180.0f / SIMPLib::Constants::k_Pi;
+        angle = (static_cast<float>(site + symmetry * numdirections) + 0.5f) * stepangle + 0.5f * SIMPLib::Constants::k_PiF;
+        angle *= 180.0f / SIMPLib::Constants::k_PiD;
         if(angle >= 360.0f)
         {
           angle -= 360.0f;

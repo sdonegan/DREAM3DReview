@@ -291,7 +291,7 @@ void ApplyTransformationToGeometry::dataCheck()
   }
   case 3: // Rotation via axis-angle
   {
-    float rotAngle = m_RotationAngle * SIMPLib::Constants::k_PiOver180;
+    float rotAngle = m_RotationAngle * SIMPLib::Constants::k_PiOver180D;
     OrientationF om = OrientationTransformation::ax2om<OrientationF, OrientationF>(OrientationF(m_RotationAxis[0], m_RotationAxis[1], m_RotationAxis[2], rotAngle));
 
     m_TransformationReference = FloatArrayType::CreateArray(1, cDims, "_INTERNAL_USE_ONLY_ManualTransformationMatrix", true);

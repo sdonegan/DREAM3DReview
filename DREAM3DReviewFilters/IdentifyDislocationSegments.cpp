@@ -243,7 +243,7 @@ void IdentifyDislocationSegments::execute()
   float refBV[3], refSPN[3];
   float neighBV[3], neighSPN[3];
   float angleBV, angleSPN;
-  float angleTol = 1.0 * SIMPLib::Constants::k_Pi / 180.0f;
+  float angleTol = 1.0 * SIMPLib::Constants::k_PiD / 180.0f;
   for(size_t i = 0; i < numEdges; i++)
   {
     size = 0;
@@ -283,7 +283,7 @@ void IdentifyDislocationSegments::execute()
               neighSPN[2] = m_SlipPlaneNormals[3 * data[j] + 2];
               angleBV = GeometryMath::AngleBetweenVectors(refBV, neighBV);
               angleSPN = GeometryMath::AngleBetweenVectors(refSPN, neighSPN);
-              if((angleBV < angleTol || (SIMPLib::Constants::k_Pi - angleBV) < angleTol) && (angleSPN < angleTol || (SIMPLib::Constants::k_Pi - angleSPN) < angleTol))
+              if((angleBV < angleTol || (SIMPLib::Constants::k_PiD - angleBV) < angleTol) && (angleSPN < angleTol || (SIMPLib::Constants::k_PiD - angleSPN) < angleTol))
               {
                 m_DislocationIds[data[j]] = dnum;
                 edgeslist[size] = data[j];

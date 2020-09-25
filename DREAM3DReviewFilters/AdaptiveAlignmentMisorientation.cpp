@@ -249,7 +249,7 @@ void AdaptiveAlignmentMisorientation::find_shifts(std::vector<int64_t>& xshifts,
   const uint64_t halfDim0 = static_cast<uint64_t>(dims[0] * 0.5f);
   const uint64_t halfDim1 = static_cast<uint64_t>(dims[1] * 0.5f);
 
-  float misorientationToleranceRad = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180;
+  float misorientationToleranceRad = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180D;
   float* currentQuatPtr = nullptr;
   // Loop over the Z Direction
   for(uint64_t iter = 1; iter < dims[2]; iter++)

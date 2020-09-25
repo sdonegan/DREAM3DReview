@@ -93,8 +93,8 @@ TriangleGeom::Pointer Delaunay2D::triangulate()
 
   for(size_t ptId = 0; ptId < 8; ptId++)
   {
-    x[0] = center[0] + radius * cos(ptId * 45.0 * SIMPLib::Constants::k_PiOver180);
-    x[1] = center[1] + radius * sin(ptId * 45.0 * SIMPLib::Constants::k_PiOver180);
+    x[0] = center[0] + radius * cos(ptId * 45.0 * SIMPLib::Constants::k_PiOver180D);
+    x[1] = center[1] + radius * sin(ptId * 45.0 * SIMPLib::Constants::k_PiOver180D);
     x[2] = center[2];
     projectedVertices.emplace_back(std::initializer_list<float>{float(x[0]), float(x[1]), float(x[2])});
   }

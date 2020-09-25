@@ -802,9 +802,9 @@ void TesselateFarFieldGrains::load_features()
     float flst[3][3];
     const float fourThirds = 4.0f / 3.0f;
 
-    alphaRef *= SIMPLib::Constants::k_PiOver180;
-    betaRef *= SIMPLib::Constants::k_PiOver180;
-    gammaRef *= SIMPLib::Constants::k_PiOver180;
+    alphaRef *= SIMPLib::Constants::k_PiOver180D;
+    betaRef *= SIMPLib::Constants::k_PiOver180D;
+    gammaRef *= SIMPLib::Constants::k_PiOver180D;
     OrientationMath::RootTensorFromLatticeParameters(aRef, bRef, cRef, alphaRef, betaRef, gammaRef, rtAvg);
     MatrixMath::Identity3x3(identity);
     for(int i = 0; i < numFeatures; i++)
@@ -820,7 +820,7 @@ void TesselateFarFieldGrains::load_features()
         m_Centroids[3 * currentFeature + 1] = yC + yShift;
         m_Centroids[3 * currentFeature + 2] = zC + (globalZPos - beamCenter);
 
-        vol = fourThirds * SIMPLib::Constants::k_Pi * eqRad * eqRad * eqRad;
+        vol = fourThirds * SIMPLib::Constants::k_PiD * eqRad * eqRad * eqRad;
         m_Volumes[currentFeature] = vol;
         m_EquivalentDiameters[currentFeature] = eqRad * 2.0;
         m_AxisLengths[3 * currentFeature + 0] = 1.0;
@@ -836,9 +836,9 @@ void TesselateFarFieldGrains::load_features()
         OrientationF eu(m_FeatureEulerAngles + (3 * i), 3);
         eu = OrientationTransformation::om2eu<OrientationF, OrientationF>(OrientationF(mat));
 
-        alpha *= SIMPLib::Constants::k_PiOver180;
-        beta *= SIMPLib::Constants::k_PiOver180;
-        gamma *= SIMPLib::Constants::k_PiOver180;
+        alpha *= SIMPLib::Constants::k_PiOver180D;
+        beta *= SIMPLib::Constants::k_PiOver180D;
+        gamma *= SIMPLib::Constants::k_PiOver180D;
         OrientationMath::RootTensorFromLatticeParameters(a, b, c, alpha, beta, gamma, rt);
         MatrixMath::Invert3x3(rt, rtInv);
         MatrixMath::Multiply3x3with3x3(rtInv, rtAvg, rtMult);

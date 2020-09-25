@@ -818,7 +818,7 @@ void AdaptiveAlignmentMutualInformation::execute()
   }
 
   // Converting the user defined tolerance to radians.
-  m_MisorientationTolerance = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180;
+  m_MisorientationTolerance = m_MisorientationTolerance * SIMPLib::Constants::k_PiOver180D;
 
   AdaptiveAlignment::execute();
 }

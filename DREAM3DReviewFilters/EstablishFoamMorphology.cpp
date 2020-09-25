@@ -1733,7 +1733,7 @@ void EstablishFoamMorphology::generate_feature(int32_t phase, Feature_t* feature
   float diam = 0.0f;
   float vol = 0.0f;
   bool volgood = false;
-  float fourThirdsPiOverEight = static_cast<float>(((4.0f / 3.0f) * (SIMPLib::Constants::k_Pi)) / 8.0f);
+  float fourThirdsPiOverEight = static_cast<float>(((4.0f / 3.0f) * (SIMPLib::Constants::k_PiD)) / 8.0f);
   PrecipitateStatsData::Pointer pp = std::dynamic_pointer_cast<PrecipitateStatsData>(statsDataArray[phase]);
   VectorOfFloatArray GSdist = pp->getFeatureSizeDistribution();
   float avg = GSdist[0]->getValue(0);
