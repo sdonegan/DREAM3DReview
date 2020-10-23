@@ -14,6 +14,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+            fetch-depth: 2
 
       - name: Run clang-format on diff
-        run: ./Support/Scripts/run_clang_format_diff.sh $GITHUB_BASE_REF $GITHUB_HEAD_REF
+        run: ./Support/Scripts/run_clang_format_diff.sh HEAD^ HEAD
