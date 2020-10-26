@@ -46,8 +46,8 @@
 
 #include "SIMPLib/Common/SIMPLibSetGetMacros.h"
 
-#include "EbsdLib/IO/EbsdImporter.h"
 #include "EbsdLib/EbsdLib.h"
+#include "EbsdLib/IO/EbsdImporter.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicReader.h"
 

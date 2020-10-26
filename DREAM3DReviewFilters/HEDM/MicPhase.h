@@ -40,8 +40,8 @@
 #include <QtCore/QVector>
 
 #include "EbsdLib/Core/EbsdLibConstants.h"
-#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/EbsdLib.h"
 
 #include "MicConstants.h"
 

@@ -42,9 +42,9 @@
 #include <map>
 #include <vector>
 
+#include "SIMPLib/SIMPLib.h"
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "EbsdLib/LaueOps/OrthoRhombicOps.h"
-#include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/IDataArray.h"
 #include "SIMPLib/DataArrays/StatsDataArray.h"

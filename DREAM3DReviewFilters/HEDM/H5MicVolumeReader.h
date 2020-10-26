@@ -40,8 +40,8 @@
 
 //-- Ebsd Lib Includes
 #include "EbsdLib/Core/EbsdLibConstants.h"
-#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/IO/H5EbsdVolumeReader.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicPhase.h"

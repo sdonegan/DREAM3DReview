@@ -16,6 +16,8 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
+#include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataContainerSelectionFilterParameter.h"
@@ -29,8 +31,6 @@
 #include "SIMPLib/Geometry/TriangleGeom.h"
 #include "SIMPLib/Math/GeometryMath.h"
 #include "SIMPLib/Math/MatrixMath.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
-#include "SIMPLib/DataContainers/DataContainer.h"
 
 #include "EbsdLib/Core/Orientation.hpp"
 #include "EbsdLib/Core/OrientationTransformation.hpp"
@@ -130,7 +130,7 @@ void SliceTriangleGeometry::updateEdgeInstancePointers()
   if(nullptr != m_SliceIdPtr.lock().get())
   {
     m_SliceId = m_SliceIdPtr.lock()->getPointer(0);
-  }                                         /* Now assign the raw pointer to data from the DataArray<T> object */
+  } /* Now assign the raw pointer to data from the DataArray<T> object */
   if(nullptr != m_RegionIdPtr.lock().get())
   {
     m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
@@ -148,7 +148,7 @@ void SliceTriangleGeometry::updateSliceInstancePointers()
   if(nullptr != m_AreaPtr.lock().get())
   {
     m_Area = m_AreaPtr.lock()->getPointer(0);
-  }                                          /* Now assign the raw pointer to data from the DataArray<T> object */
+  } /* Now assign the raw pointer to data from the DataArray<T> object */
   if(nullptr != m_PerimeterPtr.lock().get())
   {
     m_Perimeter = m_PerimeterPtr.lock()->getPointer(0);

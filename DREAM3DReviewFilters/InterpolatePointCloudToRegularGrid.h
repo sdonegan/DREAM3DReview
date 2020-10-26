@@ -16,13 +16,13 @@
 
 #include <memory>
 
+#include "SIMPLib/SIMPLib.h"
+#include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/NeighborList.hpp"
 #include "SIMPLib/FilterParameters/FloatVec3FilterParameter.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/Geometry/ImageGeom.h"
-#include "SIMPLib/SIMPLib.h"
-#include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Geometry/IGeometry.h"
+#include "SIMPLib/Geometry/ImageGeom.h"
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 

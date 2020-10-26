@@ -37,13 +37,13 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/TemplateHelpers.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/ChoiceFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataArrayCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/IntFilterParameter.h"
 #include "SIMPLib/FilterParameters/LinkedBooleanFilterParameter.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
 
 #include "util/EvaluationAlgorithms/KDistanceTemplate.hpp"
 

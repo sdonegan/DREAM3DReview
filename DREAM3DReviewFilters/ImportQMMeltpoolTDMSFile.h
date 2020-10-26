@@ -1,8 +1,8 @@
 #pragma once
 
+#include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/SIMPLib.h"
 
 #include "DREAM3DReview/DREAM3DReviewPlugin.h"
 
@@ -20,7 +20,7 @@ public:
   using WeakPointer = std::weak_ptr<Self>;
   using ConstWeakPointer = std::weak_ptr<const Self>;
 
- /**
+  /**
    * @brief Returns a NullPointer wrapped by a shared_ptr<>
    * @return
    */

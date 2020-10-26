@@ -37,9 +37,9 @@
 #include <memory>
 
 #include "SIMPLib/SIMPLib.h"
+#include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/Math/SIMPLibMath.h"
-#include "SIMPLib/DataArrays/DataArray.hpp"
 
 class IDataArray;
 using IDataArrayWkPtrType = std::weak_ptr<IDataArray>;

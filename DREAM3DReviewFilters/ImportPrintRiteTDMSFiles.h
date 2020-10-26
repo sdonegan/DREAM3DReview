@@ -2,15 +2,15 @@
 
 #include <array>
 
+#include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/FileListInfoFilterParameter.h"
 #include "SIMPLib/FilterParameters/FloatVec2FilterParameter.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/SIMPLib.h"
 
-#include "DREAM3DReview/DREAM3DReviewPlugin.h"
 #include "DREAM3DReview/DREAM3DReviewFilters/util/PrintRiteHelpers.h"
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
 
 /**
  * @brief The ImportPrintRiteTDMSFiles class. See [Filter documentation](@ref importprintritetdmsfiles) for details.

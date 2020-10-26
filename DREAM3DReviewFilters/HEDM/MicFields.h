@@ -41,8 +41,8 @@
 
 #include "EbsdLib/Core/AbstractEbsdFields.h"
 #include "EbsdLib/Core/EbsdLibConstants.h"
-#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/EbsdLib.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicConstants.h"
 

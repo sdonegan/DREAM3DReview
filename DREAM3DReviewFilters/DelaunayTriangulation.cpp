@@ -25,7 +25,8 @@
 
 namespace
 {
-template <class T> inline void hashCombine(size_t& seed, const T& obj)
+template <class T>
+inline void hashCombine(size_t& seed, const T& obj)
 {
   std::hash<T> hasher;
   seed ^= hasher(obj) + 0x9e3779b9 + (seed << 6) + (seed >> 2);

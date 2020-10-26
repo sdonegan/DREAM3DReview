@@ -469,7 +469,8 @@ public:
     m_Coefficients.push_back(y);
   }
 
-  template <typename T> T transformPoint(T* pt, size_t idx)
+  template <typename T>
+  T transformPoint(T* pt, size_t idx)
   {
     T transformedPt = 0.0f;
     if(m_Exponents.empty())

@@ -19,7 +19,8 @@
 
 namespace
 {
-template <typename Derived> struct VertexGeomAdaptor
+template <typename Derived>
+struct VertexGeomAdaptor
 {
   const Derived& obj;
 
@@ -52,7 +53,8 @@ template <typename Derived> struct VertexGeomAdaptor
     return derived()->getVertexPointer(idx)[2];
   }
 
-  template <class BBOX> bool kdtree_get_bbox(BBOX& /*bb*/) const
+  template <class BBOX>
+  bool kdtree_get_bbox(BBOX& /*bb*/) const
   {
     return false;
   }
@@ -127,7 +129,8 @@ void IterativeClosestPoint::dataCheck()
     return;
   }
 
-  AttributeMatrix::Pointer am = dc->createNonPrereqAttributeMatrix(this, DataArrayPath(m_MovingVertexGeometry.getDataContainerName(), getTransformAttributeMatrixName(), ""), {1}, AttributeMatrix::Type::Generic, AttributeMatrixID20);
+  AttributeMatrix::Pointer am = dc->createNonPrereqAttributeMatrix(this, DataArrayPath(m_MovingVertexGeometry.getDataContainerName(), getTransformAttributeMatrixName(), ""), {1},
+                                                                   AttributeMatrix::Type::Generic, AttributeMatrixID20);
 
   if(getErrorCode() < 0)
   {
@@ -230,10 +233,10 @@ void IterativeClosestPoint::execute()
   }
 
   float* transformPtr = getDataContainerArray()
-                     ->getDataContainer(m_MovingVertexGeometry.getDataContainerName())
-                     ->getAttributeMatrix(m_TransformAttributeMatrixName)
-                     ->getAttributeArrayAs<DataArray<float>>(m_TransformArrayName)
-                     ->getPointer(0);
+                            ->getDataContainer(m_MovingVertexGeometry.getDataContainerName())
+                            ->getAttributeMatrix(m_TransformAttributeMatrixName)
+                            ->getAttributeArrayAs<DataArray<float>>(m_TransformArrayName)
+                            ->getPointer(0);
 
   if(m_ApplyTransform)
   {

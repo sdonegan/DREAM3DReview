@@ -49,10 +49,10 @@
 
 #include <QtCore/QFile>
 
-#include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/Geometry/ImageGeom.h"
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
+#include "SIMPLib/Filtering/AbstractFilter.h"
+#include "SIMPLib/Geometry/ImageGeom.h"
 
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 

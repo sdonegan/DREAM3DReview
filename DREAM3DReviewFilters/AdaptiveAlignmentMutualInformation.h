@@ -38,11 +38,11 @@
 #include <memory>
 
 #include "SIMPLib/SIMPLib.h"
-#include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
+#include "SIMPLib/Filtering/AbstractFilter.h"
 
-#include "DREAM3DReview/DREAM3DReviewFilters/AdaptiveAlignment.h"
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+#include "DREAM3DReview/DREAM3DReviewFilters/AdaptiveAlignment.h"
 
 class LaueOps;
 using LaueOpsShPtrType = std::shared_ptr<LaueOps>;

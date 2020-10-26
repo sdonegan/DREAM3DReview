@@ -48,11 +48,11 @@
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/Common/PhaseType.h"
 #include "SIMPLib/Common/ShapeType.h"
+#include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/IDataArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 #include "SIMPLib/FilterParameters/FloatVec3FilterParameter.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/DataArrays/DataArray.hpp"
 
 #include "EbsdLib/Core/Quaternion.hpp"
 

@@ -37,10 +37,10 @@
 
 #include <string>
 
+#include "EbsdLib/Core/EbsdLibConstants.h"
+#include "EbsdLib/Core/EbsdSetGetMacros.h"
 #include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/IO/EbsdReader.h"
-#include "EbsdLib/Core/EbsdSetGetMacros.h"
-#include "EbsdLib/Core/EbsdLibConstants.h"
 
 #include "MicConstants.h"
 #include "MicHeaderEntry.h"

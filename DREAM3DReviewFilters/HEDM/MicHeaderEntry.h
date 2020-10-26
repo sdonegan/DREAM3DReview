@@ -46,9 +46,9 @@
 
 #include "H5Support/H5Lite.h"
 
-#include "EbsdLib/IO/EbsdHeaderEntry.h"
-#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/EbsdLib.h"
+#include "EbsdLib/IO/EbsdHeaderEntry.h"
 
 /**
  * @class MicHeaderEntry MicHeaderEntry.h EbsdLib/HEDM/MicHeaderEntry.h

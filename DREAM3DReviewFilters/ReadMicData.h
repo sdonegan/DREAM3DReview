@@ -42,15 +42,15 @@
 #include <QtCore/QString>
 
 #include "SIMPLib/SIMPLib.h"
+#include "SIMPLib/DataArrays/DataArray.hpp"
 #include "SIMPLib/DataArrays/IDataArray.h"
 #include "SIMPLib/DataArrays/StringDataArray.h"
 #include "SIMPLib/DataContainers/DataContainer.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
-#include "SIMPLib/DataArrays/DataArray.hpp"
 
-#include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicPhase.h"
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
+#include "DREAM3DReview/DREAM3DReviewFilters/HEDM/MicPhase.h"
 
 class MicReader;
 
@@ -70,7 +70,6 @@ enum MIC_READ_FLAG
 
 // our PIMPL private class
 class ReadMicDataPrivate;
-
 
 /**
  * @class ReadMicData ReadMicData.h /FilterCategoryFilters/ReadMicData.h

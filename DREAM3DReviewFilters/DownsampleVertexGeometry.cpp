@@ -110,7 +110,7 @@ void DownsampleVertexGeometry::dataCheck()
   clearWarningCode();
 
   VertexGeom::Pointer vertices = getDataContainerArray()->getPrereqGeometryFromDataContainer<VertexGeom>(this, getVertexAttrMatPath().getDataContainerName());
-  
+
   if(getErrorCode() < 0)
   {
     return;
@@ -360,7 +360,7 @@ void downsampleDataByAveraging<bool>(IDataArray::Pointer source, IDataArray::Poi
   bool* sourceData = sourcePtr->getPointer(0);
   typename DataArray<bool>::Pointer destPtr = std::dynamic_pointer_cast<DataArray<bool>>(dest);
   bool* destData = destPtr->getPointer(0);
-  
+
   size_t counter = 0;
   bool value = false;
   for(int64_t idx : indices)
@@ -597,7 +597,7 @@ void DownsampleVertexGeometry::execute()
   case 1:
     removeFractionPoints();
     break;
-  case 2: 
+  case 2:
     gridDownsample();
     break;
   }
@@ -743,7 +743,6 @@ int DownsampleVertexGeometry::getDownsampleType() const
 {
   return m_DownsampleType;
 }
-
 
 // -----------------------------------------------------------------------------
 //

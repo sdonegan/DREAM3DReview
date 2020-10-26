@@ -313,18 +313,15 @@ void ImportPrintRiteTDMSFiles::dataCheck()
 
   switch(getLaserOnArrayOption())
   {
-  case 0:
-  {
+  case 0: {
     m_LaserOnArrayName = "Laser Drive";
     break;
   }
-  case 1:
-  {
+  case 1: {
     m_LaserOnArrayName = "On-Axis PD";
     break;
   }
-  default:
-  {
+  default: {
     ss = QObject::tr("Invalid selection for array used to determine if laser is on");
     setErrorCondition(-701, ss);
     break;
@@ -453,8 +450,7 @@ void ImportPrintRiteTDMSFiles::dataCheck()
 
     break;
   }
-  default:
-  {
+  default: {
     ss = QObject::tr("Invalid selection for spatial transform option");
     setErrorCondition(-701, ss);
     break;

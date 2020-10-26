@@ -41,8 +41,8 @@
 #include <string>
 #include <vector>
 
-#include "EbsdLib/EbsdLib.h"
 #include "EbsdLib/Core/EbsdSetGetMacros.h"
+#include "EbsdLib/EbsdLib.h"
 
 #include "MicPhase.h"
 #include "MicReader.h"

@@ -35,8 +35,8 @@
 
 #pragma once
 
-#include <memory>
 #include <array>
+#include <memory>
 
 #include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/Common/Constants.h"

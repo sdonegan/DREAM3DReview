@@ -42,6 +42,8 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
 
+#include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataContainerCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/FloatFilterParameter.h"
@@ -51,8 +53,6 @@
 #include "SIMPLib/FilterParameters/StringFilterParameter.h"
 #include "SIMPLib/Geometry/EdgeGeom.h"
 #include "SIMPLib/Math/MatrixMath.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
-#include "SIMPLib/DataContainers/DataContainer.h"
 
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
@@ -144,7 +144,7 @@ void ParaDisReader::updateVertexInstancePointers()
   if(nullptr != m_NumberOfArmsPtr.lock())
   {
     m_NumberOfArms = m_NumberOfArmsPtr.lock()->getPointer(0);
-  }                                          /* Now assign the raw pointer to data from the DataArray<T> object */
+  } /* Now assign the raw pointer to data from the DataArray<T> object */
   if(nullptr != m_NodeConstraintsPtr.lock())
   {
     m_NodeConstraints = m_NodeConstraintsPtr.lock()->getPointer(0);
@@ -162,7 +162,7 @@ void ParaDisReader::updateEdgeInstancePointers()
   if(nullptr != m_BurgersVectorsPtr.lock())
   {
     m_BurgersVectors = m_BurgersVectorsPtr.lock()->getPointer(0);
-  }                                           /* Now assign the raw pointer to data from the DataArray<T> object */
+  } /* Now assign the raw pointer to data from the DataArray<T> object */
   if(nullptr != m_SlipPlaneNormalsPtr.lock())
   {
     m_SlipPlaneNormals = m_SlipPlaneNormalsPtr.lock()->getPointer(0);

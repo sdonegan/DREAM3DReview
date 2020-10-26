@@ -38,6 +38,8 @@
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
+#include "SIMPLib/DataContainers/DataContainer.h"
+#include "SIMPLib/DataContainers/DataContainerArray.h"
 #include "SIMPLib/FilterParameters/AbstractFilterParametersReader.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataContainerCreationFilterParameter.h"
@@ -50,8 +52,6 @@
 #include "SIMPLib/Geometry/ImageGeom.h"
 #include "SIMPLib/Math/GeometryMath.h"
 #include "SIMPLib/Math/SIMPLibMath.h"
-#include "SIMPLib/DataContainers/DataContainerArray.h"
-#include "SIMPLib/DataContainers/DataContainer.h"
 
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
@@ -146,7 +146,7 @@ void LocalDislocationDensityCalculator::updateCellInstancePointers()
   if(nullptr != m_OutputArrayPtr.lock())
   {
     m_OutputArray = m_OutputArrayPtr.lock()->getPointer(0);
-  }                                              /* Now assign the raw pointer to data from the DataArray<T> object */
+  } /* Now assign the raw pointer to data from the DataArray<T> object */
   if(nullptr != m_DominantSystemArrayPtr.lock())
   {
     m_DominantSystemArray = m_DominantSystemArrayPtr.lock()->getPointer(0);
