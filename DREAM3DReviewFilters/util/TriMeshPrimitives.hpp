@@ -95,4 +95,4 @@ inline bool operator==(const Triangle& tri0, const Triangle& tri1)
   return (tri0.vert0 == tri1.vert0 || tri0.vert0 == tri1.vert1 || tri0.vert0 == tri1.vert2) && (tri0.vert1 == tri1.vert0 || tri0.vert1 == tri1.vert1 || tri0.vert1 == tri1.vert2) &&
          (tri0.vert2 == tri1.vert0 || tri0.vert2 == tri1.vert1 || tri0.vert2 == tri1.vert2);
 }
-}
+} // namespace TriMeshPrimitives

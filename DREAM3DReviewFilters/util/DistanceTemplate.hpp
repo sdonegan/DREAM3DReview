@@ -7,9 +7,9 @@
 #include <QtCore/QFile>
 #include <QtCore/QString>
 
+#include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/Math/SIMPLibMath.h"
-#include "SIMPLib/SIMPLib.h"
 
 /**
  * @brief The DistanceTemplate class contains a templated function getDistance to find the distance, via a variety of

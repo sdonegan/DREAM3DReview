@@ -35,11 +35,11 @@
 
 #pragma once
 
-#include <random>
 #include <chrono>
+#include <random>
 
-#include "SIMPLib/Filtering/AbstractFilter.h"
 #include "SIMPLib/SIMPLib.h"
+#include "SIMPLib/Filtering/AbstractFilter.h"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/util/DistanceTemplate.hpp"
 
