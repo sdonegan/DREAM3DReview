@@ -40,12 +40,6 @@
 #include <numeric>
 #include <unordered_map>
 
-#ifdef SIMPL_USE_PARALLEL_ALGORITHMS
-#include <tbb/blocked_range.h>
-#include <tbb/parallel_for.h>
-#include <tbb/partitioner.h>
-#endif
-
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
@@ -57,6 +51,8 @@
 #include "SIMPLib/FilterParameters/BooleanFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataArrayCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/DataArraySelectionFilterParameter.h"
+#include "SIMPLib/FilterParameters/DoubleFilterParameter.h"
+#include "SIMPLib/FilterParameters/IntFilterParameter.h"
 #include "SIMPLib/FilterParameters/LinkedBooleanFilterParameter.h"
 #include "SIMPLib/FilterParameters/LinkedPathCreationFilterParameter.h"
 #include "SIMPLib/FilterParameters/SeparatorFilterParameter.h"
@@ -66,12 +62,19 @@
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
 #include "DREAM3DReview/DREAM3DReviewVersion.h"
 
+#ifdef SIMPL_USE_PARALLEL_ALGORITHMS
+#include <tbb/blocked_range.h>
+#include <tbb/parallel_for.h>
+#include <tbb/partitioner.h>
+#endif
+
 /* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
 enum createdPathID : RenameDataPath::DataID_t
 {
   DataArrayID30 = 30,
   DataArrayID31 = 31,
   DataArrayID32 = 32,
+  DataArrayID33 = 33,
 };
 
 // -----------------------------------------------------------------------------
@@ -115,7 +118,20 @@ void FindArrayStatistics::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   parameters.push_back(SeparatorFilterParameter::New("Statistics Options", FilterParameter::Parameter));
-  QStringList linkedProps("LengthArrayName");
+  QStringList linkedProps;
+  linkedProps << "HistogramArrayName"
+              << "UseFullRange"
+              << "NumBins"
+              << "MinRange"
+              << "MaxRange";
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Histogram", FindHistogram, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Min Value", MinRange, FilterParameter::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Max Value", MaxRange, FilterParameter::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Use Full Range for Histogram", UseFullRange, FilterParameter::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Bins", NumBins, FilterParameter::Parameter, FindArrayStatistics));
+
+  linkedProps.clear();
+  linkedProps << "LengthArrayName";
   parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Length", FindLength, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MinimumArrayName";
@@ -156,6 +172,7 @@ void FindArrayStatistics::setupFilterParameters()
   parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, FindArrayStatistics, req));
   parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Destination Attribute Matrix", DestinationAttributeMatrix, FilterParameter::RequiredArray, FindArrayStatistics, amReq));
 
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Histogram", HistogramArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Length", LengthArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Minimum", MinimumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Maximum", MaximumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
@@ -184,7 +201,7 @@ void FindArrayStatistics::dataCheck()
   clearErrorCode();
   clearWarningCode();
 
-  if(!getFindMin() && !getFindMax() && !getFindMean() && !getFindMedian() && !getFindStdDeviation() && !getFindSummation() && !getFindLength())
+  if(!getFindHistogram() && !getFindMin() && !getFindMax() && !getFindMean() && !getFindMedian() && !getFindStdDeviation() && !getFindSummation() && !getFindLength())
   {
     QString ss = QObject::tr("No statistics have been selected, so this filter will perform no operations");
     setWarningCondition(-701, ss);
@@ -256,6 +273,17 @@ void FindArrayStatistics::dataCheck()
   }
 
   EXECUTE_FUNCTION_TEMPLATE(this, createCompatibleArrays, m_InputArrayPtr.lock())
+
+  if(m_FindHistogram)
+  {
+    std::vector<size_t> cDims_List = {static_cast<size_t>(m_NumBins)};
+    DataArrayPath path(getDestinationAttributeMatrix().getDataContainerName(), getDestinationAttributeMatrix().getAttributeMatrixName(), getHistogramArrayName());
+    m_HistogramListPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, path, 0, cDims_List, "", DataArrayID33);
+    if(getErrorCode() < 0)
+    {
+      return;
+    }
+  }
 
   if(m_FindLength)
   {
@@ -437,6 +465,64 @@ double findSummation(C<T, Ts...>& source)
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histmax, bool histfullrange, int32_t numBins)
+{
+
+  std::vector<float> Histogram(numBins, 0);
+
+  if(source.empty())
+  {
+    std::vector<float> empty(numBins, 0);
+    return empty;
+  }
+
+  float min = 0.0f;
+  float max = 0.0f;
+
+  if(histfullrange)
+  {
+    min = findMin(source);
+    max = findMax(source);
+  }
+  else
+  {
+    min = histmin;
+    max = histmax;
+  }
+
+  float increment = (max - min) / (numBins);
+  if(abs(increment) < 1E-10)
+  {
+    numBins = 1;
+  }
+
+  if(numBins == 1) // if one bin, just set the first element to total number of points
+  {
+    Histogram[0] = static_cast<float>(source.size());
+  }
+  else
+  {
+    for(const auto& s : source)
+    {
+      size_t bin = static_cast<size_t>((s - min) / increment); // find bin for this input array value
+      if((bin >= 0) && (bin < numBins))                        // make certain bin is in range
+      {
+        Histogram[bin]++; // increment histogram element corresponding to this input array value
+      }
+      else if(s == max)
+      {
+        Histogram[numBins - 1]++;
+      }
+    }
+  }
+
+  return Histogram;
+}
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
 template <typename T>
 void standardizeDataByIndex(IDataArray::Pointer dataPtr, FloatArrayType::Pointer standardized, bool useMask, bool* mask, int32_t* featureIds, IDataArray::Pointer meanPtr, IDataArray::Pointer stdPtr)
 {
@@ -527,7 +613,7 @@ class FindStatisticsByIndexImpl
 {
 public:
   FindStatisticsByIndexImpl(std::unordered_map<int32_t, std::list<T>>& featureDataMap, bool length, bool min, bool max, bool mean, bool median, bool stdDeviation, bool summation,
-                            std::vector<IDataArray::Pointer>& arrays)
+                            std::vector<IDataArray::Pointer>& arrays, bool hist, float histmin, float histmax, bool histfullrange, int32_t numBins)
   : m_FeatureDataMap(featureDataMap)
   , m_Length(length)
   , m_Min(min)
@@ -536,6 +622,11 @@ public:
   , m_Median(median)
   , m_StdDeviation(stdDeviation)
   , m_Summation(summation)
+  , m_Histogram(hist)
+  , m_HistMin(histmin)
+  , m_HistMax(histmax)
+  , m_HistFullRange(histfullrange)
+  , m_NumBins(numBins)
   , m_Arrays(arrays)
   {
   }
@@ -602,6 +693,16 @@ public:
           m_Arrays[6]->initializeTuple(i, &val);
         }
       }
+
+      if(m_Histogram)
+      {
+        if(m_Arrays[7])
+        {
+          std::vector<float> vals = findHistogram(m_FeatureDataMap[i], m_HistMin, m_HistMax, m_HistFullRange, m_NumBins);
+          std::shared_ptr<DataArray<float>> histArray = std::dynamic_pointer_cast<DataArray<float>>(m_Arrays[7]);
+          histArray->setTuple(i, vals);
+        }
+      }
     }
   }
 
@@ -621,6 +722,11 @@ private:
   bool m_Median;
   bool m_StdDeviation;
   bool m_Summation;
+  bool m_Histogram;
+  float m_HistMin;
+  float m_HistMax;
+  bool m_HistFullRange;
+  int32_t m_NumBins;
   std::vector<IDataArray::Pointer>& m_Arrays;
 };
 
@@ -628,7 +734,8 @@ private:
 //
 // -----------------------------------------------------------------------------
 template <typename T>
-void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median, bool stdDeviation, bool summation, std::vector<IDataArray::Pointer>& arrays, std::vector<T>& data)
+void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median, bool stdDeviation, bool summation, std::vector<IDataArray::Pointer>& arrays, std::vector<T>& data, bool hist,
+                        float histmin, float histmax, bool histfullrange, int32_t numBins)
 {
   if(length)
   {
@@ -686,6 +793,16 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
       arrays[6]->initializeTuple(0, &val);
     }
   }
+
+  if(hist)
+  {
+    if(arrays[7])
+    {
+      std::vector<float> vals = findHistogram(data, histmin, histmax, histfullrange, numBins);
+      std::shared_ptr<DataArray<float>> histArray = std::dynamic_pointer_cast<DataArray<float>>(arrays[7]);
+      histArray->setTuple(0, vals);
+    }
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -693,7 +810,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
 // -----------------------------------------------------------------------------
 template <typename T>
 void findStatistics(IDataArray::Pointer source, Int32ArrayType::Pointer featureIds, bool useMask, bool* mask, bool length, bool min, bool max, bool mean, bool median, bool stdDeviation,
-                    bool summation, std::vector<IDataArray::Pointer>& arrays, int32_t numFeatures, bool computeByIndex)
+                    bool summation, std::vector<IDataArray::Pointer>& arrays, int32_t numFeatures, bool computeByIndex, bool hist, float histmin, float histmax, bool histfullrange, int32_t numBins)
 {
   size_t numTuples = source->getNumberOfTuples();
   typename DataArray<T>::Pointer sourcePtr = std::dynamic_pointer_cast<DataArray<T>>(source);
@@ -726,13 +843,14 @@ void findStatistics(IDataArray::Pointer source, Int32ArrayType::Pointer featureI
 #ifdef SIMPL_USE_PARALLEL_ALGORITHMS
     if(doParallel)
     {
-      tbb::parallel_for(tbb::blocked_range<size_t>(0, numFeatures), FindStatisticsByIndexImpl<T>(featureValueMap, length, min, max, mean, median, stdDeviation, summation, arrays),
+      tbb::parallel_for(tbb::blocked_range<size_t>(0, numFeatures),
+                        FindStatisticsByIndexImpl<T>(featureValueMap, length, min, max, mean, median, stdDeviation, summation, arrays, hist, histmin, histmax, histfullrange, numBins),
                         tbb::auto_partitioner());
     }
     else
 #endif
     {
-      FindStatisticsByIndexImpl<T> serial(featureValueMap, length, min, max, mean, median, stdDeviation, summation, arrays);
+      FindStatisticsByIndexImpl<T> serial(featureValueMap, length, min, max, mean, median, stdDeviation, summation, arrays, hist, histmin, histmax, histfullrange, numBins);
       serial.compute(0, numFeatures);
     }
   }
@@ -757,7 +875,7 @@ void findStatistics(IDataArray::Pointer source, Int32ArrayType::Pointer featureI
 
     data.shrink_to_fit();
 
-    findStatisticsImpl(length, min, max, mean, median, stdDeviation, summation, arrays, data);
+    findStatisticsImpl(length, min, max, mean, median, stdDeviation, summation, arrays, data, hist, histmin, histmax, histfullrange, numBins);
   }
 }
 
@@ -774,7 +892,7 @@ void FindArrayStatistics::execute()
     return;
   }
 
-  if(!m_FindMin && !m_FindMax && !m_FindMean && !m_FindMedian && !m_FindStdDeviation && !m_FindSummation && !m_FindLength)
+  if(!m_FindHistogram && !m_FindMin && !m_FindMax && !m_FindMean && !m_FindMedian && !m_FindStdDeviation && !m_FindSummation && !m_FindLength)
   {
     return;
   }
@@ -818,10 +936,9 @@ void FindArrayStatistics::execute()
     }
   }
 
-  std::vector<IDataArray::Pointer> arrays(7);
-  std::fill(std::begin(arrays), std::end(arrays), nullptr);
+  std::vector<IDataArray::Pointer> arrays(8, nullptr);
 
-  for(size_t i = 0; i < 7; i++)
+  for(size_t i = 0; i < arrays.size(); i++)
   {
     if(m_FindLength)
     {
@@ -851,10 +968,14 @@ void FindArrayStatistics::execute()
     {
       arrays[6] = m_SummationPtr.lock();
     }
+    if(m_FindHistogram)
+    {
+      arrays[7] = m_HistogramListPtr.lock();
+    }
   }
 
   EXECUTE_FUNCTION_TEMPLATE(this, findStatistics, m_InputArrayPtr.lock(), m_InputArrayPtr.lock(), m_FeatureIdsPtr.lock(), m_UseMask, m_Mask, m_FindLength, m_FindMin, m_FindMax, m_FindMean,
-                            m_FindMedian, m_FindStdDeviation, m_FindSummation, arrays, numFeatures, m_ComputeByIndex);
+                            m_FindMedian, m_FindStdDeviation, m_FindSummation, arrays, numFeatures, m_ComputeByIndex, m_FindHistogram, m_MinRange, m_MaxRange, m_UseFullRange, m_NumBins);
 
   if(m_StandardizeData)
   {
@@ -972,7 +1093,61 @@ QString FindArrayStatistics::ClassName()
 {
   return QString("FindArrayStatistics");
 }
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setFindHistogram(bool value)
+{
+  m_FindHistogram = value;
+}
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setNumBins(int32_t value)
+{
+  m_NumBins = value;
+}
 
+// -----------------------------------------------------------------------------
+int32_t FindArrayStatistics::getNumBins() const
+{
+  return m_NumBins;
+}
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setMinRange(double value)
+{
+  m_MinRange = value;
+}
+
+// -----------------------------------------------------------------------------
+double FindArrayStatistics::getMinRange() const
+{
+  return m_MinRange;
+}
+
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setMaxRange(double value)
+{
+  m_MaxRange = value;
+}
+
+// -----------------------------------------------------------------------------
+double FindArrayStatistics::getMaxRange() const
+{
+  return m_MaxRange;
+}
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setUseFullRange(bool value)
+{
+  m_UseFullRange = value;
+}
+
+// -----------------------------------------------------------------------------
+bool FindArrayStatistics::getUseFullRange() const
+{
+  return m_UseFullRange;
+}
+// -----------------------------------------------------------------------------
+bool FindArrayStatistics::getFindHistogram() const
+{
+  return m_FindHistogram;
+}
 // -----------------------------------------------------------------------------
 void FindArrayStatistics::setFindLength(bool value)
 {
@@ -1115,6 +1290,18 @@ void FindArrayStatistics::setMaskArrayPath(const DataArrayPath& value)
 DataArrayPath FindArrayStatistics::getMaskArrayPath() const
 {
   return m_MaskArrayPath;
+}
+
+// -----------------------------------------------------------------------------
+void FindArrayStatistics::setHistogramArrayName(const QString& value)
+{
+  m_HistogramArrayName = value;
+}
+
+// -----------------------------------------------------------------------------
+QString FindArrayStatistics::getHistogramArrayName() const
+{
+  return m_HistogramArrayName;
 }
 
 // -----------------------------------------------------------------------------
