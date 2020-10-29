@@ -88,8 +88,9 @@ public:
     {
       std::string output = QString(UnitTest::TestTempDir + "/VolumeGraphicsTest.vgi").toStdString();
       fs::copy(k_VgiFile.toStdString(), output); // copy vgi file
-    } catch(std::exception& e)
+    } catch([[maybe_unused]] const std::exception& e)
     {
+      DREAM3D_REQUIRE(false)
     }
   }
 
