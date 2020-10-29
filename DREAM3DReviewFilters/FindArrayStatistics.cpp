@@ -468,13 +468,9 @@ double findSummation(C<T, Ts...>& source)
 template <template <typename, typename...> class C, typename T, typename... Ts>
 std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histmax, bool histfullrange, int32_t numBins)
 {
-
-  std::vector<float> Histogram(numBins, 0);
-
   if(source.empty())
   {
-    std::vector<float> empty(numBins, 0);
-    return empty;
+    return std::vector<float>(numBins, 0);
   }
 
   float min = 0.0f;
@@ -482,8 +478,8 @@ std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histm
 
   if(histfullrange)
   {
-    min = findMin(source);
-    max = findMax(source);
+    min = static_cast<float>(findMin(source));
+    max = static_cast<float>(findMax(source));
   }
   else
   {
@@ -492,10 +488,12 @@ std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histm
   }
 
   float increment = (max - min) / (numBins);
-  if(abs(increment) < 1E-10)
+  if(std::abs(increment) < 1E-10)
   {
     numBins = 1;
   }
+
+  std::vector<float> Histogram(numBins, 0);
 
   if(numBins == 1) // if one bin, just set the first element to total number of points
   {
@@ -505,12 +503,13 @@ std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histm
   {
     for(const auto& s : source)
     {
-      size_t bin = static_cast<size_t>((s - min) / increment); // find bin for this input array value
-      if((bin >= 0) && (bin < numBins))                        // make certain bin is in range
+      float value = static_cast<float>(s);
+      size_t bin = static_cast<size_t>((value - min) / increment); // find bin for this input array value
+      if((bin >= 0) && (bin < numBins))                            // make certain bin is in range
       {
         Histogram[bin]++; // increment histogram element corresponding to this input array value
       }
-      else if(s == max)
+      else if(value == max)
       {
         Histogram[numBins - 1]++;
       }
