@@ -501,7 +501,7 @@ std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histm
   }
   else
   {
-    for(const auto& s : source)
+    for(const auto s : source)
     {
       float value = static_cast<float>(s);
       size_t bin = static_cast<size_t>((value - min) / increment); // find bin for this input array value
