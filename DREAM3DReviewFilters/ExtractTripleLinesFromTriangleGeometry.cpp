@@ -317,9 +317,9 @@ void ExtractTripleLinesFromTriangleGeometry::extractTripleLines()
     vertCounter++;
   }
 
-  int64_t progIncrement = numVerts / 100;
-  int64_t prog = 1;
-  int64_t progressInt = 0;
+  MeshIndexType progIncrement = numVerts / 100;
+  MeshIndexType prog = 1;
+  MeshIndexType progressInt = 0;
 
   for(MeshIndexType i = 0; i < numVerts; i++)
   {
@@ -454,7 +454,7 @@ void ExtractTripleLinesFromTriangleGeometry::extractTripleLines()
 
     if(i > prog)
     {
-      progressInt = static_cast<int64_t>((static_cast<float>(i) / numVerts) * 100.0f);
+      progressInt = static_cast<MeshIndexType>((static_cast<float>(i) / numVerts) * 100.0f);
       QString ss = QObject::tr("Extracting Triple Lines || %1% Completed").arg(progressInt);
       notifyStatusMessage(ss);
       prog = prog + progIncrement;

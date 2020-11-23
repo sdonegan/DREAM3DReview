@@ -658,7 +658,7 @@ void MicReader::parseHeaderLine(std::string& line)
     return;
   }
 
-  int size = tokens[0].size();
+  size_t size = tokens[0].size();
   line = line.substr(size);
   p->parseValue(line); // Send the second part of the std::string, just the value part
 #if 0

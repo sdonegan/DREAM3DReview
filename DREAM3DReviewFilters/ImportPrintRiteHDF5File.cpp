@@ -510,7 +510,7 @@ void ImportPrintRiteHDF5File::execute()
 
   VertexGeom::Pointer hf_vertex = getDataContainerArray()->getDataContainer(getHFDataContainerName())->getGeometryAs<VertexGeom>();
   float* hf_vertices = hf_vertex->getVertexPointer(0);
-  int64_t hf_index = 0;
+  size_t hf_index = 0;
   DataArrayPath hf_path(getHFDataContainerName(), getHFDataName(), "");
   DataArrayPath hfSlice_path(getHFDataContainerName(), getHFSliceDataName(), "");
 
@@ -554,7 +554,7 @@ void ImportPrintRiteHDF5File::execute()
   float* yPos = getDataContainerArray()->getDataContainer(getHFDataContainerName())->getAttributeMatrix(getHFDataName())->getAttributeArrayAs<FloatArrayType>("Y Position")->getPointer(0);
   int32_t groupIndex = (*m_SortedSliceGroups.begin()).toInt() - 1;
   size_t hf_counter = 0;
-  for(int64_t i = 0; i < hf_vertex->getNumberOfVertices(); i++)
+  for(size_t i = 0; i < hf_vertex->getNumberOfVertices(); i++)
   {
     float pt[2] = {static_cast<float>(xPos[i]), static_cast<float>(-yPos[i])};
     if(polynomial.nullCoefficients())
