@@ -40,6 +40,7 @@ set(_PublicFilters
   FindNorm
   FindVertexToTriangleDistances
   IterativeClosestPoint
+  ImportQMMeltpoolH5File
   KDistanceGraph
   KMeans
   KMedoids

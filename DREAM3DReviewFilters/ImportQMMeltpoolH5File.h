@@ -1,0 +1,255 @@
+/* ============================================================================
+ * Copyright (c) 2020 BlueQuartz Software, LLC
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
+ * are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions in binary form must reproduce the above copyright notice, this
+ * list of conditions and the following disclaimer in the documentation and/or
+ * other materials provided with the distribution.
+ *
+ * Neither the names of any of the BlueQuartz Software contributors
+ * may be used to endorse or promote products derived from this software without
+ * specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ *
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#pragma once
+
+#include <memory>
+
+#include "SIMPLib/SIMPLib.h"
+#include "SIMPLib/Common/SIMPLArray.hpp"
+#include "SIMPLib/Filtering/AbstractFilter.h"
+
+#include "DREAM3DReview/DREAM3DReviewPlugin.h"
+
+/**
+ * @brief The ImportQMMeltpoolH5File class. See [Filter documentation](@ref ImportQMMeltpoolH5File) for details.
+ */
+class DREAM3DReview_EXPORT ImportQMMeltpoolH5File : public AbstractFilter
+{
+  Q_OBJECT
+
+  PYB11_BEGIN_BINDINGS(ImportQMMeltpoolH5File SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(ImportQMMeltpoolH5File)
+  PYB11_FILTER_NEW_MACRO(ImportQMMeltpoolH5File)
+  PYB11_PROPERTY(QString HDF5FilePath READ getHDF5FilePath WRITE setHDF5FilePath)
+  PYB11_PROPERTY(DataArrayPath DataContainerPath READ getDataContainerPath WRITE setDataContainerPath)
+  PYB11_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
+  PYB11_PROPERTY(IntVec2Type SliceRange READ getSliceRange WRITE setSliceRange)
+  PYB11_PROPERTY(float Power READ getPower WRITE setPower)
+  PYB11_PROPERTY(QString PossibleIndices READ getPossibleIndices)
+  PYB11_END_BINDINGS()
+
+public:
+  using Self = ImportQMMeltpoolH5File;
+  using Pointer = std::shared_ptr<Self>;
+  using ConstPointer = std::shared_ptr<const Self>;
+  using WeakPointer = std::weak_ptr<Self>;
+  using ConstWeakPointer = std::weak_ptr<const Self>;
+  static Pointer NullPointer();
+
+  static Pointer New();
+
+  /**
+   * @brief Returns the name of the class for ImportQMMeltpoolH5File
+   */
+  QString getNameOfClass() const override;
+
+  /**
+   * @brief Returns the name of the class for ImportQMMeltpoolH5File
+   */
+  static QString ClassName();
+
+  ~ImportQMMeltpoolH5File() override;
+
+  /**
+   * @brief Sets the value for Filter Parameter for HDF5FilePath
+   * @param value The new value to use.
+   */
+  void setHDF5FilePath(const QString& value);
+
+  /**
+   * @brief Gets the Filter Parameter value for HDF5FilePath
+   * @return The value for HDF5FilePath
+   */
+  QString getHDF5FilePath() const;
+  Q_PROPERTY(QString HDF5FilePath READ getHDF5FilePath WRITE setHDF5FilePath)
+
+  /**
+   * @brief Sets the value for Filter Parameter for DataContainerPath
+   * @param value The new value to use.
+   */
+  void setDataContainerPath(const DataArrayPath& value);
+
+  /**
+   * @brief Gets the Filter Parameter value for DataContainerPath
+   * @return The value for DataContainerPath
+   */
+  DataArrayPath getDataContainerPath() const;
+  Q_PROPERTY(DataArrayPath DataContainerPath READ getDataContainerPath WRITE setDataContainerPath)
+
+  /**
+   * @brief Sets the value for Filter Parameter for VertexAttributeMatrixName
+   * @param value The new value to use.
+   */
+  void setVertexAttributeMatrixName(const QString& value);
+
+  /**
+   * @brief Gets the Filter Parameter value for VertexAttributeMatrixName
+   * @return The value for VertexAttributeMatrixName
+   */
+  QString getVertexAttributeMatrixName() const;
+  Q_PROPERTY(QString VertexAttributeMatrixName READ getVertexAttributeMatrixName WRITE setVertexAttributeMatrixName)
+
+  /**
+   * @brief Setter property for SliceRange
+   */
+  void setSliceRange(const IntVec2Type& value);
+
+  /**
+   * @brief Getter property for SliceRange
+   * @return Value of SliceRange
+   */
+  IntVec2Type getSliceRange() const;
+  Q_PROPERTY(IntVec2Type SliceRange READ getSliceRange WRITE setSliceRange)
+
+  /**
+   * @brief Setter property for Power
+   */
+  void setPower(float value);
+
+  /**
+   * @brief Getter property for Power
+   * @return Value of Power
+   */
+  float getPower() const;
+  Q_PROPERTY(float Power READ getPower WRITE setPower)
+
+  /**
+   * @brief Gets the Filter Parameter value for PossibleIndices
+   * @return The value for PossibleIndices
+   */
+  QString getPossibleIndices() const;
+  Q_PROPERTY(QString PossibleIndices READ getPossibleIndices)
+
+  /**
+   * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
+   */
+  QString getCompiledLibraryName() const override;
+
+  /**
+   * @brief getBrandingString Returns the branding string for the filter, which is a tag
+   * used to denote the filter's association with specific plugins
+   * @return Branding string
+   */
+  QString getBrandingString() const override;
+
+  /**
+   * @brief getFilterVersion Returns a version string for this filter. Default
+   * value is an empty string.
+   * @return
+   */
+  QString getFilterVersion() const override;
+
+  /**
+   * @brief newFilterInstance Reimplemented from @see AbstractFilter class
+   */
+  AbstractFilter::Pointer newFilterInstance(bool copyFilterParameters) const override;
+
+  /**
+   * @brief getGroupName Reimplemented from @see AbstractFilter class
+   */
+  QString getGroupName() const override;
+
+  /**
+   * @brief getSubGroupName Reimplemented from @see AbstractFilter class
+   */
+  QString getSubGroupName() const override;
+
+  /**
+   * @brief getUuid Return the unique identifier for this filter.
+   * @return A QUuid object.
+   */
+  QUuid getUuid() const override;
+
+  /**
+   * @brief getHumanLabel Reimplemented from @see AbstractFilter class
+   */
+  QString getHumanLabel() const override;
+
+  /**
+   * @brief setupFilterParameters Reimplemented from @see AbstractFilter class
+   */
+  void setupFilterParameters() override;
+
+  /**
+   * @brief execute Reimplemented from @see AbstractFilter class
+   */
+  void execute() override;
+
+protected:
+  ImportQMMeltpoolH5File();
+
+  /**
+   * @brief dataCheck Checks for the appropriate parameter values and availability of arrays
+   */
+  void dataCheck() override;
+
+  /**
+   * @brief Initializes all the private instance variables.
+   */
+  void initialize();
+
+  /**
+   * @brief generateCache
+   * @param device
+   * @return
+   */
+  void generateCache();
+
+  /**
+   * @brief generateDataStructure
+   */
+  void generateDataStructure();
+
+  /**
+   * @brief readDataFromFile
+   */
+  void readDataFromFile();
+
+private:
+  QString m_HDF5FilePath = {};
+  DataArrayPath m_DataContainerPath = {"MeltPoolData", "", ""};
+  QString m_VertexAttributeMatrixName = {"Vertex Data"};
+  IntVec2Type m_SliceRange = {0, 0};
+  float m_Power = 0.0f;
+  QString m_PossibleIndices = "";
+
+  struct Cache;
+  std::unique_ptr<Cache> m_Cache;
+
+public:
+  ImportQMMeltpoolH5File(const ImportQMMeltpoolH5File&) = delete;            // Copy Constructor Not Implemented
+  ImportQMMeltpoolH5File& operator=(const ImportQMMeltpoolH5File&) = delete; // Copy Assignment Not Implemented
+  ImportQMMeltpoolH5File(ImportQMMeltpoolH5File&&) = delete;                 // Move Constructor Not Implemented
+  ImportQMMeltpoolH5File& operator=(ImportQMMeltpoolH5File&&) = delete;      // Move Assignment Not Implemented
+};

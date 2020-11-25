@@ -17,6 +17,7 @@ set(TEST_NAMES
   ImportMASSIFDataTest
   ImportQMMeltpoolTDMSFileTest
   ImportVolumeGraphicsFileTest
+  ImportQMMeltpoolH5FileTest
 )
 
 #------------------------------------------------------------------------------
