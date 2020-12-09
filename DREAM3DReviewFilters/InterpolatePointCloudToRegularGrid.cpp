@@ -102,6 +102,7 @@ void InterpolatePointCloudToRegularGrid::setupFilterParameters()
   parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::SizeT, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
+    req.daTypes = {SIMPL::TypeNames::SizeT, SIMPL::TypeNames::UInt64};
     parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
