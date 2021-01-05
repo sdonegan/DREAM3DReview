@@ -48,7 +48,6 @@
 class IDataArray;
 using IDataArrayWkPtrType = std::weak_ptr<IDataArray>;
 
-
 /**
  * @brief The FindArrayStatistics class. See [Filter documentation](@ref findarraystatistics) for details.
  */

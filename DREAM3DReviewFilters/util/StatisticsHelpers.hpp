@@ -1,15 +1,153 @@
+#pragma once
 
-
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+#include <type_traits>
 #include <vector>
 
-#ifndef STATISTICS_FILTER_CLASS_NAME
-#include "DREAM3DReviewFilters/FindArrayStatistics.h"
-#define STATISTICS_FILTER_CLASS_NAME FindArrayStatistics
+namespace StatisticsHelpers
+{
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+T findMin(const C<T, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return static_cast<T>(0);
+  }
+  return (*std::min_element(std::cbegin(source), std::cend(source)));
+}
 
-#endif
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+T findMax(const C<T, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return static_cast<T>(0);
+  }
+  return (*std::max_element(std::cbegin(source), std::cend(source)));
+}
 
-#ifndef STATISTICS_RENAME_DATAPATH_ENUM
-/* Create Enumerations to allow the created Attribute Arrays to take part in renaming */
+// -----------------------------------------------------------------------------
+template <class Container>
+auto computeSum(const Container& source)
+{
+  using T = typename Container::value_type;
+  if constexpr(std::is_integral_v<T>)
+  {
+    if constexpr(std::is_signed_v<T>)
+    {
+      return std::accumulate(std::cbegin(source), std::cend(source), static_cast<int64_t>(0));
+    }
+    else
+    {
+      return std::accumulate(std::cbegin(source), std::cend(source), static_cast<uint64_t>(0));
+    }
+  }
+  else
+  {
+    return std::accumulate(std::cbegin(source), std::cend(source), 0.0);
+  }
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+float findMean(const C<T, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return 0.0f;
+  }
+  float sum = static_cast<float>(computeSum(source));
+
+  return sum / static_cast<float>(source.size());
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename... Ts>
+bool findMean(const C<bool, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return false;
+  }
+  size_t count = std::count(std::cbegin(source), std::cend(source), true);
+  return true ? count >= (source.size() - count) : false;
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+float findMedian(const C<T, Ts...>& source)
+{
+  // Need a copy, not a reference, since we will be sorting the input array
+  std::vector<T> tmpList{std::cbegin(source), std::cend(source)};
+  if(tmpList.empty())
+  {
+    return 0.0f;
+  }
+  std::sort(tmpList.begin(), tmpList.end());
+  float medVal = 0.0f;
+  if(tmpList.size() % 2 == 1)
+  {
+    size_t halfElements = static_cast<size_t>(std::floor(tmpList.size() / 2.0f));
+    medVal = tmpList[halfElements];
+  }
+  else
+  {
+    size_t idxLow = (tmpList.size() / 2) - 1;
+    size_t idxHigh = tmpList.size() / 2;
+    medVal = (tmpList[idxLow] + tmpList[idxHigh]) * 0.5f;
+  }
+  return medVal;
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+float findStdDeviation(const C<T, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return 0.0f;
+  }
+  std::vector<double> difference(source.size());
+  float sum = static_cast<float>(computeSum(source));
+  float mean = static_cast<double>(sum / source.size());
+  std::transform(std::cbegin(source), std::cend(source), std::begin(difference), [mean](float a) { return a - mean; });
+  float squaredSum = std::inner_product(std::cbegin(difference), std::cend(difference), std::cbegin(difference), 0.0f);
+  return std::sqrt(squaredSum / source.size());
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename... Ts>
+bool findStdDeviation(const C<bool, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return false;
+  }
+  size_t count = std::count(std::cbegin(source), std::cend(source), true);
+  return true ? count >= (source.size() - count) : false;
+}
+
+// -----------------------------------------------------------------------------
+template <template <typename, typename...> class C, typename T, typename... Ts>
+double findSummation(const C<T, Ts...>& source)
+{
+  if(source.empty())
+  {
+    return 0.0f;
+  }
+  float sum = static_cast<float>(computeSum(source));
+  return sum;
+}
+} // namespace StatisticsHelpers
+
+#ifdef STATISTICS_FILTER_CLASS_NAME
+namespace
+{
+// Create Enumerations to allow the created Attribute Arrays to take part in renaming
 enum createdPathID : RenameDataPath::DataID_t
 {
   DataArrayID30 = 30, // Length
@@ -24,8 +162,7 @@ enum createdPathID : RenameDataPath::DataID_t
   DataArrayID39 = 39, // StandardizedArray
   DataArrayID40 = 40, //
 };
-#define STATISTICS_RENAME_DATAPATH_ENUM 1
-#endif
+} // namespace
 
 /**
  * @brief createCompatibleArrays Creates the output statistics arrays with compatible types based on the
@@ -107,140 +244,4 @@ void STATISTICS_FILTER_CLASS_NAME::createCompatibleArrays(QVector<DataArrayPath>
     }
   }
 }
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-int64_t findLength(C<T, Ts...>& source)
-{
-  return static_cast<int64_t>(source.size());
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-T findMin(C<T, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return T(0);
-  }
-  return (*std::min_element(std::begin(source), std::end(source)));
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-T findMax(C<T, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return T(0);
-  }
-  return (*std::max_element(std::begin(source), std::end(source)));
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-float findMean(C<T, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return 0.0f;
-  }
-  float sum = std::accumulate(std::begin(source), std::end(source), 0.0f);
-  return static_cast<float>(sum / source.size());
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename... Ts>
-bool findMean(C<bool, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return false;
-  }
-  size_t count = std::count(std::begin(source), std::end(source), true);
-  return true ? count >= (source.size() - count) : false;
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-float findMedian(C<T, Ts...>& source)
-{
-  // Need a copy, not a reference, since we will be sorting the input array
-  std::vector<T> tmpList{std::begin(source), std::end(source)};
-  if(tmpList.empty())
-  {
-    return 0.0F;
-  }
-  std::sort(tmpList.begin(), tmpList.end());
-  float medVal = 0.0F;
-  if(tmpList.size() % 2 == 1)
-  {
-    size_t halfElements = static_cast<size_t>(std::floor(tmpList.size() / 2.0F));
-    medVal = tmpList[halfElements];
-  } 
-  else
-  {
-    size_t idxLow = (tmpList.size() / 2) - 1;
-    size_t idxHigh = tmpList.size() / 2;
-    medVal = (tmpList[idxLow] + tmpList[idxHigh]) * 0.5F;
-  }
-  return medVal;
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-float findStdDeviation(C<T, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return 0.0f;
-  }
-  std::vector<double> difference(source.size());
-  float sum = std::accumulate(std::begin(source), std::end(source), 0.0f);
-  float mean = static_cast<double>(sum / source.size());
-  std::transform(std::begin(source), std::end(source), std::begin(difference), [mean](float a) { return a - mean; });
-  float squaredSum = std::inner_product(std::begin(difference), std::end(difference), std::begin(difference), 0.0f);
-  return std::sqrt(squaredSum / source.size());
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename... Ts>
-bool findStdDeviation(C<bool, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return false;
-  }
-  size_t count = std::count(std::begin(source), std::end(source), true);
-  return true ? count >= (source.size() - count) : false;
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-template <template <typename, typename...> class C, typename T, typename... Ts>
-double findSummation(C<T, Ts...>& source)
-{
-  if(source.empty())
-  {
-    return 0.0f;
-  }
-  float sum = std::accumulate(std::begin(source), std::end(source), 0.0f);
-  return sum;
-}
+#endif

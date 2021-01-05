@@ -1,7 +1,7 @@
+#include <cmath>
 #include <numeric>
 #include <string>
 #include <vector>
-#include <cmath>
 
 #include <QtCore/QString>
 
@@ -23,11 +23,11 @@
 #include "UnitTestSupport.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewFilters/FindNeighborListStatistics.h"
+#include "DREAM3DReview/DREAM3DReviewFilters/util/StatisticsHelpers.hpp"
 #include "DREAM3DReviewTestFileLocations.h"
 
 class FindNeighborListStatisticsTest
 {
-
   const QString k_DataContainerName = {"DataContainer"};
   const QString k_AttributeMatrixName = {"CellData"};
   const QString k_NeighborListName = {"NeighborList"};
@@ -107,6 +107,60 @@ public:
     int32_t err = filter->getErrorCode();
     DREAM3D_REQUIRED(err, ==, -11006)
     return EXIT_SUCCESS;
+  }
+
+  template <class T, class = void>
+  struct max_type
+  {
+  };
+
+  template <class T>
+  struct max_type<T, std::enable_if_t<std::is_integral_v<T> && std::is_signed_v<T>>>
+  {
+    using type = int64_t;
+  };
+
+  template <class T>
+  struct max_type<T, std::enable_if_t<std::is_integral_v<T> && !std::is_signed_v<T>>>
+  {
+    using type = uint64_t;
+  };
+
+  template <class T>
+  struct max_type<T, std::enable_if_t<std::is_floating_point_v<T>>>
+  {
+    using type = double;
+  };
+
+  template <class T>
+  using max_type_t = typename max_type<T>::type;
+
+  // Sums from the [int max, int max - 5)
+  template <class T>
+  static auto TestSum()
+  {
+    using max_t = max_type_t<T>;
+
+    constexpr max_t max_value = std::numeric_limits<T>::max();
+    std::vector<T> foo{};
+    foo.reserve(5);
+
+    for(max_t i = 0; i < 5; i++)
+    {
+      foo.push_back(max_value - i);
+    }
+
+    return StatisticsHelpers::computeSum(foo);
+  }
+
+  void TestStatisticHelper()
+  {
+    DREAM3D_REQUIRE(TestSum<int8_t>() == 625);
+    DREAM3D_REQUIRE(TestSum<uint8_t>() == 1265);
+    DREAM3D_REQUIRE(TestSum<int16_t>() == 163825);
+    DREAM3D_REQUIRE(TestSum<uint16_t>() == 327665);
+    DREAM3D_REQUIRE(TestSum<int32_t>() == 10737418225);
+    DREAM3D_REQUIRE(TestSum<uint32_t>() == 21474836465);
   }
 
   // -----------------------------------------------------------------------------
@@ -216,6 +270,7 @@ public:
     DREAM3D_REGISTER_TEST(TestPreflight())
 
     DREAM3D_REGISTER_TEST(TestExecution())
+    DREAM3D_REGISTER_TEST(TestStatisticHelper())
 
     DREAM3D_REGISTER_TEST(RemoveTestFiles())
   }

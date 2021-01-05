@@ -306,8 +306,8 @@ std::vector<float> findHistogram(C<T, Ts...>& source, float histmin, float histm
 
   if(histfullrange)
   {
-    min = static_cast<float>(findMin(source));
-    max = static_cast<float>(findMax(source));
+    min = static_cast<float>(StatisticsHelpers::findMin(source));
+    max = static_cast<float>(StatisticsHelpers::findMax(source));
   }
   else
   {
@@ -468,7 +468,7 @@ public:
       {
         if(m_Arrays[0])
         {
-          int64_t val = findLength(m_FeatureDataMap[i]);
+          int64_t val = static_cast<int64_t>(m_FeatureDataMap[i].size());
           m_Arrays[0]->initializeTuple(i, &val);
         }
       }
@@ -476,7 +476,7 @@ public:
       {
         if(m_Arrays[1])
         {
-          T val = findMin(m_FeatureDataMap[i]);
+          T val = StatisticsHelpers::findMin(m_FeatureDataMap[i]);
           m_Arrays[1]->initializeTuple(i, &val);
         }
       }
@@ -484,7 +484,7 @@ public:
       {
         if(m_Arrays[2])
         {
-          T val = findMax(m_FeatureDataMap[i]);
+          T val = StatisticsHelpers::findMax(m_FeatureDataMap[i]);
           m_Arrays[2]->initializeTuple(i, &val);
         }
       }
@@ -492,7 +492,7 @@ public:
       {
         if(m_Arrays[3])
         {
-          float val = findMean(m_FeatureDataMap[i]);
+          float val = StatisticsHelpers::findMean(m_FeatureDataMap[i]);
           m_Arrays[3]->initializeTuple(i, &val);
         }
       }
@@ -500,7 +500,7 @@ public:
       {
         if(m_Arrays[4])
         {
-          float val = findMedian(m_FeatureDataMap[i]);
+          float val = StatisticsHelpers::findMedian(m_FeatureDataMap[i]);
           m_Arrays[4]->initializeTuple(i, &val);
         }
       }
@@ -508,7 +508,7 @@ public:
       {
         if(m_Arrays[5])
         {
-          float val = findStdDeviation(m_FeatureDataMap[i]);
+          float val = StatisticsHelpers::findStdDeviation(m_FeatureDataMap[i]);
           m_Arrays[5]->initializeTuple(i, &val);
         }
       }
@@ -516,7 +516,7 @@ public:
       {
         if(m_Arrays[6])
         {
-          float val = findSummation(m_FeatureDataMap[i]);
+          float val = StatisticsHelpers::findSummation(m_FeatureDataMap[i]);
           m_Arrays[6]->initializeTuple(i, &val);
         }
       }
@@ -568,7 +568,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[0])
     {
-      int64_t val = findLength(data);
+      int64_t val = static_cast<int64_t>(data.size());
       arrays[0]->initializeTuple(0, &val);
     }
   }
@@ -576,7 +576,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[1])
     {
-      T val = findMin(data);
+      T val = StatisticsHelpers::findMin(data);
       arrays[1]->initializeTuple(0, &val);
     }
   }
@@ -584,7 +584,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[2])
     {
-      T val = findMax(data);
+      T val = StatisticsHelpers::findMax(data);
       arrays[2]->initializeTuple(0, &val);
     }
   }
@@ -592,7 +592,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[3])
     {
-      float val = findMean(data);
+      float val = StatisticsHelpers::findMean(data);
       arrays[3]->initializeTuple(0, &val);
     }
   }
@@ -600,7 +600,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[4])
     {
-      float val = findMedian(data);
+      float val = StatisticsHelpers::findMedian(data);
       arrays[4]->initializeTuple(0, &val);
     }
   }
@@ -608,7 +608,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[5])
     {
-      float val = findStdDeviation(data);
+      float val = StatisticsHelpers::findStdDeviation(data);
       arrays[5]->initializeTuple(0, &val);
     }
   }
@@ -616,7 +616,7 @@ void findStatisticsImpl(bool length, bool min, bool max, bool mean, bool median,
   {
     if(arrays[6])
     {
-      float val = findSummation(data);
+      float val = StatisticsHelpers::findSummation(data);
       arrays[6]->initializeTuple(0, &val);
     }
   }

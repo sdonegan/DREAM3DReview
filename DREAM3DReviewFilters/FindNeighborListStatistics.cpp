@@ -184,7 +184,7 @@ public:
       {
         if(m_Arrays[0])
         {
-          int64_t val = findLength(tmpList);
+          int64_t val = static_cast<int64_t>(tmpList.size());
           m_Arrays[0]->initializeTuple(i, &val);
         }
       }
@@ -192,7 +192,7 @@ public:
       {
         if(m_Arrays[1])
         {
-          T val = findMin(tmpList);
+          T val = StatisticsHelpers::findMin(tmpList);
           m_Arrays[1]->initializeTuple(i, &val);
         }
       }
@@ -200,7 +200,7 @@ public:
       {
         if(m_Arrays[2])
         {
-          T val = findMax(tmpList);
+          T val = StatisticsHelpers::findMax(tmpList);
           m_Arrays[2]->initializeTuple(i, &val);
         }
       }
@@ -208,7 +208,7 @@ public:
       {
         if(m_Arrays[3])
         {
-          float val = findMean(tmpList);
+          float val = StatisticsHelpers::findMean(tmpList);
           m_Arrays[3]->initializeTuple(i, &val);
         }
       }
@@ -216,7 +216,7 @@ public:
       {
         if(m_Arrays[4])
         {
-          float val = findMedian(tmpList);
+          float val = StatisticsHelpers::findMedian(tmpList);
           m_Arrays[4]->initializeTuple(i, &val);
         }
       }
@@ -224,7 +224,7 @@ public:
       {
         if(m_Arrays[5])
         {
-          float val = findStdDeviation(tmpList);
+          float val = StatisticsHelpers::findStdDeviation(tmpList);
           m_Arrays[5]->initializeTuple(i, &val);
         }
       }
@@ -232,7 +232,7 @@ public:
       {
         if(m_Arrays[6])
         {
-          float val = findSummation(tmpList);
+          float val = StatisticsHelpers::findSummation(tmpList);
           m_Arrays[6]->initializeTuple(i, &val);
         }
       }
