@@ -267,9 +267,10 @@ int32_t ReadBinaryCTNorthStar::readBinaryCTFiles()
   size_t zShift = 0;
   int32_t fileIndex = 1;
 
-  FloatArrayType& density = *(m_DensityPtr.lock().get());
+  auto densityPtr = m_DensityPtr.lock();
+  FloatArrayType& density = *densityPtr;
   density.initializeWithValue(0xABCDEF);
-  float* ptr = m_DensityPtr.lock()->getPointer(0);
+  float* ptr = density.getPointer(0);
 
   for(const auto& dataFileInput : m_DataFiles)
   {
