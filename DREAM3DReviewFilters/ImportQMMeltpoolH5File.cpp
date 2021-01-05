@@ -73,7 +73,7 @@ constexpr int32_t k_MissingSlicesError = -23709;
 constexpr int32_t k_DataStructureError = -23710;
 constexpr int32_t k_NumElementsError = -23711;
 constexpr int32_t k_InvalidOffsetError = -23712;
-constexpr int32_t k_InvalidSlicesError = -23713;
+// constexpr int32_t k_InvalidSlicesError = -23713;
 constexpr int32_t k_DataContainerError = -23714;
 constexpr int32_t k_FileFormatVersionMissingError = -23715;
 constexpr int32_t k_FileFormatVersionError = -23716;
@@ -81,7 +81,7 @@ constexpr int32_t k_FileFormatVersionError = -23716;
 constexpr int64_t k_FileFormatVersion = 3;
 
 constexpr size_t k_IndexNumCols = 3;
-constexpr size_t k_IndexCol = 0;
+// constexpr size_t k_IndexCol = 0;
 constexpr size_t k_IndexLayerThicknessCol = 1;
 constexpr size_t k_IndexVerticesCol = 2;
 

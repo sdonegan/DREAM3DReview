@@ -599,7 +599,7 @@ void ImportPrintRiteHDF5File::execute()
 AbstractFilter::Pointer ImportPrintRiteHDF5File::newFilterInstance(bool copyFilterParameters) const
 {
   ImportPrintRiteHDF5File::Pointer filter = ImportPrintRiteHDF5File::New();
-  if(true == copyFilterParameters)
+  if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
   }

@@ -282,8 +282,10 @@ int32_t ReadBinaryCTNorthStar::readBinaryCTFiles()
 
     if(error < 0)
     {
-      QString ss = QObject::tr("Binary file size is smaller than the number of allocated bytes");
-      setErrorCondition(-38705, ss);
+      QString msg;
+      QTextStream ss(&msg); 
+      ss << "Binary file size " << filesize << " is smaller than the number of allocated bytes: " << allocatedBytes;
+      setErrorCondition(-38705, msg);
       return getErrorCode();
     }
 

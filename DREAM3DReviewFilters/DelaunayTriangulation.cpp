@@ -384,7 +384,7 @@ void DelaunayTriangulation::execute()
 AbstractFilter::Pointer DelaunayTriangulation::newFilterInstance(bool copyFilterParameters) const
 {
   DelaunayTriangulation::Pointer filter = DelaunayTriangulation::New();
-  if(true == copyFilterParameters)
+  if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
   }

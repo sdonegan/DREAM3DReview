@@ -1849,7 +1849,7 @@ void ImportPrintRiteTDMSFiles::execute()
 AbstractFilter::Pointer ImportPrintRiteTDMSFiles::newFilterInstance(bool copyFilterParameters) const
 {
   ImportPrintRiteTDMSFiles::Pointer filter = ImportPrintRiteTDMSFiles::New();
-  if(true == copyFilterParameters)
+  if(copyFilterParameters)
   {
     copyFilterParameterInstanceVariables(filter.get());
   }
