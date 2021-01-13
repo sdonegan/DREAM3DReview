@@ -15,9 +15,17 @@ SIMPL_START_FILTER_GROUP(
 # superclass. If the filters are NOT meant to be ever invoked from the user interface
 # then they go here. This is also so that the python wrapping will work correctly.
 set(_SuperclassFilters
-  AdaptiveAlignment
+  
 )
+#-----------------
+# If ITK has been ENABLED then include these files
+if(SIMPL_USE_ITK)
+  set(_SuperclassFilters
+    ${_SuperclassFilters}
+    AdaptiveAlignment
+  )
 
+endif()
 #-----------------
 # Loop on the Filter Superclasses adding each one to the DREAM3DLib project so that it gets compiled.
 foreach(f ${_SuperclassFilters} )
@@ -49,9 +57,10 @@ set(_PublicFilters
   PottsModel
   PrincipalComponentAnalysis
   RemoveFlaggedVertices
-  RobustAutomaticThreshold
   Silhouette
   WaveFrontObjectFileWriter
+  RobustAutomaticThreshold
+
 
   # 2019-03-06 Filter AFRL Filter Release
   AlignGeometries
@@ -73,15 +82,12 @@ set(_PublicFilters
   ReadBinaryCTNorthStar
   SliceTriangleGeometry
 
+  #Anisotropy
+  SteinerCompact
+
   #HEDM
   ReadMicData
   TesselateFarFieldGrains
-
-  #Anisotropy
-  AdaptiveAlignmentFeature
-  AdaptiveAlignmentMisorientation
-  AdaptiveAlignmentMutualInformation
-  SteinerCompact
 
   #MASSIF
   FFTHDFWriterFilter
@@ -107,6 +113,19 @@ set(_PublicFilters
   GenerateMaskFromSimpleShapes
   CreateArrayofIndices
 )
+
+#-----------------
+# If ITK has been ENABLED then include these files
+if(SIMPL_USE_ITK)
+  set(_PublicFilters
+    ${_PublicFilters}
+    #Anisotropy
+    AdaptiveAlignmentFeature
+    AdaptiveAlignmentMisorientation
+    AdaptiveAlignmentMutualInformation
+  )
+
+endif()
 
 list(LENGTH _PublicFilters PluginNumFilters)
 set_property(GLOBAL PROPERTY PluginNumFilters ${PluginNumFilters})

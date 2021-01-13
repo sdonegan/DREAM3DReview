@@ -2,18 +2,7 @@
 
 #include <QtCore/QString>
 
-#include "itkConfigure.h"
-
-#if defined(ITK_VERSION_MAJOR) && ITK_VERSION_MAJOR == 4
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wself-assign-field"
-#endif
-#endif
-
-#include "itkImage.h"
-#include "itkRGBPixel.h"
-
+#include "SIMPLib/SIMPLib.h"
 #include "SIMPLib/DataArrays/DataArray.hpp"
 
 #include "DREAM3DReview/DREAM3DReviewConfig.h"
@@ -138,10 +127,6 @@ using DefaultPixelType = UInt8PixelType;
 using DefaultArrayType = UInt8ArrayType;
 #endif
 
-// multicomponent pixels
-using RGBUInt8PixelType = itk::RGBPixel<uint8_t>; // ipf color etc
-// typedef itk::RGBAPixel <float> RGBAFloatPixelType; //may be able to handle quats with this?
-
 // define dimensionality
 const unsigned int SliceDimension = 2;
 const unsigned int ImageDimension = 3;
@@ -150,6 +135,24 @@ const unsigned int ImageDimension = 3;
 const unsigned int XSlice = 0;
 const unsigned int YSlice = 1;
 const unsigned int ZSlice = 2;
+
+#if defined(SIMPL_USE_ITK)
+
+#include "itkConfigure.h"
+
+#if defined(ITK_VERSION_MAJOR) && ITK_VERSION_MAJOR == 4
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wself-assign-field"
+#endif
+#endif
+
+#include "itkImage.h"
+#include "itkRGBPixel.h"
+
+// multicomponent pixels
+using RGBUInt8PixelType = itk::RGBPixel<uint8_t>; // ipf color etc
+// typedef itk::RGBAPixel <float> RGBAFloatPixelType; //may be able to handle quats with this?
 
 // define image types
 using DefaultImageType = itk::Image<DefaultPixelType, ImageDimension>;
@@ -175,6 +178,8 @@ using Int64SliceType = itk::Image<Int64PixelType, SliceDimension>;
 using UInt64SliceType = itk::Image<UInt64PixelType, SliceDimension>;
 using FloatSliceType = itk::Image<FloatPixelType, SliceDimension>;
 using DoubleSliceType = itk::Image<DoublePixelType, SliceDimension>;
+#endif
+
 } // namespace AnisotropyConstants
 
 /**
