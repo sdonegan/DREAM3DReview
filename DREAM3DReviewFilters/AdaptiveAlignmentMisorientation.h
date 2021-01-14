@@ -264,8 +264,8 @@ private:
   DataArrayPath m_CrystalStructuresArrayPath = {};
 
   DataArray<uint8_t>::WeakPointer m_ImageDataPtr;
-  DataArray<AnisotropyConstants::DefaultPixelType>::WeakPointer SelectedCellArrayPtr;
-  DataArray<AnisotropyConstants::DefaultPixelType>::WeakPointer NewCellArrayPtr;
+  DataArray<DREAM3DReviewConstants::DefaultPixelType>::WeakPointer SelectedCellArrayPtr;
+  DataArray<DREAM3DReviewConstants::DefaultPixelType>::WeakPointer NewCellArrayPtr;
 
   LaueOpsContainer m_OrientationOps;
   uint64_t m_RandomSeed;

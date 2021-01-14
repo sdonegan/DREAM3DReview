@@ -240,7 +240,7 @@ void AdaptiveAlignment::create_array_for_flattened_image()
   std::vector<size_t> cDims(1, 1);
   DataArrayPath tempPath;
   tempPath.update(getImageDataArrayPath().getDataContainerName(), getImageDataArrayPath().getAttributeMatrixName(), "tempFlatImageDataName");
-  m_FlatImageDataPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<AnisotropyConstants::DefaultPixelType>>(this, tempPath, 0, cDims);
+  m_FlatImageDataPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<DREAM3DReviewConstants::DefaultPixelType>>(this, tempPath, 0, cDims);
   if(nullptr != m_FlatImageDataPtr.lock())
   {
     m_FlatImageData = m_FlatImageDataPtr.lock()->getPointer(0);
@@ -304,14 +304,14 @@ bool AdaptiveAlignment::find_calibrating_circles()
   };
 
   // wrap raw and processed image data as itk::images
-  AnisotropyConstants::DefaultImageType::Pointer inputImage = ITKUtilitiesType::CreateItkWrapperForDataPointer(m, attrMatName, m_FlatImageData);
+  DREAM3DReviewConstants::DefaultImageType::Pointer inputImage = ITKUtilitiesType::CreateItkWrapperForDataPointer(m, attrMatName, m_FlatImageData);
 
   // AnisotropyConstants::DefaultImageType::Pointer outputImage = ITKUtilitiesType::CreateItkWrapperForDataPointer(m, attrMatName, m_NewCellArray); // delete this
   // AnisotropyConstants::DefaultSliceType::IndexType localIndex; // delete this
 #if defined(ITK_VERSION_MAJOR) && ITK_VERSION_MAJOR == 4
-  using HoughTransformFilterType = itk::HoughTransform2DCirclesImageFilter<AnisotropyConstants::DefaultPixelType, AnisotropyConstants::FloatPixelType>;
+  using HoughTransformFilterType = itk::HoughTransform2DCirclesImageFilter<DREAM3DReviewConstants::DefaultPixelType, DREAM3DReviewConstants::FloatPixelType>;
 #else
-  using HoughTransformFilterType = itk::HoughTransform2DCirclesImageFilter<AnisotropyConstants::DefaultPixelType, AnisotropyConstants::FloatPixelType, AnisotropyConstants::FloatPixelType>;
+  using HoughTransformFilterType = itk::HoughTransform2DCirclesImageFilter<DREAM3DReviewConstants::DefaultPixelType, DREAM3DReviewConstants::FloatPixelType, DREAM3DReviewConstants::FloatPixelType>;
 #endif
   HoughTransformFilterType::Pointer houghFilter = HoughTransformFilterType::New();
   houghFilter->SetNumberOfCircles(m_NumberCircles);
@@ -331,7 +331,7 @@ bool AdaptiveAlignment::find_calibrating_circles()
   for(int i = 0; i < dims[2]; ++i)
   {
 
-    AnisotropyConstants::DefaultSliceType::Pointer inputSlice = ITKUtilitiesType::ExtractSlice(inputImage, AnisotropyConstants::ZSlice, i);
+    DREAM3DReviewConstants::DefaultSliceType::Pointer inputSlice = ITKUtilitiesType::ExtractSlice(inputImage, DREAM3DReviewConstants::ZSlice, i);
 
     // Hough transform is done for the first slice only
     // to roughly identify the area of calibrating circles
@@ -344,7 +344,7 @@ bool AdaptiveAlignment::find_calibrating_circles()
       // input slice here
       houghFilter->SetInput(inputSlice);
       houghFilter->Update();
-      AnisotropyConstants::FloatSliceType::Pointer localAccumulator = houghFilter->GetOutput();
+      DREAM3DReviewConstants::FloatSliceType::Pointer localAccumulator = houghFilter->GetOutput();
 
       // find circles
       HoughTransformFilterType::CirclesListType circles = houghFilter->GetCircles();

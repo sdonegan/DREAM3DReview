@@ -360,10 +360,10 @@ protected:
   virtual void find_shifts(std::vector<int64_t>& xshifts, std::vector<int64_t>& yshifts, std::vector<float>& xneedshifts, std::vector<float>& yneedshifts);
 
 private:
-  std::weak_ptr<DataArray<AnisotropyConstants::DefaultPixelType>> m_ImageDataPtr;
-  AnisotropyConstants::DefaultPixelType* m_ImageData = nullptr;
-  std::weak_ptr<DataArray<AnisotropyConstants::DefaultPixelType>> m_FlatImageDataPtr;
-  AnisotropyConstants::DefaultPixelType* m_FlatImageData = nullptr;
+  std::weak_ptr<DataArray<DREAM3DReviewConstants::DefaultPixelType>> m_ImageDataPtr;
+  DREAM3DReviewConstants::DefaultPixelType* m_ImageData = nullptr;
+  std::weak_ptr<DataArray<DREAM3DReviewConstants::DefaultPixelType>> m_FlatImageDataPtr;
+  DREAM3DReviewConstants::DefaultPixelType* m_FlatImageData = nullptr;
 
   QString m_DataContainerName = {};
   QString m_CellAttributeMatrixName = {};
@@ -380,7 +380,7 @@ private:
   int m_NumberCircles = {};
   QVector<DataArrayPath> m_IgnoredDataArrayPaths = {};
 
-  DataArray<AnisotropyConstants::DefaultPixelType>::WeakPointer m_NewCellArrayPtr;
+  DataArray<DREAM3DReviewConstants::DefaultPixelType>::WeakPointer m_NewCellArrayPtr;
 
   std::vector<std::vector<uint64_t>> m_RectangleCorners;
   std::vector<std::vector<float>> m_CalibratingCircles;
