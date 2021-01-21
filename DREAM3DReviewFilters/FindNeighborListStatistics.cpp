@@ -120,16 +120,15 @@ void FindNeighborListStatistics::dataCheck()
   QVector<DataArrayPath> dataArrayPaths;
 
   m_InputArrayPtr = getDataContainerArray()->getPrereqIDataArrayFromPath(this, getSelectedArrayPath());
+  if(getErrorCode() < 0)
+  {
+    return;
+  }
   // The input array must be a NeighborList.
   if(m_InputArrayPtr.lock()->getNameOfClass() != "NeighborList<T>")
   {
     QString ss = QObject::tr("Input Data must be a NeighborList Attribute Array");
     setErrorCondition(-11006, ss);
-  }
-
-  if(getErrorCode() < 0)
-  {
-    return;
   }
 
   dataArrayPaths.push_back(getSelectedArrayPath());

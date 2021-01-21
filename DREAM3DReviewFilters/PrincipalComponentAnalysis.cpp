@@ -192,13 +192,13 @@ void PrincipalComponentAnalysis::dataCheck()
 
   std::vector<size_t> tDims(1, paths.size());
 
-  DataContainer::Pointer m = getDataContainerArray()->getDataContainer(getSelectedDataArrayPaths()[0].getDataContainerName());
+  DataContainer::Pointer m = getDataContainerArray()->getDataContainer(getSelectedDataArrayPaths().at(0).getDataContainerName());
   m->createNonPrereqAttributeMatrix(this, getPCAttributeMatrixName(), tDims, AttributeMatrix::Type::Generic, AttributeMatrixID21);
 
   DataArrayPath tempPath;
   std::vector<size_t> cDims(1, 1);
 
-  tempPath.update(getSelectedDataArrayPaths()[0].getDataContainerName(), getPCAttributeMatrixName(), getPCEigenvaluesName());
+  tempPath.update(getSelectedDataArrayPaths().at(0).getDataContainerName(), getPCAttributeMatrixName(), getPCEigenvaluesName());
   m_PCEigenvaluesPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, tempPath, 0, cDims, "", DataArrayID31);
   if(m_PCEigenvaluesPtr.lock())
   {
@@ -207,7 +207,7 @@ void PrincipalComponentAnalysis::dataCheck()
 
   cDims[0] = paths.size();
 
-  tempPath.update(getSelectedDataArrayPaths()[0].getDataContainerName(), getPCAttributeMatrixName(), getPCEigenvectorsName());
+  tempPath.update(getSelectedDataArrayPaths().at(0).getDataContainerName(), getPCAttributeMatrixName(), getPCEigenvectorsName());
   m_PCEigenvectorsPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<double>>(this, tempPath, 0, cDims, "", DataArrayID32);
   if(m_PCEigenvectorsPtr.lock())
   {
