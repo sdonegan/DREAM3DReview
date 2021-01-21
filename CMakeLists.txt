@@ -149,6 +149,7 @@ endif()
 # --------------------------------------------------------------------
 set(${PLUGIN_NAME}_HDRS
   ${${PLUGIN_NAME}_SOURCE_DIR}/${PLUGIN_NAME}Constants.h
+  ${${PLUGIN_NAME}_SOURCE_DIR}/${PLUGIN_NAME}ItkConstants.h
 )
 
 

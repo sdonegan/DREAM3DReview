@@ -42,6 +42,7 @@
 #include "SIMPLib/Filtering/AbstractFilter.h"
 
 #include "DREAM3DReview/DREAM3DReviewConstants.h"
+#include "DREAM3DReview/DREAM3DReviewItkConstants.h"
 #include "DREAM3DReview/DREAM3DReviewDLLExport.h"
 
 /**
