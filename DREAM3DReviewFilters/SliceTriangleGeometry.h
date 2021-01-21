@@ -42,8 +42,6 @@ class DREAM3DReview_EXPORT SliceTriangleGeometry : public AbstractFilter
   PYB11_PROPERTY(QString EdgeAttributeMatrixName READ getEdgeAttributeMatrixName WRITE setEdgeAttributeMatrixName)
   PYB11_PROPERTY(QString SliceAttributeMatrixName READ getSliceAttributeMatrixName WRITE setSliceAttributeMatrixName)
   PYB11_PROPERTY(QString SliceIdArrayName READ getSliceIdArrayName WRITE setSliceIdArrayName)
-  PYB11_PROPERTY(QString AreasArrayName READ getAreasArrayName WRITE setAreasArrayName)
-  PYB11_PROPERTY(QString PerimetersArrayName READ getPerimetersArrayName WRITE setPerimetersArrayName)
   PYB11_PROPERTY(bool HaveRegionIds READ getHaveRegionIds WRITE setHaveRegionIds)
   PYB11_PROPERTY(DataArrayPath RegionIdArrayPath READ getRegionIdArrayPath WRITE setRegionIdArrayPath)
   PYB11_PROPERTY(FloatVec3Type SliceDirection READ getSliceDirection WRITE setSliceDirection)
@@ -129,28 +127,6 @@ public:
    */
   QString getSliceIdArrayName() const;
   Q_PROPERTY(QString SliceIdArrayName READ getSliceIdArrayName WRITE setSliceIdArrayName)
-
-  /**
-   * @brief Setter property for AreasArrayName
-   */
-  void setAreasArrayName(const QString& value);
-  /**
-   * @brief Getter property for AreasArrayName
-   * @return Value of AreasArrayName
-   */
-  QString getAreasArrayName() const;
-  Q_PROPERTY(QString AreasArrayName READ getAreasArrayName WRITE setAreasArrayName)
-
-  /**
-   * @brief Setter property for PerimetersArrayName
-   */
-  void setPerimetersArrayName(const QString& value);
-  /**
-   * @brief Getter property for PerimetersArrayName
-   * @return Value of PerimetersArrayName
-   */
-  QString getPerimetersArrayName() const;
-  Q_PROPERTY(QString PerimetersArrayName READ getPerimetersArrayName WRITE setPerimetersArrayName)
 
   /**
    * @brief Setter property for HaveRegionIds
@@ -313,42 +289,24 @@ protected:
    */
   void determineBoundsAndNumSlices(float& minDim, float& maxDim, MeshIndexType numTris, MeshIndexType* tris, float* triVerts);
 
-  /**
-   * @brief updateEdgeInstancePointers
-   */
-  void updateEdgeInstancePointers();
-
-  /**
-   * @brief updateSliceInstancePointers
-   */
-  void updateSliceInstancePointers();
-
 private:
-  std::weak_ptr<DataArray<int32_t>> m_SliceIdPtr;
-  int32_t* m_SliceId = nullptr;
-  std::weak_ptr<DataArray<float>> m_AreaPtr;
-  float* m_Area = nullptr;
-  std::weak_ptr<DataArray<float>> m_PerimeterPtr;
-  float* m_Perimeter = nullptr;
-  std::weak_ptr<DataArray<int32_t>> m_RegionIdPtr;
-  int32_t* m_RegionId = nullptr;
-  std::weak_ptr<DataArray<int32_t>> m_TriRegionIdPtr;
-  int32_t* m_TriRegionId = nullptr;
+  std::weak_ptr<Int32ArrayType> m_SliceIdPtr;
+  std::weak_ptr<Int32ArrayType> m_RegionIdPtr;
+  std::weak_ptr<Int32ArrayType> m_TriRegionIdPtr;
 
-  DataArrayPath m_CADDataContainerName = {};
-  QString m_SliceDataContainerName = {};
-  QString m_EdgeAttributeMatrixName = {};
-  QString m_SliceAttributeMatrixName = {};
-  QString m_SliceIdArrayName = {};
-  QString m_AreasArrayName = {};
-  QString m_PerimetersArrayName = {};
-  bool m_HaveRegionIds = {};
-  DataArrayPath m_RegionIdArrayPath = {};
-  FloatVec3Type m_SliceDirection = {};
-  float m_SliceResolution = {};
-  float m_Zstart = {};
-  float m_Zend = {};
-  int m_SliceRange = {};
+  DataArrayPath m_CADDataContainerName = {"TriangleDataContainer", "", ""};
+  QString m_SliceDataContainerName = {"SliceDataContainer"};
+  QString m_EdgeAttributeMatrixName = {"EdgeData"};
+  QString m_SliceAttributeMatrixName = {"SliceData"};
+  QString m_SliceIdArrayName = {"SliceIds"};
+
+  bool m_HaveRegionIds = {false};
+  DataArrayPath m_RegionIdArrayPath = {"", "", ""};
+  FloatVec3Type m_SliceDirection = {0.0F, 0.0F, 1.0F};
+  float m_SliceResolution = {1.0F};
+  float m_Zstart = {0.0F};
+  float m_Zend = {0.0F};
+  int m_SliceRange = {0};
 
   enum RotationDirection
   {

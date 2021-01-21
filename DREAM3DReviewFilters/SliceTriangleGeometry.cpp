@@ -42,25 +42,7 @@
 // -----------------------------------------------------------------------------
 //
 // -----------------------------------------------------------------------------
-SliceTriangleGeometry::SliceTriangleGeometry()
-: m_CADDataContainerName("TriangleDataContainer")
-, m_SliceDataContainerName("SliceDataContainer")
-, m_EdgeAttributeMatrixName("EdgeData")
-, m_SliceAttributeMatrixName("SliceData")
-, m_SliceIdArrayName("SliceIds")
-, m_AreasArrayName("SliceAreas")
-, m_PerimetersArrayName("SlicePerimeters")
-, m_HaveRegionIds(false)
-, m_RegionIdArrayPath("", "", "")
-, m_SliceResolution(1.0f)
-, m_Zstart(0.0)
-, m_Zend(0.0)
-, m_SliceRange(0)
-{
-  m_SliceDirection[0] = 0.0;
-  m_SliceDirection[1] = 0.0;
-  m_SliceDirection[2] = 1.0;
-}
+SliceTriangleGeometry::SliceTriangleGeometry() = default;
 
 // -----------------------------------------------------------------------------
 //
@@ -114,45 +96,7 @@ void SliceTriangleGeometry::setupFilterParameters()
   parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, SliceDataContainerName, FilterParameter::CreatedArray, SliceTriangleGeometry));
   parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Slice Ids", SliceIdArrayName, SliceDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, SliceTriangleGeometry));
   parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Slice Attribute Matrix", SliceAttributeMatrixName, SliceDataContainerName, FilterParameter::CreatedArray, SliceTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Areas", AreasArrayName, SliceDataContainerName, SliceAttributeMatrixName, FilterParameter::CreatedArray, SliceTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Perimeters", PerimetersArrayName, SliceDataContainerName, SliceAttributeMatrixName, FilterParameter::CreatedArray, SliceTriangleGeometry));
   setFilterParameters(parameters);
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void SliceTriangleGeometry::updateEdgeInstancePointers()
-{
-  clearErrorCode();
-  clearWarningCode();
-
-  if(nullptr != m_SliceIdPtr.lock().get())
-  {
-    m_SliceId = m_SliceIdPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_RegionIdPtr.lock().get())
-  {
-    m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-}
-
-// -----------------------------------------------------------------------------
-//
-// -----------------------------------------------------------------------------
-void SliceTriangleGeometry::updateSliceInstancePointers()
-{
-  clearErrorCode();
-  clearWarningCode();
-
-  if(nullptr != m_AreaPtr.lock().get())
-  {
-    m_Area = m_AreaPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(nullptr != m_PerimeterPtr.lock().get())
-  {
-    m_Perimeter = m_PerimeterPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
 }
 
 // -----------------------------------------------------------------------------
@@ -197,60 +141,25 @@ void SliceTriangleGeometry::dataCheck()
   std::vector<size_t> cDims(1, 1);
   if(m_HaveRegionIds)
   {
-    m_TriRegionIdPtr = getDataContainerArray()->getPrereqArrayFromPath<DataArray<int32_t>>(this, getRegionIdArrayPath(), cDims);
-    if(nullptr != m_TriRegionIdPtr.lock().get())
-    {
-      m_TriRegionId = m_TriRegionIdPtr.lock()->getPointer(0);
-    } /* Now assign the raw pointer to data from the DataArray<T> object */
-    if(getErrorCode() >= 0)
-    {
-      dataArrays.push_back(m_TriRegionIdPtr.lock());
-    }
-
-    tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getRegionIdArrayPath().getDataArrayName());
-    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
-    if(nullptr != m_RegionIdPtr.lock().get())
-    {
-      m_RegionId = m_RegionIdPtr.lock()->getPointer(0);
-    } /* Now assign the raw pointer to data from the DataArray<T> object */
+    m_TriRegionIdPtr = getDataContainerArray()->getPrereqArrayFromPath<Int32ArrayType>(this, getRegionIdArrayPath(), cDims);
     if(getErrorCode() < 0)
     {
       return;
     }
+    dataArrays.push_back(m_TriRegionIdPtr.lock());
+
+    tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getRegionIdArrayPath().getDataArrayName());
+    m_RegionIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<Int32ArrayType>(this, tempPath, 0, cDims);
+    if(getErrorCode() < 0)
+    {
+      return;
+    }
+    dataArrays.push_back(m_TriRegionIdPtr.lock());
   }
 
   tempPath.update(getSliceDataContainerName(), getEdgeAttributeMatrixName(), getSliceIdArrayName());
-  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<int32_t>>(this, tempPath, 0, cDims);
-  if(nullptr != m_SliceIdPtr.lock().get())
-  {
-    m_SliceId = m_SliceIdPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(getErrorCode() < 0)
-  {
-    return;
-  }
-
-  tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getAreasArrayName());
-  m_AreaPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
-  if(nullptr != m_AreaPtr.lock().get())
-  {
-    m_Area = m_AreaPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(getErrorCode() < 0)
-  {
-    return;
-  }
-
-  tempPath.update(getSliceDataContainerName(), getSliceAttributeMatrixName(), getPerimetersArrayName());
-  m_PerimeterPtr = getDataContainerArray()->createNonPrereqArrayFromPath<DataArray<float>>(this, tempPath, 0, cDims);
-  if(nullptr != m_PerimeterPtr.lock().get())
-  {
-    m_Perimeter = m_PerimeterPtr.lock()->getPointer(0);
-  } /* Now assign the raw pointer to data from the DataArray<T> object */
-  if(getErrorCode() < 0)
-  {
-    return;
-  }
+  m_SliceIdPtr = getDataContainerArray()->createNonPrereqArrayFromPath<Int32ArrayType>(this, tempPath, 0, cDims);
+  // If more code is placed beyond this comment then you should check for an error and return if the error < 0
 }
 
 // -----------------------------------------------------------------------------
@@ -264,7 +173,7 @@ void SliceTriangleGeometry::rotateVertices(unsigned int direction, float* n, int
   float angle = GeometryMath::AngleBetweenVectors(sliceDirection, n);
   float rotMat[3][3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
   float invRotMat[3][3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
-  if(angle > (0.01f * SIMPLib::Constants::k_PiOver180D))
+  if(angle > (0.01f * SIMPLib::Constants::k_DegToRadD))
   {
     float crossDirection[3];
     crossDirection[0] = m_SliceDirection[1];
@@ -413,13 +322,15 @@ void SliceTriangleGeometry::execute()
 
   std::vector<float> slicedVerts;
   std::vector<int32_t> sliceIds;
-  int32_t regionId = 0;
   std::vector<int32_t> regionIds;
-  // float min_shift = m_SliceResolution / 1000.0f;
+
+  // Get an object reference to the pointer
+  Int32ArrayType& m_TriRegionId = *(m_TriRegionIdPtr.lock());
 
   int32_t edgeCounter = 0;
   for(MeshIndexType i = 0; i < numTris; i++)
   {
+    int32_t regionId = 0;
     // get region Id of this triangle (if they are available)
     if(m_HaveRegionIds)
     {
@@ -612,7 +523,7 @@ void SliceTriangleGeometry::execute()
   if(numVerts != (2 * numEdges))
   {
     QString message = QObject::tr("Number of sectioned vertices and edges do not make sense.  Number of Vertices: %1 and Number of Edges: %2").arg(numVerts).arg(numEdges);
-    setErrorCondition(-00003, message);
+    setErrorCondition(-13003, message);
     return;
   }
 
@@ -624,10 +535,14 @@ void SliceTriangleGeometry::execute()
 
   std::vector<size_t> tDims(1, numEdges);
   m->getAttributeMatrix(getEdgeAttributeMatrixName())->resizeAttributeArrays(tDims);
-  updateEdgeInstancePointers();
+
   tDims[0] = m_NumberOfSlices;
   m->getAttributeMatrix(getSliceAttributeMatrixName())->resizeAttributeArrays(tDims);
-  updateSliceInstancePointers();
+
+  // Weak pointers are still good because the resize operations are affecting the internal structure of the DataArray<T>
+  // and not the actual pointer to the DataArray<T> object itself.
+  Int32ArrayType& m_SliceId = *(m_SliceIdPtr.lock());
+  Int32ArrayType& m_RegionId = *(m_RegionIdPtr.lock());
 
   for(size_t i = 0; i < numEdges; i++)
   {
@@ -644,27 +559,6 @@ void SliceTriangleGeometry::execute()
     {
       m_RegionId[i] = regionIds[i];
     }
-  }
-
-  // calculate slice areas before rotating back so we can use simple area calculation
-  for(size_t i = 0; i < numEdges; i++)
-  {
-    int32_t sliceId = m_SliceId[i];
-    float height = 0.5 * (verts[3 * (2 * i) + 1] + verts[3 * (2 * i + 1) + 1]);
-    float width = (verts[3 * (2 * i + 1)] - verts[3 * (2 * i)]);
-    float length = ((verts[3 * (2 * i + 1)] - verts[3 * (2 * i)]) * (verts[3 * (2 * i + 1)] - verts[3 * (2 * i)])) +
-                   ((verts[3 * (2 * i + 1) + 1] - verts[3 * (2 * i) + 1]) * (verts[3 * (2 * i + 1) + 1] - verts[3 * (2 * i) + 1])) +
-                   ((verts[3 * (2 * i + 1) + 2] - verts[3 * (2 * i) + 2]) * (verts[3 * (2 * i + 1) + 2] - verts[3 * (2 * i) + 2]));
-    length = sqrt(length);
-    float area = height * width;
-    m_Area[sliceId] += area;
-    m_Perimeter[sliceId] += length;
-  }
-
-  // take absolute value to ensure areas are positive (in case winding is such that areas come out negative)
-  for(size_t i = 0; i < m_NumberOfSlices; i++)
-  {
-    m_Area[i] = fabsf(m_Area[i]);
   }
 
   // rotate all CAD triangles back to original orientation
@@ -837,30 +731,6 @@ void SliceTriangleGeometry::setSliceIdArrayName(const QString& value)
 QString SliceTriangleGeometry::getSliceIdArrayName() const
 {
   return m_SliceIdArrayName;
-}
-
-// -----------------------------------------------------------------------------
-void SliceTriangleGeometry::setAreasArrayName(const QString& value)
-{
-  m_AreasArrayName = value;
-}
-
-// -----------------------------------------------------------------------------
-QString SliceTriangleGeometry::getAreasArrayName() const
-{
-  return m_AreasArrayName;
-}
-
-// -----------------------------------------------------------------------------
-void SliceTriangleGeometry::setPerimetersArrayName(const QString& value)
-{
-  m_PerimetersArrayName = value;
-}
-
-// -----------------------------------------------------------------------------
-QString SliceTriangleGeometry::getPerimetersArrayName() const
-{
-  return m_PerimetersArrayName;
 }
 
 // -----------------------------------------------------------------------------
