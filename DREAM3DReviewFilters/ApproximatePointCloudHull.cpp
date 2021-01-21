@@ -14,6 +14,8 @@
 
 #include "ApproximatePointCloudHull.h"
 
+#include <cstring>
+
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"

@@ -14,6 +14,7 @@
 
 #include "DownsampleVertexGeometry.h"
 
+#include <cstring>
 #include <random>
 
 #include "SIMPLib/Common/Constants.h"

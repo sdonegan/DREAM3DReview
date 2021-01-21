@@ -14,6 +14,8 @@
 
 #include "ImportCLIFile.h"
 
+#include <cstring>
+
 #include <QtCore/QFileInfo>
 #include <QtCore/QTextStream>
 

@@ -5,6 +5,7 @@
 #include "GenerateMaskFromSimpleShapes.h"
 
 #include <array>
+#include <cmath>
 
 #include <QtCore/QTextStream>
 
