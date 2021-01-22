@@ -130,7 +130,10 @@ void FindNeighborListStatistics::dataCheck()
     QString ss = QObject::tr("Input Data must be a NeighborList Attribute Array");
     setErrorCondition(-11006, ss);
   }
-
+  if(getErrorCode() < 0)
+  {
+    return;
+  }
   dataArrayPaths.push_back(getSelectedArrayPath());
 
   if(m_InputArrayPtr.lock()->getNumberOfComponents() != 1)
@@ -138,7 +141,10 @@ void FindNeighborListStatistics::dataCheck()
     QString ss = QObject::tr("Input Attribute Array must be a scalar array");
     setErrorCondition(-11002, ss);
   }
-
+  if(getErrorCode() < 0)
+  {
+    return;
+  }
   EXECUTE_FUNCTION_TEMPLATE_NO_BOOL(NeighborList, this, createCompatibleArrays, m_InputArrayPtr.lock(), dataArrayPaths)
 
   getDataContainerArray()->validateNumberOfTuples(this, dataArrayPaths);
