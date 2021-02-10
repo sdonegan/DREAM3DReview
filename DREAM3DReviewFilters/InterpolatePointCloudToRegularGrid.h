@@ -32,6 +32,26 @@
 class DREAM3DReview_EXPORT InterpolatePointCloudToRegularGrid : public AbstractFilter
 {
   Q_OBJECT
+  PYB11_BEGIN_BINDINGS(InterpolatePointCloudToRegularGrid SUPERCLASS AbstractFilter)
+  PYB11_FILTER()
+  PYB11_SHARED_POINTERS(InterpolatePointCloudToRegularGrid)
+  PYB11_FILTER_NEW_MACRO(InterpolatePointCloudToRegularGrid)
+  PYB11_PROPERTY(DataArrayPath DataContainerName READ getDataContainerName WRITE setDataContainerName)
+  PYB11_PROPERTY(QVector<DataArrayPath> ArraysToInterpolate READ getArraysToInterpolate WRITE setArraysToInterpolate)
+  PYB11_PROPERTY(QVector<DataArrayPath> ArraysToCopy READ getArraysToCopy WRITE setArraysToCopy)
+  PYB11_PROPERTY(DataArrayPath VoxelIndicesArrayPath READ getVoxelIndicesArrayPath WRITE setVoxelIndicesArrayPath)
+  PYB11_PROPERTY(DataArrayPath InterpolatedDataContainerName READ getInterpolatedDataContainerName WRITE setInterpolatedDataContainerName)
+  PYB11_PROPERTY(QString InterpolatedAttributeMatrixName READ getInterpolatedAttributeMatrixName WRITE setInterpolatedAttributeMatrixName)
+  PYB11_PROPERTY(int InterpolationTechnique READ getInterpolationTechnique WRITE setInterpolationTechnique)
+  PYB11_PROPERTY(FloatVec3Type KernelSize READ getKernelSize WRITE setKernelSize)
+  PYB11_PROPERTY(FloatVec3Type Sigmas READ getSigmas WRITE setSigmas)
+  PYB11_PROPERTY(bool UseMask READ getUseMask WRITE setUseMask)
+  PYB11_PROPERTY(DataArrayPath MaskArrayPath READ getMaskArrayPath WRITE setMaskArrayPath)
+  PYB11_PROPERTY(bool StoreKernelDistances READ getStoreKernelDistances WRITE setStoreKernelDistances)
+  PYB11_PROPERTY(QString KernelDistancesArrayName READ getKernelDistancesArrayName WRITE setKernelDistancesArrayName)
+  PYB11_PROPERTY(QString InterpolatedSuffix READ getInterpolatedSuffix WRITE setInterpolatedSuffix)
+  PYB11_PROPERTY(QString CopySuffix READ getCopySuffix WRITE setCopySuffix)
+  PYB11_END_BINDINGS()
 
 public:
   using Self = InterpolatePointCloudToRegularGrid;
@@ -198,6 +218,28 @@ public:
   Q_PROPERTY(QString KernelDistancesArrayName READ getKernelDistancesArrayName WRITE setKernelDistancesArrayName)
 
   /**
+   * @brief Setter property for KernelDistancesArrayName
+   */
+  void setInterpolatedSuffix(const QString& value);
+  /**
+   * @brief Getter property for KernelDistancesArrayName
+   * @return Value of KernelDistancesArrayName
+   */
+  QString getInterpolatedSuffix() const;
+  Q_PROPERTY(QString InterpolatedSuffix READ getInterpolatedSuffix WRITE setInterpolatedSuffix)
+
+  /**
+   * @brief Setter property for KernelDistancesArrayName
+   */
+  void setCopySuffix(const QString& value);
+  /**
+   * @brief Getter property for KernelDistancesArrayName
+   * @return Value of KernelDistancesArrayName
+   */
+  QString getCopySuffix() const;
+  Q_PROPERTY(QString CopySuffix READ getCopySuffix WRITE setCopySuffix)
+
+  /**
    * @brief getCompiledLibraryName Reimplemented from @see AbstractFilter class
    */
   QString getCompiledLibraryName() const override;
@@ -240,11 +282,6 @@ public:
    * @brief setupFilterParameters Reimplemented from @see AbstractFilter class
    */
   void setupFilterParameters() override;
-
-  /**
-   * @brief readFilterParameters Reimplemented from @see AbstractFilter class
-   */
-  void readFilterParameters(AbstractFilterParametersReader* reader, int index) override;
 
   /**
    * @brief execute Reimplemented from @see AbstractFilter class
@@ -313,6 +350,9 @@ private:
   DataArrayPath m_MaskArrayPath = {};
   bool m_StoreKernelDistances = false;
   QString m_KernelDistancesArrayName = {};
+
+  QString m_InterpolatedSuffix = " [Interpolated]";
+  QString m_CopySuffix = " [Copied]";
 
   NeighborList<float>::WeakPointer m_KernelDistances = NeighborList<float>::NullPointer();
 
