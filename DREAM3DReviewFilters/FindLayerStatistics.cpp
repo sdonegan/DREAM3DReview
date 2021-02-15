@@ -171,10 +171,10 @@ void FindLayerStatistics::setupFilterParameters()
     choices.push_back("XZ");
     choices.push_back("YZ");
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
@@ -190,17 +190,17 @@ void FindLayerStatistics::setupFilterParameters()
     daTypes.push_back(SIMPL::TypeNames::Float);
     daTypes.push_back(SIMPL::TypeNames::Double);
     req.daTypes = daTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Quantify", SelectedArrayPath, FilterParameter::RequiredArray, FindLayerStatistics, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Quantify", SelectedArrayPath, FilterParameter::Category::RequiredArray, FindLayerStatistics, req));
   }
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Layer Attribute Matrix", LayerAttributeMatrixName, SelectedArrayPath, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer IDs", LayerIDsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SeparatorFilterParameter::New("Feature Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Min", LayerMinArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Max", LayerMaxArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Avg", LayerAvgArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Std", LayerStdArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::CreatedArray, FindLayerStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Var", LayerVarArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Layer Attribute Matrix", LayerAttributeMatrixName, SelectedArrayPath, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer IDs", LayerIDsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SeparatorFilterParameter::Create("Feature Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Min", LayerMinArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Max", LayerMaxArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Avg", LayerAvgArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Std", LayerStdArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::Category::CreatedArray, FindLayerStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Var", LayerVarArrayName, SelectedArrayPath, LayerAttributeMatrixName, FilterParameter::Category::CreatedArray, FindLayerStatistics));
   setFilterParameters(parameters);
 }
 

@@ -54,42 +54,47 @@ void FindNeighborListStatistics::setupFilterParameters()
 
   linkedProps.clear();
   linkedProps << "LengthArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Length", FindLength, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Length", FindLength, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MinimumArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Minimum", FindMin, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Minimum", FindMin, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MaximumArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Maximum", FindMax, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Maximum", FindMax, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MeanArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Mean", FindMean, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Mean", FindMean, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MedianArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Median", FindMedian, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Median", FindMedian, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "StdDeviationArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Standard Deviation", FindStdDeviation, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Standard Deviation", FindStdDeviation, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "SummationArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Summation", FindSummation, FilterParameter::Parameter, FindNeighborListStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Summation", FindSummation, FilterParameter::Category::Parameter, FindNeighborListStatistics, linkedProps));
   linkedProps.clear();
 
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Compute Statistics", SelectedArrayPath, FilterParameter::RequiredArray, FindNeighborListStatistics, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Compute Statistics", SelectedArrayPath, FilterParameter::Category::RequiredArray, FindNeighborListStatistics, dasReq));
 
   AttributeMatrixSelectionFilterParameter::RequirementType amReq = AttributeMatrixSelectionFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Destination Attribute Matrix", DestinationAttributeMatrix, FilterParameter::RequiredArray, FindNeighborListStatistics, amReq));
+  parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Destination Attribute Matrix", DestinationAttributeMatrix, FilterParameter::Category::RequiredArray, FindNeighborListStatistics, amReq));
 
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Length", LengthArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Minimum", MinimumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Maximum", MaximumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Mean", MeanArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Median", MedianArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standard Deviation", StdDeviationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Length", LengthArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Summation", SummationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindNeighborListStatistics));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Minimum", MinimumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Maximum", MaximumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Mean", MeanArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Median", MedianArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standard Deviation", StdDeviationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray,
+                                                      FindNeighborListStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Summation", SummationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindNeighborListStatistics));
 
   setFilterParameters(parameters);
 }

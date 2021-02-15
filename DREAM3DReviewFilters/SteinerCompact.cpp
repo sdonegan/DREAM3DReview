@@ -101,7 +101,7 @@ void SteinerCompact::setupFilterParameters()
     choices.push_back("YZ");
     parameter->setChoices(choices);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
   {
@@ -118,26 +118,26 @@ void SteinerCompact::setupFilterParameters()
     choices.push_back("36");
     parameter->setChoices(choices);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  // parameters.push_back(SIMPL_NEW_INTEGER_FP("Number Of Sites", Sites, FilterParameter::Parameter, SteinerCompact));
+  // parameters.push_back(SIMPL_NEW_INTEGER_FP("Number Of Sites", Sites, FilterParameter::Category::Parameter, SteinerCompact));
   linkedProps.clear();
   linkedProps << "VtkFileName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Graphical Output As .vtk", VtkOutput, FilterParameter::Parameter, SteinerCompact, linkedProps));
-  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Vtk File", VtkFileName, FilterParameter::Parameter, SteinerCompact, "*.vtk", "VTK Polydata"));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Graphical Output As .vtk", VtkOutput, FilterParameter::Category::Parameter, SteinerCompact, linkedProps));
+  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Vtk File", VtkFileName, FilterParameter::Category::Parameter, SteinerCompact, "*.vtk", "VTK Polydata"));
   linkedProps.clear();
   linkedProps << "TxtFileName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Text Output As .txt", TxtOutput, FilterParameter::Parameter, SteinerCompact, linkedProps));
-  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Text File", TxtFileName, FilterParameter::Parameter, SteinerCompact, "*.txt", "Text"));
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Text Output As .txt", TxtOutput, FilterParameter::Category::Parameter, SteinerCompact, linkedProps));
+  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Text File", TxtFileName, FilterParameter::Category::Parameter, SteinerCompact, "*.txt", "Text"));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::RequiredArray, SteinerCompact, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, SteinerCompact, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phases", CellPhasesArrayPath, FilterParameter::RequiredArray, SteinerCompact, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phases", CellPhasesArrayPath, FilterParameter::Category::RequiredArray, SteinerCompact, req));
   }
 
   setFilterParameters(parameters);

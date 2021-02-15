@@ -91,15 +91,15 @@ void ImportMASSIFData::setupFilterParameters()
   FilterParameterVectorType parameters;
 
   {
-    parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input File", MassifInputFilePath, FilterParameter::Parameter, ImportMASSIFData, "*.h5;*.hdf5;*.dream3d"));
+    parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input File", MassifInputFilePath, FilterParameter::Category::Parameter, ImportMASSIFData, "*.h5;*.hdf5;*.dream3d"));
   }
 
   {
-    parameters.push_back(SIMPL_NEW_STRING_FP("File Prefix", FilePrefix, FilterParameter::Parameter, ImportMASSIFData));
+    parameters.push_back(SIMPL_NEW_STRING_FP("File Prefix", FilePrefix, FilterParameter::Category::Parameter, ImportMASSIFData));
   }
 
   {
-    parameters.push_back(SIMPL_NEW_INTEGER_FP("Step Value", StepNumber, FilterParameter::Parameter, ImportMASSIFData));
+    parameters.push_back(SIMPL_NEW_INTEGER_FP("Step Value", StepNumber, FilterParameter::Category::Parameter, ImportMASSIFData));
   }
 
   setFilterParameters(parameters);

@@ -88,7 +88,7 @@ KMedoids::~KMedoids() = default;
 void KMedoids::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Clusters", InitClusters, FilterParameter::Parameter, KMedoids));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Clusters", InitClusters, FilterParameter::Category::Parameter, KMedoids));
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Distance Metric");
@@ -97,19 +97,19 @@ void KMedoids::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(KMedoids, this, DistanceMetric));
     QVector<QString> choices = DistanceTemplate::GetDistanceMetricsOptions();
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, KMedoids, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, KMedoids, linkedProps));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Cluster", SelectedArrayPath, FilterParameter::RequiredArray, KMedoids, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Cluster", SelectedArrayPath, FilterParameter::Category::RequiredArray, KMedoids, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, KMedoids, dasReq));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Ids", FeatureIdsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::CreatedArray, KMedoids));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cluster Attribute Matrix", FeatureAttributeMatrixName, SelectedArrayPath, FilterParameter::CreatedArray, KMedoids));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Medoids", MedoidsArrayName, SelectedArrayPath, FeatureAttributeMatrixName, FilterParameter::CreatedArray, KMedoids));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, KMedoids, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Ids", FeatureIdsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::Category::CreatedArray, KMedoids));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cluster Attribute Matrix", FeatureAttributeMatrixName, SelectedArrayPath, FilterParameter::Category::CreatedArray, KMedoids));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Medoids", MedoidsArrayName, SelectedArrayPath, FeatureAttributeMatrixName, FilterParameter::Category::CreatedArray, KMedoids));
   setFilterParameters(parameters);
 }
 

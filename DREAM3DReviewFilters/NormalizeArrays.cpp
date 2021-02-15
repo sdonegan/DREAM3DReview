@@ -106,20 +106,20 @@ void NormalizeArrays::setupFilterParameters()
     QStringList linkedProps = {"RangeMin", "RangeMax"};
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_STRING_FP("Postfix", Postfix, FilterParameter::Parameter, NormalizeArrays));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Postfix", Postfix, FilterParameter::Category::Parameter, NormalizeArrays));
   QStringList linkedProps = {"MaskArrayPath", "DefaultValue"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, NormalizeArrays, linkedProps));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Default Masked Value", DefaultValue, FilterParameter::Parameter, NormalizeArrays));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Range Minimum", RangeMin, FilterParameter::Parameter, NormalizeArrays, 0));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Range Maximum", RangeMax, FilterParameter::Parameter, NormalizeArrays, 0));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, NormalizeArrays, linkedProps));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Default Masked Value", DefaultValue, FilterParameter::Category::Parameter, NormalizeArrays));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Range Minimum", RangeMin, FilterParameter::Category::Parameter, NormalizeArrays, 0));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Range Maximum", RangeMax, FilterParameter::Category::Parameter, NormalizeArrays, 0));
   MultiDataArraySelectionFilterParameter::RequirementType req =
       MultiDataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Normalize", SelectedDataArrayPaths, FilterParameter::RequiredArray, NormalizeArrays, req));
+  parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Normalize", SelectedDataArrayPaths, FilterParameter::Category::RequiredArray, NormalizeArrays, req));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, NormalizeArrays, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, NormalizeArrays, dasReq));
   setFilterParameters(parameters);
 }
 

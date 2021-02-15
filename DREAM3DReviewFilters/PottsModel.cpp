@@ -374,16 +374,16 @@ void PottsModel::initialize()
 void PottsModel::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Iterations", Iterations, FilterParameter::Parameter, PottsModel));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Temperature", Temperature, FilterParameter::Parameter, PottsModel));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Periodic Boundaries", PeriodicBoundaries, FilterParameter::Parameter, PottsModel));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Iterations", Iterations, FilterParameter::Category::Parameter, PottsModel));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Temperature", Temperature, FilterParameter::Category::Parameter, PottsModel));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Periodic Boundaries", PeriodicBoundaries, FilterParameter::Category::Parameter, PottsModel));
   QStringList linkedProps = {"MaskArrayPath"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, PottsModel, linkedProps));
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, PottsModel, linkedProps));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::RequiredArray, PottsModel, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, PottsModel, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, PottsModel, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, PottsModel, dasReq));
   setFilterParameters(parameters);
 }
 

@@ -48,19 +48,19 @@ void LaplacianSmoothPointCloud::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, LaplacianSmoothPointCloud, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, LaplacianSmoothPointCloud, linkedProps));
   linkedProps.clear();
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Iterations", NumIterations, FilterParameter::Parameter, LaplacianSmoothPointCloud));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lambda", Lambda, FilterParameter::Parameter, LaplacianSmoothPointCloud));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Iterations", NumIterations, FilterParameter::Category::Parameter, LaplacianSmoothPointCloud));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lambda", Lambda, FilterParameter::Category::Parameter, LaplacianSmoothPointCloud));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types geomTypes = {IGeometry::Type::Vertex};
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Smooth", DataContainerName, FilterParameter::RequiredArray, LaplacianSmoothPointCloud, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Smooth", DataContainerName, FilterParameter::Category::RequiredArray, LaplacianSmoothPointCloud, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, LaplacianSmoothPointCloud, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, LaplacianSmoothPointCloud, req));
   }
   setFilterParameters(parameters);
 }

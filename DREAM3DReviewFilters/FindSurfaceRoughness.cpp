@@ -62,9 +62,9 @@ void FindSurfaceRoughness::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int8, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Boundary Cells", BoundaryCellsArrayPath, FilterParameter::RequiredArray, FindSurfaceRoughness, dasReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Roughness Attribute Matrix", AttributeMatrixName, FilterParameter::CreatedArray, FindSurfaceRoughness));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Roughness Parameters", RoughnessParamsArrayName, FilterParameter::CreatedArray, FindSurfaceRoughness));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Boundary Cells", BoundaryCellsArrayPath, FilterParameter::Category::RequiredArray, FindSurfaceRoughness, dasReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Roughness Attribute Matrix", AttributeMatrixName, FilterParameter::Category::CreatedArray, FindSurfaceRoughness));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Roughness Parameters", RoughnessParamsArrayName, FilterParameter::Category::CreatedArray, FindSurfaceRoughness));
   setFilterParameters(parameters);
 }
 

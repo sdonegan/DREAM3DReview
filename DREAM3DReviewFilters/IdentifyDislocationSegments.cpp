@@ -87,23 +87,24 @@ IdentifyDislocationSegments::~IdentifyDislocationSegments() = default;
 void IdentifyDislocationSegments::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SeparatorFilterParameter::New("Edge Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Burgers Vectors", BurgersVectorsArrayPath, FilterParameter::RequiredArray, IdentifyDislocationSegments, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Burgers Vectors", BurgersVectorsArrayPath, FilterParameter::Category::RequiredArray, IdentifyDislocationSegments, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Slip Plane Normals", SlipPlaneNormalsArrayPath, FilterParameter::RequiredArray, IdentifyDislocationSegments, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Slip Plane Normals", SlipPlaneNormalsArrayPath, FilterParameter::Category::RequiredArray, IdentifyDislocationSegments, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Edge Data", FilterParameter::CreatedArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Ids", DislocationIdsArrayName, BurgersVectorsArrayPath, BurgersVectorsArrayPath, FilterParameter::Category::CreatedArray,
+                                                      IdentifyDislocationSegments));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Feature Data", FilterParameter::Category::CreatedArray));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Ids", DislocationIdsArrayName, BurgersVectorsArrayPath, BurgersVectorsArrayPath, FilterParameter::CreatedArray, IdentifyDislocationSegments));
-  parameters.push_back(SeparatorFilterParameter::New("Edge Feature Data", FilterParameter::CreatedArray));
+      SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Feature Attribute Matrix", EdgeFeatureAttributeMatrixName, BurgersVectorsArrayPath, FilterParameter::Category::CreatedArray, IdentifyDislocationSegments));
   parameters.push_back(
-      SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Feature Attribute Matrix", EdgeFeatureAttributeMatrixName, BurgersVectorsArrayPath, FilterParameter::CreatedArray, IdentifyDislocationSegments));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Active", ActiveArrayName, BurgersVectorsArrayPath, EdgeFeatureAttributeMatrixName, FilterParameter::CreatedArray, IdentifyDislocationSegments));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Active", ActiveArrayName, BurgersVectorsArrayPath, EdgeFeatureAttributeMatrixName, FilterParameter::Category::CreatedArray, IdentifyDislocationSegments));
   setFilterParameters(parameters);
 }
 

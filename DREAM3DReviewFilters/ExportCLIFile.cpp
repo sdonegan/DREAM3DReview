@@ -72,20 +72,20 @@ void ExportCLIFile::initialize()
 void ExportCLIFile::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Units Scale Factor", UnitsScaleFactor, FilterParameter::Parameter, ExportCLIFile));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Precision (places after decimal)", Precision, FilterParameter::Parameter, ExportCLIFile));
-  parameters.push_back(SIMPL_NEW_OUTPUT_PATH_FP("Output File Directory", OutputDirectory, FilterParameter::Parameter, ExportCLIFile));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Output File Prefix", OutputFilePrefix, FilterParameter::Parameter, ExportCLIFile));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Units Scale Factor", UnitsScaleFactor, FilterParameter::Category::Parameter, ExportCLIFile));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Precision (places after decimal)", Precision, FilterParameter::Category::Parameter, ExportCLIFile));
+  parameters.push_back(SIMPL_NEW_OUTPUT_PATH_FP("Output File Directory", OutputDirectory, FilterParameter::Category::Parameter, ExportCLIFile));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Output File Prefix", OutputFilePrefix, FilterParameter::Category::Parameter, ExportCLIFile));
   QStringList linkedProps = {"GroupIdsArrayPath"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Split CLI Files by Group", SplitByGroup, FilterParameter::Parameter, ExportCLIFile, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Split CLI Files by Group", SplitByGroup, FilterParameter::Category::Parameter, ExportCLIFile, linkedProps));
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Edge};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge Geometry", EdgeGeometry, FilterParameter::RequiredArray, ExportCLIFile, dcsReq));
-  parameters.push_back(SeparatorFilterParameter::New("Edge Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge Geometry", EdgeGeometry, FilterParameter::Category::RequiredArray, ExportCLIFile, dcsReq));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Data", FilterParameter::Category::RequiredArray));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Edge, IGeometry::Type::Edge);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Layer Ids", LayerIdsArrayPath, FilterParameter::RequiredArray, ExportCLIFile, dasReq));
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Group Ids", GroupIdsArrayPath, FilterParameter::RequiredArray, ExportCLIFile, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Layer Ids", LayerIdsArrayPath, FilterParameter::Category::RequiredArray, ExportCLIFile, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Group Ids", GroupIdsArrayPath, FilterParameter::Category::RequiredArray, ExportCLIFile, dasReq));
   setFilterParameters(parameters);
 }
 

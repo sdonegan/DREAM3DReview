@@ -72,10 +72,10 @@ void AdaptiveAlignmentFeature::setupFilterParameters()
   AdaptiveAlignment::setupFilterParameters();
 
   FilterParameterVectorType parameters = getFilterParameters();
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", GoodVoxelsArrayPath, FilterParameter::RequiredArray, AdaptiveAlignmentFeature, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", GoodVoxelsArrayPath, FilterParameter::Category::RequiredArray, AdaptiveAlignmentFeature, req));
   }
   setFilterParameters(parameters);
 }

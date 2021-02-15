@@ -14,6 +14,8 @@
 
 #include "MapPointCloudToRegularGrid.h"
 
+#include <cmath>
+
 #include <QtCore/QTextStream>
 
 #include "SIMPLib/Common/Constants.h"
@@ -75,36 +77,38 @@ void MapPointCloudToRegularGrid::setupFilterParameters()
                  << "ImageDataContainerPath";
     parameter->setLinkedProperties(linkedProps2);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Grid Dimensions", GridDimensions, FilterParameter::Parameter, MapPointCloudToRegularGrid, k_CreateSamplingGrid));
+  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Grid Dimensions", GridDimensions, FilterParameter::Category::Parameter, MapPointCloudToRegularGrid, k_CreateSamplingGrid));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types reqGeom = {IGeometry::Type::Image};
     req.dcGeometryTypes = reqGeom;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("ImageDataContainerPath", ImageDataContainerPath, FilterParameter::RequiredArray, MapPointCloudToRegularGrid, req, k_UseExistingSamplingGrid));
+    parameters.push_back(
+        SIMPL_NEW_DC_SELECTION_FP("ImageDataContainerPath", ImageDataContainerPath, FilterParameter::Category::RequiredArray, MapPointCloudToRegularGrid, req, k_UseExistingSamplingGrid));
   }
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types reqGeom = {IGeometry::Type::Vertex};
     req.dcGeometryTypes = reqGeom;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Map", DataContainerName, FilterParameter::RequiredArray, MapPointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Map", DataContainerName, FilterParameter::Category::RequiredArray, MapPointCloudToRegularGrid, req));
   }
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, MapPointCloudToRegularGrid, linkedProps));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, MapPointCloudToRegularGrid, linkedProps));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, MapPointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, MapPointCloudToRegularGrid, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
   {
     DataArrayCreationFilterParameter::RequirementType req = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::CreatedArray, MapPointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::Category::CreatedArray, MapPointCloudToRegularGrid, req));
   }
 
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Created Image DataContainer", CreatedImageDataContainerName, FilterParameter::CreatedArray, MapPointCloudToRegularGrid, k_CreateSamplingGrid));
+  parameters.push_back(
+      SIMPL_NEW_DC_CREATION_FP("Created Image DataContainer", CreatedImageDataContainerName, FilterParameter::Category::CreatedArray, MapPointCloudToRegularGrid, k_CreateSamplingGrid));
   setFilterParameters(parameters);
 }
 

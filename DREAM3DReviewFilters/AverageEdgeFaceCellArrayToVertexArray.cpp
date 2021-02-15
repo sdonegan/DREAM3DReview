@@ -72,7 +72,7 @@ AverageEdgeFaceCellArrayToVertexArray::~AverageEdgeFaceCellArrayToVertexArray() 
 void AverageEdgeFaceCellArrayToVertexArray::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SeparatorFilterParameter::New("Edge/Face/Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge/Face/Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
@@ -80,14 +80,14 @@ void AverageEdgeFaceCellArrayToVertexArray::setupFilterParameters()
     IGeometry::Types geomTypes = {IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
     req.amTypes = amTypes;
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Edge/Face/Cell Array to Average", SelectedArrayPath, FilterParameter::RequiredArray, AverageEdgeFaceCellArrayToVertexArray, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Edge/Face/Cell Array to Average", SelectedArrayPath, FilterParameter::Category::RequiredArray, AverageEdgeFaceCellArrayToVertexArray, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
   {
     DataArrayCreationFilterParameter::RequirementType req = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Vertex, IGeometry::Type::Any);
     IGeometry::Types geomTypes = {IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Average Vertex Array", AverageVertexArrayPath, FilterParameter::CreatedArray, AverageEdgeFaceCellArrayToVertexArray, req));
+    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Average Vertex Array", AverageVertexArrayPath, FilterParameter::Category::CreatedArray, AverageEdgeFaceCellArrayToVertexArray, req));
   }
   setFilterParameters(parameters);
 }

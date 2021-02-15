@@ -64,10 +64,10 @@ void InterpolatePointCloudToRegularGrid::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid, linkedProps));
   linkedProps.clear();
   linkedProps << "KernelDistancesArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Store Kernel Distances", StoreKernelDistances, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Store Kernel Distances", StoreKernelDistances, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid, linkedProps));
   {
     QVector<QString> choices;
     choices.push_back("Uniform");
@@ -81,52 +81,52 @@ void InterpolatePointCloudToRegularGrid::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(InterpolatePointCloudToRegularGrid, this, InterpolationTechnique));
     parameter->setChoices(choices);
     parameter->setLinkedProperties(linkedProps);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Kernel Size", KernelSize, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Kernel Size", KernelSize, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid));
 
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Gaussian Sigmas", Sigmas, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid, 1));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Gaussian Sigmas", Sigmas, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid, 1));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types reqGeom = {IGeometry::Type::Vertex};
     req.dcGeometryTypes = reqGeom;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Interpolate", DataContainerName, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Interpolate", DataContainerName, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types reqGeom = {IGeometry::Type::Image};
     req.dcGeometryTypes = reqGeom;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Interpolated Data Container", InterpolatedDataContainerName, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Interpolated Data Container", InterpolatedDataContainerName, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::SizeT, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
     req.daTypes = {SIMPL::TypeNames::SizeT, SIMPL::TypeNames::UInt64};
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Voxel Indices", VoxelIndicesArrayPath, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
     MultiDataArraySelectionFilterParameter::RequirementType req =
         MultiDataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Interpolate", ArraysToInterpolate, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Interpolate", ArraysToInterpolate, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
   {
     MultiDataArraySelectionFilterParameter::RequirementType req =
         MultiDataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Copy", ArraysToCopy, FilterParameter::RequiredArray, InterpolatePointCloudToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Copy", ArraysToCopy, FilterParameter::Category::RequiredArray, InterpolatePointCloudToRegularGrid, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Interpolated Attribute Matrix", InterpolatedAttributeMatrixName, InterpolatedDataContainerName, FilterParameter::CreatedArray,
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Interpolated Attribute Matrix", InterpolatedAttributeMatrixName, InterpolatedDataContainerName, FilterParameter::Category::CreatedArray,
                                                       InterpolatePointCloudToRegularGrid));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Kernel Distances", KernelDistancesArrayName, InterpolatedDataContainerName, InterpolatedAttributeMatrixName, FilterParameter::CreatedArray,
-                                                      InterpolatePointCloudToRegularGrid));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Kernel Distances", KernelDistancesArrayName, InterpolatedDataContainerName, InterpolatedAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, InterpolatePointCloudToRegularGrid));
 
-  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Array Suffix", InterpolatedSuffix, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Copied Array Suffix", CopySuffix, FilterParameter::Parameter, InterpolatePointCloudToRegularGrid));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Array Suffix", InterpolatedSuffix, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Copied Array Suffix", CopySuffix, FilterParameter::Category::Parameter, InterpolatePointCloudToRegularGrid));
 
   setFilterParameters(parameters);
 }

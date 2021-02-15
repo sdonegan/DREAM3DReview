@@ -77,12 +77,12 @@ FindNorm::~FindNorm() = default;
 void FindNorm::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("p-Space Value", PSpace, FilterParameter::Parameter, FindNorm));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("p-Space Value", PSpace, FilterParameter::Category::Parameter, FindNorm));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Input Attribute Array", SelectedArrayPath, FilterParameter::RequiredArray, FindNorm, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Input Attribute Array", SelectedArrayPath, FilterParameter::Category::RequiredArray, FindNorm, dasReq));
   DataArrayCreationFilterParameter::RequirementType dacReq = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Norm", NormArrayPath, FilterParameter::CreatedArray, FindNorm, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Norm", NormArrayPath, FilterParameter::Category::CreatedArray, FindNorm, dacReq));
   setFilterParameters(parameters);
 }
 

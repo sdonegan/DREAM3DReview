@@ -100,20 +100,20 @@ void ParaDisReader::setupFilterParameters()
 {
   FileReader::setupFilterParameters();
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input File", InputFile, FilterParameter::Parameter, ParaDisReader, "*"));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Burgers Vector Length (Angstroms)", BurgersVector, FilterParameter::Parameter, ParaDisReader));
-  // parameters.push_back(SeparatorFilterParameter::New("Created Information", FilterParameter::Uncategorized));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Edge DataContainer Name", EdgeDataContainerName, FilterParameter::CreatedArray, ParaDisReader));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex AttributeMatrix Name", VertexAttributeMatrixName, EdgeDataContainerName, FilterParameter::CreatedArray, ParaDisReader));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge AttributeMatrix Name", EdgeAttributeMatrixName, EdgeDataContainerName, FilterParameter::CreatedArray, ParaDisReader));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input File", InputFile, FilterParameter::Category::Parameter, ParaDisReader, "*"));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Burgers Vector Length (Angstroms)", BurgersVector, FilterParameter::Category::Parameter, ParaDisReader));
+  // parameters.push_back(SeparatorFilterParameter::Create("Created Information", FilterParameter::Category::Uncategorized));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Edge DataContainer Name", EdgeDataContainerName, FilterParameter::Category::CreatedArray, ParaDisReader));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex AttributeMatrix Name", VertexAttributeMatrixName, EdgeDataContainerName, FilterParameter::Category::CreatedArray, ParaDisReader));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge AttributeMatrix Name", EdgeAttributeMatrixName, EdgeDataContainerName, FilterParameter::Category::CreatedArray, ParaDisReader));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Number Of Arms Array Name", NumberOfArmsArrayName, EdgeDataContainerName, VertexAttributeMatrixName, FilterParameter::CreatedArray, ParaDisReader));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Number Of Arms Array Name", NumberOfArmsArrayName, EdgeDataContainerName, VertexAttributeMatrixName, FilterParameter::Category::CreatedArray, ParaDisReader));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Node Constraints Array Name", NodeConstraintsArrayName, EdgeDataContainerName, VertexAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, ParaDisReader));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Node Constraints Array Name", NodeConstraintsArrayName, EdgeDataContainerName, VertexAttributeMatrixName, FilterParameter::CreatedArray, ParaDisReader));
-  parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Burgers Vectors Array Name", BurgersVectorsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, ParaDisReader));
-  parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Slip Plane Normals Array Name", SlipPlaneNormalsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, ParaDisReader));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Burgers Vectors Array Name", BurgersVectorsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::Category::CreatedArray, ParaDisReader));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Slip Plane Normals Array Name", SlipPlaneNormalsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, ParaDisReader));
   setFilterParameters(parameters);
 }
 

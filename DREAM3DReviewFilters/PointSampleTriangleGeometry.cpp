@@ -113,32 +113,32 @@ void PointSampleTriangleGeometry::setupFilterParameters()
     QStringList linkedProps = {"NumberOfSamples", "ParentGeometry"};
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Sample Points", NumberOfSamples, FilterParameter::Parameter, PointSampleTriangleGeometry, 0));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Sample Points", NumberOfSamples, FilterParameter::Category::Parameter, PointSampleTriangleGeometry, 0));
   QStringList linkedProps;
   linkedProps << "MaskArrayPath";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, PointSampleTriangleGeometry, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, PointSampleTriangleGeometry, linkedProps));
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Triangle};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry to Sample", TriangleGeometry, FilterParameter::RequiredArray, PointSampleTriangleGeometry, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry to Sample", TriangleGeometry, FilterParameter::Category::RequiredArray, PointSampleTriangleGeometry, dcsReq));
   geomTypes = {IGeometry::Type::Image, IGeometry::Type::RectGrid, IGeometry::Type::Vertex, IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Source Geometry for Number of Sample Points", ParentGeometry, FilterParameter::RequiredArray, PointSampleTriangleGeometry, dcsReq, 1));
-  parameters.push_back(SeparatorFilterParameter::New("Face Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Source Geometry for Number of Sample Points", ParentGeometry, FilterParameter::Category::RequiredArray, PointSampleTriangleGeometry, dcsReq, 1));
+  parameters.push_back(SeparatorFilterParameter::Create("Face Data", FilterParameter::Category::RequiredArray));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Double, 1, AttributeMatrix::Type::Face, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Face Areas", TriangleAreasArrayPath, FilterParameter::RequiredArray, PointSampleTriangleGeometry, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Face Areas", TriangleAreasArrayPath, FilterParameter::Category::RequiredArray, PointSampleTriangleGeometry, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Face, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, PointSampleTriangleGeometry, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, PointSampleTriangleGeometry, dasReq));
   MultiDataArraySelectionFilterParameter::RequirementType mdaReq =
       MultiDataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Face, IGeometry::Type::Any);
   geomTypes = {IGeometry::Type::Triangle};
   mdaReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Transfer", SelectedDataArrayPaths, FilterParameter::RequiredArray, PointSampleTriangleGeometry, mdaReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Geometry", VertexGeometry, FilterParameter::CreatedArray, PointSampleTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, VertexGeometry, FilterParameter::CreatedArray, PointSampleTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Transfer", SelectedDataArrayPaths, FilterParameter::Category::RequiredArray, PointSampleTriangleGeometry, mdaReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Geometry", VertexGeometry, FilterParameter::Category::CreatedArray, PointSampleTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, VertexGeometry, FilterParameter::Category::CreatedArray, PointSampleTriangleGeometry));
   setFilterParameters(parameters);
 }
 

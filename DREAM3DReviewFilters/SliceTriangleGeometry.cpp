@@ -56,7 +56,7 @@ void SliceTriangleGeometry::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Slice Direction (ijk)", SliceDirection, FilterParameter::Parameter, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Slice Direction (ijk)", SliceDirection, FilterParameter::Category::Parameter, SliceTriangleGeometry));
   {
     QVector<QString> choices;
     choices.push_back("Full Range");
@@ -73,29 +73,29 @@ void SliceTriangleGeometry::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(SliceTriangleGeometry, this, SliceRange));
     parameter->setChoices(choices);
     parameter->setLinkedProperties(linkedChoiceProps);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slicing Start", Zstart, FilterParameter::Parameter, SliceTriangleGeometry, 1));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slicing End", Zend, FilterParameter::Parameter, SliceTriangleGeometry, 1));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slicing Start", Zstart, FilterParameter::Category::Parameter, SliceTriangleGeometry, 1));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slicing End", Zend, FilterParameter::Category::Parameter, SliceTriangleGeometry, 1));
 
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slice Spacing", SliceResolution, FilterParameter::Parameter, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Slice Spacing", SliceResolution, FilterParameter::Category::Parameter, SliceTriangleGeometry));
 
   QStringList linkedProps("RegionIdArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Have Region Ids", HaveRegionIds, FilterParameter::Parameter, SliceTriangleGeometry, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Have Region Ids", HaveRegionIds, FilterParameter::Category::Parameter, SliceTriangleGeometry, linkedProps));
   linkedProps.clear();
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Triangle};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("CAD Geometry", CADDataContainerName, FilterParameter::RequiredArray, SliceTriangleGeometry, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("CAD Geometry", CADDataContainerName, FilterParameter::Category::RequiredArray, SliceTriangleGeometry, dcsReq));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Face, IGeometry::Type::Triangle);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Region Ids", RegionIdArrayPath, FilterParameter::RequiredArray, SliceTriangleGeometry, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Region Ids", RegionIdArrayPath, FilterParameter::Category::RequiredArray, SliceTriangleGeometry, req));
   }
-  parameters.push_back(SIMPL_NEW_STRING_FP("Slice Geometry", SliceDataContainerName, FilterParameter::CreatedArray, SliceTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, SliceDataContainerName, FilterParameter::CreatedArray, SliceTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Slice Ids", SliceIdArrayName, SliceDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, SliceTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Slice Attribute Matrix", SliceAttributeMatrixName, SliceDataContainerName, FilterParameter::CreatedArray, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Slice Geometry", SliceDataContainerName, FilterParameter::Category::CreatedArray, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, SliceDataContainerName, FilterParameter::Category::CreatedArray, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Slice Ids", SliceIdArrayName, SliceDataContainerName, EdgeAttributeMatrixName, FilterParameter::Category::CreatedArray, SliceTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Slice Attribute Matrix", SliceAttributeMatrixName, SliceDataContainerName, FilterParameter::Category::CreatedArray, SliceTriangleGeometry));
   setFilterParameters(parameters);
 }
 

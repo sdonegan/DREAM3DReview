@@ -93,18 +93,18 @@ void Silhouette::setupFilterParameters()
     DistanceTemplate distOptions;
     QVector<QString> choices = DistanceTemplate::GetDistanceMetricsOptions();
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, Silhouette, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, Silhouette, linkedProps));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Silhouette", SelectedArrayPath, FilterParameter::RequiredArray, Silhouette, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Silhouette", SelectedArrayPath, FilterParameter::Category::RequiredArray, Silhouette, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, Silhouette, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, Silhouette, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Category::Element);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Cluster Ids", FeatureIdsArrayPath, FilterParameter::RequiredArray, Silhouette, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Cluster Ids", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, Silhouette, dasReq));
   DataArrayCreationFilterParameter::RequirementType dacReq = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
   AttributeMatrix::Types amTypes;
   amTypes.push_back(AttributeMatrix::Type::Vertex);
@@ -112,7 +112,7 @@ void Silhouette::setupFilterParameters()
   amTypes.push_back(AttributeMatrix::Type::Face);
   amTypes.push_back(AttributeMatrix::Type::Cell);
   dacReq.amTypes = amTypes;
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Silhouette", SilhouetteArrayPath, FilterParameter::CreatedArray, Silhouette, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Silhouette", SilhouetteArrayPath, FilterParameter::Category::CreatedArray, Silhouette, dacReq));
   setFilterParameters(parameters);
 }
 

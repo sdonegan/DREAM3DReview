@@ -84,28 +84,28 @@ void FFTHDFWriterFilter::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(OutputFileFilterParameter::New("Output File", "OutputFile", getOutputFile(), FilterParameter::Parameter, SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, OutputFile),
-                                                      SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, OutputFile), "*.dream3d", ""));
-  //  parameters.push_back(BooleanFilterParameter::New("Write Xdmf File", "WriteXdmfFile", getWriteXdmfFile(), FilterParameter::Parameter, "ParaView Compatible File"));
+  parameters.push_back(OutputFileFilterParameter::Create("Output File", "OutputFile", getOutputFile(), FilterParameter::Category::Parameter, SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, OutputFile),
+                                                         SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, OutputFile), "*.dream3d", ""));
+  //  parameters.push_back(BooleanFilterParameter::Create("Write Xdmf File", "WriteXdmfFile", getWriteXdmfFile(), FilterParameter::Category::Parameter, "ParaView Compatible File"));
   //--------------
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(DataArraySelectionFilterParameter::New("Feature Ids", "FeatureIdsArrayPath", getFeatureIdsArrayPath(), FilterParameter::RequiredArray,
-                                                                SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, FeatureIdsArrayPath), SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, FeatureIdsArrayPath),
-                                                                req));
+    parameters.push_back(DataArraySelectionFilterParameter::Create("Feature Ids", "FeatureIdsArrayPath", getFeatureIdsArrayPath(), FilterParameter::Category::RequiredArray,
+                                                                   SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, FeatureIdsArrayPath), SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, FeatureIdsArrayPath),
+                                                                   req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Float, 3, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(DataArraySelectionFilterParameter::New("Euler Angles", "CellEulerAnglesArrayPath", getCellEulerAnglesArrayPath(), FilterParameter::RequiredArray,
-                                                                SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, CellEulerAnglesArrayPath),
-                                                                SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, CellEulerAnglesArrayPath), req));
+    parameters.push_back(DataArraySelectionFilterParameter::Create("Euler Angles", "CellEulerAnglesArrayPath", getCellEulerAnglesArrayPath(), FilterParameter::Category::RequiredArray,
+                                                                   SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, CellEulerAnglesArrayPath),
+                                                                   SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, CellEulerAnglesArrayPath), req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(DataArraySelectionFilterParameter::New("Phases", "CellPhasesArrayPath", getCellPhasesArrayPath(), FilterParameter::RequiredArray,
-                                                                SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, CellPhasesArrayPath), SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, CellPhasesArrayPath),
-                                                                req));
+    parameters.push_back(DataArraySelectionFilterParameter::Create("Phases", "CellPhasesArrayPath", getCellPhasesArrayPath(), FilterParameter::Category::RequiredArray,
+                                                                   SIMPL_BIND_SETTER(FFTHDFWriterFilter, this, CellPhasesArrayPath), SIMPL_BIND_GETTER(FFTHDFWriterFilter, this, CellPhasesArrayPath),
+                                                                   req));
   }
 
   setFilterParameters(parameters);

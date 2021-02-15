@@ -89,17 +89,17 @@ void DiscretizeDDDomain::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Cell Size (Microns)", CellSize, FilterParameter::Parameter, DiscretizeDDDomain));
-  // parameters.push_back(SeparatorFilterParameter::New("", FilterParameter::Parameter));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Cell Size (Microns)", CellSize, FilterParameter::Category::Parameter, DiscretizeDDDomain));
+  // parameters.push_back(SeparatorFilterParameter::Create("", FilterParameter::Category::Parameter));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge Data Container", EdgeDataContainerName, FilterParameter::RequiredArray, DiscretizeDDDomain, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge Data Container", EdgeDataContainerName, FilterParameter::Category::RequiredArray, DiscretizeDDDomain, req));
   }
-  // parameters.push_back(SeparatorFilterParameter::New("", FilterParameter::Uncategorized));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Volume Data Container", OutputDataContainerName, FilterParameter::CreatedArray, DiscretizeDDDomain));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", OutputAttributeMatrixName, OutputDataContainerName, FilterParameter::CreatedArray, DiscretizeDDDomain));
-  parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Line Density Array Name", OutputArrayName, OutputDataContainerName, OutputAttributeMatrixName, FilterParameter::CreatedArray, DiscretizeDDDomain));
+  // parameters.push_back(SeparatorFilterParameter::Create("", FilterParameter::Category::Uncategorized));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Volume Data Container", OutputDataContainerName, FilterParameter::Category::CreatedArray, DiscretizeDDDomain));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", OutputAttributeMatrixName, OutputDataContainerName, FilterParameter::Category::CreatedArray, DiscretizeDDDomain));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Line Density Array Name", OutputArrayName, OutputDataContainerName, OutputAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, DiscretizeDDDomain));
   setFilterParameters(parameters);
 }
 

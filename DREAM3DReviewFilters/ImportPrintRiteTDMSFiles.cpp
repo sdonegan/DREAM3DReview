@@ -103,8 +103,8 @@ void ImportPrintRiteTDMSFiles::initialize()
 void ImportPrintRiteTDMSFiles::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SeparatorFilterParameter::New("Build Parameters", FilterParameter::Parameter));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Layer Thickness", LayerThickness, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SeparatorFilterParameter::Create("Build Parameters", FilterParameter::Category::Parameter));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Layer Thickness", LayerThickness, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Array Used to Determine if Laser is On");
@@ -116,20 +116,20 @@ void ImportPrintRiteTDMSFiles::setupFilterParameters()
     choices.push_back("On-Axis Photodiode");
     parameter->setChoices(choices);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Laser On Threshold", LaserOnThreshold, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Downcast Raw Data", DowncastRawData, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Laser On Threshold", LaserOnThreshold, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Downcast Raw Data", DowncastRawData, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
   QStringList linkedProps = {"PowerScalingCoefficients"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Scale Laser Power", ScaleLaserPower, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, linkedProps));
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC2_FP("Power Scaling Coefficients", PowerScalingCoefficients, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Scale Laser Power", ScaleLaserPower, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, linkedProps));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC2_FP("Power Scaling Coefficients", PowerScalingCoefficients, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
 
   linkedProps.clear();
   linkedProps << "TemperatureScalingCoefficients";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Scale Pyrometer Tempeature", ScalePyrometerTemperature, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, linkedProps));
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC2_FP("Temperature Scaling Coefficients", TemperatureScalingCoefficients, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
-  parameters.push_back(SeparatorFilterParameter::New("Spatial Parameters", FilterParameter::Parameter));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Scale Pyrometer Tempeature", ScalePyrometerTemperature, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, linkedProps));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC2_FP("Temperature Scaling Coefficients", TemperatureScalingCoefficients, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SeparatorFilterParameter::Create("Spatial Parameters", FilterParameter::Category::Parameter));
   {
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
     parameter->setHumanLabel("Spatial Transform Options");
@@ -144,22 +144,22 @@ void ImportPrintRiteTDMSFiles::setupFilterParameters()
     QStringList linkedProps = {"LayerForScaling", "SearchRadius", "SplitRegions1", "SplitRegions2", "STLFilePath1", "STLFilePath2", "InputSpatialTransformFilePath"};
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Layer Index For Computing Real Space Transformation", LayerForScaling, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, 1));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Search Radius for Finding Regions", SearchRadius, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, 1));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Split Contiguous Regions into Separate Files", SplitRegions1, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, 1));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Split Contiguous Regions into Separate Files", SplitRegions2, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, 2));
-  parameters.push_back(SeparatorFilterParameter::New("Input File Parameters", FilterParameter::Parameter));
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Build STL File", STLFilePath1, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, "*.stl", "Build STL File", 1));
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Build STL File", STLFilePath2, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, "*.stl", "Build STL File", 2));
-  parameters.push_back(
-      SIMPL_NEW_INPUT_FILE_FP("Spatial Transformation Coefficients File", InputSpatialTransformFilePath, FilterParameter::Parameter, ImportPrintRiteTDMSFiles, "*.json", "Transform Coefficients", 2));
-  parameters.push_back(SIMPL_NEW_FILELISTINFO_FP("Input PrintRite Files", InputFilesList, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
-  parameters.push_back(SeparatorFilterParameter::New("Output File Parameters", FilterParameter::Parameter));
-  parameters.push_back(SIMPL_NEW_OUTPUT_PATH_FP("Output File Directory", OutputDirectory, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Output File Prefix", OutputFilePrefix, FilterParameter::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Layer Index For Computing Real Space Transformation", LayerForScaling, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, 1));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Search Radius for Finding Regions", SearchRadius, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, 1));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Split Contiguous Regions into Separate Files", SplitRegions1, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, 1));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Split Contiguous Regions into Separate Files", SplitRegions2, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, 2));
+  parameters.push_back(SeparatorFilterParameter::Create("Input File Parameters", FilterParameter::Category::Parameter));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Build STL File", STLFilePath1, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, "*.stl", "Build STL File", 1));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Build STL File", STLFilePath2, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, "*.stl", "Build STL File", 2));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Spatial Transformation Coefficients File", InputSpatialTransformFilePath, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles, "*.json",
+                                               "Transform Coefficients", 2));
+  parameters.push_back(SIMPL_NEW_FILELISTINFO_FP("Input PrintRite Files", InputFilesList, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SeparatorFilterParameter::Create("Output File Parameters", FilterParameter::Category::Parameter));
+  parameters.push_back(SIMPL_NEW_OUTPUT_PATH_FP("Output File Directory", OutputDirectory, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Output File Prefix", OutputFilePrefix, FilterParameter::Category::Parameter, ImportPrintRiteTDMSFiles));
   setFilterParameters(parameters);
 }
 

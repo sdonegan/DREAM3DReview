@@ -53,9 +53,9 @@ void LabelTriangleGeometry::setupFilterParameters()
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Triangle};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("CAD Geometry", CADDataContainerName, FilterParameter::RequiredArray, LabelTriangleGeometry, dcsReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Triangle Attribute Matrix", TriangleAttributeMatrixName, FilterParameter::CreatedArray, LabelTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Region Ids", RegionIdArrayName, FilterParameter::CreatedArray, LabelTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("CAD Geometry", CADDataContainerName, FilterParameter::Category::RequiredArray, LabelTriangleGeometry, dcsReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Triangle Attribute Matrix", TriangleAttributeMatrixName, FilterParameter::Category::CreatedArray, LabelTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Region Ids", RegionIdArrayName, FilterParameter::Category::CreatedArray, LabelTriangleGeometry));
   setFilterParameters(parameters);
 }
 

@@ -94,27 +94,28 @@ void LocalDislocationDensityCalculator::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Cell Size (Microns)", CellSize, FilterParameter::Parameter, LocalDislocationDensityCalculator));
-  // parameters.push_back(SeparatorFilterParameter::New("", FilterParameter::Uncategorized));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Cell Size (Microns)", CellSize, FilterParameter::Category::Parameter, LocalDislocationDensityCalculator));
+  // parameters.push_back(SeparatorFilterParameter::Create("", FilterParameter::Category::Uncategorized));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge DataContainer", EdgeDataContainerName, FilterParameter::RequiredArray, LocalDislocationDensityCalculator, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Edge DataContainer", EdgeDataContainerName, FilterParameter::Category::RequiredArray, LocalDislocationDensityCalculator, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Burgers Vectors Array", BurgersVectorsArrayPath, FilterParameter::RequiredArray, LocalDislocationDensityCalculator, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Burgers Vectors Array", BurgersVectorsArrayPath, FilterParameter::Category::RequiredArray, LocalDislocationDensityCalculator, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Slip Plane Normals Array", SlipPlaneNormalsArrayPath, FilterParameter::RequiredArray, LocalDislocationDensityCalculator, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Slip Plane Normals Array", SlipPlaneNormalsArrayPath, FilterParameter::Category::RequiredArray, LocalDislocationDensityCalculator, req));
   }
-  //  parameters.push_back(SeparatorFilterParameter::New("", FilterParameter::Uncategorized));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Volume Data Container", OutputDataContainerName, FilterParameter::CreatedArray, LocalDislocationDensityCalculator));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell AttributeMatrix", OutputAttributeMatrixName, OutputDataContainerName, FilterParameter::CreatedArray, LocalDislocationDensityCalculator));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Line Density Array Name", OutputArrayName, OutputDataContainerName, OutputAttributeMatrixName, FilterParameter::CreatedArray,
-                                                      LocalDislocationDensityCalculator));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dominant System Array Name", DominantSystemArrayName, OutputDataContainerName, OutputAttributeMatrixName, FilterParameter::CreatedArray,
-                                                      LocalDislocationDensityCalculator));
+  //  parameters.push_back(SeparatorFilterParameter::Create("", FilterParameter::Category::Uncategorized));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Volume Data Container", OutputDataContainerName, FilterParameter::Category::CreatedArray, LocalDislocationDensityCalculator));
+  parameters.push_back(
+      SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell AttributeMatrix", OutputAttributeMatrixName, OutputDataContainerName, FilterParameter::Category::CreatedArray, LocalDislocationDensityCalculator));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dislocation Line Density Array Name", OutputArrayName, OutputDataContainerName, OutputAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, LocalDislocationDensityCalculator));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Dominant System Array Name", DominantSystemArrayName, OutputDataContainerName, OutputAttributeMatrixName,
+                                                      FilterParameter::Category::CreatedArray, LocalDislocationDensityCalculator));
   setFilterParameters(parameters);
 }
 

@@ -87,15 +87,16 @@ ComputeUmeyamaTransform::~ComputeUmeyamaTransform() = default;
 void ComputeUmeyamaTransform::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Use Scaling", UseScaling, FilterParameter::Parameter, ComputeUmeyamaTransform));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Use Scaling", UseScaling, FilterParameter::Category::Parameter, ComputeUmeyamaTransform));
   DataContainerSelectionFilterParameter::RequirementType dcReq;
   dcReq.dcGeometryTypes = {IGeometry::Type::Vertex, IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Geometry", SourcePointSet, FilterParameter::RequiredArray, ComputeUmeyamaTransform, dcReq));
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Fixed Geometry", DestPointSet, FilterParameter::RequiredArray, ComputeUmeyamaTransform, dcReq));
-  parameters.push_back(SeparatorFilterParameter::New("Transformation Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Transformation Attribute Matrix", TransformationAttributeMatrixName, SourcePointSet, FilterParameter::CreatedArray, ComputeUmeyamaTransform));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Geometry", SourcePointSet, FilterParameter::Category::RequiredArray, ComputeUmeyamaTransform, dcReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Fixed Geometry", DestPointSet, FilterParameter::Category::RequiredArray, ComputeUmeyamaTransform, dcReq));
+  parameters.push_back(SeparatorFilterParameter::Create("Transformation Data", FilterParameter::Category::CreatedArray));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Transformation Matrix", TransformationMatrixName, SourcePointSet, TransformationAttributeMatrixName, FilterParameter::CreatedArray, ComputeUmeyamaTransform));
+      SIMPL_NEW_AM_WITH_LINKED_DC_FP("Transformation Attribute Matrix", TransformationAttributeMatrixName, SourcePointSet, FilterParameter::Category::CreatedArray, ComputeUmeyamaTransform));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Transformation Matrix", TransformationMatrixName, SourcePointSet, TransformationAttributeMatrixName, FilterParameter::Category::CreatedArray,
+                                                      ComputeUmeyamaTransform));
   setFilterParameters(parameters);
 }
 

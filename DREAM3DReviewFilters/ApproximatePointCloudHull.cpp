@@ -65,13 +65,13 @@ void ApproximatePointCloudHull::initialize()
 void ApproximatePointCloudHull::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Grid Resolution", GridResolution, FilterParameter::Parameter, ApproximatePointCloudHull));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Minimum Number of Emtpy Neighbors", NumberOfEmptyNeighbors, FilterParameter::Parameter, ApproximatePointCloudHull));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Grid Resolution", GridResolution, FilterParameter::Category::Parameter, ApproximatePointCloudHull));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Minimum Number of Emtpy Neighbors", NumberOfEmptyNeighbors, FilterParameter::Category::Parameter, ApproximatePointCloudHull));
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types req = {IGeometry::Type::Vertex};
   dcsReq.dcGeometryTypes = req;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Vertex Geometry", VertexDataContainerName, FilterParameter::RequiredArray, ApproximatePointCloudHull, dcsReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Hull Vertex Geoemetry", HullDataContainerName, FilterParameter::CreatedArray, ApproximatePointCloudHull));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Vertex Geometry", VertexDataContainerName, FilterParameter::Category::RequiredArray, ApproximatePointCloudHull, dcsReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Hull Vertex Geoemetry", HullDataContainerName, FilterParameter::Category::CreatedArray, ApproximatePointCloudHull));
   setFilterParameters(parameters);
 }
 

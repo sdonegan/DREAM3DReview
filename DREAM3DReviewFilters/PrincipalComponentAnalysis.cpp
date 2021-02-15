@@ -97,7 +97,8 @@ void PrincipalComponentAnalysis::setupFilterParameters()
   FilterParameterVectorType parameters;
   MultiDataArraySelectionFilterParameter::RequirementType mdaReq =
       MultiDataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays for Computing Principal Components", SelectedDataArrayPaths, FilterParameter::RequiredArray, PrincipalComponentAnalysis, mdaReq));
+  parameters.push_back(
+      SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays for Computing Principal Components", SelectedDataArrayPaths, FilterParameter::Category::RequiredArray, PrincipalComponentAnalysis, mdaReq));
   {
     ChoiceFilterParameter::Pointer choices = ChoiceFilterParameter::New();
     choices->setHumanLabel("Matrix Approach");
@@ -106,18 +107,18 @@ void PrincipalComponentAnalysis::setupFilterParameters()
     choices->setGetterCallback(SIMPL_BIND_GETTER(PrincipalComponentAnalysis, this, MatrixApproach));
     QVector<QString> approaches = {"Correlation", "Covariance"};
     choices->setChoices(approaches);
-    choices->setCategory(FilterParameter::Parameter);
+    choices->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(choices);
   }
   QStringList linkedProps = {"NumberOfDimensionsForProjection", "ProjectedDataSpaceArrayPath"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Project Data Space", ProjectDataSpace, FilterParameter::Parameter, PrincipalComponentAnalysis, linkedProps));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Dimensions for Projection", NumberOfDimensionsForProjection, FilterParameter::Parameter, PrincipalComponentAnalysis));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Project Data Space", ProjectDataSpace, FilterParameter::Category::Parameter, PrincipalComponentAnalysis, linkedProps));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Dimensions for Projection", NumberOfDimensionsForProjection, FilterParameter::Category::Parameter, PrincipalComponentAnalysis));
   DataArrayCreationFilterParameter::RequirementType dacReq = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Projected Data Space", ProjectedDataSpaceArrayPath, FilterParameter::CreatedArray, PrincipalComponentAnalysis, dacReq));
-  parameters.push_back(SeparatorFilterParameter::New("Principal Component Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Attribute Matrix", PCAttributeMatrixName, FilterParameter::CreatedArray, PrincipalComponentAnalysis));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Eigenvalues", PCEigenvaluesName, FilterParameter::CreatedArray, PrincipalComponentAnalysis));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Eigenvectors", PCEigenvectorsName, FilterParameter::CreatedArray, PrincipalComponentAnalysis));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Projected Data Space", ProjectedDataSpaceArrayPath, FilterParameter::Category::CreatedArray, PrincipalComponentAnalysis, dacReq));
+  parameters.push_back(SeparatorFilterParameter::Create("Principal Component Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Attribute Matrix", PCAttributeMatrixName, FilterParameter::Category::CreatedArray, PrincipalComponentAnalysis));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Eigenvalues", PCEigenvaluesName, FilterParameter::Category::CreatedArray, PrincipalComponentAnalysis));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Principal Component Eigenvectors", PCEigenvectorsName, FilterParameter::Category::CreatedArray, PrincipalComponentAnalysis));
   setFilterParameters(parameters);
 }
 

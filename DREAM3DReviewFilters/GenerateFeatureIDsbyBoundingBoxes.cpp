@@ -67,13 +67,13 @@ void GenerateFeatureIDsbyBoundingBoxes::setupFilterParameters()
   FilterParameterVectorType parameters;
   DataArrayCreationFilterParameter::RequirementType dacReq;
   dacReq.amTypes = {AttributeMatrix::Type::Vertex, AttributeMatrix::Type::Cell};
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Feature IDs", FeatureIDsArrayPath, FilterParameter::CreatedArray, GenerateFeatureIDsbyBoundingBoxes, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Feature IDs", FeatureIDsArrayPath, FilterParameter::Category::CreatedArray, GenerateFeatureIDsbyBoundingBoxes, dacReq));
   AttributeMatrixCreationFilterParameter::RequirementType amcReq;
-  parameters.push_back(SIMPL_NEW_AM_CREATION_FP("Feature Attribute Matrix", FeatureAttributeMatrixArrayPath, FilterParameter::CreatedArray, GenerateFeatureIDsbyBoundingBoxes, amcReq));
+  parameters.push_back(SIMPL_NEW_AM_CREATION_FP("Feature Attribute Matrix", FeatureAttributeMatrixArrayPath, FilterParameter::Category::CreatedArray, GenerateFeatureIDsbyBoundingBoxes, amcReq));
   DataArraySelectionFilterParameter::RequirementType dasReq;
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Corner", BoxCenterArrayPath, FilterParameter::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Dimensions", BoxDimensionsArrayPath, FilterParameter::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Feature IDs Array", BoxFeatureIDsArrayPath, FilterParameter::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Corner", BoxCenterArrayPath, FilterParameter::Category::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Dimensions", BoxDimensionsArrayPath, FilterParameter::Category::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Box Feature IDs Array", BoxFeatureIDsArrayPath, FilterParameter::Category::RequiredArray, GenerateFeatureIDsbyBoundingBoxes, dasReq));
   setFilterParameters(parameters);
 }
 

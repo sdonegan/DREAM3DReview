@@ -85,73 +85,77 @@ FindArrayStatistics::~FindArrayStatistics() = default;
 void FindArrayStatistics::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SeparatorFilterParameter::New("Statistics Options", FilterParameter::Parameter));
+  parameters.push_back(SeparatorFilterParameter::Create("Statistics Options", FilterParameter::Category::Parameter));
   QStringList linkedProps;
   linkedProps << "HistogramArrayName"
               << "UseFullRange"
               << "NumBins"
               << "MinRange"
               << "MaxRange";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Histogram", FindHistogram, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Min Value", MinRange, FilterParameter::Parameter, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Max Value", MaxRange, FilterParameter::Parameter, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Use Full Range for Histogram", UseFullRange, FilterParameter::Parameter, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Bins", NumBins, FilterParameter::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Histogram", FindHistogram, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Min Value", MinRange, FilterParameter::Category::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Histogram Max Value", MaxRange, FilterParameter::Category::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Use Full Range for Histogram", UseFullRange, FilterParameter::Category::Parameter, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Bins", NumBins, FilterParameter::Category::Parameter, FindArrayStatistics));
 
   linkedProps.clear();
   linkedProps << "LengthArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Length", FindLength, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Length", FindLength, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MinimumArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Minimum", FindMin, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Minimum", FindMin, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MaximumArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Maximum", FindMax, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Maximum", FindMax, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MeanArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Mean", FindMean, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Mean", FindMean, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "MedianArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Median", FindMedian, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Median", FindMedian, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "StdDeviationArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Standard Deviation", FindStdDeviation, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Standard Deviation", FindStdDeviation, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "SummationArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Summation", FindSummation, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Find Summation", FindSummation, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
 
-  parameters.push_back(SeparatorFilterParameter::New("Algorithm Options", FilterParameter::Parameter));
+  parameters.push_back(SeparatorFilterParameter::Create("Algorithm Options", FilterParameter::Category::Parameter));
   linkedProps << "MaskArrayPath";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "FeatureIdsArrayPath";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Compute Statistics Per Feature/Ensemble", ComputeByIndex, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Compute Statistics Per Feature/Ensemble", ComputeByIndex, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
   linkedProps.clear();
   linkedProps << "StandardizedArrayName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Standardize Data", StandardizeData, FilterParameter::Parameter, FindArrayStatistics, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Standardize Data", StandardizeData, FilterParameter::Category::Parameter, FindArrayStatistics, linkedProps));
 
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Compute Statistics", SelectedArrayPath, FilterParameter::RequiredArray, FindArrayStatistics, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Compute Statistics", SelectedArrayPath, FilterParameter::Category::RequiredArray, FindArrayStatistics, dasReq));
 
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::RequiredArray, FindArrayStatistics, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, FindArrayStatistics, dasReq));
   DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, FindArrayStatistics, req));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, FindArrayStatistics, req));
 
   AttributeMatrixSelectionFilterParameter::RequirementType amReq = AttributeMatrixSelectionFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Destination Attribute Matrix", DestinationAttributeMatrix, FilterParameter::RequiredArray, FindArrayStatistics, amReq));
+  parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Destination Attribute Matrix", DestinationAttributeMatrix, FilterParameter::Category::RequiredArray, FindArrayStatistics, amReq));
 
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Histogram", HistogramArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Length", LengthArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Minimum", MinimumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Maximum", MaximumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Mean", MeanArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Median", MedianArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standard Deviation", StdDeviationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Summation", SummationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::CreatedArray, FindArrayStatistics));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standardized Data", StandardizedArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::CreatedArray, FindArrayStatistics));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Histogram", HistogramArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Length", LengthArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Minimum", MinimumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Maximum", MaximumArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Mean", MeanArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Median", MedianArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standard Deviation", StdDeviationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray,
+                                                      FindArrayStatistics));
+  parameters.push_back(
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Summation", SummationArrayName, DestinationAttributeMatrix, DestinationAttributeMatrix, FilterParameter::Category::CreatedArray, FindArrayStatistics));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Standardized Data", StandardizedArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::Category::CreatedArray, FindArrayStatistics));
 
   setFilterParameters(parameters);
 }

@@ -79,11 +79,11 @@ void WaveFrontObjectFileWriter::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
 
-  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Wavefront File", OutputWaveFrontFile, FilterParameter::Parameter, WaveFrontObjectFileWriter, "*.obj", "Wavefront Object File"));
+  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Output Wavefront File", OutputWaveFrontFile, FilterParameter::Category::Parameter, WaveFrontObjectFileWriter, "*.obj", "Wavefront Object File"));
 
   DataContainerSelectionFilterParameter::RequirementType req;
   req.dcGeometryTypes = IGeometry::Types(1, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry", TriangleGeometry, FilterParameter::RequiredArray, WaveFrontObjectFileWriter, req));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Geometry", TriangleGeometry, FilterParameter::Category::RequiredArray, WaveFrontObjectFileWriter, req));
 
   setFilterParameters(parameters);
 }

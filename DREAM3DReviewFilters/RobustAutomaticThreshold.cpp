@@ -78,11 +78,11 @@ void RobustAutomaticThreshold::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Threshold", InputArrayPath, FilterParameter::RequiredArray, RobustAutomaticThreshold, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Threshold", InputArrayPath, FilterParameter::Category::RequiredArray, RobustAutomaticThreshold, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Float, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Gradient Magnitude", GradientMagnitudeArrayPath, FilterParameter::RequiredArray, RobustAutomaticThreshold, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Gradient Magnitude", GradientMagnitudeArrayPath, FilterParameter::Category::RequiredArray, RobustAutomaticThreshold, dasReq));
   DataArrayCreationFilterParameter::RequirementType dacReq = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Mask", FeatureIdsArrayPath, FilterParameter::RequiredArray, RobustAutomaticThreshold, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Mask", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, RobustAutomaticThreshold, dacReq));
   setFilterParameters(parameters);
 }
 

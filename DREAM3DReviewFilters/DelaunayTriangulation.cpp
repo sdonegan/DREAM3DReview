@@ -141,21 +141,21 @@ DelaunayTriangulation::~DelaunayTriangulation() = default;
 void DelaunayTriangulation::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Offset", Offset, FilterParameter::Parameter, DelaunayTriangulation));
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Tolerance", Tolerance, FilterParameter::Parameter, DelaunayTriangulation));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Offset", Offset, FilterParameter::Category::Parameter, DelaunayTriangulation));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Tolerance", Tolerance, FilterParameter::Category::Parameter, DelaunayTriangulation));
   QStringList linkedProps = {"FeatureIdsArrayPath"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Triangulate by Feature", TriangulateByFeature, FilterParameter::Parameter, DelaunayTriangulation, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Triangulate by Feature", TriangulateByFeature, FilterParameter::Category::Parameter, DelaunayTriangulation, linkedProps));
   DataContainerSelectionFilterParameter::RequirementType dcReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Vertex, IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Input Vertices", InputGeometry, FilterParameter::RequiredArray, DelaunayTriangulation, dcReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Input Vertices", InputGeometry, FilterParameter::Category::RequiredArray, DelaunayTriangulation, dcReq));
   DataArraySelectionFilterParameter::RequirementType daReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
   daReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::RequiredArray, DelaunayTriangulation, daReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Triangle Data Container", TriangleDataContainerName, FilterParameter::CreatedArray, DelaunayTriangulation));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, FilterParameter::CreatedArray, DelaunayTriangulation));
-  parameters.push_back(SeparatorFilterParameter::New("Face Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Face Attribute Matrix", FaceAttributeMatrixName, FilterParameter::CreatedArray, DelaunayTriangulation));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, DelaunayTriangulation, daReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Triangle Data Container", TriangleDataContainerName, FilterParameter::Category::CreatedArray, DelaunayTriangulation));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, FilterParameter::Category::CreatedArray, DelaunayTriangulation));
+  parameters.push_back(SeparatorFilterParameter::Create("Face Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Face Attribute Matrix", FaceAttributeMatrixName, FilterParameter::Category::CreatedArray, DelaunayTriangulation));
   setFilterParameters(parameters);
 }
 

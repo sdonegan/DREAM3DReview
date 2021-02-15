@@ -541,15 +541,15 @@ void EstablishFoamMorphology::initialize()
 void EstablishFoamMorphology::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Periodic Boundaries", PeriodicBoundaries, FilterParameter::Parameter, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Periodic Boundaries", PeriodicBoundaries, FilterParameter::Category::Parameter, EstablishFoamMorphology));
 
-  parameters.push_back(SeparatorFilterParameter::New("Data Container", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Data Container", FilterParameter::Category::RequiredArray));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container", DataContainerName, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container", DataContainerName, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Ensemble Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Ensemble Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::StatsDataArray, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
@@ -557,21 +557,21 @@ void EstablishFoamMorphology::setupFilterParameters()
     geomTypes.push_back(IGeometry::Type::Image);
     geomTypes.push_back(IGeometry::Type::Unknown);
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Statistics", InputStatsArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Statistics", InputStatsArrayPath, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::UInt32, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
     IGeometry::Types geomTypes;
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Types", InputPhaseTypesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Types", InputPhaseTypesArrayPath, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::StringArray, 1, AttributeMatrix::Type::CellEnsemble, IGeometry::Type::Any);
     IGeometry::Types geomTypes;
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Names", InputPhaseNamesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phase Names", InputPhaseNamesArrayPath, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req =
@@ -580,34 +580,34 @@ void EstablishFoamMorphology::setupFilterParameters()
     geomTypes.push_back(IGeometry::Type::Image);
     geomTypes.push_back(IGeometry::Type::Unknown);
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Shape Types", InputShapeTypesArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Shape Types", InputShapeTypesArrayPath, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int32, 1, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", InputCellFeatureIdsArrayPath, FilterParameter::RequiredArray, EstablishFoamMorphology, req, 1));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Feature Ids", InputCellFeatureIdsArrayPath, FilterParameter::Category::RequiredArray, EstablishFoamMorphology, req, 1));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Ensemble Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Cell Ensemble Attribute Matrix", OutputCellEnsembleAttributeMatrixName, FilterParameter::CreatedArray, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Number of Features", NumFeaturesArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Ensemble Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Cell Ensemble Attribute Matrix", OutputCellEnsembleAttributeMatrixName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Number of Features", NumFeaturesArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Feature Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Cell Feature Attribute Matrix", OutputCellFeatureAttributeMatrixName, FilterParameter::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Feature Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Cell Feature Attribute Matrix", OutputCellFeatureAttributeMatrixName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Feature Ids", FeatureIdsArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology, 0));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Mask", MaskArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Phases", CellPhasesArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Quadruple Point Euclidean Distances", QPEuclideanDistancesArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Triple Junction Euclidean Distances", TJEuclideanDistancesArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Grain Boundary Euclidean Distances", GBEuclideanDistancesArrayName, FilterParameter::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Feature Ids", FeatureIdsArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology, 0));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Mask", MaskArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Phases", CellPhasesArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Quadruple Point Euclidean Distances", QPEuclideanDistancesArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Triple Junction Euclidean Distances", TJEuclideanDistancesArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Grain Boundary Euclidean Distances", GBEuclideanDistancesArrayName, FilterParameter::Category::CreatedArray, EstablishFoamMorphology));
 
   QStringList linkedProps("CsvOutputFile");
   linkedProps << "CsvOutputFile";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Write Goal Attributes", WriteGoalAttributes, FilterParameter::Parameter, EstablishFoamMorphology, linkedProps));
-  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Goal Attribute CSV File", CsvOutputFile, FilterParameter::Parameter, EstablishFoamMorphology, "*.csv", "Comma Separated Data"));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Write Goal Attributes", WriteGoalAttributes, FilterParameter::Category::Parameter, EstablishFoamMorphology, linkedProps));
+  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Goal Attribute CSV File", CsvOutputFile, FilterParameter::Category::Parameter, EstablishFoamMorphology, "*.csv", "Comma Separated Data"));
   linkedProps.clear();
   linkedProps << "FeatureIdsArrayName"
               << "InputCellFeatureIdsArrayPath";
@@ -625,12 +625,12 @@ void EstablishFoamMorphology::setupFilterParameters()
     parameter->setChoices(choices);
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Minimum Strut Thickness", MinStrutThickness, FilterParameter::Parameter, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Strut Thickness Variability Factor", StrutThicknessVariability, FilterParameter::Parameter, EstablishFoamMorphology));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Strut Cross Section Shape Factor", StrutShapeVariability, FilterParameter::Parameter, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_DOUBLE_FP("Minimum Strut Thickness", MinStrutThickness, FilterParameter::Category::Parameter, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Strut Thickness Variability Factor", StrutThicknessVariability, FilterParameter::Category::Parameter, EstablishFoamMorphology));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Strut Cross Section Shape Factor", StrutShapeVariability, FilterParameter::Category::Parameter, EstablishFoamMorphology));
 
   setFilterParameters(parameters);
 }

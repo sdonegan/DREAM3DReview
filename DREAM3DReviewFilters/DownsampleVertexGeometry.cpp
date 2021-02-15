@@ -66,20 +66,20 @@ void DownsampleVertexGeometry::setupFilterParameters()
     QStringList linkedProps = {"DecimationFreq", "DecimationFraction", "GridResolution"};
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Decimation Frequency", DecimationFreq, FilterParameter::Parameter, DownsampleVertexGeometry, 0));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Fraction to Remove", DecimationFraction, FilterParameter::Parameter, DownsampleVertexGeometry, 1));
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Grid Resolution", GridResolution, FilterParameter::Parameter, DownsampleVertexGeometry, 2));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Decimation Frequency", DecimationFreq, FilterParameter::Category::Parameter, DownsampleVertexGeometry, 0));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Fraction to Remove", DecimationFraction, FilterParameter::Category::Parameter, DownsampleVertexGeometry, 1));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Grid Resolution", GridResolution, FilterParameter::Category::Parameter, DownsampleVertexGeometry, 2));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
   {
     AttributeMatrixSelectionFilterParameter::RequirementType req;
     IGeometry::Types geomTypes = {IGeometry::Type::Vertex};
     AttributeMatrix::Types amTypes = {AttributeMatrix::Type::Vertex};
     req.dcGeometryTypes = geomTypes;
     req.amTypes = amTypes;
-    parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Vertex Attribute Matrix", VertexAttrMatPath, FilterParameter::RequiredArray, DownsampleVertexGeometry, req));
+    parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Vertex Attribute Matrix", VertexAttrMatPath, FilterParameter::Category::RequiredArray, DownsampleVertexGeometry, req));
   }
   setFilterParameters(parameters);
 }

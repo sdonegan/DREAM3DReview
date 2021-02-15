@@ -47,7 +47,7 @@ void CreateArrayofIndices::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   DataArrayCreationFilterParameter::RequirementType dacReq;
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Index Array Path", IndexArrayPath, FilterParameter::CreatedArray, CreateArrayofIndices, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Index Array Path", IndexArrayPath, FilterParameter::Category::CreatedArray, CreateArrayofIndices, dacReq));
   setFilterParameters(parameters);
 }
 

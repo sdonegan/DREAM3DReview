@@ -56,29 +56,29 @@ ReadBinaryCTNorthStar::~ReadBinaryCTNorthStar() = default;
 void ReadBinaryCTNorthStar::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input Header File", InputHeaderFile, FilterParameter::Parameter, ReadBinaryCTNorthStar, "*.nsihdr", "NSI header"));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Data Container", DataContainerName, FilterParameter::CreatedArray, ReadBinaryCTNorthStar));
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::CreatedArray, ReadBinaryCTNorthStar));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::CreatedArray, ReadBinaryCTNorthStar));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input Header File", InputHeaderFile, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar, "*.nsihdr", "NSI header"));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Data Container", DataContainerName, FilterParameter::Category::CreatedArray, ReadBinaryCTNorthStar));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::Category::CreatedArray, ReadBinaryCTNorthStar));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::Category::CreatedArray, ReadBinaryCTNorthStar));
 
   QVector<QString> choices = IGeometry::GetAllLengthUnitStrings();
-  parameters.push_back(SIMPL_NEW_CHOICE_FP("Length Unit", LengthUnit, FilterParameter::Parameter, ReadBinaryCTNorthStar, choices, false));
+  parameters.push_back(SIMPL_NEW_CHOICE_FP("Length Unit", LengthUnit, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar, choices, false));
 
-  PreflightUpdatedValueFilterParameter::Pointer param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Original Volume", VolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  PreflightUpdatedValueFilterParameter::Pointer param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Original Volume", VolumeDescription, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar);
   param->setReadOnly(true);
   parameters.push_back(param);
-  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Dat Files", DataFileInfo, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Dat Files", DataFileInfo, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar);
   param->setReadOnly(true);
   parameters.push_back(param);
 
   QStringList linkedProps = {"StartVoxelCoord", "EndVoxelCoord", "ImportedVolumeDescription"};
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Import Subvolume", ImportSubvolume, FilterParameter::Parameter, ReadBinaryCTNorthStar, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Import Subvolume", ImportSubvolume, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar, linkedProps));
 
-  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Starting XYZ Voxel", StartVoxelCoord, FilterParameter::Parameter, ReadBinaryCTNorthStar));
-  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Ending XYZ Voxel", EndVoxelCoord, FilterParameter::Parameter, ReadBinaryCTNorthStar));
+  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Starting XYZ Voxel", StartVoxelCoord, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar));
+  parameters.push_back(SIMPL_NEW_INT_VEC3_FP("Ending XYZ Voxel", EndVoxelCoord, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar));
 
-  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Imported Volume", ImportedVolumeDescription, FilterParameter::Parameter, ReadBinaryCTNorthStar);
+  param = SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Imported Volume", ImportedVolumeDescription, FilterParameter::Category::Parameter, ReadBinaryCTNorthStar);
   param->setReadOnly(true);
   parameters.push_back(param);
 

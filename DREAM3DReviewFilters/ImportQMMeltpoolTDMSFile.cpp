@@ -45,8 +45,8 @@ void ImportQMMeltpoolTDMSFile::initialize()
 void ImportQMMeltpoolTDMSFile::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input TDMS File", InputFile, FilterParameter::Parameter, ImportQMMeltpoolTDMSFile, "*.raw *.bin"));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Data Container", DataContainerName, FilterParameter::CreatedArray, ImportQMMeltpoolTDMSFile));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input TDMS File", InputFile, FilterParameter::Category::Parameter, ImportQMMeltpoolTDMSFile, "*.raw *.bin"));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Data Container", DataContainerName, FilterParameter::Category::CreatedArray, ImportQMMeltpoolTDMSFile));
   setFilterParameters(parameters);
 }
 

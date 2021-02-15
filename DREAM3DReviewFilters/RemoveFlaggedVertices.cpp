@@ -93,10 +93,10 @@ void RemoveFlaggedVertices::setupFilterParameters()
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Vertex};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Vertex Geometry", VertexGeometry, FilterParameter::RequiredArray, RemoveFlaggedVertices, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Vertex Geometry", VertexGeometry, FilterParameter::Category::RequiredArray, RemoveFlaggedVertices, dcsReq));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Vertex);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, RemoveFlaggedVertices, dasReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Reduced Vertex Data Container", ReducedVertexGeometry, FilterParameter::CreatedArray, RemoveFlaggedVertices));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, RemoveFlaggedVertices, dasReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Reduced Vertex Data Container", ReducedVertexGeometry, FilterParameter::Category::CreatedArray, RemoveFlaggedVertices));
   setFilterParameters(parameters);
 }
 

@@ -233,12 +233,12 @@ void ImportQMMeltpoolH5File::createUpdateCacheEntries()
 void ImportQMMeltpoolH5File::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_MULTI_INPUT_FILE_FP("Input File(s)", InputFiles, FilterParameter::Parameter, ImportQMMeltpoolH5File, "*.h5 *.hdf5"));
-  parameters.push_back(SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Possible Slice Indices", PossibleIndices, FilterParameter::Parameter, ImportQMMeltpoolH5File));
-  parameters.push_back(SIMPL_NEW_INT_VEC2_FP("Slice Index Start/End [Inclusive]", SliceRange, FilterParameter::Parameter, ImportQMMeltpoolH5File));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Data Container Name", DataContainerPath, FilterParameter::Parameter, ImportQMMeltpoolH5File));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix Name", VertexAttributeMatrixName, FilterParameter::Parameter, ImportQMMeltpoolH5File));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Power", Power, FilterParameter::Parameter, ImportQMMeltpoolH5File));
+  parameters.push_back(SIMPL_NEW_MULTI_INPUT_FILE_FP("Input File(s)", InputFiles, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File, "*.h5 *.hdf5"));
+  parameters.push_back(SIMPL_NEW_PREFLIGHTUPDATEDVALUE_FP("Possible Slice Indices", PossibleIndices, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File));
+  parameters.push_back(SIMPL_NEW_INT_VEC2_FP("Slice Index Start/End [Inclusive]", SliceRange, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Data Container Name", DataContainerPath, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix Name", VertexAttributeMatrixName, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Power", Power, FilterParameter::Category::Parameter, ImportQMMeltpoolH5File));
   setFilterParameters(parameters);
 }
 

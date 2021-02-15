@@ -97,12 +97,12 @@ void IterativeClosestPoint::setupFilterParameters()
   FilterParameterVectorType parameters;
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   dcsReq.dcGeometryTypes = {IGeometry::Type::Vertex};
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Vertex Geometry", MovingVertexGeometry, FilterParameter::RequiredArray, IterativeClosestPoint, dcsReq));
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Vertex Geometry", TargetVertexGeometry, FilterParameter::RequiredArray, IterativeClosestPoint, dcsReq));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Iterations", Iterations, FilterParameter::Parameter, IterativeClosestPoint));
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Apply Transform to Moving Geometry", ApplyTransform, FilterParameter::Parameter, IterativeClosestPoint));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Transform Attribute Matrix Name", TransformAttributeMatrixName, FilterParameter::CreatedArray, IterativeClosestPoint));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Transform Array Name", TransformArrayName, FilterParameter::CreatedArray, IterativeClosestPoint));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Vertex Geometry", MovingVertexGeometry, FilterParameter::Category::RequiredArray, IterativeClosestPoint, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Vertex Geometry", TargetVertexGeometry, FilterParameter::Category::RequiredArray, IterativeClosestPoint, dcsReq));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Number of Iterations", Iterations, FilterParameter::Category::Parameter, IterativeClosestPoint));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Apply Transform to Moving Geometry", ApplyTransform, FilterParameter::Category::Parameter, IterativeClosestPoint));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Transform Attribute Matrix Name", TransformAttributeMatrixName, FilterParameter::Category::CreatedArray, IterativeClosestPoint));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Transform Array Name", TransformArrayName, FilterParameter::Category::CreatedArray, IterativeClosestPoint));
   setFilterParameters(parameters);
 }
 

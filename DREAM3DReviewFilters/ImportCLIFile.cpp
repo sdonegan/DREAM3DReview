@@ -66,14 +66,14 @@ void ImportCLIFile::initialize()
 void ImportCLIFile::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("CLI File", CLIFile, FilterParameter::Parameter, ImportCLIFile, "*.cli"));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Data Container", EdgeDataContainerName, FilterParameter::CreatedArray, ImportCLIFile));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, EdgeDataContainerName, FilterParameter::CreatedArray, ImportCLIFile));
-  parameters.push_back(SeparatorFilterParameter::New("Edge Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, EdgeDataContainerName, FilterParameter::CreatedArray, ImportCLIFile));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Ids", LayerIdsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, ImportCLIFile));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Feature Ids", FeatureIdsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::CreatedArray, ImportCLIFile));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("CLI File", CLIFile, FilterParameter::Category::Parameter, ImportCLIFile, "*.cli"));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Data Container", EdgeDataContainerName, FilterParameter::Category::CreatedArray, ImportCLIFile));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, EdgeDataContainerName, FilterParameter::Category::CreatedArray, ImportCLIFile));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, EdgeDataContainerName, FilterParameter::Category::CreatedArray, ImportCLIFile));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Layer Ids", LayerIdsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::Category::CreatedArray, ImportCLIFile));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Feature Ids", FeatureIdsArrayName, EdgeDataContainerName, EdgeAttributeMatrixName, FilterParameter::Category::CreatedArray, ImportCLIFile));
   setFilterParameters(parameters);
 }
 

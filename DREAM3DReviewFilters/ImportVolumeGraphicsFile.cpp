@@ -96,12 +96,12 @@ ImportVolumeGraphicsFile::~ImportVolumeGraphicsFile() = default;
 void ImportVolumeGraphicsFile::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vgi File", VGHeaderFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vgi", "Volume Graphics Header"));
-  // parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vol File", VGDataFile, FilterParameter::Parameter, ImportVolumeGraphicsFile, "*.vol", "Volume Graphics Data"));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Data Container", DataContainerName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::CreatedArray, ImportVolumeGraphicsFile));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vgi File", VGHeaderFile, FilterParameter::Category::Parameter, ImportVolumeGraphicsFile, "*.vgi", "Volume Graphics Header"));
+  // parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("VolumeGraphics .vol File", VGDataFile, FilterParameter::Category::Parameter, ImportVolumeGraphicsFile, "*.vol", "Volume Graphics Data"));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Data Container", DataContainerName, FilterParameter::Category::CreatedArray, ImportVolumeGraphicsFile));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Attribute Matrix", CellAttributeMatrixName, DataContainerName, FilterParameter::Category::CreatedArray, ImportVolumeGraphicsFile));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Density", DensityArrayName, DataContainerName, CellAttributeMatrixName, FilterParameter::Category::CreatedArray, ImportVolumeGraphicsFile));
   setFilterParameters(parameters);
 }
 

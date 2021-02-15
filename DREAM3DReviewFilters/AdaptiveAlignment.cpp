@@ -91,8 +91,8 @@ void AdaptiveAlignment::setupFilterParameters()
   FilterParameterVectorType parameters;
   QStringList linkedProps("AlignmentShiftFileName");
 
-  //  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Write Alignment Shift File", WriteAlignmentShifts, FilterParameter::Parameter, AdaptiveAlignment, linkedProps));
-  //  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Alignment File", AlignmentShiftFileName, FilterParameter::Parameter, AdaptiveAlignment, "", "*.txt"));
+  //  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Write Alignment Shift File", WriteAlignmentShifts, FilterParameter::Category::Parameter, AdaptiveAlignment, linkedProps));
+  //  parameters.push_back(SIMPL_NEW_OUTPUT_FILE_FP("Alignment File", AlignmentShiftFileName, FilterParameter::Category::Parameter, AdaptiveAlignment, "", "*.txt"));
 
   {
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
@@ -115,10 +115,10 @@ void AdaptiveAlignment::setupFilterParameters()
                 << "ShiftY";
     parameter->setLinkedProperties(linkedProps);
     parameter->setEditable(false);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
 
-    parameters.push_back(SeparatorFilterParameter::New("Image Data", FilterParameter::RequiredArray));
+    parameters.push_back(SeparatorFilterParameter::Create("Image Data", FilterParameter::Category::RequiredArray));
     {
       DataArraySelectionFilterParameter::RequirementType req =
           DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::UInt8, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Cell, IGeometry::Type::Image);
@@ -127,15 +127,15 @@ void AdaptiveAlignment::setupFilterParameters()
       cDims.push_back(std::vector<size_t>(1, 3));
       cDims.push_back(std::vector<size_t>(1, 4));
       req.componentDimensions = cDims;
-      parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Image Data", ImageDataArrayPath, FilterParameter::RequiredArray, AdaptiveAlignment, req, 1));
+      parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Image Data", ImageDataArrayPath, FilterParameter::Category::RequiredArray, AdaptiveAlignment, req, 1));
     }
 
-    parameters.push_back(SIMPL_NEW_FLOAT_FP("Total Shift In X-Direction (Microns)", ShiftX, FilterParameter::Parameter, AdaptiveAlignment, 2));
-    parameters.push_back(SIMPL_NEW_FLOAT_FP("Total Shift In Y-Direction (Microns)", ShiftY, FilterParameter::Parameter, AdaptiveAlignment, 2));
+    parameters.push_back(SIMPL_NEW_FLOAT_FP("Total Shift In X-Direction (Microns)", ShiftX, FilterParameter::Category::Parameter, AdaptiveAlignment, 2));
+    parameters.push_back(SIMPL_NEW_FLOAT_FP("Total Shift In Y-Direction (Microns)", ShiftY, FilterParameter::Category::Parameter, AdaptiveAlignment, 2));
   }
   {
     MultiDataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Ignore", IgnoredDataArrayPaths, FilterParameter::Parameter, AdaptiveAlignment, req));
+    parameters.push_back(SIMPL_NEW_MDA_SELECTION_FP("Attribute Arrays to Ignore", IgnoredDataArrayPaths, FilterParameter::Category::Parameter, AdaptiveAlignment, req));
   }
   setFilterParameters(parameters);
 }

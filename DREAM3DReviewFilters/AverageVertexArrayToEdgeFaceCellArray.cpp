@@ -75,23 +75,23 @@ AverageVertexArrayToEdgeFaceCellArray::~AverageVertexArrayToEdgeFaceCellArray() 
 void AverageVertexArrayToEdgeFaceCellArray::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Perform Weighted Average", WeightedAverage, FilterParameter::Parameter, AverageVertexArrayToEdgeFaceCellArray));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Perform Weighted Average", WeightedAverage, FilterParameter::Category::Parameter, AverageVertexArrayToEdgeFaceCellArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req =
         DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Vertex, IGeometry::Type::Any);
     IGeometry::Types geomTypes = {IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Vertex Array to Average", SelectedArrayPath, FilterParameter::RequiredArray, AverageVertexArrayToEdgeFaceCellArray, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Vertex Array to Average", SelectedArrayPath, FilterParameter::Category::RequiredArray, AverageVertexArrayToEdgeFaceCellArray, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Edge/Face/Cell Data", FilterParameter::CreatedArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge/Face/Cell Data", FilterParameter::Category::CreatedArray));
   {
     DataArrayCreationFilterParameter::RequirementType req = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Type::Any, IGeometry::Type::Any);
     AttributeMatrix::Types amTypes = {AttributeMatrix::Type::Cell, AttributeMatrix::Type::Face, AttributeMatrix::Type::Edge};
     IGeometry::Types geomTypes = {IGeometry::Type::Edge, IGeometry::Type::Triangle, IGeometry::Type::Quad, IGeometry::Type::Tetrahedral};
     req.amTypes = amTypes;
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Average Edge/Face/Cell Array", AverageCellArrayPath, FilterParameter::CreatedArray, AverageVertexArrayToEdgeFaceCellArray, req));
+    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Average Edge/Face/Cell Array", AverageCellArrayPath, FilterParameter::Category::CreatedArray, AverageVertexArrayToEdgeFaceCellArray, req));
   }
   setFilterParameters(parameters);
 }

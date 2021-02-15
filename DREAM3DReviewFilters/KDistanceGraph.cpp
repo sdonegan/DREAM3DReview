@@ -81,7 +81,7 @@ KDistanceGraph::~KDistanceGraph() = default;
 void KDistanceGraph::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("K<sup>th</sup> Nearest Neighbor", MinDist, FilterParameter::Parameter, KDistanceGraph));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("K<sup>th</sup> Nearest Neighbor", MinDist, FilterParameter::Category::Parameter, KDistanceGraph));
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Distance Metric");
@@ -90,17 +90,17 @@ void KDistanceGraph::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(KDistanceGraph, this, DistanceMetric));
     QVector<QString> choices = DistanceTemplate::GetDistanceMetricsOptions();
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, KDistanceGraph, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, KDistanceGraph, linkedProps));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Input Attribute Array", SelectedArrayPath, FilterParameter::RequiredArray, KDistanceGraph, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Input Attribute Array", SelectedArrayPath, FilterParameter::Category::RequiredArray, KDistanceGraph, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
   DataArrayCreationFilterParameter::RequirementType dacReq = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Category::Unknown);
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("K Distance", KDistanceArrayPath, FilterParameter::CreatedArray, KDistanceGraph, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("K Distance", KDistanceArrayPath, FilterParameter::Category::CreatedArray, KDistanceGraph, dacReq));
   setFilterParameters(parameters);
 }
 

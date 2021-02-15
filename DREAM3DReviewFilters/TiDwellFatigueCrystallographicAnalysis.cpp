@@ -136,86 +136,88 @@ void TiDwellFatigueCrystallographicAnalysis::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   QStringList linkedProps1("AlphaGlobPhase");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Alpha Glob Phase Present", AlphaGlobPhasePresent, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis, linkedProps1));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Alpha Glob Phase Number", AlphaGlobPhase, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Microtextured Region Phase Number", MTRPhase, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lattice Parameter A", LatticeParameterA, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lattice Parameter C", LatticeParameterC, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Stress Axis", StressAxis, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Alpha Glob Phase Present", AlphaGlobPhasePresent, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis, linkedProps1));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Alpha Glob Phase Number", AlphaGlobPhase, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Microtextured Region Phase Number", MTRPhase, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lattice Parameter A", LatticeParameterA, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Lattice Parameter C", LatticeParameterC, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_VEC3_FP("Stress Axis", StressAxis, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
 
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Subsurface Feature Distance to Consider (Microns)", SubsurfaceDistance, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Fraction of Features to Consider", ConsiderationFraction, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Subsurface Feature Distance to Consider (Microns)", SubsurfaceDistance, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Fraction of Features to Consider", ConsiderationFraction, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
   QStringList linkedProps2;
   linkedProps2 << "InitiatorLowerThreshold"
                << "InitiatorUpperThreshold";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Do Not Assume Initiator Presence", DoNotAssumeInitiatorPresence, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis, linkedProps2));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Initiator Lower Threshold (Degrees)", InitiatorLowerThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Initiator Upper Threshold (Degrees)", InitiatorUpperThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Hard Feature Lower Threshold (Degrees)", HardFeatureLowerThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Hard Feature Upper Threshold (Degrees)", HardFeatureUpperThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Soft Feature Lower Threshold (Degrees)", SoftFeatureLowerThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Soft Feature Upper Threshold (Degrees)", SoftFeatureUpperThreshold, FilterParameter::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(
+      SIMPL_NEW_LINKED_BOOL_FP("Do Not Assume Initiator Presence", DoNotAssumeInitiatorPresence, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis, linkedProps2));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Initiator Lower Threshold (Degrees)", InitiatorLowerThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Initiator Upper Threshold (Degrees)", InitiatorUpperThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Hard Feature Lower Threshold (Degrees)", HardFeatureLowerThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Hard Feature Upper Threshold (Degrees)", HardFeatureUpperThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Soft Feature Lower Threshold (Degrees)", SoftFeatureLowerThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Soft Feature Upper Threshold (Degrees)", SoftFeatureUpperThreshold, FilterParameter::Category::Parameter, TiDwellFatigueCrystallographicAnalysis));
 
   {
     DataContainerSelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container", DataContainerName, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container", DataContainerName, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::RequiredArray));
 
   {
     DataArraySelectionFilterParameter::RequirementType req;
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("FeatureIds", FeatureIdsArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("FeatureIds", FeatureIdsArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Feature Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Feature Data", FilterParameter::Category::RequiredArray));
   {
     AttributeMatrixSelectionFilterParameter::RequirementType req = AttributeMatrixSelectionFilterParameter::CreateRequirement(AttributeMatrix::Type::CellFeature, IGeometry::Type::Unknown);
-    parameters.push_back(SIMPL_NEW_AM_SELECTION_FP("Cell Feature Attribute Matrix", CellFeatureAttributeMatrixPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(
+        SIMPL_NEW_AM_SELECTION_FP("Cell Feature Attribute Matrix", CellFeatureAttributeMatrixPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::Defaults::AnyPrimitive, 3, AttributeMatrix::Category::Feature);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Average Euler Angles", FeatureEulerAnglesArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Average Euler Angles", FeatureEulerAnglesArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Category::Feature);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phases", FeaturePhasesArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Phases", FeaturePhasesArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Category::Feature);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Neighbor List", NeighborListArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Neighbor List", NeighborListArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::Defaults::AnyPrimitive, 3, AttributeMatrix::Category::Feature);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Centroids", CentroidsArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Centroids", CentroidsArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Ensemble Data", FilterParameter::RequiredArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Ensemble Data", FilterParameter::Category::RequiredArray));
   {
     DataArraySelectionFilterParameter::RequirementType req = DataArraySelectionFilterParameter::CreateCategoryRequirement(SIMPL::Defaults::AnyPrimitive, 1, AttributeMatrix::Category::Ensemble);
-    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Crystal Structures", CrystalStructuresArrayPath, FilterParameter::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
+    parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Crystal Structures", CrystalStructuresArrayPath, FilterParameter::Category::RequiredArray, TiDwellFatigueCrystallographicAnalysis, req));
   }
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Data", FilterParameter::CreatedArray));
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Data", FilterParameter::Category::CreatedArray));
   parameters.push_back(
-      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Parent Ids", CellParentIdsArrayName, FeatureIdsArrayPath, FeatureIdsArrayPath, FilterParameter::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
+      SIMPL_NEW_DA_WITH_LINKED_AM_FP("Parent Ids", CellParentIdsArrayName, FeatureIdsArrayPath, FeatureIdsArrayPath, FilterParameter::Category::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
 
-  parameters.push_back(SeparatorFilterParameter::New("Cell Feature Data", FilterParameter::CreatedArray));
-  parameters.push_back(
-      SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Feature Attribute Matrix", NewCellFeatureAttributeMatrixName, FeatureIdsArrayPath, FilterParameter::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Selected Features", SelectedFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
+  parameters.push_back(SeparatorFilterParameter::Create("Cell Feature Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cell Feature Attribute Matrix", NewCellFeatureAttributeMatrixName, FeatureIdsArrayPath, FilterParameter::Category::CreatedArray,
                                                       TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Initiators", InitiatorsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Selected Features", SelectedFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath,
+                                                      FilterParameter::Category::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Initiators", InitiatorsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::Category::CreatedArray,
                                                       TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Hard Features", HardFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Hard Features", HardFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::Category::CreatedArray,
                                                       TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Soft Features", SoftFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Soft Features", SoftFeaturesArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::Category::CreatedArray,
                                                       TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Hard-Soft Groups", HardSoftGroupsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
-                                                      TiDwellFatigueCrystallographicAnalysis));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Parent Ids", FeatureParentIdsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::CreatedArray,
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Hard-Soft Groups", HardSoftGroupsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath,
+                                                      FilterParameter::Category::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Parent Ids", FeatureParentIdsArrayName, CellFeatureAttributeMatrixPath, CellFeatureAttributeMatrixPath, FilterParameter::Category::CreatedArray,
                                                       TiDwellFatigueCrystallographicAnalysis));
 
-  // parameters.push_back(SIMPL_NEW_STRING_FP("Active", ActiveArrayName, FilterParameter::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
+  // parameters.push_back(SIMPL_NEW_STRING_FP("Active", ActiveArrayName, FilterParameter::Category::CreatedArray, TiDwellFatigueCrystallographicAnalysis));
   setFilterParameters(parameters);
 }
 

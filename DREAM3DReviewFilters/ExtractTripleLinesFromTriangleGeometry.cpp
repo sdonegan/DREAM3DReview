@@ -107,16 +107,16 @@ void ExtractTripleLinesFromTriangleGeometry::initialize()
 void ExtractTripleLinesFromTriangleGeometry::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_BOOL_FP("Compactify Triple Lines", SmoothTripleLines, FilterParameter::Parameter, ExtractTripleLinesFromTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_BOOL_FP("Compactify Triple Lines", SmoothTripleLines, FilterParameter::Category::Parameter, ExtractTripleLinesFromTriangleGeometry));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int8, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Triangle);
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Node Types", NodeTypesArrayPath, FilterParameter::RequiredArray, ExtractTripleLinesFromTriangleGeometry, dasReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Geometry", EdgeGeometry, FilterParameter::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, FilterParameter::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Node Types", NodeTypesArrayName, FilterParameter::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
-  parameters.push_back(SeparatorFilterParameter::New("Edge Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, FilterParameter::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Node Types", NodeTypesArrayPath, FilterParameter::Category::RequiredArray, ExtractTripleLinesFromTriangleGeometry, dasReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Geometry", EdgeGeometry, FilterParameter::Category::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, FilterParameter::Category::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Node Types", NodeTypesArrayName, FilterParameter::Category::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
+  parameters.push_back(SeparatorFilterParameter::Create("Edge Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Edge Attribute Matrix", EdgeAttributeMatrixName, FilterParameter::Category::CreatedArray, ExtractTripleLinesFromTriangleGeometry));
   setFilterParameters(parameters);
 }
 

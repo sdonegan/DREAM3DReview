@@ -78,23 +78,23 @@ void InterpolateMeshToRegularGrid::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(InterpolateMeshToRegularGrid, this, ScaleOrSpecifyNumCells));
     parameter->setChoices(choices);
     parameter->setLinkedProperties(linkedProps);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("X Dimension", SetXDimension, FilterParameter::Parameter, InterpolateMeshToRegularGrid, 0));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Y Dimension", SetYDimension, FilterParameter::Parameter, InterpolateMeshToRegularGrid, 0));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Scale Factor for Number of Elements", ScaleFactorNumCells, FilterParameter::Parameter, InterpolateMeshToRegularGrid, 1));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Outside Mesh Identifier", OutsideMeshIdentifier, FilterParameter::Parameter, InterpolateMeshToRegularGrid));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("X Dimension", SetXDimension, FilterParameter::Category::Parameter, InterpolateMeshToRegularGrid, 0));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Y Dimension", SetYDimension, FilterParameter::Category::Parameter, InterpolateMeshToRegularGrid, 0));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Scale Factor for Number of Elements", ScaleFactorNumCells, FilterParameter::Category::Parameter, InterpolateMeshToRegularGrid, 1));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Outside Mesh Identifier", OutsideMeshIdentifier, FilterParameter::Category::Parameter, InterpolateMeshToRegularGrid));
   {
     DataContainerSelectionFilterParameter::RequirementType req;
     IGeometry::Types geomTypes;
     geomTypes.push_back(IGeometry::Type::Triangle);
     geomTypes.push_back(IGeometry::Type::Quad);
     req.dcGeometryTypes = geomTypes;
-    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Interpolate", SelectedDataContainerName, FilterParameter::RequiredArray, InterpolateMeshToRegularGrid, req));
+    parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Data Container to Interpolate", SelectedDataContainerName, FilterParameter::Category::RequiredArray, InterpolateMeshToRegularGrid, req));
   }
-  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Data Container", InterpolatedDataContainerName, FilterParameter::CreatedArray, InterpolateMeshToRegularGrid));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Attribute Matrix", InterpolatedAttributeMatrixName, FilterParameter::CreatedArray, InterpolateMeshToRegularGrid));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Data Container", InterpolatedDataContainerName, FilterParameter::Category::CreatedArray, InterpolateMeshToRegularGrid));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Interpolated Attribute Matrix", InterpolatedAttributeMatrixName, FilterParameter::Category::CreatedArray, InterpolateMeshToRegularGrid));
   setFilterParameters(parameters);
 }
 

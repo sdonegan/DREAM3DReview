@@ -87,13 +87,13 @@ void FindElementCentroids::setupFilterParameters()
   QStringList linkedProps;
   linkedProps << "NewDataContainerName"
               << "VertexAttributeMatrixName";
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Create Vertex Geometry from Centroids", CreateVertexDataContainer, FilterParameter::Parameter, FindElementCentroids, linkedProps));
-  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Vertex Data Container", NewDataContainerName, FilterParameter::CreatedArray, FindElementCentroids));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, NewDataContainerName, FilterParameter::CreatedArray, FindElementCentroids));
-  parameters.push_back(SeparatorFilterParameter::New("Element Data", FilterParameter::CreatedArray));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Create Vertex Geometry from Centroids", CreateVertexDataContainer, FilterParameter::Category::Parameter, FindElementCentroids, linkedProps));
+  parameters.push_back(SIMPL_NEW_DC_CREATION_FP("Vertex Data Container", NewDataContainerName, FilterParameter::Category::CreatedArray, FindElementCentroids));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Vertex Attribute Matrix", VertexAttributeMatrixName, NewDataContainerName, FilterParameter::Category::CreatedArray, FindElementCentroids));
+  parameters.push_back(SeparatorFilterParameter::Create("Element Data", FilterParameter::Category::CreatedArray));
   {
     DataArrayCreationFilterParameter::RequirementType req = DataArrayCreationFilterParameter::CreateRequirement(AttributeMatrix::Category::Element);
-    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Element Centroids", CellCentroidsArrayPath, FilterParameter::CreatedArray, FindElementCentroids, req));
+    parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Element Centroids", CellCentroidsArrayPath, FilterParameter::Category::CreatedArray, FindElementCentroids, req));
   }
   setFilterParameters(parameters);
 }

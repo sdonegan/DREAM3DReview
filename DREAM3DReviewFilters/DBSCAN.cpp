@@ -87,8 +87,8 @@ DBSCAN::~DBSCAN() = default;
 void DBSCAN::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_FLOAT_FP("Epsilon", Epsilon, FilterParameter::Parameter, DBSCAN));
-  parameters.push_back(SIMPL_NEW_INTEGER_FP("Minimum Number of Points", MinPnts, FilterParameter::Parameter, DBSCAN));
+  parameters.push_back(SIMPL_NEW_FLOAT_FP("Epsilon", Epsilon, FilterParameter::Category::Parameter, DBSCAN));
+  parameters.push_back(SIMPL_NEW_INTEGER_FP("Minimum Number of Points", MinPnts, FilterParameter::Category::Parameter, DBSCAN));
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Distance Metric");
@@ -97,18 +97,18 @@ void DBSCAN::setupFilterParameters()
     parameter->setGetterCallback(SIMPL_BIND_GETTER(DBSCAN, this, DistanceMetric));
     QVector<QString> choices = DistanceTemplate::GetDistanceMetricsOptions();
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameters.push_back(parameter);
   }
   QStringList linkedProps("MaskArrayPath");
-  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Parameter, DBSCAN, linkedProps));
+  parameters.push_back(SIMPL_NEW_LINKED_BOOL_FP("Use Mask", UseMask, FilterParameter::Category::Parameter, DBSCAN, linkedProps));
   DataArraySelectionFilterParameter::RequirementType dasReq =
       DataArraySelectionFilterParameter::CreateRequirement(SIMPL::Defaults::AnyPrimitive, SIMPL::Defaults::AnyComponentSize, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Cluster", SelectedArrayPath, FilterParameter::RequiredArray, DBSCAN, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Attribute Array to Cluster", SelectedArrayPath, FilterParameter::Category::RequiredArray, DBSCAN, dasReq));
   dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Bool, 1, AttributeMatrix::Type::Any, IGeometry::Type::Any);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::RequiredArray, DBSCAN, dasReq));
-  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Ids", FeatureIdsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::CreatedArray, DBSCAN));
-  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cluster Attribute Matrix", FeatureAttributeMatrixName, SelectedArrayPath, FilterParameter::CreatedArray, DBSCAN));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Mask", MaskArrayPath, FilterParameter::Category::RequiredArray, DBSCAN, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_WITH_LINKED_AM_FP("Cluster Ids", FeatureIdsArrayName, SelectedArrayPath, SelectedArrayPath, FilterParameter::Category::CreatedArray, DBSCAN));
+  parameters.push_back(SIMPL_NEW_AM_WITH_LINKED_DC_FP("Cluster Attribute Matrix", FeatureAttributeMatrixName, SelectedArrayPath, FilterParameter::Category::CreatedArray, DBSCAN));
   setFilterParameters(parameters);
 }
 

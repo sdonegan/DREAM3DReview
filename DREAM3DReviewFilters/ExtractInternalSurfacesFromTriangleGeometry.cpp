@@ -96,11 +96,11 @@ void ExtractInternalSurfacesFromTriangleGeometry::setupFilterParameters()
   FilterParameterVectorType parameters;
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Triangle};
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Data Container", TriangleDataContainerName, FilterParameter::RequiredArray, ExtractInternalSurfacesFromTriangleGeometry, dcsReq));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::RequiredArray));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Triangle Data Container", TriangleDataContainerName, FilterParameter::Category::RequiredArray, ExtractInternalSurfacesFromTriangleGeometry, dcsReq));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::RequiredArray));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Int8, 1, AttributeMatrix::Type::Vertex, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Node Types", NodeTypesArrayPath, FilterParameter::RequiredArray, ExtractInternalSurfacesFromTriangleGeometry, dasReq));
-  parameters.push_back(SIMPL_NEW_STRING_FP("Internal Triangles Data Container", InternalTrianglesName, FilterParameter::CreatedArray, ExtractInternalSurfacesFromTriangleGeometry));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Node Types", NodeTypesArrayPath, FilterParameter::Category::RequiredArray, ExtractInternalSurfacesFromTriangleGeometry, dasReq));
+  parameters.push_back(SIMPL_NEW_STRING_FP("Internal Triangles Data Container", InternalTrianglesName, FilterParameter::Category::CreatedArray, ExtractInternalSurfacesFromTriangleGeometry));
   setFilterParameters(parameters);
 }
 

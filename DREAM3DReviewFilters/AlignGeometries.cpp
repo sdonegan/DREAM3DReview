@@ -60,8 +60,8 @@ void AlignGeometries::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Geometry", MovingGeometry, FilterParameter::RequiredArray, AlignGeometries, dcsReq));
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Geometry", TargetGeometry, FilterParameter::RequiredArray, AlignGeometries, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Moving Geometry", MovingGeometry, FilterParameter::Category::RequiredArray, AlignGeometries, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Geometry", TargetGeometry, FilterParameter::Category::RequiredArray, AlignGeometries, dcsReq));
   {
     ChoiceFilterParameter::Pointer parameter = ChoiceFilterParameter::New();
     parameter->setHumanLabel("Alignment Type");
@@ -70,7 +70,7 @@ void AlignGeometries::setupFilterParameters()
     choices.push_back("Origin");
     choices.push_back("Centroid");
     parameter->setChoices(choices);
-    parameter->setCategory(FilterParameter::Parameter);
+    parameter->setCategory(FilterParameter::Category::Parameter);
     parameter->setSetterCallback(SIMPL_BIND_SETTER(AlignGeometries, this, AlignmentType));
     parameter->setGetterCallback(SIMPL_BIND_GETTER(AlignGeometries, this, AlignmentType));
     parameters.push_back(parameter);

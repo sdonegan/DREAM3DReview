@@ -136,15 +136,15 @@ void FindVertexToTriangleDistances::setupFilterParameters()
   DataContainerSelectionFilterParameter::RequirementType dcsReq;
   IGeometry::Types geomTypes = {IGeometry::Type::Vertex};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Source Vertex Geometry", VertexDataContainer, FilterParameter::RequiredArray, FindVertexToTriangleDistances, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Source Vertex Geometry", VertexDataContainer, FilterParameter::Category::RequiredArray, FindVertexToTriangleDistances, dcsReq));
   geomTypes = {IGeometry::Type::Triangle};
   dcsReq.dcGeometryTypes = geomTypes;
-  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Triangle Geometry", TriangleDataContainer, FilterParameter::RequiredArray, FindVertexToTriangleDistances, dcsReq));
+  parameters.push_back(SIMPL_NEW_DC_SELECTION_FP("Target Triangle Geometry", TriangleDataContainer, FilterParameter::Category::RequiredArray, FindVertexToTriangleDistances, dcsReq));
   DataArraySelectionFilterParameter::RequirementType dasReq = DataArraySelectionFilterParameter::CreateRequirement(SIMPL::TypeNames::Double, 3, AttributeMatrix::Type::Face, IGeometry::Type::Triangle);
-  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Triangle Normals", TriangleNormalsArrayPath, FilterParameter::RequiredArray, FindVertexToTriangleDistances, dasReq));
+  parameters.push_back(SIMPL_NEW_DA_SELECTION_FP("Triangle Normals", TriangleNormalsArrayPath, FilterParameter::Category::RequiredArray, FindVertexToTriangleDistances, dasReq));
   DataArrayCreationFilterParameter::RequirementType dacReq;
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Distances", DistancesArrayPath, FilterParameter::CreatedArray, FindVertexToTriangleDistances, dacReq));
-  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Closest Triangle Ids", ClosestTriangleIdArrayPath, FilterParameter::CreatedArray, FindVertexToTriangleDistances, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Distances", DistancesArrayPath, FilterParameter::Category::CreatedArray, FindVertexToTriangleDistances, dacReq));
+  parameters.push_back(SIMPL_NEW_DA_CREATION_FP("Closest Triangle Ids", ClosestTriangleIdArrayPath, FilterParameter::Category::CreatedArray, FindVertexToTriangleDistances, dacReq));
   setFilterParameters(parameters);
 }
 

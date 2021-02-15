@@ -30,7 +30,7 @@ def start_test():
     
     # Import Image Stack [ITK]
     print('Loading Images...')
-    fileListInfo = simpl.FileListInfo(3, 0, 0, 9, 1, sd.GetBuildDirectory() + '/Data/Anisotropy/tif',
+    fileListInfo = simpl.StackFileListInfo(3, 0, 0, 9, 1, sd.GetBuildDirectory() + '/Data/Anisotropy/tif',
                                       'AlMgSc-TD_', '', 'tif')
     err = itkimageprocessingpy.itk_import_image_stack(dca, 'SEMAlMgSc Data', 'EBSD SEM Scan Data',
                                                       simpl.FloatVec3([0, 0, 0]), simpl.FloatVec3([1, 1, 1]),

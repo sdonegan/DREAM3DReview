@@ -55,13 +55,13 @@ void ImportPrintRiteHDF5File::initialize()
 void ImportPrintRiteHDF5File::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
-  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input TDMS-HDF5 File", InputFile, FilterParameter::Parameter, ImportPrintRiteHDF5File, "*.hdf5", "TDMS-HDF5"));
-  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Data Container", HFDataContainerName, FilterParameter::CreatedArray, ImportPrintRiteHDF5File));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Vertex Attribute Matrix", HFDataName, FilterParameter::CreatedArray, ImportPrintRiteHDF5File));
-  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Slice Ids", HFSliceIdsArrayName, FilterParameter::CreatedArray, ImportPrintRiteHDF5File));
-  parameters.push_back(SeparatorFilterParameter::New("Vertex Feature Data", FilterParameter::CreatedArray));
-  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Slice Attribute Matrix", HFSliceDataName, FilterParameter::CreatedArray, ImportPrintRiteHDF5File));
+  parameters.push_back(SIMPL_NEW_INPUT_FILE_FP("Input TDMS-HDF5 File", InputFile, FilterParameter::Category::Parameter, ImportPrintRiteHDF5File, "*.hdf5", "TDMS-HDF5"));
+  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Data Container", HFDataContainerName, FilterParameter::Category::CreatedArray, ImportPrintRiteHDF5File));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Vertex Attribute Matrix", HFDataName, FilterParameter::Category::CreatedArray, ImportPrintRiteHDF5File));
+  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Slice Ids", HFSliceIdsArrayName, FilterParameter::Category::CreatedArray, ImportPrintRiteHDF5File));
+  parameters.push_back(SeparatorFilterParameter::Create("Vertex Feature Data", FilterParameter::Category::CreatedArray));
+  parameters.push_back(SIMPL_NEW_STRING_FP("High Frequency Slice Attribute Matrix", HFSliceDataName, FilterParameter::Category::CreatedArray, ImportPrintRiteHDF5File));
   setFilterParameters(parameters);
 }
 
