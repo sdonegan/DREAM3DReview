@@ -84,7 +84,7 @@ public:
    */
   static QString ClassName();
 
-  using Feature_t = struct
+  struct Feature_t
   {
     float m_Volumes;
     float m_EquivalentDiameters;
