@@ -54,13 +54,13 @@ void InterpolateMeshToRegularGrid::setupFilterParameters()
 {
   FilterParameterVectorType parameters;
   {
-    QVector<QString> choices;
+    std::vector<QString> choices;
     choices.push_back("Specify Dimensions");
     choices.push_back("Automatically Scale");
-    QStringList linkedProps;
-    linkedProps << "SetXDimension"
-                << "SetYDimension"
-                << "ScaleFactorNumCells";
+    std::vector<QString> linkedProps;
+    linkedProps.push_back("SetXDimension");
+    linkedProps.push_back("SetYDimension");
+    linkedProps.push_back("ScaleFactorNumCells");
     LinkedChoicesFilterParameter::Pointer parameter = LinkedChoicesFilterParameter::New();
     parameter->setHumanLabel("Grid Generation Method");
     parameter->setPropertyName("ScaleOrSpecifyNumCells");
