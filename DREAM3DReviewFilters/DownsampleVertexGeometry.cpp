@@ -671,7 +671,7 @@ QString DownsampleVertexGeometry::getHumanLabel() const
 // -----------------------------------------------------------------------------
 QUuid DownsampleVertexGeometry::getUuid() const
 {
-  return QUuid("{5cbd9d8e-e2eb-59e7-be63-6ab9deeed8d2}");
+  return QUuid("{676cca06-40ab-56fb-bb15-8f31c6fa8c3e}");
 }
 
 // -----------------------------------------------------------------------------
