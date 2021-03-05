@@ -330,7 +330,7 @@ public:
   Mic_Private_Data getData() const;
   Q_PROPERTY(Mic_Private_Data Data READ getData WRITE setData)
 
-public slots:
+public Q_SLOTS:
   void flushCache();
 
 protected:
